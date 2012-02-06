@@ -109,8 +109,7 @@ class GoCardless {
 	 */
 	private function generate_mandatory_params() {
 		
-		// Mandatory parameters
-		$request = array(	'client_id'	=> $this->client_id,
+		$request = array(	'client_id'	=> $this->app_identifier,
 							'nonce'		=> $this->generate_nonce(),
 							'timestamp'	=> date('Y-m-d\TH:i:s\Z')
 							);
