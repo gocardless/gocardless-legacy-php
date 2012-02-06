@@ -30,10 +30,6 @@ class GoCardless {
 			$this->{$key} = $value;
 		}
 		
-	}
-	
-	// METHODS
-	
 		// If environment is not set then default to production
 		if (!$this->environment) {
 			$this->environment = 'production';
@@ -151,9 +147,10 @@ class GoCardless {
 	 * @return string Base64 encoded nonce
 	 */
 	function generate_nonce() {
-
+		
 		$n = 1;
-
+		$rand = '';
+		
 		do {
 			$rand .= rand(1, 256);
 			$n++;
