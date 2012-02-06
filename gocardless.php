@@ -76,7 +76,7 @@ class GoCardless {
 		$url = $this->base_url . $this->api_path . '/confirm';
 		
 		// Prep curl for http basic auth
-		$this->curl_options[CURLOPT_USERPWD] = $this->app_identifier . ":" . $this->app_secret;
+		$this->curl_options[CURLOPT_USERPWD] = $this->app_identifier . ':' . $this->app_secret;
 		
 		$params = array(	'resource_id'	=> $resource_id,
 							'resource_type'	=> $resource_type
@@ -136,7 +136,7 @@ class GoCardless {
 			}
 			
 			sort($pairs);
-			$strs = array_map('implode', array_fill(0, count($pairs), "="), $pairs);
+			$strs = array_map('implode', array_fill(0, count($pairs), '='), $pairs);
 			
 			return implode('&', $strs);
 			
@@ -156,7 +156,7 @@ class GoCardless {
 	 */
 	function generate_signature($data, $secret) {
 		
-		return hash_hmac("sha256", $this->generate_query_string($data), $secret);
+		return hash_hmac('sha256', $this->generate_query_string($data), $secret);
 		
 	}
 	
