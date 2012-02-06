@@ -17,6 +17,15 @@ $gocardless_config = array(	'app_identifier'	=> 'eCxrcWDxjYsQ55zhsDTgs6VeKf6YWZP
 // Initialize objects
 $gocardless = new GoCardless($gocardless_config);
 
+if ($_GET) {
+	// Can haz get vars so time to confirm payment
+	
+	echo '<pre>';
+	print_r($_GET);
+	echo '</pre>';
+	
+}
+
 // New subscription
 
 $payment_details = array(	'amount'			=> '10.00',
