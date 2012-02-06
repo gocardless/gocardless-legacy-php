@@ -40,6 +40,29 @@ class GoCardless {
 		$this->base_url = $this->base_urls[$this->environment];
 		
 	}
+
+/*	
+	// Ditched these functions as consolidated them into generate_url but realised that the ruby lib uses them
+	// To revive?
+	
+	public function new_subscription_url($params) {
+		
+		return $this->generate_url('connect/pre_authorizations/new', 'pre_authorization', $params);
+		
+	}
+	
+	public function new_pre_authorization_url($params) {
+		
+		return $this->generate_url('connect/pre_authorizations/new', 'pre_authorization', $params);
+		
+	}
+	
+	public function new_bill_url($params) {
+		
+		return $this->generate_url('connect/bills/new', 'bill', $params);
+		
+	}
+*/
 	
 	/**
 	 * Generate a new payment url
@@ -108,6 +131,22 @@ class GoCardless {
 		return $confirm;
 		
 	}
+	
+	// API objects
+	//
+	// Merchant
+	// Bill
+	// PreAuthorization
+	// Subscription
+	// User
+	// Payment
+	
+	public function merchants($id) {
+		
+		return $this->fetch_resource('merchants', $id);
+		
+	}
+	
 	
 	// HELPERS
 	
@@ -198,6 +237,27 @@ class GoCardless {
 		
 	}
 	
+	function fetch_resource($object, $id) {
+		
+		// Build URL
+		$url = $this->base_url . $this->api_path . '/' . $object . '/' . $id;
+		
+		echo '<pre>';
+		print_r($this->base_url);
+		echo '</pre>';
+		
+		// Add Authorization header
+		$this->curl_options[CURLOPT_HTTPHEADER] = array('Authorization: Bearer ' . $this->access_token);
+		
+		echo '<pre>';
+		print_r($this->curl_options);
+		echo '</pre>';
+		
+		// Do query
+		return $this->makeRequest($url);
+		
+	}
+	
 	/**
 	 * Makes an HTTP request.
 	 *
@@ -207,15 +267,18 @@ class GoCardless {
 	 *
 	 * @return string The response text
 	 */
-	protected function makeRequest($url, $params, $ch = null) {
-		echo '<p>start req :';
+	protected function makeRequest($url, $params = null, $ch = null) {
+		
+		echo '<p>Curl echoing the following to the page: &laquo;';
 		if (!$ch) {
 			$ch = curl_init();
 		}
 		
 		$opts = $this->curl_options;
 		
-		$opts[CURLOPT_POSTFIELDS] = http_build_query($params, null, '&');
+		if ($params) {
+			$opts[CURLOPT_POSTFIELDS] = http_build_query($params, null, '&');
+		}
 		
 		$opts[CURLOPT_URL] = $url;
 		
@@ -233,7 +296,8 @@ class GoCardless {
 		$result = curl_exec($ch);
 		
 		curl_close($ch);
-		echo ': end req</p>';
+		echo '&raquo;</p>';
+		
 		return $result;
 		
 	}

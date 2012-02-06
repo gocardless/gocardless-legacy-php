@@ -30,7 +30,7 @@ if ($_GET) {
 	
 	echo 'Confirm result:';
 	echo '<pre>';
-	var_dump($confirm_result);
+	print_r($confirm_result);
 	echo '</pre>';
 	
 }
@@ -62,5 +62,7 @@ $payment_details = array(	'amount'		=> '20.00',
 							);
 
 echo '<p><a href="'.$gocardless->generate_url('bill', $payment_details).'">Pay me</a></p>';
+
+var_dump($gocardless->merchants('258584'));
 
 ?>
