@@ -201,17 +201,13 @@ class GoCardless {
 		if (!$ch) {
 			$ch = curl_init();
 		}
-	
+		
 		$opts = self::$CURL_OPTS;
 		
-		if ($this->useFileUploadSupport()) {
-			$opts[CURLOPT_POSTFIELDS] = $params;
-		} else {
-			$opts[CURLOPT_POSTFIELDS] = http_build_query($params, null, '&');	
-		}
+		$opts[CURLOPT_POSTFIELDS] = http_build_query($params, null, '&');
 		
 		$opts[CURLOPT_URL] = $url;
-	
+		
 		// disable the 'Expect: 100-continue' behaviour. This causes CURL to wait
 		// for 2 seconds if the server does not support this header.
 		if (isset($opts[CURLOPT_HTTPHEADER])) {
@@ -221,35 +217,21 @@ class GoCardless {
 		} else {
 			$opts[CURLOPT_HTTPHEADER] = array('Expect:');
 		}
-	
+		
 		curl_setopt_array($ch, $opts);
 		$result = curl_exec($ch);
-	
-		if (curl_errno($ch) == 60) { // CURLE_SSL_CACERT
-			
-			self::errorLog('Invalid or no certificate authority found, ' . 'using bundled information');
-			curl_setopt($ch, CURLOPT_CAINFO, dirname(__FILE__) . '/fb_ca_chain_bundle.crt');
+		
+		if (curl_errno($ch) == 60) {
 			$result = curl_exec($ch);
 		}
-	
+		
 		if ($result === false) {
-			
-			$e = new FacebookApiException(array(
-				'error_code' => curl_errno($ch),
-				'error' => array(
-				'message' => curl_error($ch),
-				'type' => 'CurlException',
-				),
-			));
-			
 			curl_close($ch);
-			
-			throw $e;
-			
 		}
 		
 		curl_close($ch);
 		return $result;
+		
 	}
 	
 }
