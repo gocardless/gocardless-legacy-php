@@ -1,7 +1,11 @@
 <?php
 
+// First create your application in the GoCardless sandbox: https://sandbox.gocardless.com and find your application identifier and secret
+
 // Include library
 include_once 'gocardless.php';
+
+// Paste your application identifier and secret in here
 
 // Config vars
 $gocardless_config = array(	'app_identifier'	=> 'eCxrcWDxjYsQ55zhsDTgs6VeKf6YWZP7be/9rY0PGFbeyqmLJV6k84SUQdISLUhf',
