@@ -232,10 +232,6 @@ class GoCardless {
 		curl_setopt_array($ch, $opts);
 		$result = curl_exec($ch);
 		
-		if (curl_errno($ch) == 60) {
-			$result = curl_exec($ch);
-		}
-		
 		curl_close($ch);
 		echo ': end req</p>';
 		return $result;
