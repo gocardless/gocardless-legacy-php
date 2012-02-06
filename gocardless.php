@@ -15,11 +15,11 @@ class GoCardless {
 											CURLOPT_TIMEOUT			=> 60
 											);
 	
-	/*
-	* Constructor
-	* 
-	* 
-	*/
+	/**
+	 * Constructor, adds intialiaztion config vars to class scope
+	 *
+	 * @param array $config GoCardless API keys
+	 */
 	function __construct($config) {
 		
 		foreach ($config as $key => $value) {
@@ -29,25 +29,55 @@ class GoCardless {
 	}
 	
 	// METHODS
-
+	
+	/**
+	 * Generate new subscription url
+	 *
+	 * @param array $params See: https://sandbox.gocardless.com/docs/connect_guide#subscription
+	 *
+	 * @return string The URL to send the user to to set up the subscription
+	 */
 	public function new_subscription_url($params) {
 		
 		return $this->generate_url('connect/subscriptions/new', 'subscription', $params);
 		
 	}
 	
+	/**
+	 * Generate new pre-authorized payment
+	 *
+	 * @param array $params See: https://sandbox.gocardless.com/docs/connect_guide#pre-authorization
+	 *
+	 * @return string The URL to send the user to to set up a new payment
+	 */
 	public function new_pre_authorization_url($params) {
 		
 		return $this->generate_url('connect/pre_authorizations/new', 'pre_authorization', $params);
 		
 	}
 	
+	/**
+	 * Generate new bill payment
+	 *
+	 * @param array $params See: https://sandbox.gocardless.com/docs/connect_guide#one-off-bill
+	 *
+	 * @return string The URL to send the user to to set up a new payment
+	 */
 	public function new_bill_url($params) {
 		
 		return $this->generate_url('connect/bills/new', 'bill', $params);
 
 	}
 	
+	/**
+	 * Generate a new payment url
+	 *
+	 * @param string $endpoint The API endpoint to use
+	 * @param string $param_wrapper The variable name to wrap the payment specific parameters in
+	 * @param string $params The specific parameters for this payment
+	 *
+	 * @return string The new payment URL
+	 */
 	private function generate_url($endpoint, $param_wrapper, $params) {
 		
 		// Add passed params to an array called bill
@@ -75,6 +105,11 @@ class GoCardless {
 	
 	// HELPERS
 	
+	/**
+	 * Generate mandatory payment parameters: client_id, nonce and timestamp
+	 *
+	 * @return array Mandatory payment parameters
+	 */
 	private function generate_mandatory_params() {
 		
 		// Mandatory parameters
@@ -87,6 +122,12 @@ class GoCardless {
 		
 	}
 	
+	/**
+	 * Magical function to generate, encode, re-order variables for the query string
+	 *
+	 *
+	 * @return string A URL-encoded string of parameters
+	 */
 	private function generate_query_string($params, &$pairs = array(), $namespace = null) {
 		
 		if (is_array($params)) {
@@ -122,7 +163,12 @@ class GoCardless {
 		
 	}
 	
-	
+	/**
+	 * Generate a signature for a request given the app secret
+	 *
+	 *
+	 * @return string A URL-encoded string of parameters
+	 */
 	function generate_signature($data, $secret) {
 		
 		return hash_hmac("sha256", $this->generate_query_string($data), $secret);
