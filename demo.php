@@ -24,6 +24,8 @@ if ($_GET) {
 	print_r($_GET);
 	echo '</pre>';
 	
+	$gocardless->confirm($_GET['resource_id'], $_GET['resource_type']);
+	
 }
 
 // New subscription

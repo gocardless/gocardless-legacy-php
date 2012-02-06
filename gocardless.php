@@ -70,6 +70,25 @@ class GoCardless {
 		
 	}
 	
+	public function confirm_resource($resource_id, $resource_type) {
+		
+		// Build url
+		$url = $this->base_url . $this->api_path . '/confirm';
+		
+		// Prep curl for http basic auth
+		$this->curl_options[CURLOPT_USERPWD] = $this->app_identifier . ":" . $this->app_secret;
+		
+		$params = array(	'resource_id'	=> $resource_id,
+							'resource_type'	=> $resource_type
+							);
+		
+		// Do query
+		$confirm = $this->makeRequest($url, $params);
+		
+		var_dump($confirm);
+		
+	}
+	
 	// HELPERS
 	
 	/**
