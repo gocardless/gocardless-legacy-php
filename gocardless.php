@@ -48,10 +48,10 @@ class GoCardless {
 	 *
 	 * @return string The new payment URL
 	 */
-	public function generate_url($resource, $params) {
+	public function generate_url($resource_type, $params) {
 		
 		// Add passed params to an array called bill
-		$params = array($resource => $params);
+		$params = array($resource_type => $params);
 		
 		// Merge passed and mandatory params
 		$request = array_merge($params, $this->generate_mandatory_params());
@@ -63,7 +63,7 @@ class GoCardless {
 		$query_string = $this->generate_query_string($request);
 		
 		// Generate url NB. Pluralises resource
-		$url = $this->base_url . '/connect/' . $resource . 's/new?' . $query_string;
+		$url = $this->base_url . '/connect/' . $resource_type . 's/new?' . $query_string;
 		
 		// Return the result
 		return $url;
