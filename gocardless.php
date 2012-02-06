@@ -8,10 +8,10 @@ class GoCardless {
 	protected $redirect_uri;
 	
 	protected $environment;
+	protected $base_url;
 	protected $base_urls = array(	'production'	=> 'https://gocardless.com',
 									'sandbox'		=> 'https://sandbox.gocardless.com'
 									);
-	protected $base_url;
 	
 	protected $api_path = '/api/v1';
 	
@@ -76,6 +76,14 @@ class GoCardless {
 		
 	}
 	
+	/**
+	 * Send an HTTP request to confirm the creation of a new payment resource
+	 *
+	 * @param string $resource_id Unique id of the created resource
+	 * @param string $resource_type Type of payment
+	 *
+	 * @return string The result of the HTTP request
+	 */
 	public function confirm_resource($resource_id, $resource_type) {
 		
 		// Build url
@@ -162,7 +170,6 @@ class GoCardless {
 	
 	/**
 	 * Generate a signature for a request given the app secret
-	 *
 	 *
 	 * @return string A URL-encoded string of parameters
 	 */
