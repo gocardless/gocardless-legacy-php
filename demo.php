@@ -20,11 +20,16 @@ $gocardless = new GoCardless($gocardless_config);
 if ($_GET) {
 	// Can haz get vars so time to confirm payment
 	
+	//echo 'Get vars:';
+	//echo '<pre>';
+	//print_r($_GET);
+	//echo '</pre>';
+	
+	$confirm_result = $gocardless->confirm_resource($_GET['resource_id'], $_GET['resource_type']);
+	
 	echo '<pre>';
 	print_r($_GET);
 	echo '</pre>';
-	
-	$gocardless->confirm($_GET['resource_id'], $_GET['resource_type']);
 	
 }
 

@@ -85,7 +85,8 @@ class GoCardless {
 		// Do query
 		$confirm = $this->makeRequest($url, $params);
 		
-		var_dump($confirm);
+		// Return the result
+		return $confirm;
 		
 	}
 	
