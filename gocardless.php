@@ -194,7 +194,7 @@ class GoCardless {
 			$ch = curl_init();
 		}
 		
-		$opts = self::$CURL_OPTS;
+		$opts = $this->curl_options;
 		
 		$opts[CURLOPT_POSTFIELDS] = http_build_query($params, null, '&');
 		
