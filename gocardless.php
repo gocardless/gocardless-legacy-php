@@ -217,10 +217,6 @@ class GoCardless {
 			$result = curl_exec($ch);
 		}
 		
-		if ($result === false) {
-			curl_close($ch);
-		}
-		
 		curl_close($ch);
 		return $result;
 		
