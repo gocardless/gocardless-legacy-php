@@ -2,13 +2,17 @@
 
 class GoCardless {
 	
-	protected $environment;
-	protected $client_id;
 	protected $app_identifier;
 	protected $app_secret;
 	protected $access_token;
+
+	protected $environment;
+	protected $base_urls = array(	'production'	=> 'https://gocardless.com',
+									'sandbox'		=> 'https://sandbox.gocardless.com'
+									);
+	protected $base_url;
 	
-	protected $base_url = 'https://sandbox.gocardless.com/';
+	protected $api_path = '/api/v1';
 	
 	public static $curl_options = array(	CURLOPT_CONNECTTIMEOUT	=> 10,
 											CURLOPT_RETURNTRANSFER	=> true,
