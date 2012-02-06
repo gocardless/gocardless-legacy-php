@@ -30,28 +30,28 @@ class GoCardless {
 	
 	// METHODS
 	
-	public function new_pre_authorization_url($params) {
+		// If environment is not set then default to production
+		if (!$this->environment) {
+			$this->environment = 'production';
+		}
 		
-		return $this->generate_url('connect/pre_authorizations/new', 'pre_authorization', $params);
+		// Set base_url based on environment
+		$this->base_url = $this->base_urls[$this->environment];
 		
-	}
-	
-	public function new_bill_url($params) {
-		
-		return $this->generate_url('connect/bills/new', 'bill', $params);
-
 	}
 	
 	/**
 	 * Generate a new payment url
 	 *
+	 * @param string $resource Payment type
 	 * @param string $params The specific parameters for this payment
 	 *
 	 * @return string The new payment URL
 	 */
+	public function generate_url($resource, $params) {
 		
 		// Add passed params to an array called bill
-		$params = array($param_wrapper => $params);
+		$params = array($resource => $params);
 		
 		// Merge passed and mandatory params
 		$request = array_merge($params, $this->generate_mandatory_params());
@@ -62,8 +62,8 @@ class GoCardless {
 		// Generate query string from all parameters
 		$query_string = $this->generate_query_string($request);
 		
-		// Base url + endpoint + query string
-		$url = $this->base_url . $endpoint . '?' . $query_string;
+		// Generate url NB. Pluralises resource
+		$url = $this->base_url . '/connect/' . $resource . 's/new?' . $query_string;
 		
 		// Return the result
 		return $url;
