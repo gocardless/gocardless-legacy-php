@@ -20,7 +20,7 @@ $payment_details = array(	'amount'			=> '10.00',
 							'interval_unit'		=> 'month'
 							);
 
-echo '<p><a href="'.$gocardless->new_subscription_url($payment_details).'">Subscribe to me</a></p>';
+echo '<p><a href="'.$gocardless->generate_url('subscription', $payment_details).'">Subscribe to me</a></p>';
 
 // New pre-authorization
 
@@ -30,7 +30,7 @@ $payment_details = array(	'max_amount'		=> '20.00',
 							'interval_unit'		=> 'month'
 							);
 
-echo '<p><a href="'.$gocardless->new_pre_authorization_url($payment_details).'">Pre-auth me</a></p>';
+echo '<p><a href="'.$gocardless->generate_url('pre_authorization', $payment_details).'">Pre-auth me</a></p>';
 
 // New bill
 
@@ -38,6 +38,6 @@ $payment_details = array(	'amount'		=> '20.00',
 							'merchant_id'	=> '258584'
 							);
 
-echo '<p><a href="'.$gocardless->new_bill_url($payment_details).'">Pay me</a></p>';
+echo '<p><a href="'.$gocardless->generate_url('bill', $payment_details).'">Pay me</a></p>';
 
 ?>
