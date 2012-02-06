@@ -20,7 +20,7 @@ class GoCardless {
 											);
 	
 	/**
-	 * Constructor, adds intialiaztion config vars to class scope
+	 * Constructor, adds intialization config vars to class scope
 	 *
 	 * @param array $config GoCardless API keys
 	 */
