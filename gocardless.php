@@ -95,9 +95,6 @@ class GoCardless {
 		// Base url + endpoint + query string
 		$url = $this->base_url . $endpoint . '?' . $query_string;
 		
-		// Encoded for html
-		$url = htmlspecialchars($url);
-		
 		// Return the result
 		return $url;
 		
