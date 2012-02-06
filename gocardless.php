@@ -170,7 +170,12 @@ class GoCardless {
 		return hash_hmac("sha256", $this->generate_query_string($data), $secret);
 		
 	}
-
+	
+	/**
+	 * Generates a nonce
+	 *
+	 * @return string Base64 encoded nonce
+	 */
 	function generate_nonce() {
 
 		$n = 1;
@@ -184,11 +189,8 @@ class GoCardless {
 		
 	}
 	
-
 	/**
-	 * Makes an HTTP request. This method can be overridden by subclasses if
-	 * developers want to do fancier things or use something other than curl to
-	 * make the request.
+	 * Makes an HTTP request.
 	 *
 	 * @param string $url The URL to make the request to
 	 * @param array $params The parameters to use for the POST body
