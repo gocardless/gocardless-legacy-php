@@ -190,7 +190,7 @@ class GoCardless {
 	 * @return string The response text
 	 */
 	protected function makeRequest($url, $params, $ch = null) {
-		
+		echo '<p>start req :';
 		if (!$ch) {
 			$ch = curl_init();
 		}
@@ -219,6 +219,7 @@ class GoCardless {
 		}
 		
 		curl_close($ch);
+		echo ': end req</p>';
 		return $result;
 		
 	}

@@ -27,8 +27,9 @@ if ($_GET) {
 	
 	$confirm_result = $gocardless->confirm_resource($_GET['resource_id'], $_GET['resource_type']);
 	
+	echo 'Confirm result:';
 	echo '<pre>';
-	print_r($_GET);
+	var_dump($confirm_result);
 	echo '</pre>';
 	
 }
