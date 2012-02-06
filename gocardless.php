@@ -6,7 +6,7 @@ class GoCardless {
 	protected $app_secret;
 	protected $access_token;
 	protected $redirect_uri;
-
+	
 	protected $environment;
 	protected $base_urls = array(	'production'	=> 'https://gocardless.com',
 									'sandbox'		=> 'https://sandbox.gocardless.com'
@@ -52,7 +52,7 @@ class GoCardless {
 	public function generate_url($resource_type, $params) {
 		
 		// If no method-specific redirect submitted, use class level if available
-		if (!params['redirect_uri'] && $this->redirect_uri) {
+		if (!$params['redirect_uri'] && $this->redirect_uri) {
 			$params['redirect_uri'] = $this->redirect_uri;
 		}
 		
@@ -89,7 +89,7 @@ class GoCardless {
 							);
 		
 		// If no method-specific redirect submitted, use class level if available
-		if (!params['redirect_uri'] && $this->redirect_uri) {
+		if (!$params['redirect_uri'] && $this->redirect_uri) {
 			$params['redirect_uri'] = $this->redirect_uri;
 		}
 		
