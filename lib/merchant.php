@@ -6,28 +6,28 @@ class Merchant {
 		$this->gocardless = $gocardless;
 	}
 	
-	public function get($merchant_id) {
-		return $this->gocardless->fetch_resource('merchants/' . $merchant_id);
+	public function get($id) {
+		return $this->gocardless->fetch_resource('merchants/' . $id);
 	}
 	
-	public function subscriptions($merchant_id) {
-		return $this->gocardless->fetch_resource('merchants/' . $merchant_id . '/subscriptions');
+	public function subscriptions($id) {
+		return $this->gocardless->fetch_resource('merchants/' . $id . '/subscriptions');
 	}
 	
-	public function pre_authorizations($merchant_id) {
-		return $this->gocardless->fetch_resource('merchants/ ' . $merchant_id . '/pre_authorizations');
+	public function pre_authorizations($id) {
+		return $this->gocardless->fetch_resource('merchants/ ' . $id . '/pre_authorizations');
 	}
 	
-	public function users($merchant_id) {
-		return $this->gocardless->fetch_resource('merchants/' . $merchant_id . '/users');
+	public function users($id) {
+		return $this->gocardless->fetch_resource('merchants/' . $id . '/users');
 	}
 	
-	public function bills($merchant_id) {
-		return $this->gocardless->fetch_resource('merchants/' . $merchant_id . '/bills');
+	public function bills($id) {
+		return $this->gocardless->fetch_resource('merchants/' . $id . '/bills');
 	}
 	
-	public function payments($merchant_id) {
-		return $this->gocardless->fetch_resource('merchants/' . $merchant_id . '/payments');
+	public function payments($id) {
+		return $this->gocardless->fetch_resource('merchants/' . $id . '/payments');
 	}
 	
 }
