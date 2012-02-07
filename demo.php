@@ -21,17 +21,26 @@ $gocardless = new GoCardless($gocardless_config);
 if ($_GET) {
 	// Can haz get vars so time to confirm payment
 	
-	//echo 'Get vars:';
-	//echo '<pre>';
-	//print_r($_GET);
-	//echo '</pre>';
-	
-	$confirm_result = $gocardless->confirm_resource($_GET['resource_id'], $_GET['resource_type']);
-	
-	echo 'Confirm result:';
-	echo '<pre>';
-	print_r($confirm_result);
-	echo '</pre>';
+	if (isset($_GET['resource_id']) && isset($_GET['resource_type'])) {
+		
+		$confirm_result = $gocardless->confirm_resource($_GET['resource_id'], $_GET['resource_type']);
+		$confirm = json_decode($confirm_result);
+		
+		if ($confirm['result'] == TRUE) {
+			
+			echo '<p>Payment confirmed!</p>';
+			
+		} else {
+			
+			echo 'Confirm result:';
+			echo '<pre>';
+			var_dump($confirm_result);
+			echo '</pre>';			
+			
+		}
+		
+		
+	}
 	
 }
 
@@ -63,6 +72,6 @@ $payment_details = array(	'amount'		=> '20.00',
 
 echo '<p><a href="'.$gocardless->generate_url('bill', $payment_details).'">Pay me</a></p>';
 
-var_dump($gocardless->merchants('258584'));
+//var_dump($gocardless->merchants('258584'));
 
 ?>

@@ -269,7 +269,6 @@ class GoCardless {
 	 */
 	protected function makeRequest($url, $params = null, $ch = null) {
 		
-		echo '<p>Curl echoing the following to the page: &laquo;';
 		if (!isset($ch)) {
 			$ch = curl_init();
 		}
@@ -295,8 +294,12 @@ class GoCardless {
 		curl_setopt_array($ch, $opts);
 		$result = curl_exec($ch);
 		
+		//$http_response_code = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+		//if ($http_response_code != 200) {
+		//	var_dump($http_response_code);
+		//}
+		
 		curl_close($ch);
-		echo '&raquo;</p>';
 		
 		return $result;
 		
