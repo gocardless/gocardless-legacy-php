@@ -139,4 +139,9 @@ echo '<blockquote><pre>';
 print_r(format_json($gocardless->merchant->get(258584)));
 echo '</pre></blockquote>';
 
+echo '$gocardless->merchant->bills(258584)';
+echo '<blockquote><pre>';
+print_r(format_json($gocardless->merchant->bills(258584)));
+echo '</pre></blockquote>';
+
 ?>
