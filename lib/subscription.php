@@ -10,6 +10,10 @@ class Subscription {
 		return $this->gocardless->fetch_resource('subscriptions/' . $id);
 	}
 	
+	public function cancel($id) {
+		return $this->gocardless->fetch_resource('subscriptions/' . $id . '/cancel');
+	}
+	
 }
 
 ?>
