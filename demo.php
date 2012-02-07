@@ -72,6 +72,6 @@ $payment_details = array(	'amount'		=> '20.00',
 
 echo '<p><a href="'.$gocardless->generate_url('bill', $payment_details).'">Pay me</a></p>';
 
-//var_dump($gocardless->merchants('258584'));
+var_dump($gocardless->merchant->subscriptions(array('id' => '258584')));
 
 ?>

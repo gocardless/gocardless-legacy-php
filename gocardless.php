@@ -2,18 +2,18 @@
 
 class GoCardless {
 	
-	protected $app_identifier;
-	protected $app_secret;
-	protected $access_token;
-	protected $redirect_uri;
+	public $app_identifier;
+	public $app_secret;
+	public $access_token;
+	public $redirect_uri;
 	
-	protected $environment;
-	protected $base_url;
-	protected $base_urls = array(	'production'	=> 'https://gocardless.com',
+	public $environment;
+	public $base_url;
+	public $base_urls = array(	'production'	=> 'https://gocardless.com',
 									'sandbox'		=> 'https://sandbox.gocardless.com'
 									);
 	
-	protected $api_path = '/api/v1';
+	public $api_path = '/api/v1';
 	
 	public static $curl_options = array(	CURLOPT_CONNECTTIMEOUT	=> 10,
 											CURLOPT_RETURNTRANSFER	=> true,
@@ -42,6 +42,9 @@ class GoCardless {
 		
 		// Set base_url based on environment
 		$this->base_url = $this->base_urls[$this->environment];
+		
+		include_once 'lib/merchant.php';
+		$this->merchant = new Merchant($this);
 		
 	}
 
