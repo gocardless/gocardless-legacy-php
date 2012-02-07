@@ -136,7 +136,7 @@ class GoCardless {
 		}
 		
 		// Do query
-		$confirm = $this->makeRequest($url, $params);
+		$confirm = $this->send_get_request($url, $params);
 		
 		// Return the result
 		return $confirm;
@@ -252,31 +252,64 @@ class GoCardless {
 		);
 		
 		// Do query
-		return $this->makeRequest($url);
+		return $this->send_get_request($url);
 		
 	}
 	
 	/**
-	 * Makes an HTTP request.
+	 * Configure a GET request
 	 *
 	 * @param string $url The URL to make the request to
 	 * @param array $params The parameters to use for the POST body
 	 *
 	 * @return string The response text
 	 */
-	protected function sendRequest($url, $params = null) {
+	protected function send_get_request($url, $params = null) {
 		
-		$ch = curl_init();
+		if ($params != null) {
+			$url .= http_build_query($params, null, '&');
+		}
+				
+		return $this->make_request($url);
+		
+	}
+	
+	/**
+	 * Configure a POST request
+	 *
+	 * @param string $url The URL to make the request to
+	 * @param array $params The parameters to use for the POST body
+	 *
+	 * @return string The response text
+	 */
+	protected function send_post_request($url, $params = null) {
+		
+		if ($params) {
+			self::$curl_options[CURLOPT_POSTFIELDS] = http_build_query($params, null, '&');
+		}
+		
+		self::$curl_options[CURLOPT_POST] = 1;
+				
+		return $this->make_request($url);
+		
+	}
+	
+	/**
+	 * Makes an HTTP request
+	 *
+	 * @param string $url The URL to make the request to
+	 * @param array $params The parameters to use for the POST body
+	 *
+	 * @return string The response text
+	 */
+	protected function make_request($url) {
+		
+		$ch = curl_init($url);
 		
 		$opts = self::$curl_options;
 		
-		if ($params) {
-			$opts[CURLOPT_POSTFIELDS] = http_build_query($params, null, '&');
-		}
-		
-		$opts[CURLOPT_URL] = $url;
-		
 		curl_setopt_array($ch, $opts);
+		
 		$result = curl_exec($ch);
 		
 		//$http_response_code = curl_getinfo($ch, CURLINFO_HTTP_CODE);
