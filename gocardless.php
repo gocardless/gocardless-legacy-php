@@ -9,16 +9,18 @@ class GoCardless {
 	
 	public $environment;
 	public $base_url;
-	public $base_urls = array(	'production'	=> 'https://gocardless.com',
-								'sandbox'		=> 'https://sandbox.gocardless.com'
-								);
+	public $base_urls = array(
+		'production'	=> 'https://gocardless.com',
+		'sandbox'		=> 'https://sandbox.gocardless.com'
+	);
 	
 	public $api_path = '/api/v1';
 	
-	public static $curl_options = array(	CURLOPT_CONNECTTIMEOUT	=> 10,
-											CURLOPT_RETURNTRANSFER	=> true,
-											CURLOPT_TIMEOUT			=> 60
-											);
+	public static $curl_options = array(
+		CURLOPT_CONNECTTIMEOUT	=> 10,
+		CURLOPT_RETURNTRANSFER	=> true,
+		CURLOPT_TIMEOUT			=> 60
+	);
 	
 	/**
 	 * Constructor, adds intialization config vars to class scope
@@ -58,7 +60,7 @@ class GoCardless {
 		$this->bill = new Bill($this);
 		
 	}
-
+	
 /*	
 	// Ditched these functions as consolidated them into generate_url but realised that the ruby lib uses them
 	// To revive?
@@ -133,9 +135,10 @@ class GoCardless {
 		// Prep curl for http basic auth
 		self::$curl_options[CURLOPT_USERPWD] = $this->app_identifier . ':' . $this->app_secret;
 		
-		$params = array(	'resource_id'	=> $resource_id,
-							'resource_type'	=> $resource_type
-							);
+		$params = array(
+			'resource_id'	=> $resource_id,
+			'resource_type'	=> $resource_type
+		);
 		
 		// If no method-specific redirect submitted, use class level if available
 		if (!isset($params['redirect_uri']) && $this->redirect_uri) {
@@ -166,17 +169,19 @@ class GoCardless {
 	 */
 	private function generate_mandatory_params() {
 		
-		$request = array(	'client_id'	=> $this->app_identifier,
-							'nonce'		=> $this->generate_nonce(),
-							'timestamp'	=> date('Y-m-d\TH:i:s\Z')
-							);
+		$request = array(
+			'client_id'	=> $this->app_identifier,
+			'nonce'		=> $this->generate_nonce(),
+			'timestamp'	=> date('Y-m-d\TH:i:s\Z')
+		);
 		
 		return $request;
 		
 	}
 	
 	/**
-	 * Magical function to generate, encode, re-order variables for the query string
+	 * Magical function to generate, encode, re-order variables for
+	 * the query string.
 	 *
 	 *
 	 * @return string A URL-encoded string of parameters
@@ -252,33 +257,12 @@ class GoCardless {
 		$url = $this->base_url . $this->api_path . '/' . $endpoint;
 		
 		// Add Authorization header
-		self::$curl_options[CURLOPT_HTTPHEADER] = array('Authorization: Bearer ' . $this->access_token);
+		self::$curl_options[CURLOPT_HTTPHEADER] = array(
+			'Authorization: Bearer ' . $this->access_token
+		);
 		
 		// Do query
 		return $this->makeRequest($url);
-		
-	}
-	
-	function get_resource($endpoint) {
-		
-		// Build URL
-		$url = $this->base_url . $this->api_path . '/' . $endpoint;
-		
-		// Create a stream
-		$opts = array(	'http' => array(	'method' =>	"GET",
-											'header' =>	"Authorization: Bearer {$this->access_token}\r\n"
-											)
-						);
-		
-		$context = stream_context_create($opts);
-		
-		$result = file_get_contents($url, false, $context);
-		
-		//$fp = fopen($url, 'r', false, $context);
-		//$result = fread($fp, filesize($endpoint));
-		//fclose($fp);
-		
-		return $result;
 		
 	}
 	
@@ -304,16 +288,6 @@ class GoCardless {
 		}
 		
 		$opts[CURLOPT_URL] = $url;
-		
-		// disable the 'Expect: 100-continue' behaviour. This causes CURL to wait
-		// for 2 seconds if the server does not support this header.
-		if (isset($opts[CURLOPT_HTTPHEADER])) {
-			$existing_headers = $opts[CURLOPT_HTTPHEADER];
-			$existing_headers[] = 'Expect:';
-			$opts[CURLOPT_HTTPHEADER] = $existing_headers;
-		} else {
-			$opts[CURLOPT_HTTPHEADER] = array('Expect:');
-		}
 		
 		curl_setopt_array($ch, $opts);
 		$result = curl_exec($ch);
