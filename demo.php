@@ -24,7 +24,7 @@ if ($_GET) {
 	if (isset($_GET['resource_id']) && isset($_GET['resource_type'])) {
 		
 		$confirm_result = $gocardless->confirm_resource($_GET['resource_id'], $_GET['resource_type']);
-		$confirm = json_decode($confirm_result);
+		$confirm = json_decode($confirm_result, true);
 		
 		if ($confirm['result'] == TRUE) {
 			
