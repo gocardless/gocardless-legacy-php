@@ -44,8 +44,12 @@ class GoCardless {
 		// Set base_url based on environment
 		$this->base_url = $this->base_urls[$this->environment];
 		
+		// Include subclasses
 		include_once 'lib/merchant.php';
 		$this->merchant = new Merchant($this);
+		
+		include_once 'lib/subscription.php';
+		$this->subscription = new Subscription($this);
 		
 	}
 
