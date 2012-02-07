@@ -51,6 +51,12 @@ class GoCardless {
 		include_once 'lib/subscription.php';
 		$this->subscription = new Subscription($this);
 		
+		include_once 'lib/pre_authorization.php';
+		$this->pre_authorization = new Pre_Authorization($this);
+		
+		include_once 'lib/bill.php';
+		$this->bill = new Bill($this);
+		
 	}
 
 /*	
