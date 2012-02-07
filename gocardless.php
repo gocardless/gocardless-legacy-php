@@ -261,15 +261,12 @@ class GoCardless {
 	 *
 	 * @param string $url The URL to make the request to
 	 * @param array $params The parameters to use for the POST body
-	 * @param CurlHandler $ch Initialized curl handle
 	 *
 	 * @return string The response text
 	 */
-	protected function makeRequest($url, $params = null, $ch = null) {
+	protected function sendRequest($url, $params = null) {
 		
-		if (!isset($ch)) {
-			$ch = curl_init();
-		}
+		$ch = curl_init();
 		
 		$opts = self::$curl_options;
 		
