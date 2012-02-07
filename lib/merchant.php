@@ -7,23 +7,23 @@ class Merchant {
 	}
 	
 	public function subscriptions($merchant_id) {
-		return $this->gocardless->fetch_resource("merchants/$merchant_id/subscriptions");
+		return $this->gocardless->fetch_resource('merchants/' . $merchant_id . '/subscriptions');
 	}
 	
 	public function pre_authorizations($merchant_id) {
-		return $this->gocardless->fetch_resource("merchants/$merchant_id/pre_authorizations");
+		return $this->gocardless->fetch_resource('merchants/ ' . $merchant_id . '/pre_authorizations');
 	}
 	
 	public function users($merchant_id) {
-		return $this->gocardless->fetch_resource("merchants/$merchant_id/users");
+		return $this->gocardless->fetch_resource('merchants/' . $merchant_id . '/users');
 	}
 	
 	public function bills($merchant_id) {
-		return $this->gocardless->fetch_resource("merchants/$merchant_id/bills");
+		return $this->gocardless->fetch_resource('merchants/' . $merchant_id . '/bills');
 	}
 	
 	public function payments($merchant_id) {
-		return $this->gocardless->fetch_resource("merchants/$merchant_id/payments");
+		return $this->gocardless->fetch_resource('merchants/' . $merchant_id . '/payments');
 	}
 	
 }
