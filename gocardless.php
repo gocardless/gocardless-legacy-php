@@ -234,7 +234,7 @@ class GoCardless {
 		
 	}
 	
-	function fetch_resource($endpoint) {
+	function fetch_resource($endpoint, $method = 'GET') {
 		
 		// Build URL
 		$url = $this->base_url . $this->api_path . '/' . $endpoint;
@@ -245,7 +245,11 @@ class GoCardless {
 		);
 		
 		// Do query
-		return $this->send_get_request($url);
+		if ($method == 'GET') {
+			return $this->send_get_request($url);
+		} else {
+			return $this->send_post_request($url);
+		}
 		
 	}
 	
@@ -262,7 +266,7 @@ class GoCardless {
 		if ($params != null) {
 			$url .= http_build_query($params, null, '&');
 		}
-				
+		
 		return $this->make_request($url);
 		
 	}
@@ -282,7 +286,7 @@ class GoCardless {
 		}
 		
 		self::$curl_options[CURLOPT_POST] = 1;
-				
+		
 		return $this->make_request($url);
 		
 	}
