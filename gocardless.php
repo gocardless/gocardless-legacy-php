@@ -151,7 +151,7 @@ class GoCardless {
 	
 	public function merchants($id) {
 		
-		return $this->fetch_resource('merchants', $id);
+		return $this->fetch_resource('merchants/' . $id);
 		
 	}
 	
@@ -245,10 +245,10 @@ class GoCardless {
 		
 	}
 	
-	function fetch_resource($object, $id) {
+	function fetch_resource($endpoint) {
 		
 		// Build URL
-		$url = $this->base_url . $this->api_path . '/' . $object . '/' . $id;
+		$url = $this->base_url . $this->api_path . '/' . $endpoint;
 		
 		echo '<pre>';
 		print_r($this->base_url);
