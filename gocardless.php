@@ -27,6 +27,10 @@ class GoCardless {
 	 */
 	function __construct($config) {
 		
+		if (!isset($config)) {
+			// Fail, no config vars
+		}
+		
 		foreach ($config as $key => $value) {
 			$this->{$key} = $value;
 		}
