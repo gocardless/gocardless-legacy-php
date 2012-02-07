@@ -258,6 +258,29 @@ class GoCardless {
 		
 	}
 	
+	function get_resource($endpoint) {
+		
+		// Build URL
+		$url = $this->base_url . $this->api_path . '/' . $endpoint;
+		
+		// Create a stream
+		$opts = array(	'http' => array(	'method' =>	"GET",
+											'header' =>	"Authorization: Bearer {$this->access_token}\r\n"
+											)
+						);
+		
+		$context = stream_context_create($opts);
+		
+		$result = file_get_contents($url, false, $context);
+		
+		//$fp = fopen($url, 'r', false, $context);
+		//$result = fread($fp, filesize($endpoint));
+		//fclose($fp);
+		
+		return $result;
+		
+	}
+	
 	/**
 	 * Makes an HTTP request.
 	 *
