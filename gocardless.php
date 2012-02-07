@@ -19,7 +19,8 @@ class GoCardless {
 	public static $curl_options = array(
 		CURLOPT_CONNECTTIMEOUT	=> 10,
 		CURLOPT_RETURNTRANSFER	=> true,
-		CURLOPT_TIMEOUT			=> 60
+		CURLOPT_TIMEOUT			=> 60,
+		CURLOPT_HTTPHEADER		=> array('Accept: application/json')
 	);
 	
 	/**
@@ -240,9 +241,7 @@ class GoCardless {
 		$url = $this->base_url . $this->api_path . '/' . $endpoint;
 		
 		// Add Authorization header
-		self::$curl_options[CURLOPT_HTTPHEADER] = array(
-			'Authorization: Bearer ' . $this->access_token
-		);
+		self::$curl_options[CURLOPT_HTTPHEADER][] = 'Authorization: Bearer ' . $this->access_token;
 		
 		// Do query
 		if ($method == 'GET') {
