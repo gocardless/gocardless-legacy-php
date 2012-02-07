@@ -2,7 +2,7 @@
 
 class GoCardless {
 	
-	public $app_identifier;
+	public $app_id;
 	public $app_secret;
 	public $access_token;
 	public $redirect_uri;
@@ -123,7 +123,7 @@ class GoCardless {
 		$url = $this->base_url . $this->api_path . '/confirm';
 		
 		// Prep curl for http basic auth
-		self::$curl_options[CURLOPT_USERPWD] = $this->app_identifier . ':' . $this->app_secret;
+		self::$curl_options[CURLOPT_USERPWD] = $this->app_id . ':' . $this->app_secret;
 		
 		$params = array(
 			'resource_id'	=> $resource_id,
@@ -160,7 +160,7 @@ class GoCardless {
 	private function generate_mandatory_params() {
 		
 		$request = array(
-			'client_id'	=> $this->app_identifier,
+			'client_id'	=> $this->app_id,
 			'nonce'		=> $this->generate_nonce(),
 			'timestamp'	=> date('Y-m-d\TH:i:s\Z')
 		);
