@@ -61,28 +61,17 @@ class GoCardless {
 		
 	}
 	
-/*	
-	// Ditched these functions as consolidated them into generate_url but realised that the ruby lib uses them
-	// To revive?
-	
 	public function new_subscription_url($params) {
-		
-		return $this->generate_url('connect/pre_authorizations/new', 'pre_authorization', $params);
-		
+		return $this->generate_url('pre_authorization', $params);
 	}
 	
 	public function new_pre_authorization_url($params) {
-		
-		return $this->generate_url('connect/pre_authorizations/new', 'pre_authorization', $params);
-		
+		return $this->generate_url('pre_authorization', $params);
 	}
 	
 	public function new_bill_url($params) {
-		
-		return $this->generate_url('connect/bills/new', 'bill', $params);
-		
+		return $this->generate_url('bill', $params);
 	}
-*/
 	
 	/**
 	 * Generate a new payment url
