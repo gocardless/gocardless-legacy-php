@@ -150,15 +150,6 @@ class GoCardless {
 		
 	}
 	
-	// API objects
-	//
-	// Merchant
-	// Bill
-	// PreAuthorization
-	// Subscription
-	// User
-	// Payment
-	
 	public function merchants($id) {
 		
 		return $this->fetch_resource('merchants/' . $id);
