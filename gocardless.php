@@ -241,7 +241,10 @@ class GoCardless {
 		$url = $this->base_url . $this->api_path . '/' . $endpoint;
 		
 		// Add Authorization header
-		self::$curl_options[CURLOPT_HTTPHEADER][] = 'Authorization: Bearer ' . $this->access_token;
+		$auth_header = 'Authorization: Bearer ' . $this->access_token;
+		if (!array_search($auth_header, self::$curl_options[CURLOPT_HTTPHEADER])) {
+			self::$curl_options[CURLOPT_HTTPHEADER][] = $auth_header;
+		}
 		
 		// Do query
 		if ($method == 'GET') {
