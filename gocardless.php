@@ -32,7 +32,7 @@ class GoCardless {
 		}
 		
 		// If environment is not set then default to production
-		if (!$this->environment) {
+		if (!isset($this->environment)) {
 			$this->environment = 'production';
 		}
 		
@@ -75,7 +75,7 @@ class GoCardless {
 	public function generate_url($resource_type, $params) {
 		
 		// If no method-specific redirect submitted, use class level if available
-		if (!$params['redirect_uri'] && $this->redirect_uri) {
+		if (!isset($params['redirect_uri']) && $this->redirect_uri) {
 			$params['redirect_uri'] = $this->redirect_uri;
 		}
 		
@@ -113,14 +113,14 @@ class GoCardless {
 		$url = $this->base_url . $this->api_path . '/confirm';
 		
 		// Prep curl for http basic auth
-		$this->curl_options[CURLOPT_USERPWD] = $this->app_identifier . ':' . $this->app_secret;
+		self::$curl_options[CURLOPT_USERPWD] = $this->app_identifier . ':' . $this->app_secret;
 		
 		$params = array(	'resource_id'	=> $resource_id,
 							'resource_type'	=> $resource_type
 							);
 		
 		// If no method-specific redirect submitted, use class level if available
-		if (!$params['redirect_uri'] && $this->redirect_uri) {
+		if (!isset($params['redirect_uri']) && $this->redirect_uri) {
 			$params['redirect_uri'] = $this->redirect_uri;
 		}
 		
@@ -247,10 +247,10 @@ class GoCardless {
 		echo '</pre>';
 		
 		// Add Authorization header
-		$this->curl_options[CURLOPT_HTTPHEADER] = array('Authorization: Bearer ' . $this->access_token);
+		self::$curl_options[CURLOPT_HTTPHEADER] = array('Authorization: Bearer ' . $this->access_token);
 		
 		echo '<pre>';
-		print_r($this->curl_options);
+		print_r(self::$curl_options);
 		echo '</pre>';
 		
 		// Do query
@@ -270,11 +270,11 @@ class GoCardless {
 	protected function makeRequest($url, $params = null, $ch = null) {
 		
 		echo '<p>Curl echoing the following to the page: &laquo;';
-		if (!$ch) {
+		if (!isset($ch)) {
 			$ch = curl_init();
 		}
 		
-		$opts = $this->curl_options;
+		$opts = self::$curl_options;
 		
 		if ($params) {
 			$opts[CURLOPT_POSTFIELDS] = http_build_query($params, null, '&');
