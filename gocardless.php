@@ -94,7 +94,8 @@ class GoCardless {
 	 */
 	public function generate_url($resource_type, $params) {
 		
-		// If no method-specific redirect submitted, use class level if available
+		// If no method-specific redirect submitted then
+		// use class level if available
 		if (!isset($params['redirect_uri']) && $this->redirect_uri) {
 			$params['redirect_uri'] = $this->redirect_uri;
 		}
