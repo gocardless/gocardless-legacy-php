@@ -76,7 +76,7 @@ echo ' &middot; <a href="'.$gocardless->generate_url('bill', $payment_details).'
 
 echo '<h2>API calls</h2>';
 
-echo '$gocardless->merchant->subscriptions(258584)';
+echo '$gocardless->merchant->get(258584)';
 echo '<blockquote><pre>';
 print_r($gocardless->merchant->get(258584));
 echo '</pre></blockquote>';
