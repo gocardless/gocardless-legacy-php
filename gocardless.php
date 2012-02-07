@@ -305,6 +305,14 @@ class GoCardless {
 		
 		$opts = self::$curl_options;
 		
+		// Debug
+		//if (self::$curl_options[19913] == 1) {
+		//	echo $url."\n";
+		//	print_r(self::$curl_options[10023]);
+		//} else {
+		//	echo $url;
+		//}
+		
 		curl_setopt_array($ch, $opts);
 		
 		$result = curl_exec($ch);
