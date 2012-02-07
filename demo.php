@@ -1,11 +1,13 @@
 <?php
 
-// First create your application in the GoCardless sandbox: https://sandbox.gocardless.com and find your application identifier and secret
+// First create your application in the GoCardless sandbox:
+// https://sandbox.gocardless.com
+// Then grab your application identifier and secret...
 
 // Include library
 include_once 'gocardless.php';
 
-// Paste your application identifier and secret in here
+// ...and paste them in here
 
 // Config vars
 $gocardless_config = array(
@@ -16,7 +18,7 @@ $gocardless_config = array(
 	'redirect_uri'		=> 'http://localhost:8888/demo.php'
 );
 
-// Initialize objects
+// Initialize GoCardless
 $gocardless = new GoCardless($gocardless_config);
 
 if ($_GET) {
