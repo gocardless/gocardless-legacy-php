@@ -10,8 +10,8 @@ class GoCardless {
 	public $environment;
 	public $base_url;
 	public $base_urls = array(	'production'	=> 'https://gocardless.com',
-									'sandbox'		=> 'https://sandbox.gocardless.com'
-									);
+								'sandbox'		=> 'https://sandbox.gocardless.com'
+								);
 	
 	public $api_path = '/api/v1';
 	
@@ -29,6 +29,7 @@ class GoCardless {
 		
 		if (!isset($config)) {
 			// Fail, no config vars
+			
 		}
 		
 		foreach ($config as $key => $value) {
