@@ -44,6 +44,8 @@ if ($_GET) {
 	
 }
 
+echo '<h2>New payment URLs</h2>';
+
 // New subscription
 
 $payment_details = array(	'amount'			=> '10.00',
@@ -52,7 +54,7 @@ $payment_details = array(	'amount'			=> '10.00',
 							'interval_unit'		=> 'month'
 							);
 
-echo '<p><a href="'.$gocardless->generate_url('subscription', $payment_details).'">Subscribe to me</a></p>';
+echo '<p><a href="'.$gocardless->generate_url('subscription', $payment_details).'">New subscription</a>';
 
 // New pre-authorization
 
@@ -62,7 +64,7 @@ $payment_details = array(	'max_amount'		=> '20.00',
 							'interval_unit'		=> 'month'
 							);
 
-echo '<p><a href="'.$gocardless->generate_url('pre_authorization', $payment_details).'">Pre-auth me</a></p>';
+echo ' &middot; <a href="'.$gocardless->generate_url('pre_authorization', $payment_details).'">New pre-authorized payment</a>';
 
 // New bill
 
@@ -70,8 +72,13 @@ $payment_details = array(	'amount'		=> '20.00',
 							'merchant_id'	=> '258584'
 							);
 
-echo '<p><a href="'.$gocardless->generate_url('bill', $payment_details).'">Pay me</a></p>';
+echo ' &middot; <a href="'.$gocardless->generate_url('bill', $payment_details).'">New bill</a></p>';
 
-var_dump($gocardless->merchant->subscriptions(array('id' => '258584')));
+echo '<h2>API calls</h2>';
+
+echo '$gocardless->merchant->subscriptions(258584)';
+echo '<blockquote><pre>';
+print_r($gocardless->merchant->subscriptions(258584));
+echo '</pre></blockquote>';
 
 ?>
