@@ -33,13 +33,16 @@ class GoCardless {
 	 */
 	function __construct($config) {
 		
-		if (!isset($config)) {
-			// Fail, no config vars
-			
-		}
-		
 		foreach ($config as $key => $value) {
 			$this->{$key} = $value;
+		}
+		
+		if (!isset($config['app_id'])) {
+			throw new GoCardlessClientException('No app_id specfied');
+		}
+		
+		if (!isset($config['app_secret'])) {
+			throw new GoCardlessClientException('No app_secret specfied');
 		}
 		
 		// If environment is not set then default to production
@@ -348,6 +351,18 @@ class GoCardless {
 		
 	}
 	
+}
+
+class GoCardlessClientException extends Exception {
+	
+	// Default error settings
+	public function __construct($description = 'Unknown error') {
+		
+		// Throw an exception
+		parent::__construct($description);
+		
+	}
+		
 }
 
 class GoCardlessApiException extends Exception {
