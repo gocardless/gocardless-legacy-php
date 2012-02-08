@@ -23,6 +23,8 @@ class GoCardless {
 		CURLOPT_HTTPHEADER		=> array('Accept: application/json')
 	);
 	
+	public $date;
+	
 	/**
 	 * Constructor, adds intialization config vars to class scope
 	 *
@@ -46,6 +48,9 @@ class GoCardless {
 		
 		// Set base_url based on environment
 		$this->base_url = $this->base_urls[$this->environment];
+		
+		// Create new UTC date object
+		$this->date = new DateTime(null, new DateTimeZone('UTC'));
 		
 		// Include subclasses
 		include_once 'lib/merchant.php';
@@ -156,7 +161,7 @@ class GoCardless {
 		$request = array(
 			'client_id'	=> $this->app_id,
 			'nonce'		=> $this->generate_nonce(),
-			'timestamp'	=> date('Y-m-d\TH:i:s\Z')
+			'timestamp'	=> $this->date->format('Y-m-d\TH:i:s\Z')
 		);
 		
 		return $request;
