@@ -383,3 +383,5 @@ class GoCardlessApiException extends Exception {
 	}
 		
 }
+
+?>
