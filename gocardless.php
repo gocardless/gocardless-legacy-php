@@ -7,6 +7,7 @@ class GoCardless {
 	public $app_secret;
 	public $access_token;
 	public $redirect_uri;
+	public $response_format;
 	
 	public $environment;
 	public $base_url;
@@ -20,8 +21,7 @@ class GoCardless {
 	public static $curl_options = array(
 		CURLOPT_CONNECTTIMEOUT	=> 10,
 		CURLOPT_RETURNTRANSFER	=> true,
-		CURLOPT_TIMEOUT			=> 60,
-		CURLOPT_HTTPHEADER		=> array('Accept: application/json')
+		CURLOPT_TIMEOUT			=> 60
 	);
 	
 	public $date;
@@ -46,6 +46,12 @@ class GoCardless {
 		if (!isset($this->environment)) {
 			$this->environment = 'production';
 		}
+		
+		// If response_format is not set then default to json
+		if (!isset($this->response_format)) {
+			$this->response_format = 'application/json';
+		}
+		self::$curl_options[CURLOPT_HTTPHEADER][] = 'Accept: ' . $this->response_format;
 		
 		// Set base_url based on environment
 		$this->base_url = $this->base_urls[$this->environment];
@@ -248,6 +254,7 @@ class GoCardless {
 		
 		// Add Authorization header
 		$auth_header = 'Authorization: Bearer ' . $this->access_token;
+		
 		if (!array_search($auth_header, self::$curl_options[CURLOPT_HTTPHEADER])) {
 			self::$curl_options[CURLOPT_HTTPHEADER][] = $auth_header;
 		}
@@ -311,19 +318,17 @@ class GoCardless {
 		
 		$ch = curl_init($url);
 		
-		$opts = self::$curl_options;
-		
 		// Debug
 		//if (self::$curl_options[19913] == 1) {
 		//	// POST request, so show url and vars
 		//	echo "GET: $url\n";
-		//	print_r(self::$curl_options[10023]);
+		//	print_r(self::$curl_options[CURLOPT_HTTPHEADER]);
 		//} else {
 		//	// GET request, so show just show url
 		//	echo "POST: $url\n";
 		//}
 		
-		curl_setopt_array($ch, $opts);
+		curl_setopt_array($ch, self::$curl_options);
 		
 		$result = curl_exec($ch);
 		
