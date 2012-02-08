@@ -315,11 +315,11 @@ class GoCardless {
 		// Debug
 		//if (self::$curl_options[19913] == 1) {
 		//	// POST request, so show url and vars
-		//	echo $url."\n";
+		//	echo "GET: $url\n";
 		//	print_r(self::$curl_options[10023]);
 		//} else {
 		//	// GET request, so show just show url
-		//	echo $url;
+		//	echo "POST: $url\n";
 		//}
 		
 		curl_setopt_array($ch, $opts);
