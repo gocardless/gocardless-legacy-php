@@ -39,6 +39,16 @@ class GoCardlessTest extends PHPUnit_Framework_TestCase {
 		
 	}
 	
+	public function testBaseUrlSetManually() {
+		
+		$this->config['base_url'] = 'https://abc.gocardless.com/';
+		
+		$this->_GoCardless = new GoCardless($this->config);
+		
+		$this->assertEquals('https://abc.gocardless.com/', $this->_GoCardless->base_url);
+		
+	}
+	
 	/**
      * @expectedException GoCardlessClientException
      */

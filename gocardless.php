@@ -56,8 +56,10 @@ class GoCardless {
 		}
 		self::$curl_options[CURLOPT_HTTPHEADER][] = 'Accept: ' . $this->response_format;
 		
-		// Set base_url based on environment
-		$this->base_url = $this->base_urls[$this->environment];
+		// If base_url is not set manually then set it based on environment
+		if (!isset($this->base_url)) {
+			$this->base_url = $this->base_urls[$this->environment];
+		}
 		
 		// Create new UTC date object
 		$this->date = new DateTime(null, new DateTimeZone('UTC'));
