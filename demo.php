@@ -127,9 +127,14 @@ echo ' &middot; <a href="'.$gocardless->new_pre_authorization_url($payment_detai
 
 $payment_details = array(
 	'amount'		=> '20.00',
+	'user'				=> array(
+		'first_name'	=> 'Tom',
+		'last_name'		=> 'Blomfield',
+		'email'			=> 'tom@gocardless.com'
+		)
 );
 
-echo ' &middot; <a href="'.$gocardless->new_bill_url($payment_details).'">New bill</a></p>';
+echo ' &middot; <a href="'.$gocardless->new_bill_url($payment_details).'">New bill</a> (pre-populated user data)</p>';
 
 echo '<h2>API calls</h2>';
 

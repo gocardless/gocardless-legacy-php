@@ -102,6 +102,9 @@ class GoCardless {
 			$params['redirect_uri'] = $this->redirect_uri;
 		}
 		
+		// Add in merchant id
+		$params['merchant_id'] = $this->merchant_id;
+		
 		// Add passed params to an array called bill
 		$params = array($resource_type => $params);
 		
@@ -319,14 +322,14 @@ class GoCardless {
 		$ch = curl_init($url);
 		
 		// Debug
-		//if (self::$curl_options[19913] == 1) {
-		//	// POST request, so show url and vars
-		//	echo "GET: $url\n";
-		//	print_r(self::$curl_options[CURLOPT_HTTPHEADER]);
-		//} else {
-		//	// GET request, so show just show url
-		//	echo "POST: $url\n";
-		//}
+		if (self::$curl_options[19913] == 1) {
+			// POST request, so show url and vars
+			echo "GET: $url\n";
+			print_r(self::$curl_options[CURLOPT_HTTPHEADER]);
+		} else {
+			// GET request, so show just show url
+			echo "POST: $url\n";
+		}
 		
 		curl_setopt_array($ch, self::$curl_options);
 		
