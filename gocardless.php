@@ -309,9 +309,11 @@ class GoCardless {
 		
 		// Debug
 		//if (self::$curl_options[19913] == 1) {
+		//	// POST request, so show url and vars
 		//	echo $url."\n";
 		//	print_r(self::$curl_options[10023]);
 		//} else {
+		//	// GET request, so show just show url
 		//	echo $url;
 		//}
 		
@@ -319,10 +321,15 @@ class GoCardless {
 		
 		$result = curl_exec($ch);
 		
-		//$http_response_code = curl_getinfo($ch, CURLINFO_HTTP_CODE);
-		//if ($http_response_code != 200) {
-		//	var_dump($http_response_code);
-		//}
+		$http_response_code = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+		if ($http_response_code != 200) {
+			$response = json_decode($result, true);
+			$error = array(
+				'error_code'		=> $http_response_code,
+				'error_description'	=> $response['error']
+			);
+			throw new GoCardlessException($error);
+		}
 		
 		curl_close($ch);
 		
@@ -330,4 +337,85 @@ class GoCardless {
 		
 	}
 	
+}
+
+class GoCardlessException extends Exception {
+	
+	protected $result;
+	
+	/**
+	 * Make a new API Exception with the given result.
+	 *
+	 * @param array $result The result from the API server
+	 */
+	public function __construct($result) {
+		
+		$this->result = $result;
+		
+		$code = isset($result['error_code']) ? $result['error_code'] : 0;
+		
+		if (isset($result['error_description']) && !empty($result['error_description'])) {
+			$msg = $result['error_description'];
+		} else {
+			$msg = 'Unknown error';
+		}
+		
+		parent::__construct($msg, $code);
+		
+	}
+	
+	/**
+	 * Return the associated result object returned by the API server.
+	 *
+	 * @return array The result from the API server
+	 */
+	public function getResult() {
+		return $this->result;
+	}
+	
+	/**
+	 * Returns the associated type for the error. This will default to
+	 * 'Exception' when a type is not available.
+	 *
+	 * @return string
+	 */
+	public function getType() {
+		
+		if (isset($this->result['error'])) {
+			
+			$error = $this->result['error'];
+			
+			if (is_string($error)) {
+				return $error;
+			} else if (is_array($error)) {
+				
+				if (isset($error['type'])) {
+					return $error['type'];
+				}
+				
+			}
+			
+		}
+			
+		return 'Exception';
+		
+	}
+		
+	/**
+	 * Makes debugging easier.
+	 *
+	 * @return string The string representation of the error
+	 */
+	public function __toString() {
+		
+		$str = $this->getType() . ': ';
+
+		if ($this->code != 0) {
+			$str .= $this->code . ': ';
+		}
+		
+		return $str . $this->message;
+
+	}
+		
 }
