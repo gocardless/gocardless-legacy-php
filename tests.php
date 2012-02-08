@@ -19,6 +19,8 @@ class GoCardlessTest extends PHPUnit_Framework_TestCase {
 		
 	}
 	
+	// Porting tests from client.rb
+	
 	public function testBaseUrlInSandbox() {
 		
 		$this->config['environment'] = 'sandbox';
@@ -59,6 +61,19 @@ class GoCardlessTest extends PHPUnit_Framework_TestCase {
 		$this->_GoCardless = new GoCardless($this->config);
 		
 	}
+	
+	/**
+     * @expectedException GoCardlessClientException
+     */
+	public function testExceptionWithNoAppSecret() {
+		
+		$this->config['app_secret'] = null;
+		
+		$this->_GoCardless = new GoCardless($this->config);
+		
+	}
+	
+	// That's the first five from client.rb
 	
 }
 
