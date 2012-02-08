@@ -134,12 +134,12 @@ echo ' &middot; <a href="'.$gocardless->new_bill_url($payment_details).'">New bi
 
 echo '<h2>API calls</h2>';
 
-echo '$gocardless->merchant->get(258584)';
+echo '$gocardless->merchant->get(\'258584\')';
 echo '<blockquote><pre>';
 print_r(format_json($gocardless->merchant->get(258584)));
 echo '</pre></blockquote>';
 
-echo '$gocardless->merchant->bills(258584)';
+echo '$gocardless->merchant->bills(\'258584\')';
 echo '<blockquote><pre>';
 print_r(format_json($gocardless->merchant->bills(258584)));
 echo '</pre></blockquote>';
