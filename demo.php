@@ -63,10 +63,12 @@ include_once 'gocardless.php';
 
 // Config vars
 $gocardless_config = array(
+	'merchant_id'	=> '258584',
 	'app_id'		=> 'eCxrcWDxjYsQ55zhsDTgs6VeKf6YWZP7be/9rY0PGFbeyqmLJV6k84SUQdISLUhf',
 	'app_secret'	=> '2utXOc65Hy9dolp3urYBMoIN0DM11Q9uuoboFDkHY3nzsugqcuzD1FuJYA7X9TP+',
 	'access_token'	=> '+vJh7dkHLr5rbdqBLlRk3dPALyn0uvAKTMvRnfWOAKcQ6WRCx/QGsdOefGqEs6h6',
 	'environment'	=> 'sandbox',
+	'redirect_uri'	=> 'http://localhost:8888/demo.php',
 	'redirect_uri'	=> 'http://localhost:8888/demo.php'
 );
 
@@ -105,7 +107,6 @@ echo '<h2>New payment URLs</h2>';
 
 $payment_details = array(
 	'amount'			=> '10.00',
-	'merchant_id'		=> '258584',
 	'interval_length'	=> 1,
 	'interval_unit'		=> 'month'
 );
@@ -116,7 +117,6 @@ echo '<p><a href="'.$gocardless->new_subscription_url($payment_details).'">New s
 
 $payment_details = array(
 	'max_amount'		=> '20.00',
-	'merchant_id'		=> '258584',
 	'interval_length'	=> 1,
 	'interval_unit'		=> 'month'
 );
@@ -127,7 +127,6 @@ echo ' &middot; <a href="'.$gocardless->new_pre_authorization_url($payment_detai
 
 $payment_details = array(
 	'amount'		=> '20.00',
-	'merchant_id'	=> '258584'
 );
 
 echo ' &middot; <a href="'.$gocardless->new_bill_url($payment_details).'">New bill</a></p>';

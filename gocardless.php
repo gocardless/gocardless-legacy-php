@@ -1,7 +1,8 @@
 <?php
 
 class GoCardless {
-	
+
+	public $merchant_id;	
 	public $app_id;
 	public $app_secret;
 	public $access_token;
