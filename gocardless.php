@@ -167,6 +167,27 @@ class GoCardless {
 		
 	}
 	
+	public function validate_webhook($params) {
+		
+		$sig = $params['payload']['signature'];
+		unset($params['payload']['signature']);
+		
+		if (!isset($sig)) {
+			return false;
+		}
+		
+		$data = array(
+			'data'		=> $params['payload'],
+			'secret'	=> $this->app_secret,
+			'signature'	=> $sig
+		);
+		
+		print_r($data);
+				
+		return $this->validate_signature($data);
+		
+	}
+	
 	// HELPERS
 	
 	/**
@@ -244,11 +265,11 @@ class GoCardless {
 	 *
 	 * @return string A URL-encoded string of parameters
 	 */
-	function valid_signature($sig, $data, $secret) {
+	function validate_signature($params) {
 		
-		$new_sig = $this->generate_signature($data, $secret);
+		$new_sig = $this->generate_signature($params['data'], $params['secret']);
 		
-		if ($new_sig == $sig) {
+		if ($new_sig == $params['signature']) {
 			return true;
 		} else {
 			return false;
