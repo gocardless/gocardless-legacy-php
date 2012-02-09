@@ -135,8 +135,7 @@ class GoCardless {
 	/**
 	 * Send an HTTP request to confirm the creation of a new payment resource
 	 *
-	 * @param string $resource_id Unique id of the created resource
-	 * @param string $resource_type Type of payment
+	 * @param array $params Parameters to send with the request
 	 *
 	 * @return string The result of the HTTP request
 	 */
@@ -167,6 +166,13 @@ class GoCardless {
 		
 	}
 	
+	/**
+	 * Test whether a webhook is valid or not
+	 *
+	 * @param array params The payload of the webhook
+	 *
+	 * @return boolean If valid returns true
+	 */
 	public function validate_webhook($params) {
 		
 		$sig = $params['payload']['signature'];
