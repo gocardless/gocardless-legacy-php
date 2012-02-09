@@ -84,33 +84,33 @@ class GoCardless {
 	// PUBLIC FUNCTIONS
 	
 	/**
-	 * Generate a URL to send a user to in order to create a subscription
+	 * Generate a URL to give a user to create a new subscription
 	 *
 	 * @param array $params Parameters to use to generate the URL
 	 *
-	 * @return string The result of the HTTP request
+	 * @return string The generated URL
 	 */
 	public function new_subscription_url($params) {
 		return $this->generate_url('pre_authorization', $params);
 	}
 	
 	/**
-	 * Send an HTTP request to confirm the creation of a new payment resource
+	 * Generate a URL to give a user to create a new pre-authorized payment
 	 *
-	 * @param array $params Parameters to send with the request
+	 * @param array $params Parameters to use to generate the URL
 	 *
-	 * @return string The result of the HTTP request
+	 * @return string The generated URL
 	 */
 	public function new_pre_authorization_url($params) {
 		return $this->generate_url('pre_authorization', $params);
 	}
 	
 	/**
-	 * Send an HTTP request to confirm the creation of a new payment resource
+	 * Generate a URL to give a user to create a new bill
 	 *
-	 * @param array $params Parameters to send with the request
+	 * @param array $params Parameters to use to generate the URL
 	 *
-	 * @return string The result of the HTTP request
+	 * @return string The generated URL
 	 */
 	public function new_bill_url($params) {
 		return $this->generate_url('bill', $params);
@@ -150,11 +150,10 @@ class GoCardless {
 		
 	}
 	
-	
 	/**
 	 * Test whether a webhook is valid or not
 	 *
-	 * @param array params The payload of the webhook
+	 * @param array params The contents of the webhook in array form
 	 *
 	 * @return boolean If valid returns true
 	 */
