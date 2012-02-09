@@ -74,6 +74,68 @@ class GoCardlessTest extends PHPUnit_Framework_TestCase {
 	}
 	
 	// That's the first five from client.rb
+	// Skipping
+	//		#authorize_url x2
+	//		#fetch_access_token x3
+	//		#access_token x2
+	//		#access_token x3
+	
+	// api_get
+	
+	public function testSendGetRequest() {
+		
+		$url = 'https://sandbox.gocardless.com/api/v1/merchants/258584';
+		
+		$mock = $this->getMock('GoCardless', array('make_request'));
+		
+		$mock->expects($this->once())
+			->method('make_request')
+			->with($this->equalTo($url));
+		
+		$this->_GoCardless = new GoCardless($this->config);
+		$this->_GoCardless->attach($mock);
+		$this->_GoCardless->merchant->get('258584');
+		
+		// Create a Mock Object for the Observer class
+		// mocking only the update() method.
+		//$observer = $this->getMock('Observer', array('update'));
+		
+		// Set up the expectation for the update() method
+		// to be called only once and with the string 'something'
+		// as its parameter.
+		//$observer->expects($this->once())
+		//         ->method('update')
+		//         ->with($this->equalTo('something'));
+		
+		// Create a Subject object and attach the mocked
+		// Observer object to it.
+		//$subject = new Subject;
+		//$subject->attach($observer);
+		
+		// Call the doSomething() method on the $subject object
+		// which we expect to call the mocked Observer object's
+		// update() method with the string 'something'.
+		//$subject->doSomething();
+		
+	}
+	
+	public function testApiGetUsesCorrectPathPrefix() {
+		
+		$this->assertEquals('/api/v1', $this->_GoCardless->api_path);
+		
+	}
+	
+	///**
+    // * @expectedException GoCardlessClientException
+    // */
+	//public function testApiGetFailsWithoutAccessToken() {
+	//	
+	//	$this->config['access_token'] = null;
+	//	
+	//	$this->_GoCardless = new GoCardless($this->config);
+	//	
+	//}
+	
 	
 }
 
