@@ -7,11 +7,13 @@ class Subscription {
 	}
 	
 	public function get($id) {
-		return $this->gocardless->fetch_resource('subscriptions/' . $id);
+		$endpoint = 'subscriptions/' . $id;
+		return $this->gocardless->fetch_resource($endpoint);
 	}
 	
 	public function cancel($id) {
-		return $this->gocardless->fetch_resource('subscriptions/' . $id . '/cancel');
+		$endpoint = 'subscriptions/' . $id . '/cancel';
+		return $this->gocardless->fetch_resource($endpoint);
 	}
 	
 }

@@ -7,11 +7,13 @@ class Pre_Authorization {
 	}
 	
 	public function get($id) {
-		return $this->gocardless->fetch_resource('pre_authorizations/' . $id);
+		$endpoint = 'pre_authorizations/' . $id;
+		return $this->gocardless->fetch_resource($endpoing);
 	}
 	
 	public function cancel($id) {
-		return $this->gocardless->fetch_resource('pre_authorizations/' . $id . '/cancel');
+		$endpoint = 'pre_authorizations/' . $id . '/cancel';
+		return $this->gocardless->fetch_resource($endpoint);
 	}
 	
 }

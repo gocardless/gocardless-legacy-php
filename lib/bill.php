@@ -7,11 +7,13 @@ class Bill {
 	}
 	
 	public function get($id) {
-		return $this->gocardless->fetch_resource('bills/' . $id);
+		$endpoint = 'bills/' . $id;
+		return $this->gocardless->fetch_resource($endpoint);
 	}
 	
 	public function cancel($id) {
-		return $this->gocardless->fetch_resource('bills/' . $id . '/cancel');
+		$endpoint = 'bills/' . $id . '/cancel';
+		return $this->gocardless->fetch_resource($endpoint);
 	}
 	
 }

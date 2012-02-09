@@ -7,27 +7,33 @@ class Merchant {
 	}
 	
 	public function get($id) {
-		return $this->gocardless->fetch_resource('merchants/' . $id);
+		$endpoint = 'merchants/' . $id;
+		return $this->gocardless->fetch_resource($endpoint);
 	}
 	
 	public function subscriptions($id) {
-		return $this->gocardless->fetch_resource('merchants/' . $id . '/subscriptions');
+		$endpoint = 'merchants/' . $id . '/subscriptions';
+		return $this->gocardless->fetch_resource($endpoint);
 	}
 	
 	public function pre_authorizations($id) {
-		return $this->gocardless->fetch_resource('merchants/ ' . $id . '/pre_authorizations');
+		$endpoint = 'merchants/ ' . $id . '/pre_authorizations';
+		return $this->gocardless->fetch_resource($endpoint);
 	}
 	
 	public function users($id) {
-		return $this->gocardless->fetch_resource('merchants/' . $id . '/users');
+		$endpoint = 'merchants/' . $id . '/users';
+		return $this->gocardless->fetch_resource($endpoint);
 	}
 	
 	public function bills($id) {
-		return $this->gocardless->fetch_resource('merchants/' . $id . '/bills');
+		$endpoint = 'merchants/' . $id . '/bills';
+		return $this->gocardless->fetch_resource($endpoint);
 	}
 	
 	public function payments($id) {
-		return $this->gocardless->fetch_resource('merchants/' . $id . '/payments');
+		$endpoint = 'merchants/' . $id . '/payments';
+		return $this->gocardless->fetch_resource($endpoint);
 	}
 	
 }
