@@ -54,9 +54,11 @@ class GoCardless {
 		if (!isset($this->response_format)) {
 			$this->response_format = 'application/json';
 		}
+		
+		// Add the response_format as the 'Accept' header in CURL
 		self::$curl_options[CURLOPT_HTTPHEADER][] = 'Accept: ' . $this->response_format;
 		
-		// If base_url is not set manually then set it based on environment
+		// If base_url is not set then set it based on environment
 		if (!isset($this->base_url)) {
 			$this->base_url = $this->base_urls[$this->environment];
 		}
