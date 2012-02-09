@@ -286,6 +286,14 @@ class GoCardless {
 	 */
 	function generate_signature($data, $secret) {
 		
+		//echo '<pre>Sig data: ';
+		//print_r($data);
+		//echo '</pre>';
+		//
+		//echo '<pre>Sig secret: ';
+		//print_r($secret);
+		//echo '</pre>';
+		
 		return hash_hmac('sha256', $this->generate_query_string($data), $secret);
 		
 	}
