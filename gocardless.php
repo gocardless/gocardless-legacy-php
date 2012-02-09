@@ -328,7 +328,7 @@ class GoCardless {
 	/**
 	 * Fetches a resource from an API endpoint
 	 *
-	 * @return string The returned resource
+	 * @return object The returned resource
 	 */
 	function fetch_resource($endpoint, $method = 'GET') {
 		
@@ -352,10 +352,14 @@ class GoCardless {
 		
 		// Do query
 		if ($method == 'GET') {
-			return $this->send_get_request($url);
+			$result = $this->send_get_request($url);
 		} else {
-			return $this->send_post_request($url);
+			$result = $this->send_post_request($url);
 		}
+		
+		$object = json_decode($result);
+		
+		return $object;
 		
 	}
 	
@@ -438,6 +442,8 @@ class GoCardless {
 	}
 	
 }
+
+// EXCEPTIONS
 
 class GoCardlessClientException extends Exception {
 	

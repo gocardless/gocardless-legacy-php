@@ -149,12 +149,14 @@ echo '<h2>API calls</h2>';
 
 echo '$gocardless->merchant->get(\'258584\')';
 echo '<blockquote><pre>';
-print_r(format_json($gocardless->merchant->get(258584)));
+$merchant = $gocardless->merchant->get(258584);
+print_r($merchant);
 echo '</pre></blockquote>';
 
 echo '$gocardless->merchant->bills(\'258584\')';
 echo '<blockquote><pre>';
-print_r(format_json($gocardless->merchant->bills(258584)));
+$bills = $gocardless->merchant->bills(258584);
+print_r($bills);
 echo '</pre></blockquote>';
 
 echo 'validate webhook:';
