@@ -27,7 +27,7 @@ class GoCardless {
 	public $date;
 	
 	/**
-	 * Constructor, adds intialization config vars to class scope
+	 * Constructor, adds intialization vars to class scope
 	 *
 	 * @param array $config GoCardless API keys
 	 */
@@ -81,17 +81,105 @@ class GoCardless {
 		
 	}
 	
+	// PUBLIC FUNCTIONS
+	
+	/**
+	 * Generate a URL to send a user to in order to create a subscription
+	 *
+	 * @param array $params Parameters to use to generate the URL
+	 *
+	 * @return string The result of the HTTP request
+	 */
 	public function new_subscription_url($params) {
 		return $this->generate_url('pre_authorization', $params);
 	}
 	
+	/**
+	 * Send an HTTP request to confirm the creation of a new payment resource
+	 *
+	 * @param array $params Parameters to send with the request
+	 *
+	 * @return string The result of the HTTP request
+	 */
 	public function new_pre_authorization_url($params) {
 		return $this->generate_url('pre_authorization', $params);
 	}
 	
+	/**
+	 * Send an HTTP request to confirm the creation of a new payment resource
+	 *
+	 * @param array $params Parameters to send with the request
+	 *
+	 * @return string The result of the HTTP request
+	 */
 	public function new_bill_url($params) {
 		return $this->generate_url('bill', $params);
 	}
+	
+	/**
+	 * Send an HTTP request to confirm the creation of a new payment resource
+	 *
+	 * @param array $params Parameters to send with the request
+	 *
+	 * @return string The result of the HTTP request
+	 */
+	public function confirm_resource($params) {
+		
+		foreach ($params as $key => $value) {
+			if (!isset($value)) {
+				throw new GoCardlessArgumentsException("$key missing");
+			}
+		}
+		
+		// Build url
+		$url = $this->base_url . $this->api_path . '/confirm';
+		
+		// Prep curl for http basic auth
+		self::$curl_options[CURLOPT_USERPWD] = $this->app_id . ':' . $this->app_secret;
+		
+		// If no method-specific redirect submitted, use class level if available
+		if (!isset($params['redirect_uri']) && $this->redirect_uri) {
+			$params['redirect_uri'] = $this->redirect_uri;
+		}
+		
+		// Do query
+		$confirm = $this->send_post_request($url, $params);
+		
+		// Return the result
+		return $confirm;
+		
+	}
+	
+	
+	/**
+	 * Test whether a webhook is valid or not
+	 *
+	 * @param array params The payload of the webhook
+	 *
+	 * @return boolean If valid returns true
+	 */
+	public function validate_webhook($params) {
+		
+		$sig = $params['payload']['signature'];
+		unset($params['payload']['signature']);
+		
+		if (!isset($sig)) {
+			return false;
+		}
+		
+		$data = array(
+			'data'		=> $params['payload'],
+			'secret'	=> $this->app_secret,
+			'signature'	=> $sig
+		);
+		
+		print_r($data);
+				
+		return $this->validate_signature($data);
+		
+	}
+	
+	// HELPERS
 	
 	/**
 	 * Generate a new payment url
@@ -131,70 +219,6 @@ class GoCardless {
 		return $url;
 		
 	}
-	
-	/**
-	 * Send an HTTP request to confirm the creation of a new payment resource
-	 *
-	 * @param array $params Parameters to send with the request
-	 *
-	 * @return string The result of the HTTP request
-	 */
-	public function confirm_resource($params) {
-		
-		foreach ($params as $key => $value) {
-			if (!isset($value)) {
-				throw new GoCardlessArgumentsException("$key missing");
-			}
-		}
-		
-		// Build url
-		$url = $this->base_url . $this->api_path . '/confirm';
-		
-		// Prep curl for http basic auth
-		self::$curl_options[CURLOPT_USERPWD] = $this->app_id . ':' . $this->app_secret;
-		
-		// If no method-specific redirect submitted, use class level if available
-		if (!isset($params['redirect_uri']) && $this->redirect_uri) {
-			$params['redirect_uri'] = $this->redirect_uri;
-		}
-		
-		// Do query
-		$confirm = $this->send_post_request($url, $params);
-		
-		// Return the result
-		return $confirm;
-		
-	}
-	
-	/**
-	 * Test whether a webhook is valid or not
-	 *
-	 * @param array params The payload of the webhook
-	 *
-	 * @return boolean If valid returns true
-	 */
-	public function validate_webhook($params) {
-		
-		$sig = $params['payload']['signature'];
-		unset($params['payload']['signature']);
-		
-		if (!isset($sig)) {
-			return false;
-		}
-		
-		$data = array(
-			'data'		=> $params['payload'],
-			'secret'	=> $this->app_secret,
-			'signature'	=> $sig
-		);
-		
-		print_r($data);
-				
-		return $this->validate_signature($data);
-		
-	}
-	
-	// HELPERS
 	
 	/**
 	 * Generate mandatory payment parameters: client_id, nonce and timestamp
