@@ -262,11 +262,19 @@ class GoCardless {
 		// Build URL
 		$url = $this->base_url . $this->api_path . '/' . $endpoint;
 		
-		// Add Authorization header
-		$auth_header = 'Authorization: Bearer ' . $this->access_token;
+		if (isset($this->access_token)) {
+			
+			// Add Authorization header
+			$auth_header = 'Authorization: Bearer ' . $this->access_token;
+
+			if (!array_search($auth_header, self::$curl_options[CURLOPT_HTTPHEADER])) {
+				self::$curl_options[CURLOPT_HTTPHEADER][] = $auth_header;
+			}
+			
+		} else {
+			
+			throw new GoCardlessClientException('Access token missing');
 		
-		if (!array_search($auth_header, self::$curl_options[CURLOPT_HTTPHEADER])) {
-			self::$curl_options[CURLOPT_HTTPHEADER][] = $auth_header;
 		}
 		
 		// Do query
