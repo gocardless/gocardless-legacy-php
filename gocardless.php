@@ -385,7 +385,19 @@ class GoCardless {
 class GoCardlessClientException extends Exception {
 	
 	// Default error settings
-	public function __construct($description = 'Unknown error') {
+	public function __construct($description = 'Unknown client error') {
+		
+		// Throw an exception
+		parent::__construct($description);
+		
+	}
+		
+}
+
+class GoCardlessArgumentsException extends Exception {
+	
+	// Default error settings
+	public function __construct($description = 'Unknown argument error') {
 		
 		// Throw an exception
 		parent::__construct($description);
