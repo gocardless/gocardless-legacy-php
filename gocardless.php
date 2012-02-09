@@ -239,6 +239,23 @@ class GoCardless {
 	}
 	
 	/**
+	 * Confirm whether a signature is valid
+	 *
+	 * @return string A URL-encoded string of parameters
+	 */
+	function valid_signature($sig, $data, $secret) {
+		
+		$new_sig = $this->generate_signature($data, $secret);
+		
+		if ($new_sig == $sig) {
+			return true;
+		} else {
+			return false;
+		}
+		
+	}
+	
+	/**
 	 * Generates a nonce
 	 *
 	 * @return string Base64 encoded nonce
