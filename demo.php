@@ -1,57 +1,5 @@
 <?php
 
-// Pretty json
-function format_json($json) {
-
-    $result      = '';
-    $pos         = 0;
-    $strLen      = strlen($json);
-    $indentStr   = '  ';
-    $newLine     = "\n";
-    $prevChar    = '';
-    $outOfQuotes = true;
-
-    for ($i=0; $i<=$strLen; $i++) {
-
-        // Grab the next character in the string.
-        $char = substr($json, $i, 1);
-
-        // Are we inside a quoted string?
-        if ($char == '"' && $prevChar != '\\') {
-            $outOfQuotes = !$outOfQuotes;
-
-        // If this character is the end of an element, 
-        // output a new line and indent the next line.
-        } else if(($char == '}' || $char == ']') && $outOfQuotes) {
-            $result .= $newLine;
-            $pos --;
-            for ($j=0; $j<$pos; $j++) {
-                $result .= $indentStr;
-            }
-        }
-
-        // Add the character to the result string.
-        $result .= $char;
-
-        // If the last character was the beginning of an element, 
-        // output a new line and indent the next line.
-        if (($char == ',' || $char == '{' || $char == '[') && $outOfQuotes) {
-            $result .= $newLine;
-            if ($char == '{' || $char == '[') {
-                $pos ++;
-            }
-
-            for ($j = 0; $j < $pos; $j++) {
-                $result .= $indentStr;
-            }
-        }
-
-        $prevChar = $char;
-    }
-
-    return $result;
-}
-
 // First create your application in the GoCardless sandbox:
 // https://sandbox.gocardless.com
 // Then grab your application identifier and secret...
@@ -59,7 +7,7 @@ function format_json($json) {
 // Include library
 include_once 'gocardless.php';
 
-// ...and paste them in here
+// ...and paste them in here:
 
 // Config vars
 $gocardless_config = array(
