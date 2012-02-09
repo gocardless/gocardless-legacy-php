@@ -75,26 +75,28 @@ $gocardless_config = array(
 // Initialize GoCardless
 $gocardless = new GoCardless($gocardless_config);
 
-if ($_GET) {
+if (isset($_GET['resource_id']) && isset($_GET['resource_type'])) {
 	// Can haz get vars so time to confirm payment
 	
-	if (isset($_GET['resource_id']) && isset($_GET['resource_type'])) {
+	$confirm_params = array(
+		'resource_id'	=> $_GET['resource_id'],
+		'resource_type'	=> $_GET['resource_type']
+	);
+	
+	$confirm = $gocardless->confirm_resource($confirm_params);
+	
+	$confirm_decoded = json_decode($confirm, true);
+	
+	if ($confirm_decoded['success'] == TRUE) {
 		
-		$confirm_result = $gocardless->confirm_resource($_GET['resource_id'], $_GET['resource_type']);
-		$confirm = json_decode($confirm_result, true);
+		echo '<p>Payment confirmed!</p>';
 		
-		if ($confirm['result'] == TRUE) {
-			
-			echo '<p>Payment confirmed!</p>';
-			
-		} else {
-			
-			echo 'Payment not confirmed, following message was returned:';
-			echo '<pre>';
-			var_dump($confirm_result);
-			echo '</pre>';
-			
-		}
+	} else {
+		
+		echo 'Payment not confirmed, following message was returned:';
+		echo '<pre>';
+		var_dump($confirm);
+		echo '</pre>';
 		
 	}
 	
