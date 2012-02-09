@@ -89,10 +89,10 @@ if ($_GET) {
 			
 		} else {
 			
-			echo 'Confirm result:';
+			echo 'Payment not confirmed, following message was returned:';
 			echo '<pre>';
 			var_dump($confirm_result);
-			echo '</pre>';			
+			echo '</pre>';
 			
 		}
 		
