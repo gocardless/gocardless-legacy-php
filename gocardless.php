@@ -140,7 +140,13 @@ class GoCardless {
 	 *
 	 * @return string The result of the HTTP request
 	 */
-	public function confirm_resource($resource_id, $resource_type) {
+	public function confirm_resource($params) {
+		
+		foreach ($params as $key => $value) {
+			if (!isset($value)) {
+				throw new GoCardlessArgumentsException("$key missing");
+			}
+		}
 		
 		// Build url
 		$url = $this->base_url . $this->api_path . '/confirm';
@@ -148,18 +154,13 @@ class GoCardless {
 		// Prep curl for http basic auth
 		self::$curl_options[CURLOPT_USERPWD] = $this->app_id . ':' . $this->app_secret;
 		
-		$params = array(
-			'resource_id'	=> $resource_id,
-			'resource_type'	=> $resource_type
-		);
-		
 		// If no method-specific redirect submitted, use class level if available
 		if (!isset($params['redirect_uri']) && $this->redirect_uri) {
 			$params['redirect_uri'] = $this->redirect_uri;
 		}
 		
 		// Do query
-		$confirm = $this->send_get_request($url, $params);
+		$confirm = $this->send_post_request($url, $params);
 		
 		// Return the result
 		return $confirm;
@@ -315,6 +316,8 @@ class GoCardless {
 		
 		if ($params != null) {
 			$url .= http_build_query($params, null, '&');
+		//} else {
+		//	throw new GoCardlessArgumentsException();
 		}
 		
 		return $this->make_request($url);
@@ -366,6 +369,11 @@ class GoCardless {
 		curl_setopt_array($ch, self::$curl_options);
 		
 		$result = curl_exec($ch);
+		
+		// Debug
+		//echo "<pre>URL: $url\nVars: ";
+		//print_r(curl_getinfo($ch));
+		//echo "</pre>";
 		
 		// Grab the response code and throw an exception if it's not 200
 		$http_response_code = curl_getinfo($ch, CURLINFO_HTTP_CODE);
