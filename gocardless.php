@@ -235,11 +235,13 @@ class GoCardless {
 	}
 	
 	/**
-	 * Magical function to generate, encode, re-order variables for
-	 * the query string.
+	 * Generates, encodes, re-orders variables for the query string.
 	 *
+	 * @param array $params The specific parameters for this payment
+	 * @param array $pairs
+	 * @param string $namespace
 	 *
-	 * @return string A URL-encoded string of parameters
+	 * @return string An encoded string of parameters
 	 */
 	private function generate_query_string($params, &$pairs = array(), $namespace = null) {
 		
@@ -323,6 +325,11 @@ class GoCardless {
 		
 	}
 	
+	/**
+	 * Fetches a resource from an API endpoint
+	 *
+	 * @return string The returned resource
+	 */
 	function fetch_resource($endpoint, $method = 'GET') {
 		
 		// Build URL
