@@ -312,13 +312,7 @@ class GoCardless {
 	 *
 	 * @return string The response text
 	 */
-	protected function send_get_request($url, $params = null) {
-		
-		if ($params != null) {
-			$url .= http_build_query($params, null, '&');
-		//} else {
-		//	throw new GoCardlessArgumentsException();
-		}
+	protected function send_get_request($url) {
 		
 		return $this->make_request($url);
 		
