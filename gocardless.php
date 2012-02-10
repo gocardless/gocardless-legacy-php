@@ -1,5 +1,12 @@
 <?php
 
+if (!function_exists('curl_init')) {
+  throw new Exception('GoCardless needs the CURL PHP extension.');
+}
+if (!function_exists('json_decode')) {
+  throw new Exception('GoCardless needs the JSON PHP extension.');
+}
+
 // Include subclasses
 include_once 'lib/utils.php';
 include_once 'lib/resource.php';
