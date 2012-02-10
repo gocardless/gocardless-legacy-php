@@ -8,13 +8,13 @@ if (!function_exists('json_decode')) {
 }
 
 // Include subclasses
-include_once 'lib/utils.php';
-include_once 'lib/resource.php';
-include_once 'lib/client.php';
-include_once 'lib/merchant.php';
-include_once 'lib/subscription.php';
-include_once 'lib/pre_authorization.php';
-include_once 'lib/bill.php';
+require 'lib/utils.php';
+require 'lib/resource.php';
+require 'lib/client.php';
+require 'lib/merchant.php';
+require 'lib/subscription.php';
+require 'lib/pre_authorization.php';
+require 'lib/bill.php';
 
 class GoCardless {
 	
