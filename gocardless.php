@@ -62,6 +62,10 @@ class GoCardless {
 	public function confirm_resource($params) {
 		return Client::confirm_resource($params);
 	}
+
+	public function validate_webhook($params) {
+		return Client::validate_webhook($params);
+	}
 	
 }
 
