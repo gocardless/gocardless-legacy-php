@@ -1,6 +1,6 @@
 <?php
 
-class Resource {
+abstract class Resource {
 	
 	public function __construct() {
 		//echo parent::$endpoint;

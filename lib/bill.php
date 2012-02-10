@@ -1,10 +1,6 @@
 <?php
 
-class Bill {
-	
-	public function __construct(&$gocardless) {
-		$this->gocardless = $gocardless;
-	}
+class GoCardless_Bill extends Resource {
 	
 	public function get($id) {
 		$endpoint = 'bills/' . $id;

@@ -1,6 +1,6 @@
 <?php
 
-class Pre_Authorization {
+class GoCardless_Pre_Authorization extends Resource {
 	
 	public function __construct(&$gocardless) {
 		$this->gocardless = $gocardless;

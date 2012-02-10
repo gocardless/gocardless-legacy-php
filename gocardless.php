@@ -22,9 +22,6 @@ abstract class GoCardless {
 	
 	public static $environment;
 	public static $account_details;
-
-	//public static $redirect_uri;
-	//public static $response_format;
 	
 	public static function set_account_details($account_details) {
 		global $client;
@@ -32,20 +29,6 @@ abstract class GoCardless {
 			self::$account_details[$key] = $value;
 		}
 		$client = new Client(self::$account_details);
-	}
-	
-	public function init() {
-		
-		//var_dump(self::$account_details);
-		
-	}
-	
-	public static function create_client($vars) {
-		
-		echo 'hiya';
-		var_dump($vars);
-		//$client = new Client(self::$account_details);
-		
 	}
 	
 	// PUBLIC FUNCTIONS
