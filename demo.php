@@ -10,18 +10,22 @@ include_once 'gocardless.php';
 // ...and paste them in here:
 
 // Config vars
-$gocardless_config = array(
-	'merchant_id'		=> '258584',
+GoCardless::$environment = 'sandbox';
+GoCardless::$account_details = array(
 	'app_id'			=> 'eCxrcWDxjYsQ55zhsDTgs6VeKf6YWZP7be/9rY0PGFbeyqmLJV6k84SUQdISLUhf',
 	'app_secret'		=> '2utXOc65Hy9dolp3urYBMoIN0DM11Q9uuoboFDkHY3nzsugqcuzD1FuJYA7X9TP+',
 	'access_token'		=> '+vJh7dkHLr5rbdqBLlRk3dPALyn0uvAKTMvRnfWOAKcQ6WRCx/QGsdOefGqEs6h6',
-	'environment'		=> 'sandbox',
-	'redirect_uri'		=> 'http://localhost:8888/demo.php',
-	'response_format'	=> 'application/json'
+	'merchant_id'		=> '258584'
 );
+//GoCardless::$base_url = 'http://google.com';
+//'merchant_id'		=> '258584',
+//'environment'		=> 'sandbox',
+//'redirect_uri'		=> 'http://localhost:8888/demo.php',
+//'response_format'	=> 'application/json'
+
 
 // Initialize GoCardless
-$gocardless = new GoCardless($gocardless_config);
+//$gocardless = new GoCardless($gocardless_config);
 
 if (isset($_GET['resource_id']) && isset($_GET['resource_type'])) {
 	// Can haz get vars so time to confirm payment
@@ -31,7 +35,7 @@ if (isset($_GET['resource_id']) && isset($_GET['resource_type'])) {
 		'resource_type'	=> $_GET['resource_type']
 	);
 	
-	$confirm = $gocardless->confirm_resource($confirm_params);
+	$confirm = GoCardless::confirm_resource($confirm_params);
 	
 	$confirm_decoded = json_decode($confirm, true);
 	
@@ -60,8 +64,7 @@ $payment_details = array(
 	'interval_unit'		=> 'month'
 );
 
-$subscription_url = $gocardless->new_subscription_url($payment_details);
-
+$subscription_url = GoCardless::new_subscription_url($payment_details);
 echo '<p><a href="'.$subscription_url.'">New subscription</a>';
 
 // New pre-authorization
@@ -72,8 +75,7 @@ $payment_details = array(
 	'interval_unit'		=> 'month'
 );
 
-$pre_auth_url = $gocardless->new_pre_authorization_url($payment_details);
-
+$pre_auth_url = GoCardless::new_pre_authorization_url($payment_details);
 echo ' &middot; <a href="'.$pre_auth_url.'">New pre-authorized payment</a>';
 
 // New bill
@@ -87,8 +89,7 @@ $payment_details = array(
 		)
 );
 
-$bill_url = $gocardless->new_bill_url($payment_details);
-
+$bill_url = GoCardless::new_bill_url($payment_details);
 echo ' &middot; <a href="'.$bill_url.'">New bill</a></p>';
 
 echo 'NB. The \'new bill\' link is also a demo of pre-populated user data';
@@ -97,7 +98,7 @@ echo '<h2>API calls</h2>';
 
 echo '$gocardless->merchant->get(\'258584\')';
 echo '<blockquote><pre>';
-$merchant = $gocardless->merchant->get(258584);
+$merchant = GoCardless__Merchant::get(258584);
 print_r($merchant);
 echo '</pre></blockquote>';
 

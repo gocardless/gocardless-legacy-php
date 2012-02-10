@@ -1,14 +1,10 @@
 <?php
 
-class Merchant {
+class GoCardless__Merchant {
 	
-	public function __construct(&$gocardless) {
-		$this->gocardless = $gocardless;
-	}
-	
-	public function get($id) {
+	public static function get($id) {
 		$endpoint = 'merchants/' . $id;
-		return $this->gocardless->fetch_resource($endpoint);
+		return GoCardless::fetch_resource($endpoint);
 	}
 	
 	public function subscriptions($id) {
