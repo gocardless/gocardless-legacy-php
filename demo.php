@@ -9,26 +9,19 @@ include_once 'gocardless.php';
 
 // ...and paste them in here:
 
-// Config vars
+// Sandbox
 GoCardless::$environment = 'sandbox';
+
+// Config vars
 GoCardless::$account_details = array(
 	'app_id'			=> 'eCxrcWDxjYsQ55zhsDTgs6VeKf6YWZP7be/9rY0PGFbeyqmLJV6k84SUQdISLUhf',
 	'app_secret'		=> '2utXOc65Hy9dolp3urYBMoIN0DM11Q9uuoboFDkHY3nzsugqcuzD1FuJYA7X9TP+',
 	'access_token'		=> '+vJh7dkHLr5rbdqBLlRk3dPALyn0uvAKTMvRnfWOAKcQ6WRCx/QGsdOefGqEs6h6',
 	'merchant_id'		=> '258584'
 );
-//GoCardless::$base_url = 'http://google.com';
-//'merchant_id'		=> '258584',
-//'environment'		=> 'sandbox',
-//'redirect_uri'		=> 'http://localhost:8888/demo.php',
-//'response_format'	=> 'application/json'
-
-
-// Initialize GoCardless
-//$gocardless = new GoCardless($gocardless_config);
 
 if (isset($_GET['resource_id']) && isset($_GET['resource_type'])) {
-	// Can haz get vars so time to confirm payment
+	// Get vars found so let's try confirming payment
 	
 	$confirm_params = array(
 		'resource_id'	=> $_GET['resource_id'],
@@ -99,6 +92,7 @@ echo '<h2>API calls</h2>';
 echo '$gocardless->merchant->get(\'258584\')';
 echo '<blockquote><pre>';
 $merchant = GoCardless__Merchant::get(258584);
+//Aiming for this: GoCardless__Subcription::find(2)
 print_r($merchant);
 echo '</pre></blockquote>';
 

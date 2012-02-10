@@ -1,15 +1,14 @@
 <?php
 
-class GoCardless__Merchant {
+class GoCardless__Merchant extends Resource {
 	
 	public static function get($id) {
-		$endpoint = 'merchants/' . $id;
-		return GoCardless::fetch_resource($endpoint);
+		$a = GoCardless__Merchant::find($id, 'merchants/' . $id);
 	}
 	
 	public function subscriptions($id) {
-		$endpoint = 'merchants/' . $id . '/subscriptions';
-		return $this->gocardless->fetch_resource($endpoint);
+		$path = 'merchants/' . $id . '/subscriptions';
+		return $this->gocardless->fetch_resource($path);
 	}
 	
 	public function pre_authorizations($id) {

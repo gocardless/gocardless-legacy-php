@@ -1,12 +1,8 @@
 <?php
 
-class Subscription {
+class GoCardless__Subscription extends Resource {
 	
-	public function __construct(&$gocardless) {
-		$this->gocardless = $gocardless;
-	}
-	
-	public function get($id) {
+	public static function get($id) {
 		$endpoint = 'subscriptions/' . $id;
 		return $this->gocardless->fetch_resource($endpoint);
 	}
