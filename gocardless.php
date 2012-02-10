@@ -9,20 +9,44 @@ if (!function_exists('json_decode')) {
 
 // Include subclasses
 require 'lib/utils.php';
-require 'lib/resource.php';
 require 'lib/client.php';
+require 'lib/resource.php';
 require 'lib/merchant.php';
 require 'lib/subscription.php';
 require 'lib/pre_authorization.php';
 require 'lib/bill.php';
 
-class GoCardless {
+global $client;
+
+abstract class GoCardless {
 	
 	public static $environment;
 	public static $account_details;
-	
+
 	//public static $redirect_uri;
 	//public static $response_format;
+	
+	public static function set_account_details($account_details) {
+		global $client;
+		foreach ($account_details as $key => $value) {
+			self::$account_details[$key] = $value;
+		}
+		$client = new Client(self::$account_details);
+	}
+	
+	public function init() {
+		
+		//var_dump(self::$account_details);
+		
+	}
+	
+	public static function create_client($vars) {
+		
+		echo 'hiya';
+		var_dump($vars);
+		//$client = new Client(self::$account_details);
+		
+	}
 	
 	// PUBLIC FUNCTIONS
 	
@@ -75,6 +99,8 @@ class GoCardless {
 	}
 	
 }
+
+//GoCardless::init();
 
 // EXCEPTIONS
 

@@ -14,65 +14,39 @@ class Client {
 	
 	public static $api_path = '/api/v1';
 	
-	public static function init() {
+	public function __construct($vars) {
 		
-		//var_dump(GoCardless::$environment);
-		//
-	    //if (is_null(Client::$base_url)) {
-	    //	Client::$base_url = Client::$base_urls[GoCardless::$environment];
-	    //}
+		// Constructor for creation of a new instance of Client
 		
-		//if (!isset(GoCardless::$account_details['app_id'])) {
-		//	throw new GoCardlessClientException('No app_id specfied');
-		//}
+		// Fetch vars
+		foreach ($vars as $key => $value) {
+			$this->$key = $value;
+		}
 		
-		//echo '<pre>';
-		//var_dump(get_class_vars('GoCardless'));
-		//echo '</pre>';
+		// Check for app_id
+		if (!isset(GoCardless::$account_details['app_id'])) {
+			throw new GoCardlessClientException('No app_id specified');
+		}
 		
-	}
-	
-	public static function init_old() {
+		// Check for app_secret
+		if (!isset(GoCardless::$account_details['app_secret'])) {
+			throw new GoCardlessClientException('No app_secret specfied');
+		}
 		
-		//foreach ($config as $key => $value) {
-		//	//Client::${$key} = $value;
-		//}
-		//
-		//if (!isset($config['app_id'])) {
-		//	throw new GoCardlessClientException('No app_id specfied');
-		//}
-		//
-		//if (!isset($config['app_secret'])) {
-		//	throw new GoCardlessClientException('No app_secret specfied');
-		//}
-		//
-		//// If environment is not set then default to production
-		//if (!isset(Client::$environment)) {
-		//	Client::$environment = 'production';
-		//}
-		//
-		//// If response_format is not set then default to json
-		//if (!isset(Client::$response_format)) {
-		//	Client::$response_format = 'application/json';
-		//}
-		//
+		// If environment is not set then default to production
+		if (!isset(GoCardless::$environment)) {
+			GoCardless::$environment = 'production';
+		}
+		
 		// If base_url is not set then set it based on environment
-
-		//if (!isset(Client::$base_url)) {
-		//	Client::$base_url = Client::$base_urls[GoCardless::$environment];
-		//}
+		if (!isset(Client::$base_url)) {
+			Client::$base_url = Client::$base_urls[GoCardless::$environment];
+		}
 		
-		//if (GoCardless::$environment == 'production') {
-		//	echo ' tis prod!';
-		//} elseif (GoCardless::$environment == 'sandbox') {
-		//	echo ' tis sand!';
-		//}
-		
-		//echo "<pre>Vars: ";
-		//var_dump(get_class_vars('Client'));
-		//echo "\nMethods: ";
-		//var_dump(get_class_methods('Client'));
-		//echo '</pre>';
+		// If response_format is not set then default to json
+		if (!isset(Client::$response_format)) {
+			Client::$response_format = 'application/json';
+		}
 		
 	}
 	
@@ -89,8 +63,8 @@ class Client {
 	 *
 	 * @return string The response text
 	 */
-	protected function api_get($path, $params = array()) {
-		return Client::request('get', $path, $params);
+	public function api_get($path, $params = array()) {
+		return Client::request('get', Client::$base_url . $path, $params);
 	}
 	
 	/**
@@ -101,8 +75,8 @@ class Client {
 	 *
 	 * @return string The response text
 	 */
-	protected function api_post($path, $data = array()) {
-		return Client::request('post', $path, $data);
+	public function api_post($path, $data = array()) {
+		return Client::request('post', Client::$base_url . $path, $data);
 	}
 
 	// api_put
@@ -231,11 +205,8 @@ class Client {
 		
 		// $params['curl_opts'][CURLOPT_USERPWD]
 		
-		if (is_array($opts['curl_opts'])) {
-			foreach ($opts['curl_opts'] as $key => $value) {
-				$curl_options[$key] = $value;
-			}
-			unset($opts['curl_opts']);
+		if ($opts['curl_opts']['authorization'] == true) {
+			$curl_options[CURLOPT_HTTPHEADER] = 'Authorization: Bearer ' . GoCardless::$account_details['access_token'];
 		}
 		
 		if ($method == 'post') {
@@ -248,38 +219,38 @@ class Client {
 			
 		} elseif ($method == 'get') {
 			
-			
+			$curl_options[CURLOPT_HTTPGET] = 1;
 			
 		}
 		
 		// Debug
-		//if ($method == 'post') {
-		//	// POST request, so show url and vars
-		//	$vars = htmlspecialchars(print_r($curl_options[CURLOPT_POSTFIELDS], true));
-		//	echo '<pre>';
-		//	echo "POST: $path\n";
-		//	echo "Post vars sent:\n";
-		//	echo "$vars\n";
-		//	echo "Full curl vars:\n";
-		//	print_r($curl_options);
-		//	echo '</pre>';
-		//} elseif ($method == 'get') {
-		//	// GET request, so show just show url
-		//	echo '<pre>';
-		//	echo "GET: $path\n";
-		//	echo '</pre>';
-		//} else {
-		//	echo "Method not set!";
-		//}
+		if ($method == 'post') {
+			// POST request, so show url and vars
+			$vars = htmlspecialchars(print_r($curl_options[CURLOPT_POSTFIELDS], true));
+			echo "<pre>\n\nRequest\n\nPOST: $path\n";
+			echo "Post vars sent:\n";
+			echo "$vars\n";
+			echo "Full curl vars:\n";
+			print_r($curl_options);
+			echo '</pre>';
+		} elseif ($method == 'get') {
+			// GET request, so show just show url
+			echo "<pre>\n\nRequest\nGET: $path\n";
+			echo "Full curl vars: ";
+			print_r($curl_options);
+			echo '</pre>';
+		} else {
+			echo "Method not set!";
+		}
 		
 		curl_setopt_array($ch, $curl_options);
 		
 		$result = curl_exec($ch);
 		
 		// Debug
-		//echo "<pre>\n\nResult\n\nUrl: $path\nVars: ";
-		//print_r(curl_getinfo($ch));
-		//echo "</pre>";
+		echo "<pre>\nCurl result: ";
+		print_r(curl_getinfo($ch));
+		echo "</pre>";
 		
 		// Grab the response code and throw an exception if it's not 200
 		$http_response_code = curl_getinfo($ch, CURLINFO_HTTP_CODE);
@@ -372,7 +343,5 @@ class Client {
 	}
 
 }
-
-Client::init();
 
 ?>

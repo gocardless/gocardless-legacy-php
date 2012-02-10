@@ -1,9 +1,11 @@
 <?php
 
-class GoCardless__Merchant extends Resource {
+class GoCardless_Merchant extends Resource {
+	
+	public static $endpoint = '/merchants/:id';
 	
 	public static function get($id) {
-		$a = GoCardless__Merchant::find($id, 'merchants/' . $id);
+		return GoCardless_Merchant::find($id, 'merchants/' . $id);
 	}
 	
 	public function subscriptions($id) {

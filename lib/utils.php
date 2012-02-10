@@ -82,18 +82,17 @@ class Utils {
 	 *
 	 * @return object The returned resource
 	 */
-	static function fetch_resource($endpoint, $method = 'GET') {
+	public static function fetch_resource($endpoint, $method = 'GET') {
 		
-		// Build URL
-		$url = $this->base_url . $this->api_path . '/' . $endpoint;
 		$params = array();
 		
-		if (isset($this->access_token)) {
+		if (isset(GoCardless::$account_details['access_token'])) {
 			
 			// Add Authorization header
-			$auth_header = 'Authorization: Bearer ' . $this->access_token;
+			//$auth_header = 'Authorization: Bearer ' . GoCardless::$account_details['access_token'];
+			//$params['curl_opts'][CURLOPT_HTTPHEADER] = $auth_header;
 			
-			$params['curl_opts'][CURLOPT_HTTPHEADER] = $auth_header;
+			$params['curl_opts']['authorization'] = true;
 			
 			//if (!array_search($auth_header, $curl_options[CURLOPT_HTTPHEADER])) {
 			//	$curl_options[CURLOPT_HTTPHEADER][] = $auth_header;
@@ -107,9 +106,9 @@ class Utils {
 		
 		// Do query
 		if ($method == 'GET') {
-			$result = $this->api_get($url, $params);
+			$result = Client::api_get(Client::$api_path . $endpoint, $params);
 		} else {
-			$result = $this->api_post($url, $params);
+			$result = Client::api_post(Client::$api_path . $endpoint, $params);
 		}
 		
 		$object = json_decode($result);

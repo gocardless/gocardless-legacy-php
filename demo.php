@@ -12,13 +12,21 @@ include_once 'gocardless.php';
 // Sandbox
 GoCardless::$environment = 'sandbox';
 
-// Config vars
-GoCardless::$account_details = array(
+//// Config vars, original style
+//GoCardless::$account_details = array(
+//	'app_id'			=> 'eCxrcWDxjYsQ55zhsDTgs6VeKf6YWZP7be/9rY0PGFbeyqmLJV6k84SUQdISLUhf',
+//	'app_secret'		=> '2utXOc65Hy9dolp3urYBMoIN0DM11Q9uuoboFDkHY3nzsugqcuzD1FuJYA7X9TP+',
+//	'access_token'		=> '+vJh7dkHLr5rbdqBLlRk3dPALyn0uvAKTMvRnfWOAKcQ6WRCx/QGsdOefGqEs6h6',
+//	'merchant_id'		=> '258584'
+//);
+
+// Config vars, stripe style
+GoCardless::set_account_details(array(
 	'app_id'			=> 'eCxrcWDxjYsQ55zhsDTgs6VeKf6YWZP7be/9rY0PGFbeyqmLJV6k84SUQdISLUhf',
 	'app_secret'		=> '2utXOc65Hy9dolp3urYBMoIN0DM11Q9uuoboFDkHY3nzsugqcuzD1FuJYA7X9TP+',
 	'access_token'		=> '+vJh7dkHLr5rbdqBLlRk3dPALyn0uvAKTMvRnfWOAKcQ6WRCx/QGsdOefGqEs6h6',
 	'merchant_id'		=> '258584'
-);
+));
 
 if (isset($_GET['resource_id']) && isset($_GET['resource_type'])) {
 	// Get vars found so let's try confirming payment
@@ -89,24 +97,29 @@ echo 'NB. The \'new bill\' link is also a demo of pre-populated user data';
 
 echo '<h2>API calls</h2>';
 
-echo '$gocardless->merchant->get(\'258584\')';
+echo 'GoCardless_Merchant::find(258584)';
 echo '<blockquote><pre>';
-$merchant = GoCardless__Merchant::get(258584);
-//Aiming for this: GoCardless__Subcription::find(2)
+
+$merchant = GoCardless_Merchant::find(258584);
+var_dump($merchant);
+
+//print_r(get_class_methods('GoCardless_Merchant'));
+
+//Aiming for this: GoCardless_Merchant::find(2)
 print_r($merchant);
 echo '</pre></blockquote>';
 
 echo '$gocardless->merchant->bills(\'258584\')';
 echo '<blockquote><pre>';
-$bills = $gocardless->merchant->bills(258584);
-print_r($bills);
+//$bills = $gocardless->merchant->bills(258584);
+//print_r($bills);
 echo '</pre></blockquote>';
 
 echo 'validate webhook:';
 echo '<blockquote><pre>';
 $webhook_json = '{"payload":{"bills":[{"id":"880807"},{"status":"pending"},{"source_type":"subscription"},{"source_id":"21"},{"uri":"https:\/\/sandbox.gocardless.com\/api\/v1\/bills\/880807"}],"action":"created","resource_type":"bill","signature":"f25a611fb9afbc272ab369ead52109edd8a88cbb29a3a00903ffbce0ec6be5cb"}}';
 $webhook = json_decode($webhook_json, true);
-var_dump($gocardless->validate_webhook($webhook));
+var_dump(GoCardless::validate_webhook($webhook));
 echo '</pre></blockquote>';
 
 ?>
