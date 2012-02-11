@@ -224,33 +224,33 @@ class Client {
 		}
 		
 		// Debug
-		if ($method == 'post') {
-			// POST request, so show url and vars
-			$vars = htmlspecialchars(print_r($curl_options[CURLOPT_POSTFIELDS], true));
-			echo "<pre>\n\nRequest\n\nPOST: $path\n";
-			echo "Post vars sent:\n";
-			echo "$vars\n";
-			echo "Full curl vars:\n";
-			print_r($curl_options);
-			echo '</pre>';
-		} elseif ($method == 'get') {
-			// GET request, so show just show url
-			echo "<pre>\n\nRequest\nGET: $path\n";
-			echo "Full curl vars: ";
-			print_r($curl_options);
-			echo '</pre>';
-		} else {
-			echo "Method not set!";
-		}
+		//if ($method == 'post') {
+		//	// POST request, so show url and vars
+		//	$vars = htmlspecialchars(print_r($curl_options[CURLOPT_POSTFIELDS], true));
+		//	echo "<pre>\n\nRequest\n\nPOST: $path\n";
+		//	echo "Post vars sent:\n";
+		//	echo "$vars\n";
+		//	echo "Full curl vars:\n";
+		//	print_r($curl_options);
+		//	echo '</pre>';
+		//} elseif ($method == 'get') {
+		//	// GET request, so show just show url
+		//	echo "<pre>\n\nRequest\nGET: $path\n";
+		//	echo "Full curl vars: ";
+		//	print_r($curl_options);
+		//	echo '</pre>';
+		//} else {
+		//	echo "Method not set!";
+		//}
 		
 		curl_setopt_array($ch, $curl_options);
 		
 		$result = curl_exec($ch);
 		
 		// Debug
-		echo "<pre>\nCurl result: ";
-		print_r(curl_getinfo($ch));
-		echo "</pre>";
+		//echo "<pre>\nCurl result: ";
+		//print_r(curl_getinfo($ch));
+		//echo "</pre>";
 		
 		// Grab the response code and throw an exception if it's not 200
 		$http_response_code = curl_getinfo($ch, CURLINFO_HTTP_CODE);
