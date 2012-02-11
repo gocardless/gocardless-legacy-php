@@ -8,7 +8,7 @@ class GoCardless_Merchant {
 	}
 	
 	public function subscriptions($id) {
-		$endoint = 'merchants/' . $id . '/subscriptions';
+		$endpoint = 'merchants/' . $id . '/subscriptions';
 		return Utils::fetch_resource($path);
 	}
 	
