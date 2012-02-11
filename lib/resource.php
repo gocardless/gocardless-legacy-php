@@ -2,14 +2,19 @@
 
 abstract class Resource {
 	
+	//public static $type = 123;
+	
+	public static function set_endpoint($foo = 'foo') {
+		self::$type = $foo;
+	}
+	
 	public function __construct() {
-		//echo parent::$endpoint;
+		//Resource::$type = 'Merchant';
 	}
 	
 	function new_with_client($client_obj, $attrs) {
 		//return self::new($attrs).tap { |obj| obj.client = client }
 	}
-	
 	
 	function find_with_client($client_obj, $id) {
 		
@@ -21,10 +26,13 @@ abstract class Resource {
         // obj.client = client_obj
         // obj
 		
-		//return self::$endpoint;
+		echo 'hi';
+		var_dump(Client::$endpoint);
 		
-		$path = GoCardless_Merchant::$endpoint;
-		$path = substr($path, 0, -3).$id;
+		//echo parent::endpoint();
+		var_dump(get_class_vars('GoCardless_Merchant'));
+		
+		$path = substr(GoCardless_Merchant::$endpoint, 0, -3) . $id;
 		
 		return Utils::fetch_resource($path);
 		
