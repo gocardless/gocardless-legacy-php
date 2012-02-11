@@ -14,12 +14,15 @@ class Client {
 	
 	public static $api_path = '/api/v1';
 	
-	public function __construct($vars) {
+	/**
+	 * Constructor, creates a new instance of Client
+	 *
+	 * @param array $account_details Parameters 
+	 */
+	public function __construct($account_details) {
 		
-		// Constructor for creation of a new instance of Client
-		
-		// Fetch vars
-		foreach ($vars as $key => $value) {
+		// Fetch account_details
+		foreach ($account_details as $key => $value) {
 			$this->$key = $value;
 		}
 		
