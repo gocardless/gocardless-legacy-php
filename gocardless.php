@@ -9,6 +9,7 @@ if (!function_exists('json_decode')) {
 
 // Include subclasses
 require 'lib/utils.php';
+require 'lib/exceptions.php';
 require 'lib/client.php';
 require 'lib/resource.php';
 require 'lib/merchant.php';
@@ -81,51 +82,6 @@ abstract class GoCardless {
 		return Client::validate_webhook($params);
 	}
 	
-}
-
-//GoCardless::init();
-
-// EXCEPTIONS
-
-class GoCardlessClientException extends Exception {
-	
-	// Default error settings
-	public function __construct($description = 'Unknown client error') {
-		
-		// Throw an exception
-		parent::__construct($description);
-		
-	}
-		
-}
-
-class GoCardlessArgumentsException extends Exception {
-	
-	// Default error settings
-	public function __construct($description = 'Unknown argument error') {
-		
-		// Throw an exception
-		parent::__construct($description);
-		
-	}
-		
-}
-
-class GoCardlessApiException extends Exception {
-	
-	// Default error settings
-	public function __construct($description = 'Unknown error', $code = 0) {
-		
-		// Description is sometimes an empty array
-		if (empty($description)) {
-			$description = 'Unknown error';
-		}
-		
-		// Throw an exception
-		parent::__construct($description, $code);
-		
-	}
-		
 }
 
 ?>
