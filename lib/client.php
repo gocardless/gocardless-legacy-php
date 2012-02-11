@@ -14,6 +14,9 @@ class Client {
 	
 	public static $api_path = '/api/v1';
 	
+	public static $oauth_token;
+	public static $access_token;
+	
 	/**
 	 * Constructor, creates a new instance of Client
 	 *
@@ -53,10 +56,73 @@ class Client {
 		
 	}
 	
-	// authorize_url
-	// fetch_access_token
-	// access_token
-	// access_token
+	public function authorize_url($options) {
+		
+		//raise ArgumentError, ':redirect_uri required' unless options[:redirect_uri]
+	    //params = {
+	    //  :client_id => @app_id,
+	    //  :response_type => 'code',
+	    //  :scope => 'manage_merchant'
+	    //}
+	    //@oauth_client.authorize_url(params.merge(options))
+		
+		if (!isset($options['redirect_url'])) {
+			throw new GoCardlessArgumentsException('redirect_url required');
+		}
+		
+		$params = array(
+			'client_id'		=> GoCardless::$account_details['app_id'],
+			'response_type'	=> 'code',
+			'scope'			=> 'manage_merchant'
+		);
+		
+		// ? oauth.authorize_url
+		
+	}
+	
+	public function fetch_access_token($auth_code, $options){
+		
+		//raise ArgumentError, ':redirect_uri required' unless options[:redirect_uri]
+		//@access_token = @oauth_client.auth_code.get_token(auth_code, options)
+		//self.access_token
+		
+		if (!isset($options['redirect_url'])) {
+			throw new GoCardlessArgumentsException('redirect_url required');
+		}
+		
+		// ? Client::$access_token = oauth.get_token();
+		
+		return Client::$access_token;
+		
+	}
+	
+	public function access_token() {
+		
+		//if @access_token
+		//scope = @access_token.params[:scope] || @access_token.params['scope']
+		//"#{@access_token.token} #{scope}".strip
+		
+		if (Client::$access_token) {
+			$scope = Client::$access_token;
+		}
+		
+		// ? return the results of .strip
+		
+	}
+	
+	public function access_token2() {
+		
+		//token, scope = token.sub(/^bearer\s+/i, '').split(' ', 2)
+		//if scope.nil?
+		//	raise ArgumentError, ('Access token missing scope. Use format <token> <scope>')
+		//end
+		//
+		//@access_token = OAuth2::AccessToken.new(@oauth_client, token)
+		//@access_token.params['scope'] = scope
+		
+		// ?
+		
+	}
 	
 	/**
 	 * Configure a GET request
@@ -83,13 +149,75 @@ class Client {
 	}
 	
 	// api_put
-	// Merchant
-	// Subscription
-	// pre_authorization
-	// user
-	// bill	
-	// payment
-	// Create bill
+	
+	public function merchant() {
+		
+		// # returns the merchant associated with the client's access token
+		
+		// Merchant.new_with_client(self, api_get("/merchants/#{merchant_id}"))
+		
+		if (!isset(Client::$access_token)) {
+			throw new GoCardlessClientException('Access token missing');
+		}
+		
+		// ? return GoCardless_Merchant::get();
+		
+	}
+	
+	public function subscription($id) {
+		
+		// Subscription.find_with_client(self, id)
+		
+		return GoCardless_Subscription::get($id);
+		
+	}
+	
+	public function pre_authorization($id) {
+		
+		// PreAuthorization.find_with_client(self, id)
+		
+		return GoCardless_Pre_Authorization::get($id);
+		
+	}
+	
+	public function user($id) {
+		
+		// User.find_with_client(self, id)
+		
+		return GoCardless_User::get($id);
+		
+	}
+	
+	public function bill($id) {
+		
+		// Bill.find_with_client(self, id)
+		
+		return GoCardless_Bill::get($id);
+		
+	}
+	
+	public function payment($id) {
+		
+		// Payment.find_with_client(self, id)
+		
+		return GoCardless_Payment::get($id);
+		
+	}
+	
+	public function create_bill($attrs) {
+	
+		// # Create a new bill under a given pre-authorization
+    	// # @see PreAuthorization#create_bill
+    	// #
+    	// # @param [Hash] attrs must include +:pre_authorization_id+ and +:amount+
+    	// # @return [Bill] the created bill object
+    	// def create_bill(attrs)
+    	//   Bill.new_with_client(self, attrs).save
+    	// end
+		
+		// ? return GoCardless_Bill::new($attrs);
+		
+	}
 	
 	/**
 	 * Generate a URL to give a user to create a new subscription
