@@ -1,19 +1,15 @@
 <?php
 
-class GoCardless_Pre_Authorization extends Resource {
-	
-	public function __construct(&$gocardless) {
-		$this->gocardless = $gocardless;
-	}
+class GoCardless_Pre_Authorization {
 	
 	public function get($id) {
 		$endpoint = 'pre_authorizations/' . $id;
-		return $this->gocardless->fetch_resource($endpoing);
+		return Utils::fetch_resource($endpoint);
 	}
 	
 	public function cancel($id) {
 		$endpoint = 'pre_authorizations/' . $id . '/cancel';
-		return $this->gocardless->fetch_resource($endpoint);
+		return Utils::fetch_resource($endpoint);
 	}
 	
 }
