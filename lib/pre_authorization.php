@@ -2,7 +2,7 @@
 
 class GoCardless_Pre_Authorization {
 	
-	public function get($id) {
+	public function find($id) {
 		$endpoint = 'pre_authorizations/' . $id;
 		return Utils::fetch_resource($endpoint);
 	}

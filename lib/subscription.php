@@ -2,7 +2,7 @@
 
 class GoCardless_Subscription {
 	
-	public static function get($id) {
+	public static function find($id) {
 		$endpoint = 'subscriptions/' . $id;
 		return Utils::fetch_resource($endpoint);
 	}

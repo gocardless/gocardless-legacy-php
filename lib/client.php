@@ -160,7 +160,7 @@ class Client {
 			throw new GoCardlessClientException('Access token missing');
 		}
 		
-		// ? return GoCardless_Merchant::get();
+		// ? return GoCardless_Merchant::find();
 		
 	}
 	
@@ -168,7 +168,7 @@ class Client {
 		
 		// Subscription.find_with_client(self, id)
 		
-		return GoCardless_Subscription::get($id);
+		return GoCardless_Subscription::find($id);
 		
 	}
 	
@@ -176,7 +176,7 @@ class Client {
 		
 		// PreAuthorization.find_with_client(self, id)
 		
-		return GoCardless_Pre_Authorization::get($id);
+		return GoCardless_Pre_Authorization::find($id);
 		
 	}
 	
@@ -184,7 +184,7 @@ class Client {
 		
 		// User.find_with_client(self, id)
 		
-		return GoCardless_User::get($id);
+		return GoCardless_User::find($id);
 		
 	}
 	
@@ -192,7 +192,7 @@ class Client {
 		
 		// Bill.find_with_client(self, id)
 		
-		return GoCardless_Bill::get($id);
+		return GoCardless_Bill::find($id);
 		
 	}
 	
@@ -200,7 +200,7 @@ class Client {
 		
 		// Payment.find_with_client(self, id)
 		
-		return GoCardless_Payment::get($id);
+		return GoCardless_Payment::find($id);
 		
 	}
 	

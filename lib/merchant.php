@@ -2,7 +2,7 @@
 
 class GoCardless_Merchant {
 	
-	public function get($id) {
+	public function find($id) {
 		$endpoint = 'merchants/' . $id;
 		return Utils::fetch_resource($path);
 	}

@@ -94,7 +94,7 @@ class GoCardlessTest extends PHPUnit_Framework_TestCase {
 		
 		$this->_GoCardless = new GoCardless($this->config);
 		$this->_GoCardless->attach($mock);
-		$this->_GoCardless->merchant->get('258584');
+		$this->_GoCardless->merchant->find('258584');
 		
 		// Create a Mock Object for the Observer class
 		// mocking only the update() method.

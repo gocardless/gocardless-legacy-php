@@ -2,7 +2,7 @@
 
 class GoCardless_Bill {
 	
-	public function get($id) {
+	public function find($id) {
 		$endpoint = 'bills/' . $id;
 		return Utils::fetch_resource($endpoint);
 	}
