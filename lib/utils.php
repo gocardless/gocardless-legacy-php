@@ -34,6 +34,9 @@ class Utils {
 	/**
 	 * Generate a signature for a request given the app secret
 	 *
+	 * @param array $params The parameters to generate a signature for
+	 * @param string $key The key to generate the signature with
+	 *
 	 * @return string A URL-encoded string of parameters
 	 */
 	public static function generate_signature($params, $key) {
@@ -46,8 +49,8 @@ class Utils {
 	 * Generates, encodes, re-orders variables for the query string.
 	 *
 	 * @param array $params The specific parameters for this payment
-	 * @param array $pairs
-	 * @param string $namespace
+	 * @param array $pairs Pairs
+	 * @param string $namespace The namespace
 	 *
 	 * @return string An encoded string of parameters
 	 */
@@ -89,9 +92,12 @@ class Utils {
 	/**
 	 * Fetches a resource from an API endpoint
 	 *
+	 * @param string $endpoint The endpoint to send the request to
+	 * @param string $method The method to use to send the request
+	 *
 	 * @return object The returned resource
 	 */
-	public static function fetch_resource($endpoint, $method = 'GET') {
+	public static function fetch_resource($endpoint, $method = 'get') {
 		
 		$params = array();
 		

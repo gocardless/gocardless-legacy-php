@@ -47,7 +47,7 @@ abstract class GoCardless {
 	/**
 	 * Initialization function called with account details
 	 *
-	 * $param array Array of account details
+	 * $account_details array Array of account details
 	 */
 	public static function set_account_details($account_details) {
 		global $client;

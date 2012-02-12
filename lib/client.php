@@ -184,7 +184,7 @@ class Client {
 	/**
 	 * Configure a GET request
 	 *
-	 * @param string $url The URL to make the request to
+	 * @param string $path The URL to make the request to
 	 * @param array $params The parameters to use for the POST body
 	 *
 	 * @return string The response text
@@ -196,8 +196,8 @@ class Client {
 	/**
 	 * Configure a POST request
 	 *
-	 * @param string $url The URL to make the request to
-	 * @param array $params The parameters to use for the POST body
+	 * @param string $path The URL to make the request to
+	 * @param array $data The parameters to use for the POST body
 	 *
 	 * @return string The response text
 	 */
@@ -209,6 +209,8 @@ class Client {
 	
 	/**
 	 * Returns the merchant associated with the client's access token
+	 *
+	 * @param string $id The id of the merchant to fetch
 	 *
 	 * @return object The merchant object
 	 */
@@ -227,6 +229,8 @@ class Client {
 	/**
 	 * Get a specific subscription
 	 *
+	 * @param string $id The id of the subscription to fetch
+	 *
 	 * @return object The subscription matching the id requested
 	 */
 	public function subscription($id) {
@@ -239,6 +243,8 @@ class Client {
 	
 	/**
 	 * Get a specific pre_authorization
+	 *
+	 * @param string $id The id of the pre_authorization to fetch
 	 *
 	 * @return object The pre-authorization matching the id requested
 	 */
@@ -253,6 +259,8 @@ class Client {
 	/**
 	 * Get a specific user
 	 *
+	 * @param string $id The id of the user to fetch
+	 *
 	 * @return object The user object matching the id requested
 	 */
 	public function user($id) {
@@ -266,6 +274,8 @@ class Client {
 	/**
 	 * Get a specific bill
 	 *
+	 * @param string $id The id of the bill to fetch
+	 *
 	 * @return object The bill object matching the id requested
 	 */
 	public function bill($id) {
@@ -277,11 +287,11 @@ class Client {
 	}
 	
 	/**
-	 * Create a new bill under a given pre-authorization
+	 * Get a specific payment
 	 *
-	 * @param array $attrs Must include pre_authorization_id and amount
+	 * @param string $id The id of the payment to fetch
 	 *
-	 * @return string The new bill object
+	 * @return object The payment object matching the id requested
 	 */
 	public function payment($id) {
 		
@@ -413,8 +423,9 @@ class Client {
 	/**
 	 * Makes an HTTP request
 	 *
-	 * @param string $url The URL to make the request to
-	 * @param array $params The parameters to use for the POST body
+	 * @param string $method The method to use for the request
+	 * @param string $path The API path to make the request to
+	 * @param array $opts The parameters to use for the request
 	 *
 	 * @return string The response text
 	 */
@@ -495,6 +506,8 @@ class Client {
 	/**
 	 * Confirm whether a signature is valid
 	 *
+	 * @param array $params Should include data, secret and signature
+	 *
 	 * @return boolean True or false
 	 */
 	function validate_signature($params) {
@@ -531,8 +544,8 @@ class Client {
 	/**
 	 * Generate a new payment url
 	 *
-	 * @param string $resource Payment type
-	 * @param string $params The specific parameters for this payment
+	 * @param string $type Payment type
+	 * @param string $limit_params The specific parameters for this payment
 	 *
 	 * @return string The new payment URL
 	 */
