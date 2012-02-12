@@ -17,13 +17,28 @@ require 'lib/subscription.php';
 require 'lib/pre_authorization.php';
 require 'lib/bill.php';
 
+/**
+ * Global client var
+ */
 global $client;
 
 abstract class GoCardless {
 	
+	/**
+	 * Environment var: live or sandbox
+	 */
 	public static $environment;
+	
+	/**
+	 * Array of account details
+	 */
 	public static $account_details;
 	
+	/**
+	 * Initialization function called with account details
+	 *
+	 * $param array Array of account details
+	 */
 	public static function set_account_details($account_details) {
 		global $client;
 		foreach ($account_details as $key => $value) {
@@ -77,7 +92,14 @@ abstract class GoCardless {
 	public function confirm_resource($params) {
 		return Client::confirm_resource($params);
 	}
-
+	
+	/**
+	 * Validate the payload of a webhook
+	 *
+	 * @param array $params The payload of the webhook
+	 *
+	 * @return boolean True if webhook signature is valid
+	 */
 	public function validate_webhook($params) {
 		return Client::validate_webhook($params);
 	}

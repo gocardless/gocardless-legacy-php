@@ -401,7 +401,7 @@ class Client {
 	/**
 	 * Confirm whether a signature is valid
 	 *
-	 * @return string A URL-encoded string of parameters
+	 * @return boolean True or false
 	 */
 	function validate_signature($params) {
 		
