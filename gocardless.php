@@ -1,7 +1,7 @@
 <?php
 
 /**
- * GoCardless PHP library
+ * GoCardless PHP library, core class
  *
  * @package GoCardless
  */

@@ -1,6 +1,11 @@
 <?php
 
 /**
+ * GoCardless subscription functions
+ *
+ */
+
+/**
  * GoCardless subscription class
  *
  */

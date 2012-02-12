@@ -1,6 +1,11 @@
 <?php
 
 /**
+ * GoCardless exceptions
+ *
+ */
+
+/**
  * Throw an exception relating to the client object
  *
  * @return exception

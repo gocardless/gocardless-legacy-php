@@ -1,6 +1,11 @@
 <?php
 
 /**
+ * GoCardless utility functions
+ *
+ */
+
+/**
  * GoCardless utils class
  *
  */

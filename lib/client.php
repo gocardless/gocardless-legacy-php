@@ -1,6 +1,11 @@
 <?php
 
 /**
+ * GoCardless client functions
+ *
+ */
+
+/**
  * GoCardless client class
  *
  */

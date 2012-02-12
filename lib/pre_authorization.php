@@ -1,6 +1,11 @@
 <?php
 
 /**
+ * GoCardless pre-authorisation functions
+ *
+ */
+
+/**
  * GoCardless pre-authorization class
  *
  */
