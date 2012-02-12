@@ -3,7 +3,7 @@
 /**
  * GoCardless PHP library
  *
- * @package  GoCardless
+ * @package GoCardless
  */
 
 if (!function_exists('curl_init')) {

@@ -84,7 +84,7 @@ class Client {
 	}
 	
 	/**
-	 * Generate an authorize url for the user
+	 * Generate the OAuth authorize url
 	 *
 	 * @param array $options The parameters to use
 	 *
@@ -232,6 +232,11 @@ class Client {
 		
 	}
 	
+	/**
+	 * Get a specific pre_authorization
+	 *
+	 * @return object The pre-authorization matching the id requested
+	 */
 	public function pre_authorization($id) {
 		
 		// PreAuthorization.find_with_client(self, id)
@@ -240,6 +245,11 @@ class Client {
 		
 	}
 	
+	/**
+	 * Get a specific user
+	 *
+	 * @return object The user object matching the id requested
+	 */
 	public function user($id) {
 		
 		// User.find_with_client(self, id)
@@ -248,6 +258,11 @@ class Client {
 		
 	}
 	
+	/**
+	 * Get a specific bill
+	 *
+	 * @return object The bill object matching the id requested
+	 */
 	public function bill($id) {
 		
 		// Bill.find_with_client(self, id)
@@ -256,6 +271,13 @@ class Client {
 		
 	}
 	
+	/**
+	 * Create a new bill under a given pre-authorization
+	 *
+	 * @param array $attrs Must include pre_authorization_id and amount
+	 *
+	 * @return string The new bill object
+	 */
 	public function payment($id) {
 		
 		// Payment.find_with_client(self, id)
@@ -264,6 +286,13 @@ class Client {
 		
 	}
 	
+	/**
+	 * Create a new bill under a given pre-authorization
+	 *
+	 * @param array $attrs Must include pre_authorization_id and amount
+	 *
+	 * @return string The new bill object
+	 */
 	public function create_bill($attrs) {
 	
 		// # Create a new bill under a given pre-authorization
