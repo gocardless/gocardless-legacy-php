@@ -2,20 +2,36 @@
 
 class Client {
 	
-	public static $redirect_uri;
-	
 	public static $base_url;
 	public static $base_urls = array(
 		'production'	=> 'https://gocardless.com',
 		'sandbox'		=> 'https://sandbox.gocardless.com'
 	);
 	
+	/**
+	 * The url to redirect the user to
+	 */
 	public static $response_format;
 	
+	/**
+	 * The url to redirect the user to
+	 */
 	public static $api_path = '/api/v1';
 	
+	/**
+	 * The url to redirect the user to
+	 */
 	public static $oauth_token;
+
+	/**
+	 * The url to redirect the user to
+	 */
 	public static $access_token;
+	
+	/**
+	 * The url to redirect the user to
+	 */
+	public static $redirect_uri;
 	
 	/**
 	 * Constructor, creates a new instance of Client
@@ -56,6 +72,13 @@ class Client {
 		
 	}
 	
+	/**
+	 * Generate an authorize url for the user
+	 *
+	 * @param array $options The parameters to use
+	 *
+	 * @return string The generated url
+	 */
 	public function authorize_url($options) {
 		
 		//raise ArgumentError, ':redirect_uri required' unless options[:redirect_uri]
@@ -80,6 +103,14 @@ class Client {
 		
 	}
 	
+	/**
+	 * Fetch an access token for the current user
+	 *
+	 * @param string $auth_code The authorization code
+	 * @param array $options The parameters to use
+	 *
+	 * @return string The access token
+	 */
 	public function fetch_access_token($auth_code, $options){
 		
 		//raise ArgumentError, ':redirect_uri required' unless options[:redirect_uri]
@@ -96,6 +127,11 @@ class Client {
 		
 	}
 	
+	/**
+	 * Generate an access token for the current user
+	 *
+	 * @return string The access token
+	 */
 	public function access_token() {
 		
 		//if @access_token
@@ -110,6 +146,11 @@ class Client {
 		
 	}
 	
+	/**
+	 * Set the client's access token
+	 *
+	 * @return string The access token
+	 */
 	public function access_token2() {
 		
 		//token, scope = token.sub(/^bearer\s+/i, '').split(' ', 2)
@@ -150,9 +191,12 @@ class Client {
 	
 	// api_put
 	
+	/**
+	 * Returns the merchant associated with the client's access token
+	 *
+	 * @return object The merchant object
+	 */
 	public function merchant() {
-		
-		// # returns the merchant associated with the client's access token
 		
 		// Merchant.new_with_client(self, api_get("/merchants/#{merchant_id}"))
 		
@@ -164,6 +208,11 @@ class Client {
 		
 	}
 	
+	/**
+	 * Get a specific subscription
+	 *
+	 * @return object The subscription matching the id requested
+	 */
 	public function subscription($id) {
 		
 		// Subscription.find_with_client(self, id)

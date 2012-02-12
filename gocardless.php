@@ -1,5 +1,11 @@
 <?php
 
+/**
+ * GoCardless PHP library
+ *
+ * @package  GoCardless
+ */
+
 if (!function_exists('curl_init')) {
   throw new Exception('GoCardless needs the CURL PHP extension.');
 }
@@ -22,6 +28,9 @@ require 'lib/bill.php';
  */
 global $client;
 
+/**
+ * GoCardless class
+ */
 abstract class GoCardless {
 	
 	/**
