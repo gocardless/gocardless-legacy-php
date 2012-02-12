@@ -3,12 +3,12 @@
 class GoCardless_Pre_Authorization {
 	
 	public function find($id) {
-		$endpoint = 'pre_authorizations/' . $id;
+		$endpoint = '/pre_authorizations/' . $id;
 		return Utils::fetch_resource($endpoint);
 	}
 	
 	public function cancel($id) {
-		$endpoint = 'pre_authorizations/' . $id . '/cancel';
+		$endpoint = '/pre_authorizations/' . $id . '/cancel';
 		return Utils::fetch_resource($endpoint);
 	}
 	

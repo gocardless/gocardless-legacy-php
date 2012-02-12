@@ -42,7 +42,7 @@ class Client {
 		
 		// Fetch account_details
 		foreach ($account_details as $key => $value) {
-			$this->$key = $value;
+			GoCardless::$account_details[$key] = $value;
 		}
 		
 		// Check for app_id
@@ -173,7 +173,7 @@ class Client {
 	 *
 	 * @return string The response text
 	 */
-	public function api_get($path, $params = array()) {
+	public static function api_get($path, $params = array()) {
 		return Client::request('get', Client::$base_url . $path, $params);
 	}
 	
@@ -185,7 +185,7 @@ class Client {
 	 *
 	 * @return string The response text
 	 */
-	public function api_post($path, $data = array()) {
+	public static function api_post($path, $data = array()) {
 		return Client::request('post', Client::$base_url . $path, $data);
 	}
 	
@@ -286,7 +286,7 @@ class Client {
 	 *
 	 * @return string The generated URL
 	 */
-	public function new_pre_authorization_url($params) {
+	public static function new_pre_authorization_url($params) {
 		return Client::new_limit_url('pre_authorization', $params);
 	}
 	
@@ -297,7 +297,7 @@ class Client {
 	 *
 	 * @return string The generated URL
 	 */
-	public function new_bill_url($params) {
+	public static function new_bill_url($params) {
 		return Client::new_limit_url('bill', $params);
 	}
 	
@@ -373,7 +373,7 @@ class Client {
 	 *
 	 * @return string The response text
 	 */
-	protected function request($method, $path, $opts = array()) {
+	protected static function request($method, $path, $opts = array()) {
 		
 		$ch = curl_init($path);
 		

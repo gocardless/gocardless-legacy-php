@@ -41,7 +41,7 @@ abstract class GoCardless {
 	/**
 	 * Array of account details
 	 */
-	public static $account_details;
+	public static $account_details = array();
 	
 	/**
 	 * Initialization function called with account details
@@ -76,7 +76,7 @@ abstract class GoCardless {
 	 *
 	 * @return string The generated URL
 	 */
-	public function new_pre_authorization_url($params) {
+	public static function new_pre_authorization_url($params) {
 		return Client::new_pre_authorization_url($params);
 	}
 	
@@ -87,7 +87,7 @@ abstract class GoCardless {
 	 *
 	 * @return string The generated URL
 	 */
-	public function new_bill_url($params) {
+	public static function new_bill_url($params) {
 		return Client::new_bill_url($params);
 	}
 	

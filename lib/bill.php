@@ -10,7 +10,7 @@ class GoCardless_Bill {
 	 * @return object The bill object
 	 */
 	public function find($id) {
-		$endpoint = 'bills/' . $id;
+		$endpoint = '/bills/' . $id;
 		return Utils::fetch_resource($endpoint);
 	}
 	
@@ -22,7 +22,7 @@ class GoCardless_Bill {
 	 * @return object The result of the cancel query
 	 */
 	public function cancel($id) {
-		$endpoint = 'bills/' . $id . '/cancel';
+		$endpoint = '/bills/' . $id . '/cancel';
 		return Utils::fetch_resource($endpoint);
 	}
 	
