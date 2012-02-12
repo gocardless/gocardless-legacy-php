@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * GoCardless utils class
+ *
+ */
 class Utils {
 	
 	/**

@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * GoCardless bill class
+ *
+ */
 class GoCardless_Bill {
 	
 	/**

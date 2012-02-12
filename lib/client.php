@@ -1,8 +1,19 @@
 <?php
 
+/**
+ * GoCardless client class
+ *
+ */
 class Client {
 	
+	/**
+	 * The (empty) base_url to use for API queries
+	 */
 	public static $base_url;
+	
+	/**
+	 * Array of possible base_urls to use
+	 */
 	public static $base_urls = array(
 		'production'	=> 'https://gocardless.com',
 		'sandbox'		=> 'https://sandbox.gocardless.com'

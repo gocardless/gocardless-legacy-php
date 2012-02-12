@@ -30,6 +30,7 @@ global $client;
 
 /**
  * GoCardless class
+ *
  */
 abstract class GoCardless {
 	
