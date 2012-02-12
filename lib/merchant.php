@@ -2,14 +2,14 @@
 
 class GoCardless_Merchant {
 	
-	public function find($id) {
-		return Utils::fetch_resource($path);
+	public static function find($id) {
 		$endpoint = '/merchants/' . $id;
+		return Utils::fetch_resource($endpoint);
 	}
 	
 	public function subscriptions($id) {
-		return Utils::fetch_resource($path);
 		$endpoint = '/merchants/' . $id . '/subscriptions';
+		return Utils::fetch_resource($endpoint);
 	}
 	
 	public function pre_authorizations($id) {
