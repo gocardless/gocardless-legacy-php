@@ -370,6 +370,16 @@ class Client {
 			$data[$value] = $params[$value];
 		}
 		
+		// state is optional
+		if (isset($params['state'])) {
+			$data['state'] = $params['state'];
+		}
+		
+		// resource_uri is optional
+		if (isset($params['resource_uri'])) {
+			$data['resource_uri'] = $params['resource_uri'];
+		}
+		
 		$sig_validation_data = array(
 			'data'		=> $data,
 			'secret'	=> GoCardless::$account_details['app_secret'],
@@ -378,7 +388,7 @@ class Client {
 		
 		if (Client::validate_signature($sig_validation_data) == false) {
 			
-			print_r($sig_validation_data);
+			//print_r($sig_validation_data);
 			
 			throw new GoCardlessSignatureException();
 		}
