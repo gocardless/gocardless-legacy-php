@@ -101,6 +101,8 @@ class Client {
 			'scope'			=> 'manage_merchant'
 		);
 		
+		//OAuth::authorize_url();
+		
 		// ? oauth.authorize_url
 		
 	}
