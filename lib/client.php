@@ -356,6 +356,9 @@ class Client {
 		// Define confirm endpoint
 		$endpoint = '/confirm';
 		
+		// First validate signature
+		// Then send confirm request
+		
 		// List of required params
 		$required_params = array(
 			'resource_id', 'resource_type'
@@ -393,16 +396,22 @@ class Client {
 			throw new GoCardlessSignatureException();
 		}
 		
-		// Use HTTP Basic Authorization
-		$params['headers']['http_authorization'] = true;
+		// Sig valid, now send confirm request
+		$confirm_params = array(
+			'resource_id'	=> $params['resource_id'],
+			'resource_type'	=> $params['resource_type']
+		);
 		
-		// If no method-specific redirect submitted, use class level if available
+		// Use HTTP Basic Authorization
+		$confirm_params['headers']['http_authorization'] = true;
+		
+		// If no method-specific redirect sent, use class level if available
 		if (!isset($params['redirect_uri']) && isset(Client::$redirect_uri)) {
-			$params['redirect_uri'] = Client::$redirect_uri;
+			$confirm_params['redirect_uri'] = Client::$redirect_uri;
 		}
 		
 		// Do query
-		$confirm = Client::api_post(Client::$api_path . $endpoint, $params);
+		$confirm = Client::api_post(Client::$api_path . $endpoint, $confirm_params);
 		
 		// Return the result
 		return $confirm;
