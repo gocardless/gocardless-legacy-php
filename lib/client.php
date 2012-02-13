@@ -11,42 +11,28 @@
  */
 class Client {
 	
-	/**
-	 * The (empty) base_url to use for API queries
-	 */
+	/** @type string The (empty) base_url to use for API queries */
 	public static $base_url;
 	
-	/**
-	 * Array of possible base_urls to use
-	 */
+	/** @type array Array of possible base_urls to use */
 	public static $base_urls = array(
 		'production'	=> 'https://gocardless.com',
 		'sandbox'		=> 'https://sandbox.gocardless.com'
 	);
 	
-	/**
-	 * The url to redirect the user to
-	 */
+	/** @type string The data format of response from the API */
 	public static $response_format;
 	
-	/**
-	 * The url to redirect the user to
-	 */
+	/** @type string The path to use to call the API */
 	public static $api_path = '/api/v1';
 	
-	/**
-	 * The url to redirect the user to
-	 */
+	/** @type string The OAuth token */
 	public static $oauth_token;
-
-	/**
-	 * The url to redirect the user to
-	 */
+	
+	/** @type string The access token for a given merchant */
 	public static $access_token;
 	
-	/**
-	 * The url to redirect the user to
-	 */
+	/** @type string The url to redirect the user to */
 	public static $redirect_uri;
 	
 	/**
@@ -380,7 +366,7 @@ class Client {
 		
 		// Prep curl for http basic auth
 		$params['curl_opts'][CURLOPT_USERPWD] = GoCardless::$account_details['app_id'] . ':' . GoCardless::$account_details['app_secret'];
-		
+		print_r($params['curl_opts']);
 		// If no method-specific redirect submitted, use class level if available
 		if (!isset($params['redirect_uri']) && isset(Client::$redirect_uri)) {
 			$params['redirect_uri'] = Client::$redirect_uri;

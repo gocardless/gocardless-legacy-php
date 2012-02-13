@@ -23,9 +23,7 @@ require 'lib/subscription.php';
 require 'lib/pre_authorization.php';
 require 'lib/bill.php';
 
-/**
- * Global client var
- */
+/** @type object The client object */
 global $client;
 
 /**
@@ -34,15 +32,11 @@ global $client;
  */
 abstract class GoCardless {
 	
-	/**
-	 * Environment var: live or sandbox
-	 */
+	/** @type string The environment: sandbox or live */
 	public static $environment;
 	
-	/**
-	 * Array of account details
-	 */
-	public static $account_details = array();
+	/** @type array Array of account details */
+	public static $account_details;
 	
 	/**
 	 * Initialization function called with account details
@@ -56,8 +50,6 @@ abstract class GoCardless {
 		}
 		$client = new Client(self::$account_details);
 	}
-	
-	// PUBLIC FUNCTIONS
 	
 	/**
 	 * Generate a URL to give a user to create a new subscription
