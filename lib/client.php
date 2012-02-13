@@ -427,8 +427,11 @@ class Client {
 		
 		// $params['headers'][CURLOPT_USERPWD]
 		
+		// Request format
+		$curl_options[CURLOPT_HTTPHEADER][] = 'Accept: ' . Client::$response_format;
+		
 		if ($opts['headers']['authorization'] == true) {
-			$curl_options[CURLOPT_HTTPHEADER] = 'Authorization: Bearer ' . GoCardless::$account_details['access_token'];
+			$curl_options[CURLOPT_HTTPHEADER][] = 'Authorization: Bearer ' . GoCardless::$account_details['access_token'];
 			unset($opts['headers']['authorization']);
 		}
 		
@@ -436,7 +439,7 @@ class Client {
 
 			$curl_options[CURLOPT_POST] = 1;
 
-			if ($opts) {
+			if (isset($opts)) {
 				$curl_options[CURLOPT_POSTFIELDS] = http_build_query($opts, null, '&');
 			}
 			
