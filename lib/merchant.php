@@ -20,7 +20,7 @@ class GoCardless_Merchant {
 	 */
 	public static function find($id) {
 		$endpoint = '/merchants/' . $id;
-		return Utils::fetch_resource($endpoint);
+		return Utils::fetchResource($endpoint);
 	}
 	
 	/**
@@ -32,7 +32,7 @@ class GoCardless_Merchant {
 	 */
 	public static function subscriptions($id) {
 		$endpoint = '/merchants/' . $id . '/subscriptions';
-		return Utils::fetch_resource($endpoint);
+		return Utils::fetchResource($endpoint);
 	}
 	
 	/**
@@ -44,7 +44,7 @@ class GoCardless_Merchant {
 	 */
 	public static function pre_authorizations($id) {
 		$endpoint = '/merchants/ ' . $id . '/pre_authorizations';
-		return Utils::fetch_resource($endpoint);
+		return Utils::fetchResource($endpoint);
 	}
 	
 	/**
@@ -56,7 +56,7 @@ class GoCardless_Merchant {
 	 */
 	public static function users($id) {
 		$endpoint = '/merchants/' . $id . '/users';
-		return Utils::fetch_resource($endpoint);
+		return Utils::fetchResource($endpoint);
 	}
 	
 	/**
@@ -68,7 +68,7 @@ class GoCardless_Merchant {
 	 */
 	public static function bills($id) {
 		$endpoint = '/merchants/' . $id . '/bills';
-		return Utils::fetch_resource($endpoint);
+		return Utils::fetchResource($endpoint);
 	}
 	
 	/**
@@ -80,7 +80,7 @@ class GoCardless_Merchant {
 	 */
 	public static function payments($id) {
 		$endpoint = '/merchants/' . $id . '/payments';
-		return Utils::fetch_resource($endpoint);
+		return Utils::fetchResource($endpoint);
 	}
 	
 }

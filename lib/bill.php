@@ -20,7 +20,7 @@ class GoCardless_Bill {
 	 */
 	public static function find($id) {
 		$endpoint = '/bills/' . $id;
-		return Utils::fetch_resource($endpoint);
+		return Utils::fetchResource($endpoint);
 	}
 	
 	/**
@@ -32,7 +32,7 @@ class GoCardless_Bill {
 	 */
 	public static function cancel($id) {
 		$endpoint = '/bills/' . $id . '/cancel';
-		return Utils::fetch_resource($endpoint);
+		return Utils::fetchResource($endpoint);
 	}
 	
 }

@@ -20,7 +20,7 @@ class GoCardless_Pre_Authorization {
 	 */
 	public static function find($id) {
 		$endpoint = '/pre_authorizations/' . $id;
-		return Utils::fetch_resource($endpoint);
+		return Utils::fetchResource($endpoint);
 	}
 	
 	/**
@@ -32,7 +32,7 @@ class GoCardless_Pre_Authorization {
 	 */
 	public static function cancel($id) {
 		$endpoint = '/pre_authorizations/' . $id . '/cancel';
-		return Utils::fetch_resource($endpoint);
+		return Utils::fetchResource($endpoint);
 	}
 	
 }

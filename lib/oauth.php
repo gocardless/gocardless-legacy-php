@@ -18,7 +18,7 @@ class OAuth {
 	 *
 	 * @return object The bill object
 	 */
-	public static function authorize_url($id) {
+	public static function authorizeUrl($id) {
 		
 		// Coming soon...
 		

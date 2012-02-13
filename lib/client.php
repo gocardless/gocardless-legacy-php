@@ -81,7 +81,7 @@ class Client {
 	 *
 	 * @return string The generated url
 	 */
-	public function authorize_url($options) {
+	public function authorizeUrl($options) {
 		
 		//raise ArgumentError, ':redirect_uri required' unless options[:redirect_uri]
 	    //params = {
@@ -89,7 +89,7 @@ class Client {
 	    //  :response_type => 'code',
 	    //  :scope => 'manage_merchant'
 	    //}
-	    //@oauth_client.authorize_url(params.merge(options))
+	    //@oauth_client.authorizeUrl(params.merge(options))
 		
 		if (!isset($options['redirect_url'])) {
 			throw new GoCardlessArgumentsException('redirect_url required');
@@ -115,7 +115,7 @@ class Client {
 	 *
 	 * @return string The access token
 	 */
-	public function fetch_access_token($auth_code, $options){
+	public function fetchAccessToken($auth_code, $options){
 		
 		//raise ArgumentError, ':redirect_uri required' unless options[:redirect_uri]
 		//@access_token = @oauth_client.auth_code.get_token(auth_code, options)
@@ -136,7 +136,7 @@ class Client {
 	 *
 	 * @return string The access token
 	 */
-	public function access_token() {
+	public function accessToken() {
 		
 		//if @access_token
 		//scope = @access_token.params[:scope] || @access_token.params['scope']
@@ -155,7 +155,7 @@ class Client {
 	 *
 	 * @return string The access token
 	 */
-	public function access_token2() {
+	public function accessToken2() {
 		
 		//token, scope = token.sub(/^bearer\s+/i, '').split(' ', 2)
 		//if scope.nil?
@@ -177,7 +177,7 @@ class Client {
 	 *
 	 * @return string The response text
 	 */
-	public static function api_get($path, $params = array()) {
+	public static function apiGet($path, $params = array()) {
 		return Client::request('get', Client::$base_url . $path, $params);
 	}
 	
@@ -189,7 +189,7 @@ class Client {
 	 *
 	 * @return string The response text
 	 */
-	public static function api_post($path, $data = array()) {
+	public static function apiPost($path, $data = array()) {
 		return Client::request('post', Client::$base_url . $path, $data);
 	}
 	
@@ -204,7 +204,7 @@ class Client {
 	 */
 	public function merchant() {
 		
-		// Merchant.new_with_client(self, api_get("/merchants/#{merchant_id}"))
+		// Merchant.new_with_client(self, apiGet("/merchants/#{merchant_id}"))
 		
 		if (!isset(Client::$access_token)) {
 			throw new GoCardlessClientException('Access token missing');
@@ -318,8 +318,8 @@ class Client {
 	 *
 	 * @return string The generated URL
 	 */
-	public static function new_subscription_url($params) {
-		return Client::new_limit_url('subscription', $params);
+	public static function newSubscriptionUrl($params) {
+		return Client::newLimitUrl('subscription', $params);
 	}
 	
 	/**
@@ -329,8 +329,8 @@ class Client {
 	 *
 	 * @return string The generated URL
 	 */
-	public static function new_pre_authorization_url($params) {
-		return Client::new_limit_url('pre_authorization', $params);
+	public static function newPreAuthorizationUrl($params) {
+		return Client::newLimitUrl('pre_authorization', $params);
 	}
 	
 	/**
@@ -340,8 +340,8 @@ class Client {
 	 *
 	 * @return string The generated URL
 	 */
-	public static function new_bill_url($params) {
-		return Client::new_limit_url('bill', $params);
+	public static function newBillUrl($params) {
+		return Client::newLimitUrl('bill', $params);
 	}
 	
 	/**
@@ -351,7 +351,7 @@ class Client {
 	 *
 	 * @return string The result of the HTTP request
 	 */
-	public static function confirm_resource($params) {
+	public static function confirmResource($params) {
 		
 		// Define confirm endpoint
 		$endpoint = '/confirm';
@@ -389,7 +389,7 @@ class Client {
 			'signature'	=> $params['signature']
 		);
 		
-		if (Client::validate_signature($sig_validation_data) == false) {
+		if (Client::validateSignature($sig_validation_data) == false) {
 			
 			//print_r($sig_validation_data);
 			
@@ -411,7 +411,7 @@ class Client {
 		}
 		
 		// Do query
-		$confirm = Client::api_post(Client::$api_path . $endpoint, $confirm_params);
+		$confirm = Client::apiPost(Client::$api_path . $endpoint, $confirm_params);
 		
 		// Return the result
 		return $confirm;
@@ -425,7 +425,7 @@ class Client {
 	 *
 	 * @return boolean If valid returns true
 	 */
-	public static function validate_webhook($params) {
+	public static function validateWebhook($params) {
 		
 		$sig = $params['payload']['signature'];
 		unset($params['payload']['signature']);
@@ -440,7 +440,7 @@ class Client {
 			'signature'	=> $sig
 		);
 		
-		return Client::validate_signature($data);
+		return Client::validateSignature($data);
 		
 	}
 	
@@ -543,9 +543,9 @@ class Client {
 	 *
 	 * @return boolean True or false
 	 */
-	public static function validate_signature($params) {
+	public static function validateSignature($params) {
 		
-		$new_sig = Utils::generate_signature($params['data'], $params['secret']);
+		$new_sig = Utils::generateSignature($params['data'], $params['secret']);
 		
 		if ($new_sig == $params['signature']) {
 			return true;
@@ -560,7 +560,7 @@ class Client {
 	 *
 	 * @return string Base64 encoded nonce
 	 */
-	public static function generate_nonce() {
+	public static function generateNonce() {
 		
 		$n = 1;
 		$rand = '';
@@ -582,7 +582,7 @@ class Client {
 	 *
 	 * @return string The new payment URL
 	 */
-	private static function new_limit_url($type, $limit_params) {
+	private static function newLimitUrl($type, $limit_params) {
 		
 		// If no method-specific redirect submitted then
 		// use class level if available
@@ -597,13 +597,13 @@ class Client {
 		$limit_params = array($type => $limit_params);
 		
 		// Merge passed and mandatory params
-		$request = array_merge($limit_params, Utils::generate_mandatory_params());
+		$request = array_merge($limit_params, Utils::generateMandatoryParams());
 		
 		// Generate signature
-		$request['signature'] = Utils::generate_signature($request, GoCardless::$account_details['app_secret']);
+		$request['signature'] = Utils::generateSignature($request, GoCardless::$account_details['app_secret']);
 
 		// Generate query string from all parameters
-		$query_string = Utils::generate_query_string($request);
+		$query_string = Utils::generateQueryString($request);
 		
 		// Generate url NB. Pluralises resource
 		$url = Client::$base_url . '/connect/' . $type . 's/new?' . $query_string;

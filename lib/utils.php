@@ -16,14 +16,14 @@ class Utils {
 	 *
 	 * @return array Mandatory payment parameters
 	 */
-	public static function generate_mandatory_params() {
+	public static function generateMandatoryParams() {
 		
 		// Create new UTC date object
 		$date = new DateTime(null, new DateTimeZone('UTC'));
 		
 		$request = array(
 			'client_id'	=> GoCardless::$account_details['app_id'],
-			'nonce'		=> Client::generate_nonce(),
+			'nonce'		=> Client::generateNonce(),
 			'timestamp'	=> $date->format('Y-m-d\TH:i:s\Z')
 		);
 		
@@ -39,9 +39,9 @@ class Utils {
 	 *
 	 * @return string A URL-encoded string of parameters
 	 */
-	public static function generate_signature($params, $key) {
+	public static function generateSignature($params, $key) {
 		
-		return hash_hmac('sha256', Utils::generate_query_string($params), $key);
+		return hash_hmac('sha256', Utils::generateQueryString($params), $key);
 		
 	}
 	
@@ -54,16 +54,16 @@ class Utils {
 	 *
 	 * @return string An encoded string of parameters
 	 */
-	public static function generate_query_string($params, &$pairs = array(), $namespace = null) {
+	public static function generateQueryString($params, &$pairs = array(), $namespace = null) {
 		
 		if (is_array($params)) {
 			
 			foreach ($params as $k => $v) {
 				
 				if (is_int($k)) {
-					Utils::generate_query_string($v, $pairs, $namespace . '[]');
+					Utils::generateQueryString($v, $pairs, $namespace . '[]');
 				} else {
-					Utils::generate_query_string($v, $pairs, $namespace !== null ? $namespace . "[$k]" : $k);
+					Utils::generateQueryString($v, $pairs, $namespace !== null ? $namespace . "[$k]" : $k);
 				}
 				
 			}
@@ -97,7 +97,7 @@ class Utils {
 	 *
 	 * @return object The returned resource
 	 */
-	public static function fetch_resource($endpoint, $method = 'get') {
+	public static function fetchResource($endpoint, $method = 'get') {
 		
 		$params = array();
 		
@@ -113,9 +113,9 @@ class Utils {
 		
 		// Do query
 		if ($method == 'get') {
-			$result = Client::api_get(Client::$api_path . $endpoint, $params);
+			$result = Client::apiGet(Client::$api_path . $endpoint, $params);
 		} else {
-			$result = Client::api_post(Client::$api_path . $endpoint, $params);
+			$result = Client::apiPost(Client::$api_path . $endpoint, $params);
 		}
 		
 		if (Client::$response_format == 'application/json') {

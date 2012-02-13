@@ -43,7 +43,7 @@ abstract class GoCardless {
 	 *
 	 * $account_details array Array of account details
 	 */
-	public static function set_account_details($account_details) {
+	public static function setAccountDetails($account_details) {
 		global $client;
 		foreach ($account_details as $key => $value) {
 			self::$account_details[$key] = $value;
@@ -58,8 +58,8 @@ abstract class GoCardless {
 	 *
 	 * @return string The generated URL
 	 */
-	public static function new_subscription_url($params) {
-		return Client::new_subscription_url($params);
+	public static function newSubscriptionUrl($params) {
+		return Client::newSubscriptionUrl($params);
 	}
 	
 	/**
@@ -69,8 +69,8 @@ abstract class GoCardless {
 	 *
 	 * @return string The generated URL
 	 */
-	public static function new_pre_authorization_url($params) {
-		return Client::new_pre_authorization_url($params);
+	public static function newPreAuthorizationUrl($params) {
+		return Client::newPreAuthorizationUrl($params);
 	}
 	
 	/**
@@ -80,8 +80,8 @@ abstract class GoCardless {
 	 *
 	 * @return string The generated URL
 	 */
-	public static function new_bill_url($params) {
-		return Client::new_bill_url($params);
+	public static function newBillUrl($params) {
+		return Client::newBillUrl($params);
 	}
 	
 	/**
@@ -91,8 +91,8 @@ abstract class GoCardless {
 	 *
 	 * @return string The generated URL
 	 */
-	public static function confirm_resource($params) {
-		return Client::confirm_resource($params);
+	public static function confirmResource($params) {
+		return Client::confirmResource($params);
 	}
 	
 	/**
@@ -102,8 +102,8 @@ abstract class GoCardless {
 	 *
 	 * @return boolean True if webhook signature is valid
 	 */
-	public static function validate_webhook($params) {
-		return Client::validate_webhook($params);
+	public static function validateWebhook($params) {
+		return Client::validateWebhook($params);
 	}
 	
 }

@@ -13,7 +13,7 @@ include_once 'gocardless.php';
 GoCardless::$environment = 'sandbox';
 
 // Config vars, stripe style
-GoCardless::set_account_details(array(
+GoCardless::setAccountDetails(array(
 	'app_id'			=> 'eCxrcWDxjYsQ55zhsDTgs6VeKf6YWZP7be/9rY0PGFbeyqmLJV6k84SUQdISLUhf',
 	'app_secret'		=> '2utXOc65Hy9dolp3urYBMoIN0DM11Q9uuoboFDkHY3nzsugqcuzD1FuJYA7X9TP+',
 	'access_token'		=> '+vJh7dkHLr5rbdqBLlRk3dPALyn0uvAKTMvRnfWOAKcQ6WRCx/QGsdOefGqEs6h6',
@@ -39,7 +39,7 @@ if (isset($_GET['resource_id']) && isset($_GET['resource_type'])) {
 		$confirm_params['resource_uri'] = $_GET['resource_uri'];
 	}
 	
-	$confirm = GoCardless::confirm_resource($confirm_params);
+	$confirm = GoCardless::confirmResource($confirm_params);
 	
 	$confirm_decoded = json_decode($confirm, true);
 	
@@ -68,7 +68,7 @@ $payment_details = array(
 	'interval_unit'		=> 'month'
 );
 
-$subscription_url = GoCardless::new_subscription_url($payment_details);
+$subscription_url = GoCardless::newSubscriptionUrl($payment_details);
 echo '<p><a href="'.$subscription_url.'">New subscription</a>';
 
 // New pre-authorization
@@ -79,7 +79,7 @@ $payment_details = array(
 	'interval_unit'		=> 'month'
 );
 
-$pre_auth_url = GoCardless::new_pre_authorization_url($payment_details);
+$pre_auth_url = GoCardless::newPreAuthorizationUrl($payment_details);
 echo ' &middot; <a href="'.$pre_auth_url.'">New pre-authorized payment</a>';
 
 // New bill
@@ -93,7 +93,7 @@ $payment_details = array(
 		)
 );
 
-$bill_url = GoCardless::new_bill_url($payment_details);
+$bill_url = GoCardless::newBillUrl($payment_details);
 echo ' &middot; <a href="'.$bill_url.'">New bill</a></p>';
 
 echo 'NB. The \'new bill\' link is also a demo of pre-populated user data';
@@ -122,7 +122,7 @@ echo 'validate webhook:';
 echo '<blockquote><pre>';
 $webhook_json = '{"payload":{"bills":[{"id":"880807"},{"status":"pending"},{"source_type":"subscription"},{"source_id":"21"},{"uri":"https:\/\/sandbox.gocardless.com\/api\/v1\/bills\/880807"}],"action":"created","resource_type":"bill","signature":"f25a611fb9afbc272ab369ead52109edd8a88cbb29a3a00903ffbce0ec6be5cb"}}';
 $webhook = json_decode($webhook_json, true);
-var_dump(GoCardless::validate_webhook($webhook));
+var_dump(GoCardless::validateWebhook($webhook));
 echo '</pre></blockquote>';
 
 ?>
