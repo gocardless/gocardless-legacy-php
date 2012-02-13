@@ -119,7 +119,7 @@ class Utils {
 		}
 		
 		if (Client::$response_format == 'application/json') {
-			$object = json_decode($result);
+			$object = json_decode($result, true);
 			return $object;
 		} else {
 			return $result;
