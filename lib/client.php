@@ -365,8 +365,8 @@ class Client {
 		$url = Client::$base_url . Client::$api_path . '/confirm';
 		
 		// Prep curl for http basic auth
-		$params['curl_opts'][CURLOPT_USERPWD] = GoCardless::$account_details['app_id'] . ':' . GoCardless::$account_details['app_secret'];
-		print_r($params['curl_opts']);
+		$params['headers'][CURLOPT_USERPWD] = GoCardless::$account_details['app_id'] . ':' . GoCardless::$account_details['app_secret'];
+		//print_r($params['headers']);
 		// If no method-specific redirect submitted, use class level if available
 		if (!isset($params['redirect_uri']) && isset(Client::$redirect_uri)) {
 			$params['redirect_uri'] = Client::$redirect_uri;
@@ -425,10 +425,11 @@ class Client {
 			CURLOPT_TIMEOUT			=> 60
 		);
 		
-		// $params['curl_opts'][CURLOPT_USERPWD]
+		// $params['headers'][CURLOPT_USERPWD]
 		
-		if ($opts['curl_opts']['authorization'] == true) {
+		if ($opts['headers']['authorization'] == true) {
 			$curl_options[CURLOPT_HTTPHEADER] = 'Authorization: Bearer ' . GoCardless::$account_details['access_token'];
+			unset($opts['headers']['authorization']);
 		}
 		
 		if ($method == 'post') {

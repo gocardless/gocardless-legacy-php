@@ -105,9 +105,9 @@ class Utils {
 			
 			// Add Authorization header
 			//$auth_header = 'Authorization: Bearer ' . GoCardless::$account_details['access_token'];
-			//$params['curl_opts'][CURLOPT_HTTPHEADER] = $auth_header;
+			//$params['headers'][CURLOPT_HTTPHEADER] = $auth_header;
 			
-			$params['curl_opts']['authorization'] = true;
+			$params['headers']['authorization'] = true;
 			
 			//if (!array_search($auth_header, $curl_options[CURLOPT_HTTPHEADER])) {
 			//	$curl_options[CURLOPT_HTTPHEADER][] = $auth_header;
@@ -120,7 +120,7 @@ class Utils {
 		}
 		
 		// Do query
-		if ($method == 'GET') {
+		if ($method == 'get') {
 			$result = Client::api_get(Client::$api_path . $endpoint, $params);
 		} else {
 			$result = Client::api_post(Client::$api_path . $endpoint, $params);
