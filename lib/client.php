@@ -349,31 +349,58 @@ class Client {
 	 *
 	 * @return string The result of the HTTP request
 	 */
-	public function confirm_resource($params) {
+	public static function confirm_resource($params) {
 		
+		// Define confirm endpoint
+		$endpoint = '/confirm';
+		
+		// List of required params
 		$required_params = array(
 			'resource_id', 'resource_type'
 		);
 		
+		// Loop through required params
+		// Add to $data or throw exception if missing
 		foreach ($required_params as $key => $value) {
 			if (!isset($params[$value])) {
 				throw new GoCardlessArgumentsException("$value missing");
 			}
+			$data[$value] = $params[$value];
 		}
 		
-		// Build url
-		$url = Client::$base_url . Client::$api_path . '/confirm';
+		// state is optional
+		if (isset($params['state'])) {
+			$data['state'] = $params['state'];
+		}
 		
-		// Prep curl for http basic auth
-		$params['headers'][CURLOPT_USERPWD] = GoCardless::$account_details['app_id'] . ':' . GoCardless::$account_details['app_secret'];
-		//print_r($params['headers']);
+		// resource_uri is optional
+		if (isset($params['resource_uri'])) {
+			$data['resource_uri'] = $params['resource_uri'];
+		}
+		
+		$sig_validation_data = array(
+			'data'		=> $data,
+			'secret'	=> GoCardless::$account_details['app_secret'],
+			'signature'	=> $params['signature']
+		);
+		
+		if (Client::validate_signature($sig_validation_data) == false) {
+			
+			print_r($sig_validation_data);
+			
+			throw new GoCardlessSignatureException();
+		}
+		
+		// Use HTTP Basic Authorization
+		$params['headers']['http_authorization'] = true;
+		
 		// If no method-specific redirect submitted, use class level if available
 		if (!isset($params['redirect_uri']) && isset(Client::$redirect_uri)) {
 			$params['redirect_uri'] = Client::$redirect_uri;
 		}
 		
 		// Do query
-		$confirm = Client::api_post($url, $params);
+		$confirm = Client::api_post(Client::$api_path . $endpoint, $params);
 		
 		// Return the result
 		return $confirm;
@@ -425,12 +452,17 @@ class Client {
 			CURLOPT_TIMEOUT			=> 60
 		);
 		
-		// $params['headers'][CURLOPT_USERPWD]
-		
 		// Request format
 		$curl_options[CURLOPT_HTTPHEADER][] = 'Accept: ' . Client::$response_format;
 		
-		if ($opts['headers']['authorization'] == true) {
+		// HTTP Authentication (for confirming new payments)
+		if (isset($opts['headers']['http_authorization']) && $opts['headers']['http_authorization'] == true) {
+			$curl_options[CURLOPT_USERPWD] = GoCardless::$account_details['app_id'] . ':' . GoCardless::$account_details['app_secret'];
+			unset($opts['headers']['http_authorization']);
+		}
+		
+		// Authentication (for API requests)
+		if (isset($opts['headers']['authorization']) && $opts['headers']['authorization'] == true) {
 			$curl_options[CURLOPT_HTTPHEADER][] = 'Authorization: Bearer ' . GoCardless::$account_details['access_token'];
 			unset($opts['headers']['authorization']);
 		}
