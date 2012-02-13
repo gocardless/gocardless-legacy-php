@@ -62,4 +62,22 @@ class GoCardlessApiException extends Exception {
 	
 }
 
+/**
+ * Exceptions pertaining to the signature
+ *
+ * @return exception
+ */
+class GoCardlessSignatureException extends Exception {
+	
+	/**
+	 * Throw a default exception
+	 *
+	 * @param string $description Description of the error
+	 */
+	public function __construct($description = 'Signature error') {
+		parent::__construct($description);
+	}
+	
+}
+
 ?>
