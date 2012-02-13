@@ -18,7 +18,7 @@ class GoCardless_Pre_Authorization {
 	 *
 	 * @return object The pre-authorisations object
 	 */
-	public function find($id) {
+	public static function find($id) {
 		$endpoint = '/pre_authorizations/' . $id;
 		return Utils::fetch_resource($endpoint);
 	}
@@ -30,7 +30,7 @@ class GoCardless_Pre_Authorization {
 	 *
 	 * @return object The result of the cancel query
 	 */
-	public function cancel($id) {
+	public static function cancel($id) {
 		$endpoint = '/pre_authorizations/' . $id . '/cancel';
 		return Utils::fetch_resource($endpoint);
 	}

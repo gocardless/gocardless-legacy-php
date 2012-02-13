@@ -30,7 +30,7 @@ class GoCardless_Subscription {
 	 *
 	 * @return object The result of the cancel query
 	 */
-	public function cancel($id) {
+	public static function cancel($id) {
 		$endpoint = '/subscriptions/' . $id . '/cancel';
 		return Utils::fetch_resource($endpoint);
 	}

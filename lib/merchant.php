@@ -30,7 +30,7 @@ class GoCardless_Merchant {
 	 *
 	 * @return array Array of subscription objects
 	 */
-	public function subscriptions($id) {
+	public static function subscriptions($id) {
 		$endpoint = '/merchants/' . $id . '/subscriptions';
 		return Utils::fetch_resource($endpoint);
 	}
@@ -42,7 +42,7 @@ class GoCardless_Merchant {
 	 *
 	 * @return array Array of pre-authorisation objects
 	 */
-	public function pre_authorizations($id) {
+	public static function pre_authorizations($id) {
 		$endpoint = '/merchants/ ' . $id . '/pre_authorizations';
 		return Utils::fetch_resource($endpoint);
 	}
@@ -54,7 +54,7 @@ class GoCardless_Merchant {
 	 *
 	 * @return array Array of user objects
 	 */
-	public function users($id) {
+	public static function users($id) {
 		$endpoint = '/merchants/' . $id . '/users';
 		return Utils::fetch_resource($endpoint);
 	}
@@ -66,7 +66,7 @@ class GoCardless_Merchant {
 	 *
 	 * @return array Array of bill objects
 	 */
-	public function bills($id) {
+	public static function bills($id) {
 		$endpoint = '/merchants/' . $id . '/bills';
 		return Utils::fetch_resource($endpoint);
 	}
@@ -78,7 +78,7 @@ class GoCardless_Merchant {
 	 *
 	 * @return array Array of payment objects
 	 */
-	public function payments($id) {
+	public static function payments($id) {
 		$endpoint = '/merchants/' . $id . '/payments';
 		return Utils::fetch_resource($endpoint);
 	}

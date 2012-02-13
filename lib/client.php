@@ -387,7 +387,7 @@ class Client {
 	 *
 	 * @return boolean If valid returns true
 	 */
-	public function validate_webhook($params) {
+	public static function validate_webhook($params) {
 		
 		$sig = $params['payload']['signature'];
 		unset($params['payload']['signature']);
@@ -497,7 +497,7 @@ class Client {
 	 *
 	 * @return boolean True or false
 	 */
-	function validate_signature($params) {
+	public static function validate_signature($params) {
 		
 		$new_sig = Utils::generate_signature($params['data'], $params['secret']);
 		

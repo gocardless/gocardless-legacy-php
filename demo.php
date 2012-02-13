@@ -91,20 +91,20 @@ echo '<h2>API calls</h2>';
 
 echo 'GoCardless_Merchant::find(258584)';
 echo '<blockquote><pre>';
-
 $merchant = GoCardless_Merchant::find(258584);
-var_dump($merchant);
-
-//print_r(get_class_methods('GoCardless_Merchant'));
-
-//Aiming for this: GoCardless_Merchant::find(2)
 print_r($merchant);
 echo '</pre></blockquote>';
 
-echo '$gocardless->merchant->bills(\'258584\')';
+echo 'GoCardless_Merchant::bills(258584)';
 echo '<blockquote><pre>';
-//$bills = $gocardless->merchant->bills(258584);
-//print_r($bills);
+$bills = GoCardless_Merchant::bills(258584);
+print_r($bills);
+echo '</pre></blockquote>';
+
+echo 'GoCardless_Bill::find(992375)';
+echo '<blockquote><pre>';
+$bill = GoCardless_Bill::find(992375);
+print_r($bill);
 echo '</pre></blockquote>';
 
 echo 'validate webhook:';

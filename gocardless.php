@@ -91,7 +91,7 @@ abstract class GoCardless {
 	 *
 	 * @return string The generated URL
 	 */
-	public function confirm_resource($params) {
+	public static function confirm_resource($params) {
 		return Client::confirm_resource($params);
 	}
 	
@@ -102,7 +102,7 @@ abstract class GoCardless {
 	 *
 	 * @return boolean True if webhook signature is valid
 	 */
-	public function validate_webhook($params) {
+	public static function validate_webhook($params) {
 		return Client::validate_webhook($params);
 	}
 	
