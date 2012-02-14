@@ -27,7 +27,7 @@ abstract class Resource {
         // obj
 		
 		echo 'hi';
-		var_dump(Client::$endpoint);
+		var_dump(GoCardless_Client::$endpoint);
 		
 		//echo parent::endpoint();
 		var_dump(get_class_vars('GoCardless_Merchant'));
@@ -56,7 +56,7 @@ abstract class Resource {
 		
 		//echo "$id\n";
 		//var_dump(GoCardless::$account_details);
-		//var_dump(Client::$base_urls);
+		//var_dump(GoCardless_Client::$base_urls);
 		
 		//global $client;
 		//

@@ -20,7 +20,7 @@ class OAuth {
 		
 		$endpoint = '/oauth/authorize';
 		
-		$url =	Client::$base_url . $endpoint .
+		$url =	GoCardless_Client::$base_url . $endpoint .
 				'?client_id='. urlencode($params['client_id']) .
 				'&redirect_uri=' . urlencode($params['redirect_uri']) .
 				'&scope=manage_merchant' .
@@ -43,7 +43,7 @@ class OAuth {
 		$url = '/oauth/access_token';
 		$params['headers']['http_authorization'] = true;
 		
-		$access_token = Client::apiPost($url, $params);
+		$access_token = GoCardless_Client::apiPost($url, $params);
 		
 		return $access_token;
 		

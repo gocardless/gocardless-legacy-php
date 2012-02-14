@@ -23,7 +23,7 @@ class Utils {
 		
 		$request = array(
 			'client_id'	=> GoCardless::$account_details['app_id'],
-			'nonce'		=> Client::generateNonce(),
+			'nonce'		=> GoCardless_Client::generateNonce(),
 			'timestamp'	=> $date->format('Y-m-d\TH:i:s\Z')
 		);
 		
@@ -113,12 +113,12 @@ class Utils {
 		
 		// Do query
 		if ($method == 'get') {
-			$result = Client::apiGet(Client::$api_path . $endpoint, $params);
+			$result = GoCardless_Client::apiGet(GoCardless_Client::$api_path . $endpoint, $params);
 		} else {
-			$result = Client::apiPost(Client::$api_path . $endpoint, $params);
+			$result = GoCardless_Client::apiPost(GoCardless_Client::$api_path . $endpoint, $params);
 		}
 		
-		if (Client::$response_format == 'application/json') {
+		if (GoCardless_Client::$response_format == 'application/json') {
 			$object = json_decode($result, true);
 			return $object;
 		} else {

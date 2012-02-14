@@ -50,7 +50,7 @@ abstract class GoCardless {
 			self::$account_details[$key] = $value;
 		}
 		
-		GoCardless::$client = new Client(self::$account_details);
+		GoCardless::$client = new GoCardless_Client(self::$account_details);
 		
 	}
 	

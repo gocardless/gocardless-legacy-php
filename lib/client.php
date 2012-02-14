@@ -9,7 +9,7 @@
  * GoCardless client class
  *
  */
-class Client {
+class GoCardless_Client {
 	
 	/** @type string The (empty) base_url to use for API queries */
 	public static $base_url;
@@ -36,7 +36,7 @@ class Client {
 	public static $redirect_uri;
 	
 	/**
-	 * Constructor, creates a new instance of Client
+	 * Constructor, creates a new instance of GoCardless_Client
 	 *
 	 * @param array $account_details Parameters 
 	 */
@@ -63,13 +63,13 @@ class Client {
 		}
 		
 		// If base_url is not set then set it based on environment
-		if (!isset(Client::$base_url)) {
-			Client::$base_url = Client::$base_urls[GoCardless::$environment];
+		if (!isset(GoCardless_Client::$base_url)) {
+			GoCardless_Client::$base_url = GoCardless_Client::$base_urls[GoCardless::$environment];
 		}
 		
 		// If response_format is not set then default to json
-		if (!isset(Client::$response_format)) {
-			Client::$response_format = 'application/json';
+		if (!isset(GoCardless_Client::$response_format)) {
+			GoCardless_Client::$response_format = 'application/json';
 		}
 		
 	}
@@ -106,7 +106,7 @@ class Client {
 	 *
 	 * @return string The access token
 	 */
-	public function fetchAccessToken($options){
+	public static function fetchAccessToken($options){
 		
 		//raise ArgumentError, ':redirect_uri required' unless options[:redirect_uri]
 		//@access_token = @oauth_client.auth_code.get_token(auth_code, options)
@@ -137,8 +137,8 @@ class Client {
 		//scope = @access_token.params[:scope] || @access_token.params['scope']
 		//"#{@access_token.token} #{scope}".strip
 		
-		if (Client::$access_token) {
-			$scope = Client::$access_token;
+		if (GoCardless_Client::$access_token) {
+			$scope = GoCardless_Client::$access_token;
 		}
 		
 		// ? return the results of .strip
@@ -173,7 +173,7 @@ class Client {
 	 * @return string The response text
 	 */
 	public static function apiGet($path, $params = array()) {
-		return Client::request('get', Client::$base_url . $path, $params);
+		return GoCardless_Client::request('get', GoCardless_Client::$base_url . $path, $params);
 	}
 	
 	/**
@@ -185,7 +185,7 @@ class Client {
 	 * @return string The response text
 	 */
 	public static function apiPost($path, $data = array()) {
-		return Client::request('post', Client::$base_url . $path, $data);
+		return GoCardless_Client::request('post', GoCardless_Client::$base_url . $path, $data);
 	}
 	
 	// api_put
@@ -201,7 +201,7 @@ class Client {
 		
 		// Merchant.new_with_client(self, apiGet("/merchants/#{merchant_id}"))
 		
-		if (!isset(Client::$access_token)) {
+		if (!isset(GoCardless_Client::$access_token)) {
 			throw new GoCardlessClientException('Access token missing');
 		}
 		
@@ -314,7 +314,7 @@ class Client {
 	 * @return string The generated URL
 	 */
 	public static function newSubscriptionUrl($params) {
-		return Client::newLimitUrl('subscription', $params);
+		return GoCardless_Client::newLimitUrl('subscription', $params);
 	}
 	
 	/**
@@ -325,7 +325,7 @@ class Client {
 	 * @return string The generated URL
 	 */
 	public static function newPreAuthorizationUrl($params) {
-		return Client::newLimitUrl('pre_authorization', $params);
+		return GoCardless_Client::newLimitUrl('pre_authorization', $params);
 	}
 	
 	/**
@@ -336,7 +336,7 @@ class Client {
 	 * @return string The generated URL
 	 */
 	public static function newBillUrl($params) {
-		return Client::newLimitUrl('bill', $params);
+		return GoCardless_Client::newLimitUrl('bill', $params);
 	}
 	
 	/**
@@ -384,7 +384,7 @@ class Client {
 			'signature'	=> $params['signature']
 		);
 		
-		if (Client::validateSignature($sig_validation_data) == false) {
+		if (GoCardless_Client::validateSignature($sig_validation_data) == false) {
 			
 			//print_r($sig_validation_data);
 			
@@ -401,12 +401,12 @@ class Client {
 		$confirm_params['headers']['http_authorization'] = true;
 		
 		// If no method-specific redirect sent, use class level if available
-		if (!isset($params['redirect_uri']) && isset(Client::$redirect_uri)) {
-			$confirm_params['redirect_uri'] = Client::$redirect_uri;
+		if (!isset($params['redirect_uri']) && isset(GoCardless_Client::$redirect_uri)) {
+			$confirm_params['redirect_uri'] = GoCardless_Client::$redirect_uri;
 		}
 		
 		// Do query
-		$confirm = Client::apiPost(Client::$api_path . $endpoint, $confirm_params);
+		$confirm = GoCardless_Client::apiPost(GoCardless_Client::$api_path . $endpoint, $confirm_params);
 		
 		// Return the result
 		return $confirm;
@@ -435,7 +435,7 @@ class Client {
 			'signature'	=> $sig
 		);
 		
-		return Client::validateSignature($data);
+		return GoCardless_Client::validateSignature($data);
 		
 	}
 	
@@ -459,7 +459,7 @@ class Client {
 		);
 		
 		// Request format
-		$curl_options[CURLOPT_HTTPHEADER][] = 'Accept: ' . Client::$response_format;
+		$curl_options[CURLOPT_HTTPHEADER][] = 'Accept: ' . GoCardless_Client::$response_format;
 		
 		// HTTP Authentication (for confirming new payments)
 		if (isset($opts['headers']['http_authorization']) && $opts['headers']['http_authorization'] == true) {
@@ -581,8 +581,8 @@ class Client {
 		
 		// If no method-specific redirect submitted then
 		// use class level if available
-		if (!isset($limit_params['redirect_uri']) && isset(Client::$redirect_uri)) {
-			$limit_params['redirect_uri'] = Client::$redirect_uri;
+		if (!isset($limit_params['redirect_uri']) && isset(GoCardless_Client::$redirect_uri)) {
+			$limit_params['redirect_uri'] = GoCardless_Client::$redirect_uri;
 		}
 		
 		// Add in merchant id
@@ -601,7 +601,7 @@ class Client {
 		$query_string = Utils::generateQueryString($request);
 		
 		// Generate url NB. Pluralises resource
-		$url = Client::$base_url . '/connect/' . $type . 's/new?' . $query_string;
+		$url = GoCardless_Client::$base_url . '/connect/' . $type . 's/new?' . $query_string;
 		
 		// Return the result
 		return $url;
