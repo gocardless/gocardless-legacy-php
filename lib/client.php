@@ -296,7 +296,7 @@ class Client {
 	 *
 	 * @return string The new bill object
 	 */
-	public function create_bill($attrs) {
+	public function createBill($attrs) {
 	
 		// # Create a new bill under a given pre-authorization
     	// # @see PreAuthorization#create_bill

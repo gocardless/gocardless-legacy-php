@@ -12,13 +12,11 @@
 class OAuth {
 	
 	/**
-	 * Fetch a bill item from the API
+	 * Generate an OAuth authorization URL
 	 *
-	 * @param string $id The id of the bill to fetch
-	 *
-	 * @return object The bill object
+	 * @return string The url to send the user to
 	 */
-	public static function authorizeUrl($params) {
+	public static function authorizeUrl() {
 		
 		$endpoint = '/oauth/authorize';
 		
@@ -32,11 +30,12 @@ class OAuth {
 	}
 	
 	/**
-	 * Send in the code and return the access token
+	 * Fetch an access token given the code returned in the first
+	 * part of the OAuth process
 	 *
 	 * @param array $params Parameters to make the request
 	 *
-	 * @return string The returned string including the access token
+	 * @return string The API response including the access token
 	 */
 	public static function fetchAccessToken($params) {
 		

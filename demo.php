@@ -12,13 +12,15 @@ include_once 'gocardless.php';
 // Sandbox
 GoCardless::$environment = 'sandbox';
 
-// Config vars, stripe style
-GoCardless::setAccountDetails(array(
+// Config vars
+$account_details = array(
 	'app_id'			=> 'eCxrcWDxjYsQ55zhsDTgs6VeKf6YWZP7be/9rY0PGFbeyqmLJV6k84SUQdISLUhf',
 	'app_secret'		=> '2utXOc65Hy9dolp3urYBMoIN0DM11Q9uuoboFDkHY3nzsugqcuzD1FuJYA7X9TP+',
-	'access_token'		=> '+vJh7dkHLr5rbdqBLlRk3dPALyn0uvAKTMvRnfWOAKcQ6WRCx/QGsdOefGqEs6h6',
-	'merchant_id'		=> '258584'
-));
+	'merchant_id'		=> '258584',
+	'access_token'		=> '+vJh7dkHLr5rbdqBLlRk3dPALyn0uvAKTMvRnfWOAKcQ6WRCx/QGsdOefGqEs6h6'
+);
+// Initialize GoCardless
+GoCardless::setAccountDetails($account_details);
 
 if (isset($_GET['resource_id']) && isset($_GET['resource_type'])) {
 	// Get vars found so let's try confirming payment

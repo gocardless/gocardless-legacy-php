@@ -60,7 +60,8 @@ abstract class GoCardless {
 	 * @return string The generated URL
 	 */
 	public static function newSubscriptionUrl($params) {
-		return Client::newSubscriptionUrl($params);
+		global $client;
+		return $client->newSubscriptionUrl($params);
 	}
 	
 	/**
@@ -71,7 +72,8 @@ abstract class GoCardless {
 	 * @return string The generated URL
 	 */
 	public static function newPreAuthorizationUrl($params) {
-		return Client::newPreAuthorizationUrl($params);
+		global $client;
+		return $client->newPreAuthorizationUrl($params);
 	}
 	
 	/**
@@ -82,7 +84,8 @@ abstract class GoCardless {
 	 * @return string The generated URL
 	 */
 	public static function newBillUrl($params) {
-		return Client::newBillUrl($params);
+		global $client;
+		return $client->newBillUrl($params);
 	}
 	
 	/**
@@ -93,7 +96,8 @@ abstract class GoCardless {
 	 * @return string The generated URL
 	 */
 	public static function confirmResource($params) {
-		return Client::confirmResource($params);
+		global $client;
+		return $client->confirmResource($params);
 	}
 	
 	/**
@@ -104,7 +108,8 @@ abstract class GoCardless {
 	 * @return boolean True if webhook signature is valid
 	 */
 	public static function validateWebhook($params) {
-		return Client::validateWebhook($params);
+		global $client;
+		return $client->validateWebhook($params);
 	}
 	
 }
