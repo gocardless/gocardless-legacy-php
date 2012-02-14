@@ -16,12 +16,12 @@ if (!function_exists('json_decode')) {
 // Include subclasses
 require 'lib/utils.php';
 require 'lib/exceptions.php';
+require 'lib/bill.php';
 require 'lib/client.php';
 require 'lib/resource.php';
 require 'lib/merchant.php';
 require 'lib/subscription.php';
 require 'lib/pre_authorization.php';
-require 'lib/bill.php';
 require 'lib/oauth.php';
 
 /**

@@ -22,6 +22,18 @@ class GoCardless_Bill {
 		$endpoint = '/bills/' . $id;
 		return Utils::fetchResource($endpoint);
 	}
+
+	/**
+	 * Create a bill under an existing pre-auth
+	 *
+	 * @param string $id The pre-auth
+	 *
+	 * @return object The result of the cancel query
+	 */
+	public static function create($params) {
+		$endpoint = '/bills';
+		return GoCardless_Client::apiPost($endpoint, $params)
+	}
 	
 	/**
 	 * Cancel a bill using the API

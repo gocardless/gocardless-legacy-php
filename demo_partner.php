@@ -143,11 +143,19 @@ if ($account_details['access_token']) {
 	print_r($bill);
 	echo '</pre></blockquote>';
 	
-	// create_bill
+	// pre_auth = client.pre_authorization(2250)
+	// pre_auth.create_bill(:name => "150 credits", :amount => "15.00")
 	
-	echo '$gocardless_client->bill(\'992375\')';
+	$bill_details = array(
+		'bill' => array(
+			'amount'				=> '10.00',
+			'pre_authorization_id'	=> 'UQSTF7AMQMYWBL'
+		)
+	);
+	
+	echo '$gocardless_client->create_bill($bill_details)';
 	echo '<blockquote><pre>';
-	$bill = $gocardless_client->create_bill('992375');
+	$bill = $gocardless_client->create_bill($bill_details);
 	print_r($bill);
 	echo '</pre></blockquote>';
 	

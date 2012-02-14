@@ -106,7 +106,7 @@ class GoCardless_Client {
 	 *
 	 * @return string The access token
 	 */
-	public static function fetchAccessToken($options){
+	public function fetchAccessToken($options){
 		
 		//raise ArgumentError, ':redirect_uri required' unless options[:redirect_uri]
 		//@access_token = @oauth_client.auth_code.get_token(auth_code, options)
@@ -116,13 +116,18 @@ class GoCardless_Client {
 			throw new GoCardlessArgumentsException('redirect_uri required');
 		}
 		
-		$reponse = OAuth::getToken($options);
+		$response = OAuth::getToken($options);
 		$token_response = json_decode($response, true);
 		$merchant = explode(':', $token_response['scope']);
 		$merchant_id = $merchant[1];
 		$access_token = $token_response['access_token'];
 		
-		return $access_token;
+		$return = array(
+			'merchant_id'	=> $merchant_id,
+			'access_token'	=> $access_token
+		);
+		
+		return $return;
 		
 	}
 	
@@ -303,6 +308,8 @@ class GoCardless_Client {
     	// end
 		
 		// ? return GoCardless_Bill::new($attrs);
+		
+		return GoCardless_Bill::create($attrs);
 		
 	}
 	
