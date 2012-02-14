@@ -20,9 +20,6 @@ class GoCardless_Client {
 		'sandbox'		=> 'https://sandbox.gocardless.com'
 	);
 	
-	/** @type string The data format of response from the API */
-	public static $response_format;
-	
 	/** @type string The path to use to call the API */
 	public static $api_path = '/api/v1';
 	
@@ -65,11 +62,6 @@ class GoCardless_Client {
 		// If base_url is not set then set it based on environment
 		if (!isset(GoCardless_Client::$base_url)) {
 			GoCardless_Client::$base_url = GoCardless_Client::$base_urls[GoCardless::$environment];
-		}
-		
-		// If response_format is not set then default to json
-		if (!isset(GoCardless_Client::$response_format)) {
-			GoCardless_Client::$response_format = 'application/json';
 		}
 		
 	}
@@ -466,7 +458,7 @@ class GoCardless_Client {
 		);
 		
 		// Request format
-		$curl_options[CURLOPT_HTTPHEADER][] = 'Accept: ' . GoCardless_Client::$response_format;
+		$curl_options[CURLOPT_HTTPHEADER][] = 'Accept: application/json';
 		
 		// HTTP Authentication (for confirming new payments)
 		if (isset($opts['headers']['http_authorization']) && $opts['headers']['http_authorization'] == true) {
