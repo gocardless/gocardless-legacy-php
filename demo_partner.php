@@ -155,7 +155,7 @@ if ($account_details['access_token']) {
 	
 	echo '$gocardless_client->create_bill($bill_details)';
 	echo '<blockquote><pre>';
-	$bill = $gocardless_client->create_bill($bill_details);
+	$bill = $gocardless_client->createBill($bill_details);
 	print_r($bill);
 	echo '</pre></blockquote>';
 	
