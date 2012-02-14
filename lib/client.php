@@ -24,13 +24,13 @@ class GoCardless_Client {
 	public static $api_path = '/api/v1';
 	
 	/** @type string The OAuth token */
-	public static $oauth_token;
+	public $oauth_token;
 	
 	/** @type string The access token for a given merchant */
-	public static $access_token;
+	public $access_token;
 	
 	/** @type string The url to redirect the user to */
-	public static $redirect_uri;
+	public $redirect_uri;
 	
 	/**
 	 * Constructor, creates a new instance of GoCardless_Client
@@ -41,11 +41,11 @@ class GoCardless_Client {
 		
 		// Fetch account_details
 		foreach ($account_details as $key => $value) {
-			GoCardless::$account_details[$key] = $value;
+			$this->$account_details[$key] = $value;
 		}
 		
 		// Check for app_id
-		if (!isset(GoCardless::$account_details['app_id'])) {
+		if (!isset($this->$account_details['app_id'])) {
 			throw new GoCardlessClientException('No app_id specified');
 		}
 		
@@ -134,8 +134,8 @@ class GoCardless_Client {
 		//scope = @access_token.params[:scope] || @access_token.params['scope']
 		//"#{@access_token.token} #{scope}".strip
 		
-		if (GoCardless_Client::$access_token) {
-			$scope = GoCardless_Client::$access_token;
+		if ($this->access_token) {
+			$scope = $this->access_token;
 		}
 		
 		// ? return the results of .strip
@@ -198,7 +198,7 @@ class GoCardless_Client {
 		
 		// Merchant.new_with_client(self, apiGet("/merchants/#{merchant_id}"))
 		
-		if (!isset(GoCardless_Client::$access_token)) {
+		if (!isset($this->access_token)) {
 			throw new GoCardlessClientException('Access token missing');
 		}
 		
@@ -384,9 +384,6 @@ class GoCardless_Client {
 		);
 		
 		if (GoCardless_Client::validateSignature($sig_validation_data) == false) {
-			
-			//print_r($sig_validation_data);
-			
 			throw new GoCardlessSignatureException();
 		}
 		
@@ -400,8 +397,8 @@ class GoCardless_Client {
 		$confirm_params['headers']['http_authorization'] = true;
 		
 		// If no method-specific redirect sent, use class level if available
-		if (!isset($params['redirect_uri']) && isset(GoCardless_Client::$redirect_uri)) {
-			$confirm_params['redirect_uri'] = GoCardless_Client::$redirect_uri;
+		if (!isset($params['redirect_uri']) && isset($this)) {
+			$confirm_params['redirect_uri'] = $this->redirect_uri;
 		}
 		
 		// Do query
@@ -580,8 +577,8 @@ class GoCardless_Client {
 		
 		// If no method-specific redirect submitted then
 		// use class level if available
-		if (!isset($limit_params['redirect_uri']) && isset(GoCardless_Client::$redirect_uri)) {
-			$limit_params['redirect_uri'] = GoCardless_Client::$redirect_uri;
+		if (!isset($limit_params['redirect_uri']) && isset($this)) {
+			$limit_params['redirect_uri'] = $this->redirect_uri;
 		}
 		
 		// Add in merchant id
