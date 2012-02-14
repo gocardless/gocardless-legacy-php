@@ -22,7 +22,7 @@ class GoCardless_Bill {
 		$endpoint = '/bills/' . $id;
 		return Utils::fetchResource($endpoint);
 	}
-
+	
 	/**
 	 * Create a bill under an existing pre-auth
 	 *
@@ -32,7 +32,7 @@ class GoCardless_Bill {
 	 */
 	public static function create($params) {
 		$endpoint = '/bills';
-		return GoCardless_Client::apiPost($endpoint, $params)
+		return GoCardless_Client::apiPost(GoCardless_Client::$api_path . $endpoint, $params);
 	}
 	
 	/**
