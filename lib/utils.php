@@ -118,6 +118,7 @@ class Utils {
 			$result = GoCardless_Client::apiPost(GoCardless_Client::$api_path . $endpoint, $params);
 		}
 		
+		$object = json_decode($result, true);
 		return $object;
 		
 	}
