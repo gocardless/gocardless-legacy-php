@@ -22,6 +22,7 @@ require 'lib/merchant.php';
 require 'lib/subscription.php';
 require 'lib/pre_authorization.php';
 require 'lib/bill.php';
+require 'lib/oauth.php';
 
 /** @type object The client object */
 global $client;
