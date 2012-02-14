@@ -83,27 +83,18 @@ class Client {
 	 */
 	public function authorizeUrl($options) {
 		
-		//raise ArgumentError, ':redirect_uri required' unless options[:redirect_uri]
-	    //params = {
-	    //  :client_id => @app_id,
-	    //  :response_type => 'code',
-	    //  :scope => 'manage_merchant'
-	    //}
-	    //@oauth_client.authorizeUrl(params.merge(options))
-		
-		if (!isset($options['redirect_url'])) {
-			throw new GoCardlessArgumentsException('redirect_url required');
+		if (!isset($options['redirect_uri'])) {
+			throw new GoCardlessArgumentsException('redirect_uri required');
 		}
 		
 		$params = array(
 			'client_id'		=> GoCardless::$account_details['app_id'],
+			'redirect_uri'	=> $options['redirect_uri'],
 			'response_type'	=> 'code',
 			'scope'			=> 'manage_merchant'
 		);
 		
-		//OAuth::authorize_url();
-		
-		// ? oauth.authorize_url
+		return OAuth::authorizeUrl($params);
 		
 	}
 	
@@ -115,19 +106,23 @@ class Client {
 	 *
 	 * @return string The access token
 	 */
-	public function fetchAccessToken($auth_code, $options){
+	public function fetchAccessToken($options){
 		
 		//raise ArgumentError, ':redirect_uri required' unless options[:redirect_uri]
 		//@access_token = @oauth_client.auth_code.get_token(auth_code, options)
 		//self.access_token
 		
-		if (!isset($options['redirect_url'])) {
-			throw new GoCardlessArgumentsException('redirect_url required');
+		if (!isset($options['redirect_uri'])) {
+			throw new GoCardlessArgumentsException('redirect_uri required');
 		}
 		
-		// ? Client::$access_token = oauth.get_token();
+		$reponse = OAuth::getToken($options);
+		$token_response = json_decode($response, true);
+		$merchant = explode(':', $token_response['scope']);
+		$merchant_id = $merchant[1];
+		$access_token = $token_response['access_token'];
 		
-		return Client::$access_token;
+		return $access_token;
 		
 	}
 	

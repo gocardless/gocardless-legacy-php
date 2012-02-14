@@ -29,7 +29,7 @@ $account_details = array(
 
 GoCardless::setAccountDetails($account_details);
 
-if ($_GET['code']) {
+if (isset($_GET['code'])) {
 	
 	$params = array(
 		'client_id'		=> GoCardless::$account_details['app_id'],
@@ -38,14 +38,7 @@ if ($_GET['code']) {
 		'grant_type'	=> 'authorization_code'
 	);
 	
-	$response = OAuth::fetchAccessToken($params);
-	
-	$token_response = json_decode($response, true);
-	
-	$merchant = explode(':', $token_response['scope']);
-	$merchant_id = $merchant[1];
-	
-	$access_token = $token_response['access_token'];
+	$access_token = GoCardless::$client->fetchAccessToken($params);
 	
 	$account_details = array(
 		'app_id'			=> 'eCxrcWDxjYsQ55zhsDTgs6VeKf6YWZP7be/9rY0PGFbeyqmLJV6k84SUQdISLUhf',
@@ -63,11 +56,49 @@ if ($_GET['code']) {
 	
 }
 
-echo '<h2>Partner authorization</h2>';
-$url = OAuth::authorizeUrl();
-echo '<p><a href="'.$url.'">Authorize app</a></p>';
+// Get vars found so let's try confirming payment
+if (isset($_GET['resource_id']) && isset($_GET['resource_type'])) {
+
+	$confirm_params = array(
+		'resource_id'	=> $_GET['resource_id'],
+		'resource_type'	=> $_GET['resource_type'],
+		'signature'		=> $_GET['signature']
+	);
+
+	// State is optional
+	if (isset($_GET['state'])) {
+		$confirm_params['state'] = $_GET['state'];
+	}
+
+	// resource_uri is optional
+	if (isset($_GET['resource_uri'])) {
+		$confirm_params['resource_uri'] = $_GET['resource_uri'];
+	}
+
+	$confirm = $client->confirmResource($confirm_params);
+
+	$confirm_decoded = json_decode($confirm, true);
+
+	if ($confirm_decoded['success'] == TRUE) {
+
+		echo '<p>Payment confirmed!</p>';
+
+	} else {
+
+		echo 'Payment not confirmed, following message was returned:';
+		echo '<pre>';
+		var_dump($confirm);
+		echo '</pre>';
+
+	}
+
+}
 
 if ($account_details['access_token']) {
+	
+	echo '<h2>Partner authorization</h2>';
+	
+	echo '<p>Access token found, connection made.</p>';
 	
 	echo '<h2>Partner API calls</h2>';
 	
@@ -85,6 +116,15 @@ if ($account_details['access_token']) {
 	$bill = $client->bill('992375');
 	print_r($bill);
 	echo '</pre></blockquote>';
+	
+} else {
+	
+	echo '<h2>Partner authorization</h2>';
+	$authorize_url_options = array(
+		'redirect_uri' => 'http://localhost:8888/demo_partner.php'
+	);
+	$url = GoCardless::$client->authorizeUrl($authorize_url_options);
+	echo '<p><a href="'.$url.'">Authorize app</a></p>';
 	
 }
 

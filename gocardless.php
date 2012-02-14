@@ -24,9 +24,6 @@ require 'lib/pre_authorization.php';
 require 'lib/bill.php';
 require 'lib/oauth.php';
 
-/** @type object The client object */
-global $client;
-
 /**
  * GoCardless class
  *
@@ -39,17 +36,22 @@ abstract class GoCardless {
 	/** @type array Array of account details */
 	public static $account_details;
 	
+	/** @type object The client object */
+	public static $client;
+	
 	/**
 	 * Initialization function called with account details
 	 *
 	 * $account_details array Array of account details
 	 */
 	public static function setAccountDetails($account_details) {
-		global $client;
+		
 		foreach ($account_details as $key => $value) {
 			self::$account_details[$key] = $value;
 		}
-		$client = new Client(self::$account_details);
+		
+		GoCardless::$client = new Client(self::$account_details);
+		
 	}
 	
 	/**
@@ -60,8 +62,7 @@ abstract class GoCardless {
 	 * @return string The generated URL
 	 */
 	public static function newSubscriptionUrl($params) {
-		global $client;
-		return $client->newSubscriptionUrl($params);
+		return GoCardless::$client->newSubscriptionUrl($params);
 	}
 	
 	/**
@@ -72,8 +73,7 @@ abstract class GoCardless {
 	 * @return string The generated URL
 	 */
 	public static function newPreAuthorizationUrl($params) {
-		global $client;
-		return $client->newPreAuthorizationUrl($params);
+		return GoCardless::$client->newPreAuthorizationUrl($params);
 	}
 	
 	/**
@@ -84,8 +84,7 @@ abstract class GoCardless {
 	 * @return string The generated URL
 	 */
 	public static function newBillUrl($params) {
-		global $client;
-		return $client->newBillUrl($params);
+		return GoCardless::$client->newBillUrl($params);
 	}
 	
 	/**
@@ -96,8 +95,7 @@ abstract class GoCardless {
 	 * @return string The generated URL
 	 */
 	public static function confirmResource($params) {
-		global $client;
-		return $client->confirmResource($params);
+		return GoCardless::$client->confirmResource($params);
 	}
 	
 	/**
@@ -108,8 +106,7 @@ abstract class GoCardless {
 	 * @return boolean True if webhook signature is valid
 	 */
 	public static function validateWebhook($params) {
-		global $client;
-		return $client->validateWebhook($params);
+		return GoCardless::$client->validateWebhook($params);
 	}
 	
 }
