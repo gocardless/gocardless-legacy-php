@@ -10,35 +10,35 @@
  *
  */
 class GoCardless_User {
-	
-	function __construct($id) {
-		
-		$user = self::find($id);
-		
-		foreach ($user as $key => $value) {
-			$this->$key = $value;
-		}
-		
-	}
-	
-	/**
-	 * Fetch a user item from the API
-	 *
-	 * @param string $id The id of the user to fetch
-	 *
-	 * @return object The user object
-	 */
-	public function find($id) {
-		
-		if ($id == null) {
-			$id = $this->id;
-		}
-		
-		$endpoint = '/users/' . $id;
-		return Utils::fetchResource($endpoint);
-		
-	}
-	
+  
+  function __construct($id) {
+    
+    $user = self::find($id);
+    
+    foreach ($user as $key => $value) {
+      $this->$key = $value;
+    }
+    
+  }
+  
+  /**
+   * Fetch a user item from the API
+   *
+   * @param string $id The id of the user to fetch
+   *
+   * @return object The user object
+   */
+  public function find($id) {
+    
+    if ($id == null) {
+      $id = $this->id;
+    }
+    
+    $endpoint = '/users/' . $id;
+    return Utils::fetchResource($endpoint);
+    
+  }
+  
 }
 
 ?>

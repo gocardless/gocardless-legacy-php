@@ -11,16 +11,16 @@
  * @return exception
  */
 class GoCardlessClientException extends Exception {
-	
-	/**
-	 * Throw a default exception
-	 *
-	 * @param string $description Description of the error
-	 */
-	public function __construct($description = 'Unknown client error') {
-		parent::__construct($description);
-	}
-	
+  
+  /**
+   * Throw a default exception
+   *
+   * @param string $description Description of the error
+   */
+  public function __construct($description = 'Unknown client error') {
+    parent::__construct($description);
+  }
+  
 }
 
 /**
@@ -29,16 +29,16 @@ class GoCardlessClientException extends Exception {
  * @return exception
  */
 class GoCardlessArgumentsException extends Exception {
-	
-	/**
-	 * Throw a default exception
-	 *
-	 * @param string $description Description of the error
-	 */
-	public function __construct($description = 'Unknown argument error') {
-		parent::__construct($description);
-	}
-	
+  
+  /**
+   * Throw a default exception
+   *
+   * @param string $description Description of the error
+   */
+  public function __construct($description = 'Unknown argument error') {
+    parent::__construct($description);
+  }
+  
 }
 
 /**
@@ -47,19 +47,19 @@ class GoCardlessArgumentsException extends Exception {
  * @return exception
  */
 class GoCardlessApiException extends Exception {
-	
-	/**
-	 * Throw a default exception
-	 *
-	 * @param string $description Description of the error
-	 */
-	public function __construct($description = 'Unknown error', $code = 0) {
-		if (empty($description)) {
-			$description = 'Unknown error';
-		}
-		parent::__construct($description, $code);
-	}
-	
+  
+  /**
+   * Throw a default exception
+   *
+   * @param string $description Description of the error
+   */
+  public function __construct($description = 'Unknown error', $code = 0) {
+    if (empty($description)) {
+      $description = 'Unknown error';
+    }
+    parent::__construct($description, $code);
+  }
+  
 }
 
 /**
@@ -68,16 +68,16 @@ class GoCardlessApiException extends Exception {
  * @return exception
  */
 class GoCardlessSignatureException extends Exception {
-	
-	/**
-	 * Throw a default exception
-	 *
-	 * @param string $description Description of the error
-	 */
-	public function __construct($description = 'Signature error') {
-		parent::__construct($description);
-	}
-	
+  
+  /**
+   * Throw a default exception
+   *
+   * @param string $description Description of the error
+   */
+  public function __construct($description = 'Signature error') {
+    parent::__construct($description);
+  }
+  
 }
 
 ?>
