@@ -41,21 +41,12 @@ if (isset($_GET['resource_id']) && isset($_GET['resource_type'])) {
     $confirm_params['resource_uri'] = $_GET['resource_uri'];
   }
   
-  $confirm = GoCardless::confirmResource($confirm_params);
+  $confirm_result = GoCardless::confirmResource($confirm_params);
   
-  $confirm_decoded = json_decode($confirm, true);
-  
-  if ($confirm_decoded['success'] == TRUE) {
-    
+  if ($confirm_result == true) {
     echo '<p>Payment confirmed!</p>';
-    
   } else {
-    
-    echo 'Payment not confirmed, following message was returned:';
-    echo '<pre>';
-    var_dump($confirm);
-    echo '</pre>';
-    
+    echo '<p>Payment confirmation attempted but failed.</p>';
   }
   
 }

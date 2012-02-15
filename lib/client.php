@@ -366,10 +366,20 @@ class GoCardless_Client {
     }
     
     // Do query
-    $confirm = GoCardless_Client::apiPost(GoCardless_Client::$api_path . $endpoint, $confirm_params);
+    $raw_response = GoCardless_Client::apiPost(GoCardless_Client::$api_path . $endpoint, $confirm_params);
     
-    // Return the result
-    return $confirm;
+    // Decode response
+    $response = json_decode($raw_response, true);
+    
+    if ($response['success'] == true) {
+      
+      return true;
+      
+    } else {
+      
+      return false;
+      
+    }
     
   }
   

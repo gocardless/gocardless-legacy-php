@@ -91,40 +91,31 @@ if ($account_details['access_token']) {
   /*
   // Get vars found so let's try confirming payment
   if (isset($_GET['resource_id']) && isset($_GET['resource_type'])) {
-
+  
     $confirm_params = array(
       'resource_id'  => $_GET['resource_id'],
       'resource_type'  => $_GET['resource_type'],
       'signature'    => $_GET['signature']
     );
-
+    
     // State is optional
     if (isset($_GET['state'])) {
       $confirm_params['state'] = $_GET['state'];
     }
-
+    
     // resource_uri is optional
     if (isset($_GET['resource_uri'])) {
       $confirm_params['resource_uri'] = $_GET['resource_uri'];
     }
-
-    $confirm = $gocardless_client->confirmResource($confirm_params);
-
-    $confirm_decoded = json_decode($confirm, true);
-
-    if ($confirm_decoded['success'] == TRUE) {
-
+    
+    $confirm_result = GoCardless::confirmResource($confirm_params);
+    
+    if ($confirm_result == true) {
       echo '<p>Payment confirmed!</p>';
-
     } else {
-
-      echo 'Payment not confirmed, following message was returned:';
-      echo '<pre>';
-      var_dump($confirm);
-      echo '</pre>';
-
+      echo '<p>Payment NOT confirmed</p>';
     }
-
+    
   }
   */
   
