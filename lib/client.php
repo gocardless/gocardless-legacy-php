@@ -371,7 +371,7 @@ class GoCardless_Client {
     
     if ($response['success'] == true) {
       
-      $endpoint = '/' . $params['resource_type'] . '/' . $params['resource_id'];
+      $endpoint = '/' . $params['resource_type'] . 's/' . $params['resource_id'];
       
       return Utils::fetchResource($endpoint);
       
