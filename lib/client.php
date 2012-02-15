@@ -10,6 +10,9 @@
  *
  */
 class GoCardless_Client {
+
+	/** @type array Account details for this instance of GoCardless_Client */
+	public $account_details;
 	
 	/** @type string The (empty) base_url to use for API queries */
 	public static $base_url;
@@ -23,12 +26,6 @@ class GoCardless_Client {
 	/** @type string The path to use to call the API */
 	public static $api_path = '/api/v1';
 	
-	/** @type string The OAuth token */
-	public $oauth_token;
-	
-	/** @type string The access token for a given merchant */
-	public $access_token;
-	
 	/** @type string The url to redirect the user to */
 	public $redirect_uri;
 	
@@ -41,16 +38,16 @@ class GoCardless_Client {
 		
 		// Fetch account_details
 		foreach ($account_details as $key => $value) {
-			$this->$account_details[$key] = $value;
+			$this->account_details[$key] = $value;
 		}
 		
 		// Check for app_id
-		if (!isset($this->$account_details['app_id'])) {
+		if (!isset($this->account_details['app_id'])) {
 			throw new GoCardlessClientException('No app_id specified');
 		}
 		
 		// Check for app_secret
-		if (!isset(GoCardless::$account_details['app_secret'])) {
+		if (!isset($this->account_details['app_secret'])) {
 			throw new GoCardlessClientException('No app_secret specfied');
 		}
 		
@@ -100,10 +97,6 @@ class GoCardless_Client {
 	 */
 	public function fetchAccessToken($options){
 		
-		//raise ArgumentError, ':redirect_uri required' unless options[:redirect_uri]
-		//@access_token = @oauth_client.auth_code.get_token(auth_code, options)
-		//self.access_token
-		
 		if (!isset($options['redirect_uri'])) {
 			throw new GoCardlessArgumentsException('redirect_uri required');
 		}
@@ -120,44 +113,6 @@ class GoCardless_Client {
 		);
 		
 		return $return;
-		
-	}
-	
-	/**
-	 * Generate an access token for the current user
-	 *
-	 * @return string The access token
-	 */
-	public function accessToken() {
-		
-		//if @access_token
-		//scope = @access_token.params[:scope] || @access_token.params['scope']
-		//"#{@access_token.token} #{scope}".strip
-		
-		if ($this->access_token) {
-			$scope = $this->access_token;
-		}
-		
-		// ? return the results of .strip
-		
-	}
-	
-	/**
-	 * Set the client's access token
-	 *
-	 * @return string The access token
-	 */
-	public function accessToken2() {
-		
-		//token, scope = token.sub(/^bearer\s+/i, '').split(' ', 2)
-		//if scope.nil?
-		//	raise ArgumentError, ('Access token missing scope. Use format <token> <scope>')
-		//end
-		//
-		//@access_token = OAuth2::AccessToken.new(@oauth_client, token)
-		//@access_token.params['scope'] = scope
-		
-		// ?
 		
 	}
 	
@@ -194,15 +149,13 @@ class GoCardless_Client {
 	 *
 	 * @return object The merchant object
 	 */
-	public function merchant() {
+	public static function merchant($id) {
 		
-		// Merchant.new_with_client(self, apiGet("/merchants/#{merchant_id}"))
-		
-		if (!isset($this->access_token)) {
+		if (!isset(GoCardless::$account_details['access_token'])) {
 			throw new GoCardlessClientException('Access token missing');
 		}
 		
-		// ? return GoCardless_Merchant::find();
+		return new GoCardless_Merchant($id);
 		
 	}
 	
@@ -213,11 +166,13 @@ class GoCardless_Client {
 	 *
 	 * @return object The subscription matching the id requested
 	 */
-	public function subscription($id) {
+	public static function subscription($id) {
 		
-		// Subscription.find_with_client(self, id)
+		if (!isset(GoCardless::$account_details['access_token'])) {
+			throw new GoCardlessClientException('Access token missing');
+		}
 		
-		return GoCardless_Subscription::find($id);
+		return new GoCardless_Subscription($id);
 		
 	}
 	
@@ -228,11 +183,13 @@ class GoCardless_Client {
 	 *
 	 * @return object The pre-authorization matching the id requested
 	 */
-	public function pre_authorization($id) {
+	public static function pre_authorization($id) {
 		
-		// PreAuthorization.find_with_client(self, id)
+		if (!isset(GoCardless::$account_details['access_token'])) {
+			throw new GoCardlessClientException('Access token missing');
+		}
 		
-		return GoCardless_Pre_Authorization::find($id);
+		return new GoCardless_Pre_Authorization($id);
 		
 	}
 	
@@ -243,11 +200,13 @@ class GoCardless_Client {
 	 *
 	 * @return object The user object matching the id requested
 	 */
-	public function user($id) {
+	public static function user($id) {
 		
-		// User.find_with_client(self, id)
+		if (!isset(GoCardless::$account_details['access_token'])) {
+			throw new GoCardlessClientException('Access token missing');
+		}
 		
-		return GoCardless_User::find($id);
+		return new GoCardless_User($id);
 		
 	}
 	
@@ -258,11 +217,13 @@ class GoCardless_Client {
 	 *
 	 * @return object The bill object matching the id requested
 	 */
-	public function bill($id) {
+	public static function bill($id) {
 		
-		// Bill.find_with_client(self, id)
+		if (!isset(GoCardless::$account_details['access_token'])) {
+			throw new GoCardlessClientException('Access token missing');
+		}
 		
-		return GoCardless_Bill::find($id);
+		return new GoCardless_Bill($id);
 		
 	}
 	
@@ -273,11 +234,13 @@ class GoCardless_Client {
 	 *
 	 * @return object The payment object matching the id requested
 	 */
-	public function payment($id) {
+	public static function payment($id) {
 		
-		// Payment.find_with_client(self, id)
+		if (!isset(GoCardless::$account_details['access_token'])) {
+			throw new GoCardlessClientException('Access token missing');
+		}
 		
-		return GoCardless_Payment::find($id);
+		return new GoCardless_Payment($id);
 		
 	}
 	
@@ -300,6 +263,7 @@ class GoCardless_Client {
     	// end
 		
 		// ? return GoCardless_Bill::new($attrs);
+		
 		
 		return GoCardless_Bill::create($attrs);
 		

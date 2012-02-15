@@ -11,6 +11,16 @@
  */
 class GoCardless_Subscription {
 	
+	function __construct($id) {
+		
+		$merchant = self::find($id);
+		
+		foreach ($merchant as $key => $value) {
+			$this->$key = $value;
+		}
+		
+	}
+	
 	/**
 	 * Fetch a subscription item from the API
 	 *
@@ -18,9 +28,15 @@ class GoCardless_Subscription {
 	 *
 	 * @return object The subscription object
 	 */
-	public static function find($id) {
+	public function find($id) {
+		
+		if ($id == null) {
+			$id = $this->id;
+		}
+		
 		$endpoint = '/subscriptions/' . $id;
 		return Utils::fetchResource($endpoint);
+		
 	}
 	
 	/**
@@ -30,9 +46,15 @@ class GoCardless_Subscription {
 	 *
 	 * @return object The result of the cancel query
 	 */
-	public static function cancel($id) {
+	public function cancel($id) {
+		
+		if ($id == null) {
+			$id = $this->id;
+		}
+		
 		$endpoint = '/subscriptions/' . $id . '/cancel';
 		return Utils::fetchResource($endpoint);
+		
 	}
 	
 }

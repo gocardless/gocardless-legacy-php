@@ -11,6 +11,16 @@
  */
 class GoCardless_Bill {
 	
+	function __construct($id) {
+		
+		$bill = self::find($id);
+		
+		foreach ($bill as $key => $value) {
+			$this->$key = $value;
+		}
+		
+	}
+	
 	/**
 	 * Fetch a bill item from the API
 	 *
@@ -18,9 +28,15 @@ class GoCardless_Bill {
 	 *
 	 * @return object The bill object
 	 */
-	public static function find($id) {
+	public function find($id) {
+		
+		if ($id == null) {
+			$id = $this->id;
+		}
+		
 		$endpoint = '/bills/' . $id;
 		return Utils::fetchResource($endpoint);
+		
 	}
 	
 	/**
@@ -30,9 +46,15 @@ class GoCardless_Bill {
 	 *
 	 * @return object The result of the cancel query
 	 */
-	public static function create($params) {
+	public function create($params) {
+		
+		if ($id == null) {
+			$id = $this->id;
+		}
+		
 		$endpoint = '/bills';
 		return GoCardless_Client::apiPost(GoCardless_Client::$api_path . $endpoint, $params);
+		
 	}
 	
 	/**
@@ -42,9 +64,15 @@ class GoCardless_Bill {
 	 *
 	 * @return object The result of the cancel query
 	 */
-	public static function cancel($id) {
+	public function cancel($id) {
+		
+		if ($id == null) {
+			$id = $this->id;
+		}
+		
 		$endpoint = '/bills/' . $id . '/cancel';
 		return Utils::fetchResource($endpoint);
+		
 	}
 	
 }

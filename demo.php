@@ -102,21 +102,15 @@ echo 'NB. The \'new bill\' link is also a demo of pre-populated user data';
 
 echo '<h2>API calls</h2>';
 
-echo 'GoCardless_Merchant::find(\'258584\')';
+echo 'GoCardless_Client::merchant(\'258584\')';
 echo '<blockquote><pre>';
-$merchant = GoCardless_Merchant::find('258584');
+$merchant = GoCardless_Client::merchant('258584');
 print_r($merchant);
 echo '</pre></blockquote>';
 
-echo 'GoCardless_Merchant::bills(\'258584\')';
+echo 'GoCardless_Client::bill(\'992375\')';
 echo '<blockquote><pre>';
-$bills = GoCardless_Merchant::bills('258584');
-print_r($bills);
-echo '</pre></blockquote>';
-
-echo 'GoCardless_Bill::find(\'992375\')';
-echo '<blockquote><pre>';
-$bill = GoCardless_Bill::find('992375');
+$bill = GoCardless_Client::bill('992375');
 print_r($bill);
 echo '</pre></blockquote>';
 

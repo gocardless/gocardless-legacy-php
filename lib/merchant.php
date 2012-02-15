@@ -11,6 +11,16 @@
  */
 class GoCardless_Merchant {
 	
+	function __construct($id) {
+		
+		$merchant = self::find($id);
+		
+		foreach ($merchant as $key => $value) {
+			$this->$key = $value;
+		}
+		
+	}
+	
 	/**
 	 * Fetch a merchant from the API
 	 *
@@ -18,9 +28,15 @@ class GoCardless_Merchant {
 	 *
 	 * @return object The merchant object
 	 */
-	public static function find($id) {
+	public function find($id = null) {
+		
+		if ($id == null) {
+			$id = $this->id;
+		}
+		
 		$endpoint = '/merchants/' . $id;
 		return Utils::fetchResource($endpoint);
+		
 	}
 	
 	/**
@@ -30,9 +46,15 @@ class GoCardless_Merchant {
 	 *
 	 * @return array Array of subscription objects
 	 */
-	public static function subscriptions($id) {
+	public function subscriptions($id = null) {
+		
+		if ($id == null) {
+			$id = $this->id;
+		}
+		
 		$endpoint = '/merchants/' . $id . '/subscriptions';
 		return Utils::fetchResource($endpoint);
+		
 	}
 	
 	/**
@@ -42,9 +64,15 @@ class GoCardless_Merchant {
 	 *
 	 * @return array Array of pre-authorisation objects
 	 */
-	public static function pre_authorizations($id) {
+	public function pre_authorizations($id) {
+		
+		if ($id == null) {
+			$id = $this->id;
+		}
+		
 		$endpoint = '/merchants/ ' . $id . '/pre_authorizations';
 		return Utils::fetchResource($endpoint);
+		
 	}
 	
 	/**
@@ -54,9 +82,15 @@ class GoCardless_Merchant {
 	 *
 	 * @return array Array of user objects
 	 */
-	public static function users($id) {
+	public function users($id) {
+		
+		if ($id == null) {
+			$id = $this->id;
+		}
+		
 		$endpoint = '/merchants/' . $id . '/users';
 		return Utils::fetchResource($endpoint);
+		
 	}
 	
 	/**
@@ -66,9 +100,15 @@ class GoCardless_Merchant {
 	 *
 	 * @return array Array of bill objects
 	 */
-	public static function bills($id) {
+	public function bills($id) {
+		
+		if ($id == null) {
+			$id = $this->id;
+		}
+		
 		$endpoint = '/merchants/' . $id . '/bills';
 		return Utils::fetchResource($endpoint);
+		
 	}
 	
 	/**
@@ -78,9 +118,15 @@ class GoCardless_Merchant {
 	 *
 	 * @return array Array of payment objects
 	 */
-	public static function payments($id) {
+	public function payments($id) {
+		
+		if ($id == null) {
+			$id = $this->id;
+		}
+		
 		$endpoint = '/merchants/' . $id . '/payments';
 		return Utils::fetchResource($endpoint);
+		
 	}
 	
 }

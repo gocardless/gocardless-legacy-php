@@ -17,6 +17,8 @@ if (!function_exists('json_decode')) {
 require 'lib/utils.php';
 require 'lib/exceptions.php';
 require 'lib/bill.php';
+require 'lib/user.php';
+require 'lib/payment.php';
 require 'lib/client.php';
 require 'lib/merchant.php';
 require 'lib/subscription.php';
