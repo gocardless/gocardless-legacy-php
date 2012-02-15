@@ -28,7 +28,7 @@ class GoCardless_Pre_Authorization {
    *
    * @return object The pre-authorisations object
    */
-  public function find($id) {
+  public function find($id = null) {
 
     if ($id == null) {
       $id = $this->id;
@@ -46,7 +46,7 @@ class GoCardless_Pre_Authorization {
    *
    * @return object The pre-authorisations object
    */
-  public function create($params) {
+  public function create($params = null) {
     
     $bill = new Bill($this->id);
     
@@ -61,7 +61,7 @@ class GoCardless_Pre_Authorization {
    *
    * @return object The result of the cancel query
    */
-  public function cancel($id) {
+  public function cancel($id = null) {
     
     if ($id == null) {
       $id = $this->id;

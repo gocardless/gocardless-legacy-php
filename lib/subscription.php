@@ -28,7 +28,7 @@ class GoCardless_Subscription {
    *
    * @return object The subscription object
    */
-  public function find($id) {
+  public function find($id = null) {
     
     if ($id == null) {
       $id = $this->id;
@@ -46,7 +46,7 @@ class GoCardless_Subscription {
    *
    * @return object The result of the cancel query
    */
-  public function cancel($id) {
+  public function cancel($id = null) {
     
     if ($id == null) {
       $id = $this->id;

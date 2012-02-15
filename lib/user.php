@@ -28,7 +28,7 @@ class GoCardless_User {
    *
    * @return object The user object
    */
-  public function find($id) {
+  public function find($id = null) {
     
     if ($id == null) {
       $id = $this->id;

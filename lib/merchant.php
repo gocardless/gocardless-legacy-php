@@ -64,7 +64,7 @@ class GoCardless_Merchant {
    *
    * @return array Array of pre-authorisation objects
    */
-  public function pre_authorizations($id) {
+  public function pre_authorizations($id = null) {
     
     if ($id == null) {
       $id = $this->id;
@@ -82,7 +82,7 @@ class GoCardless_Merchant {
    *
    * @return array Array of user objects
    */
-  public function users($id) {
+  public function users($id = null) {
     
     if ($id == null) {
       $id = $this->id;
@@ -100,7 +100,7 @@ class GoCardless_Merchant {
    *
    * @return array Array of bill objects
    */
-  public function bills($id) {
+  public function bills($id = null) {
     
     if ($id == null) {
       $id = $this->id;
@@ -118,7 +118,7 @@ class GoCardless_Merchant {
    *
    * @return array Array of payment objects
    */
-  public function payments($id) {
+  public function payments($id = null) {
     
     if ($id == null) {
       $id = $this->id;
