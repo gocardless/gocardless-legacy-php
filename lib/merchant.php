@@ -70,7 +70,7 @@ class GoCardless_Merchant {
       $id = $this->id;
     }
     
-    $endpoint = '/merchants/ ' . $id . '/pre_authorizations';
+    $endpoint = '/merchants/' . $id . '/pre_authorizations';
     return Utils::fetchResource($endpoint);
     
   }
