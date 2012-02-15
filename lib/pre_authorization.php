@@ -46,7 +46,7 @@ class GoCardless_Pre_Authorization {
    *
    * @return object The pre-authorisations object
    */
-  public function createBill($params) {
+  public function create($params) {
     
     $bill = new Bill($this->id);
     

@@ -251,21 +251,19 @@ class GoCardless_Client {
    *
    * @return string The new bill object
    */
-  public function createBill($attrs) {
-  
-    // # Create a new bill under a given pre-authorization
-      // # @see PreAuthorization#create_bill
-      // #
-      // # @param [Hash] attrs must include +:pre_authorization_id+ and +:amount+
-      // # @return [Bill] the created bill object
-      // def create_bill(attrs)
-      //   Bill.new_with_client(self, attrs).save
-      // end
+  public static function createBill($attrs) {
     
-    // ? return GoCardless_Bill::new($attrs);
+    if (!isset(GoCardless::$account_details['access_token'])) {
+      throw new GoCardlessClientException('Access token missing');
+    }
     
+    if (!isset($attrs['id'])) {
+      throw new GoCardlessArgumentsException('Bill id missing');
+    }
     
-    return GoCardless_Bill::create($attrs);
+    $bill = new GoCardless_Bill($attrs['id']);
+    
+    return $bill->create($attrs);
     
   }
   
