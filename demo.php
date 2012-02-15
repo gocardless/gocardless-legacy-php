@@ -99,10 +99,10 @@ $merchant = GoCardless_Client::merchant('258584');
 print_r($merchant);
 echo '</pre></blockquote>';
 
-echo 'GoCardless_Client::bill(\'992375\')';
+echo 'GoCardless_Client::merchant(\'258584\')->pre_authorizations()';
 echo '<blockquote><pre>';
-$bill = GoCardless_Client::bill('992375');
-print_r($bill);
+$preauths = GoCardless_Client::merchant('258584')->pre_authorizations();
+print_r($preauths);
 echo '</pre></blockquote>';
 
 echo 'validate webhook:';
