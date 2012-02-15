@@ -46,13 +46,11 @@ class GoCardless_Bill {
    *
    * @return object The result of the cancel query
    */
-  public function create($params) {
-    
-    if ($id == null) {
-      $id = $this->id;
-    }
+  public static function create($params) {
     
     $endpoint = '/bills';
+    $params['headers']['authorization'] = true;
+    
     return GoCardless_Client::apiPost(GoCardless_Client::$api_path . $endpoint, $params);
     
   }
