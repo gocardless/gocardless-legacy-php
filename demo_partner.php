@@ -110,7 +110,7 @@ if ($account_details['access_token']) {
     
     $confirm_result = GoCardless::confirmResource($confirm_params);
     
-    if ($confirm_result == true) {
+    if ($confirm_result != false) {
       echo '<p>Payment confirmed!</p>';
     } else {
       echo '<p>Payment NOT confirmed</p>';
