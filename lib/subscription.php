@@ -10,12 +10,14 @@
  *
  */
 class GoCardless_Subscription {
+
+  public static $endpoint = '/subscriptions';
   
-  function __construct($id) {
+  function __construct($client, $attrs) {
     
-    $merchant = self::find($id);
+    $this->client = $client;
     
-    foreach ($merchant as $key => $value) {
+    foreach ($attrs as $key => $value) {
       $this->$key = $value;
     }
     
@@ -28,14 +30,26 @@ class GoCardless_Subscription {
    *
    * @return object The subscription object
    */
-  public function find($id = null) {
+  public static function find($id) {
     
-    if ($id == null) {
-      $id = $this->id;
-    }
+    $endpoint = self::$endpoint . '/' . $id;
     
-    $endpoint = '/subscriptions/' . $id;
-    return Utils::fetchResource($endpoint);
+    return new self(GoCardless::$client, GoCardless::$client->apiGet($endpoint));
+    
+  }
+  
+  /**
+   * Fetch a bill item from the API
+   *
+   * @param string $id The id of the bill to fetch
+   *
+   * @return object The bill object
+   */
+  public static function findWithClient($client, $id) {
+    
+    $endpoint = self::$endpoint . '/' . $id;
+    
+    return new self($client, $client->apiGet($endpoint));
     
   }
   
@@ -46,14 +60,11 @@ class GoCardless_Subscription {
    *
    * @return object The result of the cancel query
    */
-  public function cancel($id = null) {
+  public function cancel() {
     
-    if ($id == null) {
-      $id = $this->id;
-    }
+    $endpoint = self::$endpoint . '/' . $this->id . '/cancel';
     
-    $endpoint = '/subscriptions/' . $id . '/cancel';
-    return Utils::fetchResource($endpoint);
+    return new self($this->client, $this->client->apiPut($endpoint));
     
   }
   

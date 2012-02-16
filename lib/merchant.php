@@ -11,11 +11,13 @@
  */
 class GoCardless_Merchant {
   
-  function __construct($id) {
+  public static $endpoint = '/merchants';
+  
+  function __construct($client, $attrs) {
     
-    $merchant = self::find($id);
+    $this->client = $client;
     
-    foreach ($merchant as $key => $value) {
+    foreach ($attrs as $key => $value) {
       $this->$key = $value;
     }
     
@@ -28,14 +30,26 @@ class GoCardless_Merchant {
    *
    * @return object The merchant object
    */
-  public function find($id = null) {
+  public static function find($id) {
     
-    if ($id == null) {
-      $id = $this->id;
-    }
+    $endpoint = self::$endpoint . '/' . $id;
     
-    $endpoint = '/merchants/' . $id;
-    return Utils::fetchResource($endpoint);
+    return new self(GoCardless::$client, GoCardless::$client->apiGet($endpoint));
+    
+  }
+  
+  /**
+   * Fetch a bill item from the API
+   *
+   * @param string $id The id of the bill to fetch
+   *
+   * @return object The bill object
+   */
+  public static function findWithClient($client, $id) {
+    
+    $endpoint = self::$endpoint . '/' . $id;
+    
+    return new self($client, $client->apiGet($endpoint));
     
   }
   
@@ -46,14 +60,17 @@ class GoCardless_Merchant {
    *
    * @return array Array of subscription objects
    */
-  public function subscriptions($id = null) {
+  public function subscriptions() {
     
-    if ($id == null) {
-      $id = $this->id;
+    $objects = array();
+    
+    $endpoint = self::$endpoint . '/' . $this->id . '/subscriptions';
+    
+    foreach ($this->client->apiGet($endpoint) as $value) {
+      $objects[] = new GoCardless_Subscriptions($this->client, $value);
     }
     
-    $endpoint = '/merchants/' . $id . '/subscriptions';
-    return Utils::fetchResource($endpoint);
+    return $objects;
     
   }
   
@@ -64,14 +81,17 @@ class GoCardless_Merchant {
    *
    * @return array Array of pre-authorisation objects
    */
-  public function pre_authorizations($id = null) {
+  public function pre_authorizations() {
     
-    if ($id == null) {
-      $id = $this->id;
+    $endpoint = self::$endpoint . '/' . $this->id . '/pre_authorizations';
+    
+    $objects = array();
+    
+    foreach ($this->client->apiGet($endpoint) as $value) {
+      $objects[] = new GoCardless_PreAuthorization($this->client, $value);
     }
     
-    $endpoint = '/merchants/' . $id . '/pre_authorizations';
-    return Utils::fetchResource($endpoint);
+    return $objects;
     
   }
   
@@ -82,14 +102,17 @@ class GoCardless_Merchant {
    *
    * @return array Array of user objects
    */
-  public function users($id = null) {
+  public function users() {
     
-    if ($id == null) {
-      $id = $this->id;
+    $endpoint = self::$endpoint . '/' . $this->id . '/users';
+    
+    $objects = array();
+    
+    foreach (GoCardless::$client->apiGet($endpoint) as $value) {
+      $objects[] = new GoCardless_Users($this->client, $value);
     }
-    
-    $endpoint = '/merchants/' . $id . '/users';
-    return Utils::fetchResource($endpoint);
+
+    return $objects;
     
   }
   
@@ -100,14 +123,17 @@ class GoCardless_Merchant {
    *
    * @return array Array of bill objects
    */
-  public function bills($id = null) {
+  public function bills() {
     
-    if ($id == null) {
-      $id = $this->id;
+    $endpoint = self::$endpoint . '/' . $this->id . '/bills';
+    
+    $objects = array();
+    
+    foreach ($this->client->apiGet($endpoint) as $value) {
+      $objects[] = new GoCardless_Bills($this->client, $value);
     }
-    
-    $endpoint = '/merchants/' . $id . '/bills';
-    return Utils::fetchResource($endpoint);
+
+    return $objects;
     
   }
   
@@ -118,14 +144,17 @@ class GoCardless_Merchant {
    *
    * @return array Array of payment objects
    */
-  public function payments($id = null) {
+  public function payments() {
     
-    if ($id == null) {
-      $id = $this->id;
+    $endpoint = self::$endpoint . '/' . $this->id . '/payments';
+
+    $objects = array();
+
+    foreach ($this->client->apiGet($endpoint) as $value) {
+      $objects[] = new GoCardless_Payments($this->client, $value);
     }
-    
-    $endpoint = '/merchants/' . $id . '/payments';
-    return Utils::fetchResource($endpoint);
+
+    return $objects;
     
   }
   

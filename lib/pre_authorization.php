@@ -9,13 +9,15 @@
  * GoCardless pre-authorization class
  *
  */
-class GoCardless_Pre_Authorization {
+class GoCardless_PreAuthorization {
   
-  function __construct($id) {
+  public static $endpoint = '/pre_authorizations';
+  
+  function __construct($client, $attrs) {
     
-    $pre_auth = self::find($id);
+    $this->client = $client;
     
-    foreach ($pre_auth as $key => $value) {
+    foreach ($attrs as $key => $value) {
       $this->$key = $value;
     }
     
@@ -28,14 +30,26 @@ class GoCardless_Pre_Authorization {
    *
    * @return object The pre-authorisations object
    */
-  public function find($id = null) {
-
-    if ($id == null) {
-      $id = $this->id;
-    }
+  public static function find() {
     
-    $endpoint = '/pre_authorizations/' . $id;
-    return Utils::fetchResource($endpoint);
+    $endpoint = self::$endpoint . '/' . $id;
+    
+    return new self(GoCardless::$client, GoCardless::$client->apiGet($endpoint));
+    
+  }
+  
+  /**
+   * Fetch a bill item from the API
+   *
+   * @param string $id The id of the bill to fetch
+   *
+   * @return object The bill object
+   */
+  public static function findWithClient($client, $id) {
+    
+    $endpoint = self::$endpoint . '/' . $id;
+    
+    return new self($client, $client->apiGet($endpoint));
     
   }
   
@@ -46,9 +60,18 @@ class GoCardless_Pre_Authorization {
    *
    * @return object The pre-authorisations object
    */
-  public function createBill($params = null) {
+  public function createBill($attrs) {
     
-    return GoCardless_Bill::create($params);
+    $params = array(
+      'bill' => array(
+        'amount'                => $attrs['amount'],
+        'pre_authorization_id'  => $this->id
+      )
+    );
+    
+    $endpoint = GoCardless_Bill::$endpoint;
+    
+    return new GoCardless_Bill($this->client, $this->client->apiPost($endpoint, $params));
     
   }
   
@@ -59,14 +82,11 @@ class GoCardless_Pre_Authorization {
    *
    * @return object The result of the cancel query
    */
-  public function cancel($id = null) {
+  public function cancel() {
     
-    if ($id == null) {
-      $id = $this->id;
-    }
+    $endpoint = self::$endpoint . '/' . $this->id . '/cancel';
     
-    $endpoint = '/pre_authorizations/' . $id . '/cancel';
-    return Utils::fetchResource($endpoint);
+    return new self($this->client, $this->client->apiPut($endpoint));
     
   }
   

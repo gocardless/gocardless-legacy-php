@@ -10,7 +10,7 @@
  *
  */
 class GoCardless_Client {
-
+  
   /** @type array Account details for this instance of GoCardless_Client */
   public $account_details;
   
@@ -76,15 +76,16 @@ class GoCardless_Client {
       throw new GoCardlessArgumentsException('redirect_uri required');
     }
     
-    $params = array(
-      'client_id'     => GoCardless::$account_details['app_id'],
-      'redirect_uri'  => $options['redirect_uri'],
-      'response_type' => 'code',
-      'scope'         => 'manage_merchant'
-    );
+    $endpoint = '/oauth/authorize';
     
-    return OAuth::authorizeUrl($params);
+    $url =  GoCardless_Client::$base_url . $endpoint .
+        '?client_id='. urlencode($this->account_details['app_id']) .
+        '&redirect_uri=' . urlencode($options['redirect_uri']) .
+        '&scope=manage_merchant' .
+        '&response_type=code';
     
+    return $url;
+
   }
   
   /**
@@ -101,11 +102,15 @@ class GoCardless_Client {
       throw new GoCardlessArgumentsException('redirect_uri required');
     }
     
-    $response = OAuth::getToken($options);
-    $token_response = json_decode($response, true);
-    $merchant = explode(':', $token_response['scope']);
+    $path = '/oauth/access_token';
+    
+    $options['http_authorization'] = $this->account_details['app_id'] . ':' . $this->account_details['app_secret'];
+    
+    $response = $this->request('post', $path, $options);
+    
+    $merchant = explode(':', $response['scope']);
     $merchant_id = $merchant[1];
-    $access_token = $token_response['access_token'];
+    $access_token = $response['access_token'];
     
     $return = array(
       'merchant_id'   => $merchant_id,
@@ -124,8 +129,12 @@ class GoCardless_Client {
    *
    * @return string The response text
    */
-  public static function apiGet($path, $params = array()) {
-    return GoCardless_Client::request('get', GoCardless_Client::$base_url . $path, $params);
+  public function apiGet($path, $params = array()) {
+    
+    $path = GoCardless_Client::$api_path . $path;
+    
+    return $this->request('get', $path, $params);
+    
   }
   
   /**
@@ -136,11 +145,29 @@ class GoCardless_Client {
    *
    * @return string The response text
    */
-  public static function apiPost($path, $data = array()) {
-    return GoCardless_Client::request('post', GoCardless_Client::$base_url . $path, $data);
+  public function apiPost($path, $data = array()) {
+      
+    $path = GoCardless_Client::$api_path . $path;
+    
+    return $this->request('post', $path, $data);
+    
   }
   
-  // api_put
+  /**
+   * Configure a PUT request
+   *
+   * @param string $path The URL to make the request to
+   * @param array $data The parameters to use for the PUT body
+   *
+   * @return string The response text
+   */
+  public function apiPut($path, $data = array()) {
+    
+    $path = GoCardless_Client::$api_path . $path;
+    
+    return $this->request('put', $path, $data);
+    
+  }
   
   /**
    * Returns the merchant associated with the client's access token
@@ -149,13 +176,13 @@ class GoCardless_Client {
    *
    * @return object The merchant object
    */
-  public static function merchant($id) {
+  public function merchant($id) {
     
-    if (!isset(GoCardless::$account_details['access_token'])) {
+    if (!isset($this->account_details['access_token'])) {
       throw new GoCardlessClientException('Access token missing');
     }
     
-    return new GoCardless_Merchant($id);
+    return GoCardless_Merchant::findWithClient($this, $id);
     
   }
   
@@ -166,13 +193,13 @@ class GoCardless_Client {
    *
    * @return object The subscription matching the id requested
    */
-  public static function subscription($id) {
+  public function subscription($id) {
     
-    if (!isset(GoCardless::$account_details['access_token'])) {
+    if (!isset($this->account_details['access_token'])) {
       throw new GoCardlessClientException('Access token missing');
     }
     
-    return new GoCardless_Subscription($id);
+    return GoCardless_Subscription::findWithClient($this, $id);
     
   }
   
@@ -183,13 +210,13 @@ class GoCardless_Client {
    *
    * @return object The pre-authorization matching the id requested
    */
-  public static function pre_authorization($id) {
+  public function pre_authorization($id) {
     
-    if (!isset(GoCardless::$account_details['access_token'])) {
+    if (!isset($this->account_details['access_token'])) {
       throw new GoCardlessClientException('Access token missing');
     }
     
-    return new GoCardless_Pre_Authorization($id);
+    return GoCardless_PreAuthorization::findWithClient($this, $id);
     
   }
   
@@ -200,13 +227,13 @@ class GoCardless_Client {
    *
    * @return object The user object matching the id requested
    */
-  public static function user($id) {
+  public function user($id) {
     
-    if (!isset(GoCardless::$account_details['access_token'])) {
+    if (!isset($this->account_details['access_token'])) {
       throw new GoCardlessClientException('Access token missing');
     }
     
-    return new GoCardless_User($id);
+    return GoCardless_User::findWithClient($this, $id);
     
   }
   
@@ -217,30 +244,13 @@ class GoCardless_Client {
    *
    * @return object The bill object matching the id requested
    */
-  public static function bill($id) {
+  public function bill($id) {
     
-    if (!isset(GoCardless::$account_details['access_token'])) {
+    if (!isset($this->account_details['access_token'])) {
       throw new GoCardlessClientException('Access token missing');
     }
     
-    return new GoCardless_Bill($id);
-    
-  }
-  
-  /**
-   * Get a specific payment
-   *
-   * @param string $id The id of the payment to fetch
-   *
-   * @return object The payment object matching the id requested
-   */
-  public static function payment($id) {
-    
-    if (!isset(GoCardless::$account_details['access_token'])) {
-      throw new GoCardlessClientException('Access token missing');
-    }
-    
-    return new GoCardless_Payment($id);
+    return GoCardless_Bill::findWithClient($this, $id);
     
   }
   
@@ -251,9 +261,9 @@ class GoCardless_Client {
    *
    * @return string The new bill object
    */
-  public static function createBill($attrs) {
+  public function createBill($attrs) {
     
-    if (!isset(GoCardless::$account_details['access_token'])) {
+    if (!isset($this->account_details['access_token'])) {
       throw new GoCardlessClientException('Access token missing');
     }
     
@@ -261,7 +271,7 @@ class GoCardless_Client {
       throw new GoCardlessArgumentsException('Bill id missing');
     }
     
-    $bill = new GoCardless_Bill($attrs['id']);
+    $bill = new GoCardless_Bill($this, $attrs['id']);
     
     return $bill->create($attrs);
     
@@ -274,8 +284,8 @@ class GoCardless_Client {
    *
    * @return string The generated URL
    */
-  public static function newSubscriptionUrl($params) {
-    return GoCardless_Client::newLimitUrl('subscription', $params);
+  public function newSubscriptionUrl($params) {
+    return $this->newLimitUrl('subscription', $params);
   }
   
   /**
@@ -285,8 +295,8 @@ class GoCardless_Client {
    *
    * @return string The generated URL
    */
-  public static function newPreAuthorizationUrl($params) {
-    return GoCardless_Client::newLimitUrl('pre_authorization', $params);
+  public function newPreAuthorizationUrl($params) {
+    return $this->newLimitUrl('pre_authorization', $params);
   }
   
   /**
@@ -296,8 +306,8 @@ class GoCardless_Client {
    *
    * @return string The generated URL
    */
-  public static function newBillUrl($params) {
-    return GoCardless_Client::newLimitUrl('bill', $params);
+  public function newBillUrl($params) {
+    return $this->newLimitUrl('bill', $params);
   }
   
   /**
@@ -307,7 +317,7 @@ class GoCardless_Client {
    *
    * @return string The result of the HTTP request
    */
-  public static function confirmResource($params) {
+  public function confirmResource($params) {
     
     // Define confirm endpoint
     $endpoint = '/confirm';
@@ -341,11 +351,11 @@ class GoCardless_Client {
     
     $sig_validation_data = array(
       'data'      => $data,
-      'secret'    => GoCardless::$account_details['app_secret'],
+      'secret'    => $this->account_details['app_secret'],
       'signature' => $params['signature']
     );
     
-    if (GoCardless_Client::validateSignature($sig_validation_data) == false) {
+    if ($this->validateSignature($sig_validation_data) == false) {
       throw new GoCardlessSignatureException();
     }
     
@@ -356,7 +366,7 @@ class GoCardless_Client {
     );
     
     // Use HTTP Basic Authorization
-    $confirm_params['headers']['http_authorization'] = true;
+    $confirm_params['http_authorization'] = $this->account_details['app_id'] . ':' . $this->account_details['app_secret'];
     
     // If no method-specific redirect sent, use class level if available
     if (!isset($params['redirect_uri']) && isset($this)) {
@@ -364,7 +374,7 @@ class GoCardless_Client {
     }
     
     // Do query
-    $raw_response = GoCardless_Client::apiPost(GoCardless_Client::$api_path . $endpoint, $confirm_params);
+    $raw_response = $this->apiPost(GoCardless_Client::$api_path . $endpoint, $confirm_params);
     
     // Decode response
     $response = json_decode($raw_response, true);
@@ -390,7 +400,7 @@ class GoCardless_Client {
    *
    * @return boolean If valid returns true
    */
-  public static function validateWebhook($params) {
+  public function validateWebhook($params) {
     
     $sig = $params['payload']['signature'];
     unset($params['payload']['signature']);
@@ -401,11 +411,11 @@ class GoCardless_Client {
     
     $data = array(
       'data'      => $params['payload'],
-      'secret'    => GoCardless::$account_details['app_secret'],
+      'secret'    => $this->account_details['app_secret'],
       'signature' => $sig
     );
     
-    return GoCardless_Client::validateSignature($data);
+    return $this->validateSignature($data);
     
   }
   
@@ -418,7 +428,9 @@ class GoCardless_Client {
    *
    * @return string The response text
    */
-  protected static function request($method, $path, $opts = array()) {
+  protected function request($method, $path, $opts = array()) {
+    
+    $path = GoCardless_Client::$base_url . $path;
     
     $ch = curl_init($path);
     
@@ -431,16 +443,22 @@ class GoCardless_Client {
     // Request format
     $curl_options[CURLOPT_HTTPHEADER][] = 'Accept: application/json';
     
-    // HTTP Authentication (for confirming new payments)
-    if (isset($opts['headers']['http_authorization']) && $opts['headers']['http_authorization'] == true) {
-      $curl_options[CURLOPT_USERPWD] = GoCardless::$account_details['app_id'] . ':' . GoCardless::$account_details['app_secret'];
-      unset($opts['headers']['http_authorization']);
-    }
+    $authorization = $this->account_details['access_token'];
     
-    // Authentication (for API requests)
-    if (isset($opts['headers']['authorization']) && $opts['headers']['authorization'] == true) {
-      $curl_options[CURLOPT_HTTPHEADER][] = 'Authorization: Bearer ' . GoCardless::$account_details['access_token'];
-      unset($opts['headers']['authorization']);
+    // HTTP Authentication (for confirming new payments)
+    if (isset($opts['http_authorization'])) {
+      
+      $curl_options[CURLOPT_USERPWD] = $opts['http_authorization'];
+      unset($opts['http_authorization']);
+      
+    } else {
+      
+      if (!isset($this->account_details['access_token'])) {
+        throw new GoCardlessClientException('Access token missing');
+      }
+      
+      $curl_options[CURLOPT_HTTPHEADER][] = 'Authorization: Bearer ' . $this->account_details['access_token'];
+      
     }
     
     if ($method == 'post') {
@@ -455,6 +473,10 @@ class GoCardless_Client {
       
       $curl_options[CURLOPT_HTTPGET] = 1;
       
+    } elseif ($method == 'put') {
+
+      $curl_options[CURLOPT_PUT] = 1;
+
     }
     
     // Debug
@@ -495,7 +517,9 @@ class GoCardless_Client {
     
     curl_close($ch);
     
-    return $result;
+    $object = json_decode($result, true);
+    
+    return $object;
     
   }
   
@@ -508,7 +532,7 @@ class GoCardless_Client {
    *
    * @return boolean True or false
    */
-  public static function validateSignature($params) {
+  public function validateSignature($params) {
     
     $new_sig = Utils::generateSignature($params['data'], $params['secret']);
     
@@ -525,7 +549,7 @@ class GoCardless_Client {
    *
    * @return string Base64 encoded nonce
    */
-  public static function generateNonce() {
+  public function generateNonce() {
     
     $n = 1;
     $rand = '';
@@ -547,7 +571,7 @@ class GoCardless_Client {
    *
    * @return string The new payment URL
    */
-  private static function newLimitUrl($type, $limit_params) {
+  private function newLimitUrl($type, $limit_params) {
     
     // If no method-specific redirect submitted then
     // use class level if available
@@ -556,16 +580,16 @@ class GoCardless_Client {
     }
     
     // Add in merchant id
-    $limit_params['merchant_id'] = GoCardless::$account_details['merchant_id'];
+    $limit_params['merchant_id'] = $this->account_details['merchant_id'];
     
     // Add passed params to an array named by type
     $limit_params = array($type => $limit_params);
     
     // Merge passed and mandatory params
-    $request = array_merge($limit_params, Utils::generateMandatoryParams());
+    $request = array_merge($limit_params, $this->generateMandatoryParams());
     
     // Generate signature
-    $request['signature'] = Utils::generateSignature($request, GoCardless::$account_details['app_secret']);
+    $request['signature'] = Utils::generateSignature($request, $this->account_details['app_secret']);
 
     // Generate query string from all parameters
     $query_string = Utils::generateQueryString($request);
@@ -575,6 +599,26 @@ class GoCardless_Client {
     
     // Return the result
     return $url;
+    
+  }
+  
+  /**
+   * Generate mandatory payment parameters: client_id, nonce and timestamp
+   *
+   * @return array Mandatory payment parameters
+   */
+  public function generateMandatoryParams() {
+    
+    // Create new UTC date object
+    $date = new DateTime(null, new DateTimeZone('UTC'));
+    
+    $request = array(
+      'client_id' => $this->account_details['app_id'],
+      'nonce'     => GoCardless_Client::generateNonce(),
+      'timestamp' => $date->format('Y-m-d\TH:i:s\Z')
+    );
+    
+    return $request;
     
   }
 

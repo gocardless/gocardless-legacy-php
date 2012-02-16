@@ -93,15 +93,15 @@ echo 'NB. The \'new bill\' link is also a demo of pre-populated user data';
 
 echo '<h2>API calls</h2>';
 
-echo 'GoCardless_Client::merchant(\'258584\')';
+echo 'GoCardless_Merchant::find(\'258584\')';
 echo '<blockquote><pre>';
-$merchant = GoCardless_Client::merchant('258584');
+$merchant = GoCardless_Merchant::find('258584');
 print_r($merchant);
 echo '</pre></blockquote>';
 
-echo 'GoCardless_Client::merchant(\'258584\')->pre_authorizations()';
+echo 'GoCardless_Merchant::find(\'258584\')->pre_authorizations()';
 echo '<blockquote><pre>';
-$preauths = GoCardless_Client::merchant('258584')->pre_authorizations();
+$preauths = GoCardless_Merchant::find('258584')->pre_authorizations();
 print_r($preauths);
 echo '</pre></blockquote>';
 

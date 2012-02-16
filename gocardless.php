@@ -18,12 +18,10 @@ require 'lib/utils.php';
 require 'lib/exceptions.php';
 require 'lib/bill.php';
 require 'lib/user.php';
-require 'lib/payment.php';
 require 'lib/client.php';
 require 'lib/merchant.php';
 require 'lib/subscription.php';
 require 'lib/pre_authorization.php';
-require 'lib/oauth.php';
 
 /**
  * GoCardless class
@@ -34,9 +32,6 @@ abstract class GoCardless {
   /** @type string The environment: sandbox or live */
   public static $environment;
   
-  /** @type array Array of account details */
-  public static $account_details;
-  
   /** @type object The client object */
   public static $client;
   
@@ -46,13 +41,7 @@ abstract class GoCardless {
    * $account_details array Array of account details
    */
   public static function setAccountDetails($account_details) {
-    
-    foreach ($account_details as $key => $value) {
-      self::$account_details[$key] = $value;
-    }
-    
-    GoCardless::$client = new GoCardless_Client(self::$account_details);
-    
+    GoCardless::$client = new GoCardless_Client($account_details);
   }
   
   /**
