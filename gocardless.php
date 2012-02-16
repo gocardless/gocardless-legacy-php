@@ -27,7 +27,7 @@ require 'lib/pre_authorization.php';
  * GoCardless class
  *
  */
-abstract class GoCardless {
+class GoCardless {
   
   /** @type string The environment: sandbox or live */
   public static $environment;
