@@ -12,18 +12,17 @@
  * And use them to initialize GoCardless for that user
  *
  * NB. You can also paste in access_token and merchant_id below for testing
- * 
- * 
+ *
+ *
  * This page then does the following:
- * 
+ *
  *  1. Shows an authorize link
  *  2. Generates an access_token from the retured $_GET['code']
  *  3. Instantiate new GoCardless_Client object
  *  (4. Check for GET vars required to confirm a payment)
  *  5. Show new bill url
  *  6. Fetch a bill from the API
- *  7. 
- * 
+ *
 */
 
 
@@ -82,15 +81,15 @@ if ($account_details['access_token']) {
   // New pre-authorization
 
 
-  echo 'GoCardless_Merchant::find(\'012GM2H8FA\')';
+  echo '$gocardless_client->merchant(\'012GM2H8FA\')';
   echo '<blockquote><pre>';
-  $merchant = $gocardless_client->merchant('012GM2H8FA');
+  $merchant = $gocardless_client->merchant();
   print_r($merchant);
   echo '</pre></blockquote>';
 
-  echo 'GoCardless_Merchant::find(\'012GM2H8FA\')->pre_authorizations()';
+  echo 'echo $gocardless_client->merchant(\'012GM2H8FA\')->pre_authorizations()';
   echo '<blockquote><pre>';
-  $preauths = $gocardless_client->merchant('012GM2H8FA')->pre_authorizations();
+  $preauths = $gocardless_client->merchant()->pre_authorizations();
   print_r($preauths);
   echo '</pre></blockquote>';
 
@@ -103,19 +102,17 @@ if ($account_details['access_token']) {
 
   $gocardless_client2 = new GoCardless_Client($account_details);
 
-  echo 'GoCardless_Merchant::find(\'258584\')';
+  echo 'echo $gocardless_client2->merchant()';
   echo '<blockquote><pre>';
-  $merchant = $gocardless_client2->merchant('258584');
+  $merchant = $gocardless_client2->merchant();
   print_r($merchant);
   echo '</pre></blockquote>';
 
-  echo 'GoCardless_Merchant::find(\'258584\')->pre_authorizations()';
+  echo '$gocardless_client2->merchant()->pre_authorizations()';
   echo '<blockquote><pre>';
-  $preauths = $gocardless_client2->merchant('258584')->pre_authorizations();
+  $preauths = $gocardless_client2->merchant()->pre_authorizations();
   print_r($preauths);
   echo '</pre></blockquote>';
-
-  
 
 } else {
   // No access token so show new authorization link
