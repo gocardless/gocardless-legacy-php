@@ -19,9 +19,9 @@ class Utils {
    *
    * @return string A URL-encoded string of parameters
    */
-  public static function generateSignature($params, $key) {
+  public static function generate_signature($params, $key) {
 
-    return hash_hmac('sha256', Utils::generateQueryString($params), $key);
+    return hash_hmac('sha256', Utils::generate_query_string($params), $key);
 
   }
 
@@ -34,16 +34,16 @@ class Utils {
    *
    * @return string An encoded string of parameters
    */
-  public static function generateQueryString($params, &$pairs = array(), $namespace = null) {
+  public static function generate_query_string($params, &$pairs = array(), $namespace = null) {
 
     if (is_array($params)) {
 
       foreach ($params as $k => $v) {
 
         if (is_int($k)) {
-          Utils::generateQueryString($v, $pairs, $namespace . '[]');
+          Utils::generate_query_string($v, $pairs, $namespace . '[]');
         } else {
-          Utils::generateQueryString($v, $pairs, $namespace !== null ? $namespace . "[$k]" : $k);
+          Utils::generate_query_string($v, $pairs, $namespace !== null ? $namespace . "[$k]" : $k);
         }
 
       }

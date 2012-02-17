@@ -34,7 +34,7 @@ class GoCardless_Merchant {
 
     $endpoint = self::$endpoint . '/' . $id;
 
-    return new self(GoCardless::$client, GoCardless::$client->apiGet($endpoint));
+    return new self(GoCardless::$client, GoCardless::$client->api_get($endpoint));
 
   }
 
@@ -45,11 +45,11 @@ class GoCardless_Merchant {
    *
    * @return object The bill object
    */
-  public static function findWithClient($client, $id) {
+  public static function find_with_client($client, $id) {
 
     $endpoint = self::$endpoint . '/' . $id;
 
-    return new self($client, $client->apiGet($endpoint));
+    return new self($client, $client->api_get($endpoint));
 
   }
 
@@ -66,7 +66,7 @@ class GoCardless_Merchant {
 
     $endpoint = self::$endpoint . '/' . $this->id . '/subscriptions';
 
-    foreach ($this->client->apiGet($endpoint) as $value) {
+    foreach ($this->client->api_get($endpoint) as $value) {
       $objects[] = new GoCardless_Subscriptions($this->client, $value);
     }
 
@@ -87,7 +87,7 @@ class GoCardless_Merchant {
 
     $objects = array();
 
-    foreach ($this->client->apiGet($endpoint) as $value) {
+    foreach ($this->client->api_get($endpoint) as $value) {
       $objects[] = new GoCardless_PreAuthorization($this->client, $value);
     }
 
@@ -108,7 +108,7 @@ class GoCardless_Merchant {
 
     $objects = array();
 
-    foreach (GoCardless::$client->apiGet($endpoint) as $value) {
+    foreach (GoCardless::$client->api_get($endpoint) as $value) {
       $objects[] = new GoCardless_Users($this->client, $value);
     }
 
@@ -129,29 +129,8 @@ class GoCardless_Merchant {
 
     $objects = array();
 
-    foreach ($this->client->apiGet($endpoint) as $value) {
+    foreach ($this->client->api_get($endpoint) as $value) {
       $objects[] = new GoCardless_Bills($this->client, $value);
-    }
-
-    return $objects;
-
-  }
-
-  /**
-   * Fetch a merchant's payments from the API
-   *
-   * @param string $id The id of the merchant's payments to fetch
-   *
-   * @return array Array of payment objects
-   */
-  public function payments() {
-
-    $endpoint = self::$endpoint . '/' . $this->id . '/payments';
-
-    $objects = array();
-
-    foreach ($this->client->apiGet($endpoint) as $value) {
-      $objects[] = new GoCardless_Payments($this->client, $value);
     }
 
     return $objects;

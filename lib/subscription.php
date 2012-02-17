@@ -34,7 +34,7 @@ class GoCardless_Subscription {
 
     $endpoint = self::$endpoint . '/' . $id;
 
-    return new self(GoCardless::$client, GoCardless::$client->apiGet($endpoint));
+    return new self(GoCardless::$client, GoCardless::$client->api_get($endpoint));
 
   }
 
@@ -45,11 +45,11 @@ class GoCardless_Subscription {
    *
    * @return object The bill object
    */
-  public static function findWithClient($client, $id) {
+  public static function find_with_client($client, $id) {
 
     $endpoint = self::$endpoint . '/' . $id;
 
-    return new self($client, $client->apiGet($endpoint));
+    return new self($client, $client->api_get($endpoint));
 
   }
 
@@ -64,7 +64,7 @@ class GoCardless_Subscription {
 
     $endpoint = self::$endpoint . '/' . $this->id . '/cancel';
 
-    return new self($this->client, $this->client->apiPut($endpoint));
+    return new self($this->client, $this->client->api_put($endpoint));
 
   }
 
