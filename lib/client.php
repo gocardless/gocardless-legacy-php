@@ -32,7 +32,7 @@ class GoCardless_Client {
   /**
    * Constructor, creates a new instance of GoCardless_Client
    *
-   * @param array $account_details Parameters 
+   * @param array $account_details Parameters
    */
   public function __construct($account_details) {
 
@@ -374,20 +374,17 @@ class GoCardless_Client {
     }
 
     // Do query
-    $raw_response = $this->apiPost(GoCardless_Client::$api_path . $endpoint, $confirm_params);
-
-    // Decode response
-    $response = json_decode($raw_response, true);
+    $response = $this->apiPost($endpoint, $confirm_params);
 
     if ($response['success'] == true) {
 
       $endpoint = '/' . $params['resource_type'] . 's/' . $params['resource_id'];
 
-      return Utils::fetchResource($endpoint);
+      return $this->apiGet($endpoint);
 
     } else {
 
-      return false;
+      throw new GoCardlessClientException('Failed to fetch the confirmed resource.');
 
     }
 

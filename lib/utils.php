@@ -69,27 +69,6 @@ class Utils {
 
   }
 
-  /**
-   * Fetches a resource from an API endpoint
-   *
-   * @param string $endpoint The endpoint to send the request to
-   * @param string $method The method to use to send the request
-   *
-   * @return object The returned resource
-   */
-  public static function fetchResource($endpoint, $method = 'get') {
-
-    // Do query
-    if ($method == 'get') {
-      $result = GoCardless::$client->apiGet(GoCardless_Client::$api_path . $endpoint, $params);
-    } else {
-      $result = GoCardless::$client->apiPost(GoCardless_Client::$api_path . $endpoint, $params);
-    }
-
-    return $result;
-
-  }
-
 }
 
 ?>
