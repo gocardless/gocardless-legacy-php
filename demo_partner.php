@@ -54,7 +54,7 @@ if (isset($_GET['code'])) {
   );
 
   // Fetching token returns merchant_id and access_token
-  $token = $gocardless_client->fetchAccessToken($params);
+  $token = $gocardless_client->fetch_access_token($params);
 
   $account_details = array(
     'app_id'        => null,
@@ -122,7 +122,7 @@ if ($account_details['access_token']) {
   $authorize_url_options = array(
     'redirect_uri' => 'http://localhost:8888/demo_partner.php'
   );
-  $authorize_url = $gocardless_client->authorizeUrl($authorize_url_options);
+  $authorize_url = $gocardless_client->authorize_url($authorize_url_options);
   echo '<p><a href="'.$authorize_url.'">Authorize app</a></p>';
 
 }

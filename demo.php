@@ -19,7 +19,7 @@ $account_details = array(
   'access_token'  => null
 );
 // Initialize GoCardless
-GoCardless::setAccountDetails($account_details);
+GoCardless::set_account_details($account_details);
 
 if (isset($_GET['resource_id']) && isset($_GET['resource_type'])) {
   // Get vars found so let's try confirming payment
@@ -40,7 +40,7 @@ if (isset($_GET['resource_id']) && isset($_GET['resource_type'])) {
     $confirm_params['resource_uri'] = $_GET['resource_uri'];
   }
 
-  $confirmed_resource = GoCardless::confirmResource($confirm_params);
+  $confirmed_resource = GoCardless::confirm_resource($confirm_params);
 
   echo '<p>Payment confirmed!</p>';
 
@@ -56,7 +56,7 @@ $payment_details = array(
   'interval_unit'   => 'month'
 );
 
-$subscription_url = GoCardless::newSubscriptionUrl($payment_details);
+$subscription_url = GoCardless::new_subscription_url($payment_details);
 echo '<p><a href="'.$subscription_url.'">New subscription</a>';
 
 // New pre-authorization
@@ -67,7 +67,7 @@ $payment_details = array(
   'interval_unit'   => 'month'
 );
 
-$pre_auth_url = GoCardless::newPreAuthorizationUrl($payment_details);
+$pre_auth_url = GoCardless::new_pre_authorization_url($payment_details);
 echo ' &middot; <a href="'.$pre_auth_url.'">New pre-authorized payment</a>';
 
 // New bill
@@ -82,7 +82,7 @@ $payment_details = array(
     )
 );
 
-$bill_url = GoCardless::newBillUrl($payment_details);
+$bill_url = GoCardless::new_bill_url($payment_details);
 echo ' &middot; <a href="'.$bill_url.'">New bill</a></p>';
 
 echo 'NB. The \'new bill\' link is also a demo of pre-populated user data';
@@ -101,13 +101,13 @@ $preauths = GoCardless_Merchant::find('258584')->pre_authorizations();
 print_r($preauths);
 echo '</pre></blockquote>';
 
-echo 'GoCardless_PreAuthorization::find(\'992869\')->createBill($bill_details)';
+echo 'GoCardless_PreAuthorization::find(\'992869\')->create_bill($bill_details)';
 echo '<blockquote><pre>';
 $pre_auth = GoCardless_PreAuthorization::find('013M018V0K');
 $bill_details = array(
   'amount'  => '15.00'
 );
-$bill = $pre_auth->createBill($bill_details);
+$bill = $pre_auth->create_bill($bill_details);
 print_r($bill);
 echo '</pre></blockquote>';
 
@@ -115,7 +115,7 @@ echo 'validate webhook:';
 echo '<blockquote><pre>';
 $webhook_json = '{"payload":{"bills":[{"id":"880807"},{"status":"pending"},{"source_type":"subscription"},{"source_id":"21"},{"uri":"https:\/\/sandbox.gocardless.com\/api\/v1\/bills\/880807"}],"action":"created","resource_type":"bill","signature":"f25a611fb9afbc272ab369ead52109edd8a88cbb29a3a00903ffbce0ec6be5cb"}}';
 $webhook = json_decode($webhook_json, true);
-var_dump(GoCardless::validateWebhook($webhook['payload']));
+var_dump(GoCardless::validate_webhook($webhook['payload']));
 echo '</pre></blockquote>';
 
 ?>
