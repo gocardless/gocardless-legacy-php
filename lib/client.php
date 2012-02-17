@@ -505,11 +505,28 @@ class GoCardless_Client {
     //print_r(curl_getinfo($ch));
     //echo "</pre>";
 
-    // Grab the response code and throw an exception if it's not 200
+    // Grab the response code and throw an exception if it's not good
     $http_response_code = curl_getinfo($ch, CURLINFO_HTTP_CODE);
-    if ($http_response_code != 200) {
+    if ($http_response_code < 200 || $http_response_code > 300) {
+
       $response = json_decode($result, true);
-      throw new GoCardlessApiException($response['error'], $http_response_code);
+
+      // Urgh
+      $message = '';
+      if (is_array($response)) {
+        foreach ($response as $key => $value) {
+          if (is_array($value)) {
+            foreach ($value as $key2 => $value2) {
+              $message .= $key2 . ' : ' . $value2 . '. ';
+            }
+          } else {
+            $message .= $key . ' : ' . $value . '. ';
+          }
+        }
+      }
+
+      throw new GoCardlessApiException($message, $http_response_code);
+
     }
 
     curl_close($ch);
