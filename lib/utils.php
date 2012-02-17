@@ -39,7 +39,7 @@ class Utils {
     if (is_array($params)) {
 
       foreach ($params as $k => $v) {
-F
+
         if (is_int($k)) {
           Utils::generateQueryString($v, $pairs, $namespace . '[]');
         } else {
