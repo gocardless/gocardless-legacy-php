@@ -28,13 +28,13 @@ require 'lib/pre_authorization.php';
  *
  */
 class GoCardless {
-  
+
   /** @type string The environment: sandbox or live */
   public static $environment;
-  
+
   /** @type object The client object */
   public static $client;
-  
+
   /**
    * Initialization function called with account details
    *
@@ -43,7 +43,7 @@ class GoCardless {
   public static function setAccountDetails($account_details) {
     GoCardless::$client = new GoCardless_Client($account_details);
   }
-  
+
   /**
    * Generate a URL to give a user to create a new subscription
    *
@@ -54,7 +54,7 @@ class GoCardless {
   public static function newSubscriptionUrl($params) {
     return GoCardless::$client->newSubscriptionUrl($params);
   }
-  
+
   /**
    * Generate a URL to give a user to create a new pre-authorized payment
    *
@@ -65,7 +65,7 @@ class GoCardless {
   public static function newPreAuthorizationUrl($params) {
     return GoCardless::$client->newPreAuthorizationUrl($params);
   }
-  
+
   /**
    * Generate a URL to give a user to create a new bill
    *
@@ -76,7 +76,7 @@ class GoCardless {
   public static function newBillUrl($params) {
     return GoCardless::$client->newBillUrl($params);
   }
-  
+
   /**
    * Generate a URL to give a user to create a new bill
    *
@@ -87,7 +87,7 @@ class GoCardless {
   public static function confirmResource($params) {
     return GoCardless::$client->confirmResource($params);
   }
-  
+
   /**
    * Validate the payload of a webhook
    *
@@ -98,7 +98,7 @@ class GoCardless {
   public static function validateWebhook($params) {
     return GoCardless::$client->validateWebhook($params);
   }
-  
+
 }
 
 ?>

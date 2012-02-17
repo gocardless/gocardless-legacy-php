@@ -10,19 +10,19 @@
  *
  */
 class GoCardless_User {
-  
+
   public static $endpoint = '/users';
-  
+
   function __construct($client, $attrs) {
-    
+
     $this->client = $client;
-    
+
     foreach ($attrs as $key => $value) {
       $this->$key = $value;
     }
-    
+
   }
-  
+
   /**
    * Fetch a user item from the API
    *
@@ -31,13 +31,13 @@ class GoCardless_User {
    * @return object The user object
    */
   public static function find($id) {
-    
+
     $endpoint = self::$endpoint . '/' . $id;
-    
+
     return new self(GoCardless::$client, GoCardless::$client->apiGet($endpoint));
-    
+
   }
-  
+
   /**
    * Fetch a bill item from the API
    *
@@ -46,13 +46,13 @@ class GoCardless_User {
    * @return object The bill object
    */
   public static function findWithClient($client, $id) {
-    
+
     $endpoint = self::$endpoint . '/' . $id;
-    
+
     return new self($client, $client->apiGet($endpoint));
-    
+
   }
-  
+
 }
 
 ?>

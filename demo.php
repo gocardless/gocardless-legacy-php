@@ -24,31 +24,31 @@ GoCardless::setAccountDetails($account_details);
 
 if (isset($_GET['resource_id']) && isset($_GET['resource_type'])) {
   // Get vars found so let's try confirming payment
-  
+
   $confirm_params = array(
     'resource_id'   => $_GET['resource_id'],
     'resource_type' => $_GET['resource_type'],
     'signature'     => $_GET['signature']
   );
-  
+
   // State is optional
   if (isset($_GET['state'])) {
     $confirm_params['state'] = $_GET['state'];
   }
-  
+
   // resource_uri is optional
   if (isset($_GET['resource_uri'])) {
     $confirm_params['resource_uri'] = $_GET['resource_uri'];
   }
-  
+
   $confirm_result = GoCardless::confirmResource($confirm_params);
-  
+
   if ($confirm_result != false) {
     echo '<p>Payment confirmed!</p>';
   } else {
     echo '<p>Payment confirmation attempted but failed.</p>';
   }
-  
+
 }
 
 echo '<h2>New payment URLs</h2>';

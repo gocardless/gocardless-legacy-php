@@ -10,7 +10,7 @@
  *
  */
 class Utils {
-  
+
   /**
    * Generate a signature for a request given the app secret
    *
@@ -20,11 +20,11 @@ class Utils {
    * @return string A URL-encoded string of parameters
    */
   public static function generateSignature($params, $key) {
-    
+
     return hash_hmac('sha256', Utils::generateQueryString($params), $key);
-    
+
   }
-  
+
   /**
    * Generates, encodes, re-orders variables for the query string.
    *
@@ -35,40 +35,40 @@ class Utils {
    * @return string An encoded string of parameters
    */
   public static function generateQueryString($params, &$pairs = array(), $namespace = null) {
-    
+
     if (is_array($params)) {
-      
+
       foreach ($params as $k => $v) {
-        
+F
         if (is_int($k)) {
           Utils::generateQueryString($v, $pairs, $namespace . '[]');
         } else {
           Utils::generateQueryString($v, $pairs, $namespace !== null ? $namespace . "[$k]" : $k);
         }
-        
+
       }
-      
+
       if ($namespace !== null) {
         return $pairs;
       }
-  
+
       if (empty($pairs)) {
         return '';
       }
-      
+
       sort($pairs);
       $strs = array_map('implode', array_fill(0, count($pairs), '='), $pairs);
-      
+
       return implode('&', $strs);
-      
+
     } else {
-      
+
       $pairs[] = array(rawurlencode($namespace), rawurlencode($params));
-      
+
     }
-    
+
   }
-  
+
   /**
    * Fetches a resource from an API endpoint
    *
@@ -78,19 +78,18 @@ class Utils {
    * @return object The returned resource
    */
   public static function fetchResource($endpoint, $method = 'get') {
-    
+
     // Do query
     if ($method == 'get') {
       $result = GoCardless::$client->apiGet(GoCardless_Client::$api_path . $endpoint, $params);
     } else {
       $result = GoCardless::$client->apiPost(GoCardless_Client::$api_path . $endpoint, $params);
     }
-    
 
-    return $object;
-    
+    return $result;
+
   }
-  
+
 }
 
 ?>

@@ -11,7 +11,7 @@
  * @return exception
  */
 class GoCardlessClientException extends Exception {
-  
+
   /**
    * Throw a default exception
    *
@@ -20,7 +20,7 @@ class GoCardlessClientException extends Exception {
   public function __construct($description = 'Unknown client error') {
     parent::__construct($description);
   }
-  
+
 }
 
 /**
@@ -29,7 +29,7 @@ class GoCardlessClientException extends Exception {
  * @return exception
  */
 class GoCardlessArgumentsException extends Exception {
-  
+
   /**
    * Throw a default exception
    *
@@ -38,7 +38,7 @@ class GoCardlessArgumentsException extends Exception {
   public function __construct($description = 'Unknown argument error') {
     parent::__construct($description);
   }
-  
+
 }
 
 /**
@@ -47,7 +47,7 @@ class GoCardlessArgumentsException extends Exception {
  * @return exception
  */
 class GoCardlessApiException extends Exception {
-  
+
   /**
    * Throw a default exception
    *
@@ -59,7 +59,7 @@ class GoCardlessApiException extends Exception {
     }
     parent::__construct($description, $code);
   }
-  
+
 }
 
 /**
@@ -68,7 +68,7 @@ class GoCardlessApiException extends Exception {
  * @return exception
  */
 class GoCardlessSignatureException extends Exception {
-  
+
   /**
    * Throw a default exception
    *
@@ -77,7 +77,7 @@ class GoCardlessSignatureException extends Exception {
   public function __construct($description = 'Signature error') {
     parent::__construct($description);
   }
-  
+
 }
 
 ?>

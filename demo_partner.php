@@ -45,31 +45,31 @@ $account_details = array(
 $gocardless_client = new GoCardless_Client($account_details);
 
 if (isset($_GET['code'])) {
-  
+
   $params = array(
     'client_id'     => $account_details['app_id'],
     'code'          => $_GET['code'],
     'redirect_uri'  => 'http://localhost:8888/demo_partner.php',
     'grant_type'    => 'authorization_code'
   );
-  
+
   // Fetching token returns merchant_id and access_token
   $token = $gocardless_client->fetchAccessToken($params);
-  
+
   $account_details = array(
     'app_id'        => 'eCxrcWDxjYsQ55zhsDTgs6VeKf6YWZP7be/9rY0PGFbeyqmLJV6k84SUQdISLUhf',
     'app_secret'    => '2utXOc65Hy9dolp3urYBMoIN0DM11Q9uuoboFDkHY3nzsugqcuzD1FuJYA7X9TP+',
     'access_token'  => ' 5KFYZpAGwBBQlYJxAz6evPFyTW3Nc6wPUo57kOf8L+fH6NS4ctX72W4BO/AR2uJA',
     'merchant_id'   => '012GM2H8FA'
   );
-  
+
   $gocardless_client = new GoCardless_Client($account_details);
-  
+
   echo '<p>Authorization successful!
   <br />Add the following to your database for this merchant
   <br />Access token: '.$token['access_token'].'
   <br />Merchant id: '.$token['merchant_id'].'</p>';
-  
+
 }
 
 if ($account_details['access_token']) {
@@ -93,16 +93,16 @@ if ($account_details['access_token']) {
   $preauths = $gocardless_client->merchant('012GM2H8FA')->pre_authorizations();
   print_r($preauths);
   echo '</pre></blockquote>';
-  
+
   $account_details = array(
     'app_id'        => 'eCxrcWDxjYsQ55zhsDTgs6VeKf6YWZP7be/9rY0PGFbeyqmLJV6k84SUQdISLUhf',
     'app_secret'    => '2utXOc65Hy9dolp3urYBMoIN0DM11Q9uuoboFDkHY3nzsugqcuzD1FuJYA7X9TP+',
     'access_token'  => 'ShFGfoXO+GOKEiMeoeMPUvSTTq9HC0v3BRLXo8eSUifbZOtneYqqNECPa+QK6AdL',
     'merchant_id'   => '258584'
   );
-  
+
   $gocardless_client2 = new GoCardless_Client($account_details);
-  
+
   echo 'GoCardless_Merchant::find(\'258584\')';
   echo '<blockquote><pre>';
   $merchant = $gocardless_client2->merchant('258584');
@@ -114,19 +114,19 @@ if ($account_details['access_token']) {
   $preauths = $gocardless_client2->merchant('258584')->pre_authorizations();
   print_r($preauths);
   echo '</pre></blockquote>';
+
   
-  
-  
+
 } else {
   // No access token so show new authorization link
-  
+
   echo '<h2>Partner authorization</h2>';
   $authorize_url_options = array(
     'redirect_uri' => 'http://localhost:8888/demo_partner.php'
   );
   $url = $gocardless_client->authorizeUrl($authorize_url_options);
   echo '<p><a href="'.$url.'">Authorize app</a></p>';
-  
+
 }
 
 ?>
