@@ -10,4 +10,3 @@ If you want to use the library as an individual merchant, refer to the
 you want to support multiple merchant accounts, see the
 [partner guide](https://gocardless.com/docs/php/partner_client_guide).
 
-[![Build Status](https://secure.travis-ci.org/gocardless/gocardless-php.png)](http://travis-ci.org/gocardless/gocardless-php)
