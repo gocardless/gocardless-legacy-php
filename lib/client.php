@@ -197,11 +197,7 @@ class GoCardless_Client {
    *
    * @return object The subscription matching the id requested
    */
-  public function subscription($id = null) {
-
-    if ($id == null) {
-      $id = $this->account_details['merchant_id'];
-    }
+  public function subscription() {
 
     if (!isset($this->account_details['access_token'])) {
       throw new GoCardlessClientException('Access token missing');
@@ -218,11 +214,7 @@ class GoCardless_Client {
    *
    * @return object The pre-authorization matching the id requested
    */
-  public function pre_authorization($id = null) {
-
-    if ($id == null) {
-      $id = $this->account_details['merchant_id'];
-    }
+  public function pre_authorization() {
 
     if (!isset($this->account_details['access_token'])) {
       throw new GoCardlessClientException('Access token missing');
@@ -239,11 +231,7 @@ class GoCardless_Client {
    *
    * @return object The user object matching the id requested
    */
-  public function user($id = null) {
-
-    if ($id == null) {
-      $id = $this->account_details['merchant_id'];
-    }
+  public function user() {
 
     if (!isset($this->account_details['access_token'])) {
       throw new GoCardlessClientException('Access token missing');
@@ -260,11 +248,7 @@ class GoCardless_Client {
    *
    * @return object The bill object matching the id requested
    */
-  public function bill($id = null) {
-
-    if ($id == null) {
-      $id = $this->account_details['merchant_id'];
-    }
+  public function bill() {
 
     if (!isset($this->account_details['access_token'])) {
       throw new GoCardlessClientException('Access token missing');
