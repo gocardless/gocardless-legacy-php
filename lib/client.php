@@ -271,13 +271,14 @@ class GoCardless_Client {
       throw new GoCardlessClientException('Access token missing');
     }
 
-    if (!isset($attrs['id'])) {
-      throw new GoCardlessArgumentsException('Bill id missing');
+    if (!isset($attrs['pre_authorization_id'])) {
+      throw new GoCardlessArgumentsException('pre_authorization_id missing');
     }
 
-    $bill = new GoCardless_Bill($this, $attrs['id']);
+    $pre_auth_attrs = array('id' => $attrs['pre_authorization_id']);
+    $pre_auth = new GoCardless_PreAuthorization($this, $pre_auth_attrs);
 
-    return $bill->create($attrs);
+    return $pre_auth->create_bill($attrs);
 
   }
 
