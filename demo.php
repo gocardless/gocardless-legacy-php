@@ -41,13 +41,9 @@ if (isset($_GET['resource_id']) && isset($_GET['resource_type'])) {
     $confirm_params['resource_uri'] = $_GET['resource_uri'];
   }
 
-  $confirm_result = GoCardless::confirmResource($confirm_params);
+  $confirmed_resource = GoCardless::confirmResource($confirm_params);
 
-  if ($confirm_result == true) {
-    echo '<p>Payment confirmed!</p>';
-  } else {
-    echo '<p>Payment confirmation attempted but failed.</p>';
-  }
+  echo '<p>Payment confirmed!</p>';
 
 }
 
@@ -78,7 +74,8 @@ echo ' &middot; <a href="'.$pre_auth_url.'">New pre-authorized payment</a>';
 // New bill
 
 $payment_details = array(
-  'amount'  => '20.00',
+  'amount'  => '30.00',
+  'name'    => 'Donation',
   'user'    => array(
     'first_name'  => 'Tom',
     'last_name'   => 'Blomfield',
@@ -103,6 +100,16 @@ echo 'GoCardless_Merchant::find(\'258584\')->pre_authorizations()';
 echo '<blockquote><pre>';
 $preauths = GoCardless_Merchant::find('258584')->pre_authorizations();
 print_r($preauths);
+echo '</pre></blockquote>';
+
+echo 'GoCardless_PreAuthorization::find(\'992869\')->createBill($bill_details)';
+echo '<blockquote><pre>';
+$pre_auth = GoCardless_PreAuthorization::find('013M018V0K');
+$bill_details = array(
+  'amount'  => '15.00'
+);
+$bill = $pre_auth->createBill($bill_details);
+print_r($bill);
 echo '</pre></blockquote>';
 
 echo 'validate webhook:';

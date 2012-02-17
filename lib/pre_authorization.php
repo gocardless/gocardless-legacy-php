@@ -24,13 +24,13 @@ class GoCardless_PreAuthorization {
   }
 
   /**
-   * Fetch a pre-authorisation item from the API
+   * Fetch a pre-authorisation object from the API
    *
    * @param string $id The id of the pre-authorisation to fetch
    *
-   * @return object The pre-authorisations object
+   * @return object The pre-authorisation object
    */
-  public static function find() {
+  public static function find($id) {
 
     $endpoint = self::$endpoint . '/' . $id;
 
@@ -62,12 +62,24 @@ class GoCardless_PreAuthorization {
    */
   public function createBill($attrs) {
 
+    if(!isset($attrs['amount'])) {
+      throw new GoCardlessArgumentsException('Amount required');
+    }
+
     $params = array(
       'bill' => array(
         'amount'                => $attrs['amount'],
         'pre_authorization_id'  => $this->id
       )
     );
+
+    if (isset($attrs['name'])) {
+      $params['bill']['name'] = $attrs['name'];
+    }
+
+    if (isset($attrs['description'])) {
+      $params['bill']['description'] = $attrs['description'];
+    }
 
     $endpoint = GoCardless_Bill::$endpoint;
 
