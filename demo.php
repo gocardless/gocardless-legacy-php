@@ -116,7 +116,7 @@ echo 'validate webhook:';
 echo '<blockquote><pre>';
 $webhook_json = '{"payload":{"bills":[{"id":"880807"},{"status":"pending"},{"source_type":"subscription"},{"source_id":"21"},{"uri":"https:\/\/sandbox.gocardless.com\/api\/v1\/bills\/880807"}],"action":"created","resource_type":"bill","signature":"f25a611fb9afbc272ab369ead52109edd8a88cbb29a3a00903ffbce0ec6be5cb"}}';
 $webhook = json_decode($webhook_json, true);
-var_dump(GoCardless::validateWebhook($webhook));
+var_dump(GoCardless::validateWebhook($webhook['payload']));
 echo '</pre></blockquote>';
 
 ?>

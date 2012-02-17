@@ -399,15 +399,15 @@ class GoCardless_Client {
    */
   public function validateWebhook($params) {
 
-    $sig = $params['payload']['signature'];
-    unset($params['payload']['signature']);
+    $sig = $params['signature'];
+    unset($params['signature']);
 
     if (!isset($sig)) {
       return false;
     }
 
     $data = array(
-      'data'      => $params['payload'],
+      'data'      => $params,
       'secret'    => $this->account_details['app_secret'],
       'signature' => $sig
     );
