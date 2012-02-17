@@ -121,8 +121,8 @@ if ($account_details['access_token']) {
   $authorize_url_options = array(
     'redirect_uri' => 'http://localhost:8888/demo_partner.php'
   );
-  $url = $gocardless_client->authorizeUrl($authorize_url_options);
-  echo '<p><a href="'.$url.'">Authorize app</a></p>';
+  $authorize_url = $gocardless_client->authorizeUrl($authorize_url_options);
+  echo '<p><a href="'.$authorize_url.'">Authorize app</a></p>';
 
 }
 
