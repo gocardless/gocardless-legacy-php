@@ -24,7 +24,7 @@ class GoCardless_Merchant {
   }
 
   /**
-   * Fetch a merchant from the API
+   * Fetch a merchant object from the API
    *
    * @param string $id The id of the merchant to fetch
    *
