@@ -176,7 +176,11 @@ class GoCardless_Client {
    *
    * @return object The merchant object
    */
-  public function merchant($id) {
+  public function merchant($id = null) {
+
+    if ($id == null) {
+      $id = $this->account_details['merchant_id'];
+    }
 
     if (!isset($this->account_details['access_token'])) {
       throw new GoCardlessClientException('Access token missing');
