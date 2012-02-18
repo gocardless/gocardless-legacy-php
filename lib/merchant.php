@@ -130,7 +130,7 @@ class GoCardless_Merchant {
     $objects = array();
 
     foreach ($this->client->api_get($endpoint) as $value) {
-      $objects[] = new GoCardless_Bills($this->client, $value);
+      $objects[] = new GoCardless_Bill($this->client, $value);
     }
 
     return $objects;

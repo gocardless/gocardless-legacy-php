@@ -26,8 +26,6 @@
  *
 */
 
-
-
 // Include library
 include_once 'gocardless.php';
 
@@ -82,16 +80,26 @@ if ($account_details['access_token']) {
   // New pre-authorization
 
 
-  echo '$gocardless_client->merchant(\'012GM2H8FA\')';
+  echo '$gocardless_client->merchant()';
   echo '<blockquote><pre>';
   $merchant = $gocardless_client->merchant();
   print_r($merchant);
   echo '</pre></blockquote>';
 
-  echo 'echo $gocardless_client->merchant(\'012GM2H8FA\')->pre_authorizations()';
+  echo 'echo $gocardless_client->merchant()->pre_authorizations()';
   echo '<blockquote><pre>';
   $preauths = $gocardless_client->merchant()->pre_authorizations();
   print_r($preauths);
+  echo '</pre></blockquote>';
+
+  echo '$gocardless_client->create_bill($pre_auth_details)';
+  echo '<blockquote><pre>';
+  $pre_auth_details = array(
+    'pre_authorization_id'  => '014PS77JW3',
+    'amount'                => '5.00'
+  );
+  $pre_auth = $gocardless_client->create_bill($pre_auth_details);
+  print_r($pre_auth);
   echo '</pre></blockquote>';
 
   $account_details = array(
