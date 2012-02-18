@@ -98,7 +98,7 @@ if ($account_details['access_token']) {
     'pre_authorization_id'  => '014PS77JW3',
     'amount'                => '5.00'
   );
-  $pre_auth = $gocardless_client->create_bill($pre_auth_details);
+  $bill = $gocardless_client->create_bill($pre_auth_details);
   print_r($pre_auth);
   echo '</pre></blockquote>';
 
