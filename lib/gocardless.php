@@ -14,14 +14,14 @@ if (!function_exists('json_decode')) {
 }
 
 // Include subclasses
-require 'lib/utils.php';
-require 'lib/exceptions.php';
-require 'lib/bill.php';
-require 'lib/user.php';
-require 'lib/client.php';
-require 'lib/merchant.php';
-require 'lib/subscription.php';
-require 'lib/pre_authorization.php';
+require 'gocardless/utils.php';
+require 'gocardless/exceptions.php';
+require 'gocardless/bill.php';
+require 'gocardless/user.php';
+require 'gocardless/client.php';
+require 'gocardless/merchant.php';
+require 'gocardless/subscription.php';
+require 'gocardless/pre_authorization.php';
 
 /**
  * GoCardless class
