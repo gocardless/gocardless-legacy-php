@@ -27,17 +27,13 @@ if (isset($_GET['resource_id']) && isset($_GET['resource_type'])) {
   $confirm_params = array(
     'resource_id'   => $_GET['resource_id'],
     'resource_type' => $_GET['resource_type'],
+    'resource_uri'  => $_GET['resource_uri'],
     'signature'     => $_GET['signature']
   );
 
   // State is optional
   if (isset($_GET['state'])) {
     $confirm_params['state'] = $_GET['state'];
-  }
-
-  // resource_uri is optional
-  if (isset($_GET['resource_uri'])) {
-    $confirm_params['resource_uri'] = $_GET['resource_uri'];
   }
 
   $confirmed_resource = GoCardless::confirm_resource($confirm_params);
