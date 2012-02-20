@@ -1,0 +1,109 @@
+<html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>DocBlox Documentation</title><link rel="stylesheet" href="css/jquery-ui.css" type="text/css"></link><link rel="stylesheet" href="css/docblox/jquery-ui-1.8.16.custom.css" type="text/css"></link><link rel="stylesheet" href="css/jquery.treeview.css" type="text/css"></link><link rel="stylesheet" href="css/theme.css" type="text/css"></link><script type="text/javascript" src="js/jquery-1.4.2.min.js"></script><script type="text/javascript" src="js/jquery-ui-1.8.2.custom.min.js"></script><script type="text/javascript" src="js/jquery.tools.min.js"></script><script type="text/javascript" src="js/jquery.cookie.js"></script><script type="text/javascript" src="js/jquery.treeview.js"></script><script type="text/javascript">
+            $(document).ready(function() {
+                $(".filetree").treeview({
+                    collapsed: true,
+                    persist: "cookie"
+                });
+
+                $("#accordion").accordion({
+                    collapsible: true,
+                    autoHeight:  false,
+                    fillSpace:   true
+                });
+
+                $(".tabs").tabs();
+            });
+        </script></head><body><script xmlns="" type="text/javascript" src="js/sidebar.js"></script><div xmlns="" id="sidebar">
+<div id="sidebar-header">
+<img src="images/icon48x48.png" id="sidebar-logo" alt="Logo"><h1>DocBlox</h1>
+<div style="clear: both"></div>
+</div>
+<div id="sidebar-nav">
+<h3 id="sidebar-dashboard">
+<img class="icon" src="css/docblox/images/icons/dashboard.png" alt="Dashboard"><a href="content.html" class="link" target="content">Dashboard</a>
+</h3>
+<div style="display: none"></div>
+<h3 id="sidebar-files">
+<img src="css/docblox/images/icons/files.png" alt="Files"><a href="#files">Files</a>
+</h3>
+<div class="sidebar-section">
+<div class="search-bar">
+<a href="#" onclick="$(this).parent().next().find('.collapsable-hitarea').click(); return false;"><img src="images/collapse_all.png" title="Collapse all" alt="Collapse all"></a><a href="#" onclick="$(this).parent().next().find('.expandable-hitarea').click(); return false;"><img src="images/expand_all.png" title="Expand all" alt="Expand all"></a><div><input type="text" onkeyup="tree_search(this);"></div>
+</div>
+<ul class="sidebar-nav-tree">
+<li class="closed">
+<span class="file"><a href="db_gocardless.html" target="content">gocardless.php</a></span><ul id="files_4d4214184994b2d8e4de1afe2785bee2" class="filetree"><li><span class="class"><a href="db_gocardless.html#%5CGoCardless" target="content">GoCardless<br></a></span></li></ul>
+</li>
+<li class="closed">
+<span class="file"><a href="db_lib_bill.html" target="content">lib/bill.php</a></span><ul id="files_9aa90e63d9dfad0c008c77606fcca906" class="filetree"><li><span class="class"><a href="db_lib_bill.html#%5CGoCardless_Bill" target="content">GoCardless_Bill<br></a></span></li></ul>
+</li>
+<li class="closed">
+<span class="file"><a href="db_lib_client.html" target="content">lib/client.php</a></span><ul id="files_4df2c0b2ed815be619f1d97f52d8f9d1" class="filetree"><li><span class="class"><a href="db_lib_client.html#%5CGoCardless_Client" target="content">GoCardless_Client<br></a></span></li></ul>
+</li>
+<li class="closed">
+<span class="file"><a href="db_lib_exceptions.html" target="content">lib/exceptions.php</a></span><ul id="files_1b26673068fee96b0df394b56b2d0ba2" class="filetree">
+<li><span class="class"><a href="db_lib_exceptions.html#%5CGoCardless_ClientException" target="content">GoCardless_ClientException<br></a></span></li>
+<li><span class="class"><a href="db_lib_exceptions.html#%5CGoCardless_ArgumentsException" target="content">GoCardless_ArgumentsException<br></a></span></li>
+<li><span class="class"><a href="db_lib_exceptions.html#%5CGoCardless_ApiException" target="content">GoCardless_ApiException<br></a></span></li>
+<li><span class="class"><a href="db_lib_exceptions.html#%5CGoCardless_SignatureException" target="content">GoCardless_SignatureException<br></a></span></li>
+</ul>
+</li>
+<li class="closed">
+<span class="file"><a href="db_lib_merchant.html" target="content">lib/merchant.php</a></span><ul id="files_fad8c004fa8e9babeff96e7e7531c2ce" class="filetree"><li><span class="class"><a href="db_lib_merchant.html#%5CGoCardless_Merchant" target="content">GoCardless_Merchant<br></a></span></li></ul>
+</li>
+<li class="closed">
+<span class="file"><a href="db_lib_pre_authorization.html" target="content">lib/pre_authorization.php</a></span><ul id="files_a725e30eaf1a8aa87f16c7e188e4e9d6" class="filetree"><li><span class="class"><a href="db_lib_pre_authorization.html#%5CGoCardless_PreAuthorization" target="content">GoCardless_PreAuthorization<br></a></span></li></ul>
+</li>
+<li class="closed">
+<span class="file"><a href="db_lib_subscription.html" target="content">lib/subscription.php</a></span><ul id="files_21467bbd782f06970c616e6f9abedf82" class="filetree"><li><span class="class"><a href="db_lib_subscription.html#%5CGoCardless_Subscription" target="content">GoCardless_Subscription<br></a></span></li></ul>
+</li>
+<li class="closed">
+<span class="file"><a href="db_lib_user.html" target="content">lib/user.php</a></span><ul id="files_077de622d249ff9a0a3ba6ba3de53648" class="filetree"><li><span class="class"><a href="db_lib_user.html#%5CGoCardless_User" target="content">GoCardless_User<br></a></span></li></ul>
+</li>
+<li class="closed">
+<span class="file"><a href="db_lib_utils.html" target="content">lib/utils.php</a></span><ul id="files_80df421d90432537b9a0c94aa1ebabf4" class="filetree"><li><span class="class"><a href="db_lib_utils.html#%5CUtils" target="content">Utils<br></a></span></li></ul>
+</li>
+</ul>
+</div>
+<h3 id="sidebar-packages">
+<img src="css/docblox/images/icons/packages.png" alt="Packages"><a href="#packages">Packages</a>
+</h3>
+<div class="sidebar-section sidebar-tree">
+<div class="search-bar">
+<a href="#" onclick="$(this).parent().next().find('.collapsable-hitarea').click(); return false;"><img src="images/collapse_all.png" title="Collapse all" alt="Collapse all"></a><a href="#" onclick="$(this).parent().next().find('.expandable-hitarea').click(); return false;"><img src="images/expand_all.png" title="Expand all" alt="Expand all"></a><div><input type="text" onkeyup="tree_search(this);"></div>
+</div>
+<ul class="sidebar-nav-tree"><li class="closed">
+<span class="folder">Default</span><ul>
+<li><span class="class"><a href="db_gocardless.html#%5CGoCardless" target="content">GoCardless</a></span></li>
+<li><span class="class"><a href="db_lib_exceptions.html#%5CGoCardless_ApiException" target="content">GoCardless_ApiException</a></span></li>
+<li><span class="class"><a href="db_lib_exceptions.html#%5CGoCardless_ArgumentsException" target="content">GoCardless_ArgumentsException</a></span></li>
+<li><span class="class"><a href="db_lib_bill.html#%5CGoCardless_Bill" target="content">GoCardless_Bill</a></span></li>
+<li><span class="class"><a href="db_lib_client.html#%5CGoCardless_Client" target="content">GoCardless_Client</a></span></li>
+<li><span class="class"><a href="db_lib_exceptions.html#%5CGoCardless_ClientException" target="content">GoCardless_ClientException</a></span></li>
+<li><span class="class"><a href="db_lib_merchant.html#%5CGoCardless_Merchant" target="content">GoCardless_Merchant</a></span></li>
+<li><span class="class"><a href="db_lib_pre_authorization.html#%5CGoCardless_PreAuthorization" target="content">GoCardless_PreAuthorization</a></span></li>
+<li><span class="class"><a href="db_lib_exceptions.html#%5CGoCardless_SignatureException" target="content">GoCardless_SignatureException</a></span></li>
+<li><span class="class"><a href="db_lib_subscription.html#%5CGoCardless_Subscription" target="content">GoCardless_Subscription</a></span></li>
+<li><span class="class"><a href="db_lib_user.html#%5CGoCardless_User" target="content">GoCardless_User</a></span></li>
+<li><span class="class"><a href="db_lib_utils.html#%5CUtils" target="content">Utils</a></span></li>
+</ul>
+</li></ul>
+</div>
+<h3 id="sidebar-charts">
+<img src="css/docblox/images/icons/chart.png" alt="Charts"><a href="#charts">Charts</a>
+</h3>
+<div class="sidebar-section"><ul style="list-style-image: url('css/docblox/images/icons/chart15x12.png');"><li><a href="graph.html" target="content">Class Inheritance Diagram</a></li></ul></div>
+<h3 id="sidebar-reports">
+<img src="css/docblox/images/icons/reports.png" alt="Reports"><a href="#reports">Reports</a>
+</h3>
+<div class="sidebar-section"><ul style="list-style-image: url('css/docblox/images/icons/reports9x12.png');">
+<li><a href="report_markers.html" target="content">Markers (TODO/FIXME)</a></li>
+<li><a href="report_parse_markers.html" target="content">Parsing errors</a></li>
+<li><a href="report_deprecated.html" target="content">Deprecated elements</a></li>
+</ul></div>
+</div>
+<div id="sidebar-footer">
+        Documentation is generated by <a href="http://docblox-project.org" target="_top"><img src="images/icon48x48.png" height="12" align="top" alt="Logo"> DocBlox 0.18.1</a>, images courtesy of <a href="http://glyphish.com/" target="_top">Glyphish</a>
+</div>
+</div></body></html>

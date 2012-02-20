@@ -1,0 +1,1430 @@
+<?xml version="1.0" encoding="utf-8"?>
+<project version="0.18.1" title="">
+  <file path="gocardless.php" hash="4d4214184994b2d8e4de1afe2785bee2" package="GoCardless">
+    <docblock line="3">
+      <description><![CDATA[GoCardless PHP library, core class]]></description>
+      <long-description><![CDATA[]]></long-description>
+      <tag line="3" name="package" description="GoCardless"/>
+    </docblock>
+    <parse_markers>
+      <critical line="32" code="50019">No short description for property $environment</critical>
+      <critical line="35" code="50019">No short description for property $client</critical>
+      <error line="38" code="50015">Argument $account_details is missing from the Docblock of set_account_details()</error>
+    </parse_markers>
+    <include line="17" type="Require">
+      <name>lib/utils.php</name>
+    </include>
+    <include line="18" type="Require">
+      <name>lib/exceptions.php</name>
+    </include>
+    <include line="19" type="Require">
+      <name>lib/bill.php</name>
+    </include>
+    <include line="20" type="Require">
+      <name>lib/user.php</name>
+    </include>
+    <include line="21" type="Require">
+      <name>lib/client.php</name>
+    </include>
+    <include line="22" type="Require">
+      <name>lib/merchant.php</name>
+    </include>
+    <include line="23" type="Require">
+      <name>lib/subscription.php</name>
+    </include>
+    <include line="24" type="Require">
+      <name>lib/pre_authorization.php</name>
+    </include>
+    <class final="false" abstract="false" namespace="default" line="30" package="Default">
+      <name>GoCardless</name>
+      <full_name>\GoCardless</full_name>
+      <extends/>
+      <docblock line="26">
+        <description><![CDATA[GoCardless class]]></description>
+        <long-description><![CDATA[]]></long-description>
+      </docblock>
+      <property final="false" static="true" visibility="public" line="33" package="Default">
+        <name>$environment</name>
+        <default><![CDATA[]]></default>
+        <docblock line="32">
+          <description><![CDATA[]]></description>
+          <long-description><![CDATA[]]></long-description>
+          <tag line="32" name="type" description="string The environment: sandbox or live"/>
+        </docblock>
+      </property>
+      <property final="false" static="true" visibility="public" line="36" package="Default">
+        <name>$client</name>
+        <default><![CDATA[]]></default>
+        <docblock line="35">
+          <description><![CDATA[]]></description>
+          <long-description><![CDATA[]]></long-description>
+          <tag line="35" name="type" description="object The client object"/>
+        </docblock>
+      </property>
+      <method final="false" abstract="false" static="true" visibility="public" namespace="default" line="43" package="Default">
+        <name>set_account_details</name>
+        <type>function</type>
+        <docblock line="38">
+          <description><![CDATA[Initialization function called with account details]]></description>
+          <long-description><![CDATA[<p>$account_details array Array of account details</p>]]></long-description>
+        </docblock>
+        <argument line="43">
+          <name>$account_details</name>
+          <default><![CDATA[]]></default>
+          <type/>
+        </argument>
+      </method>
+      <method final="false" abstract="false" static="true" visibility="public" namespace="default" line="54" package="Default">
+        <name>new_subscription_url</name>
+        <type>function</type>
+        <docblock line="47">
+          <description><![CDATA[Generate a URL to give a user to create a new subscription]]></description>
+          <long-description><![CDATA[]]></long-description>
+          <tag line="47" name="param" description="Parameters to use to generate the URL" type="array" variable="$params">
+            <type by_reference="false">array</type>
+          </tag>
+          <tag line="47" name="return" description="The generated URL" type="string">
+            <type by_reference="false">string</type>
+          </tag>
+        </docblock>
+        <argument line="54">
+          <name>$params</name>
+          <default><![CDATA[]]></default>
+          <type/>
+        </argument>
+      </method>
+      <method final="false" abstract="false" static="true" visibility="public" namespace="default" line="65" package="Default">
+        <name>new_pre_authorization_url</name>
+        <type>function</type>
+        <docblock line="58">
+          <description><![CDATA[Generate a URL to give a user to create a new pre-authorized payment]]></description>
+          <long-description><![CDATA[]]></long-description>
+          <tag line="58" name="param" description="Parameters to use to generate the URL" type="array" variable="$params">
+            <type by_reference="false">array</type>
+          </tag>
+          <tag line="58" name="return" description="The generated URL" type="string">
+            <type by_reference="false">string</type>
+          </tag>
+        </docblock>
+        <argument line="65">
+          <name>$params</name>
+          <default><![CDATA[]]></default>
+          <type/>
+        </argument>
+      </method>
+      <method final="false" abstract="false" static="true" visibility="public" namespace="default" line="76" package="Default">
+        <name>new_bill_url</name>
+        <type>function</type>
+        <docblock line="69">
+          <description><![CDATA[Generate a URL to give a user to create a new bill]]></description>
+          <long-description><![CDATA[]]></long-description>
+          <tag line="69" name="param" description="Parameters to use to generate the URL" type="array" variable="$params">
+            <type by_reference="false">array</type>
+          </tag>
+          <tag line="69" name="return" description="The generated URL" type="string">
+            <type by_reference="false">string</type>
+          </tag>
+        </docblock>
+        <argument line="76">
+          <name>$params</name>
+          <default><![CDATA[]]></default>
+          <type/>
+        </argument>
+      </method>
+      <method final="false" abstract="false" static="true" visibility="public" namespace="default" line="87" package="Default">
+        <name>confirm_resource</name>
+        <type>function</type>
+        <docblock line="80">
+          <description><![CDATA[Generate a URL to give a user to create a new bill]]></description>
+          <long-description><![CDATA[]]></long-description>
+          <tag line="80" name="param" description="Parameters to use to generate the URL" type="array" variable="$params">
+            <type by_reference="false">array</type>
+          </tag>
+          <tag line="80" name="return" description="The generated URL" type="string">
+            <type by_reference="false">string</type>
+          </tag>
+        </docblock>
+        <argument line="87">
+          <name>$params</name>
+          <default><![CDATA[]]></default>
+          <type/>
+        </argument>
+      </method>
+      <method final="false" abstract="false" static="true" visibility="public" namespace="default" line="98" package="Default">
+        <name>validate_webhook</name>
+        <type>function</type>
+        <docblock line="91">
+          <description><![CDATA[Validate the payload of a webhook]]></description>
+          <long-description><![CDATA[]]></long-description>
+          <tag line="91" name="param" description="The payload of the webhook" type="array" variable="$params">
+            <type by_reference="false">array</type>
+          </tag>
+          <tag line="91" name="return" description="True if webhook signature is valid" type="boolean">
+            <type by_reference="false">boolean</type>
+          </tag>
+        </docblock>
+        <argument line="98">
+          <name>$params</name>
+          <default><![CDATA[]]></default>
+          <type/>
+        </argument>
+      </method>
+    </class>
+  </file>
+  <file path="lib/bill.php" hash="9aa90e63d9dfad0c008c77606fcca906">
+    <parse_markers>
+      <error line="14" code="50018">No DocBlock was found for property $endpoint</error>
+      <error line="16" code="50010">No DocBlock was found for method __construct()</error>
+      <error line="26" code="50015">Argument $client is missing from the Docblock of find()</error>
+      <error line="41" code="50014">Name of argument $client does not match with the DocBlock's name $id in find_with_client()</error>
+      <error line="41" code="50015">Argument $id is missing from the Docblock of find_with_client()</error>
+      <error line="56" code="50014">Name of argument $params does not match with the DocBlock's name $id in create()</error>
+      <notice line="56" code="50013">Parameter $id could not be found in create()</notice>
+      <error line="1" code="50007">No page-level DocBlock was found in file lib/bill.php</error>
+    </parse_markers>
+    <class final="false" abstract="false" namespace="default" line="12" package="Default">
+      <name>GoCardless_Bill</name>
+      <full_name>\GoCardless_Bill</full_name>
+      <extends/>
+      <docblock line="8">
+        <description><![CDATA[GoCardless bill class]]></description>
+        <long-description><![CDATA[]]></long-description>
+      </docblock>
+      <property final="false" static="true" visibility="public" line="14">
+        <name>$endpoint</name>
+        <default><![CDATA['/bills']]></default>
+      </property>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="default" line="16">
+        <name>__construct</name>
+        <type>function</type>
+        <argument line="16">
+          <name>$client</name>
+          <default><![CDATA[]]></default>
+          <type/>
+        </argument>
+        <argument line="16">
+          <name>$attrs</name>
+          <default><![CDATA[]]></default>
+          <type/>
+        </argument>
+      </method>
+      <method final="false" abstract="false" static="true" visibility="public" namespace="default" line="33" package="Default">
+        <name>find</name>
+        <type>function</type>
+        <docblock line="26">
+          <description><![CDATA[Fetch a bill item from the API]]></description>
+          <long-description><![CDATA[]]></long-description>
+          <tag line="26" name="param" description="The id of the bill to fetch" type="string" variable="$id">
+            <type by_reference="false">string</type>
+          </tag>
+          <tag line="26" name="return" description="The bill object" type="object">
+            <type by_reference="false">object</type>
+          </tag>
+        </docblock>
+        <argument line="33">
+          <name>$id</name>
+          <default><![CDATA[]]></default>
+          <type/>
+        </argument>
+        <argument line="33">
+          <name>$client</name>
+          <default><![CDATA[null]]></default>
+          <type/>
+        </argument>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="default" line="48" package="Default">
+        <name>find_with_client</name>
+        <type>function</type>
+        <docblock line="41">
+          <description><![CDATA[Fetch a bill item from the API]]></description>
+          <long-description><![CDATA[]]></long-description>
+          <tag line="41" name="param" description="The id of the bill to fetch" type="string" variable="$id">
+            <type by_reference="false">string</type>
+          </tag>
+          <tag line="41" name="return" description="The bill object" type="object">
+            <type by_reference="false">object</type>
+          </tag>
+        </docblock>
+        <argument line="48">
+          <name>$client</name>
+          <default><![CDATA[]]></default>
+          <type/>
+        </argument>
+        <argument line="48">
+          <name>$id</name>
+          <default><![CDATA[]]></default>
+          <type/>
+        </argument>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="default" line="63" package="Default">
+        <name>create</name>
+        <type>function</type>
+        <docblock line="56">
+          <description><![CDATA[Create a bill under an existing pre-auth]]></description>
+          <long-description><![CDATA[]]></long-description>
+          <tag line="56" name="param" description="The pre-auth" type="string" variable="$id">
+            <type by_reference="false">string</type>
+          </tag>
+          <tag line="56" name="return" description="The result of the cancel query" type="object">
+            <type by_reference="false">object</type>
+          </tag>
+        </docblock>
+        <argument line="63">
+          <name>$params</name>
+          <default><![CDATA[]]></default>
+          <type/>
+        </argument>
+      </method>
+    </class>
+  </file>
+  <file path="lib/client.php" hash="4df2c0b2ed815be619f1d97f52d8f9d1">
+    <parse_markers>
+      <critical line="14" code="50019">No short description for property $account_details</critical>
+      <critical line="17" code="50019">No short description for property $base_url</critical>
+      <critical line="20" code="50019">No short description for property $base_urls</critical>
+      <critical line="26" code="50019">No short description for property $api_path</critical>
+      <critical line="29" code="50019">No short description for property $redirect_uri</critical>
+      <error line="91" code="50014">Name of argument $options does not match with the DocBlock's name $auth_code in fetch_access_token()</error>
+      <notice line="91" code="50013">Parameter $auth_code could not be found in fetch_access_token()</notice>
+      <error line="1" code="50007">No page-level DocBlock was found in file lib/client.php</error>
+    </parse_markers>
+    <class final="false" abstract="false" namespace="default" line="12" package="Default">
+      <name>GoCardless_Client</name>
+      <full_name>\GoCardless_Client</full_name>
+      <extends/>
+      <docblock line="8">
+        <description><![CDATA[GoCardless client class]]></description>
+        <long-description><![CDATA[]]></long-description>
+      </docblock>
+      <property final="false" static="false" visibility="public" line="15" package="Default">
+        <name>$account_details</name>
+        <default><![CDATA[]]></default>
+        <docblock line="14">
+          <description><![CDATA[]]></description>
+          <long-description><![CDATA[]]></long-description>
+          <tag line="14" name="type" description="array Account details for this instance of GoCardless_Client"/>
+        </docblock>
+      </property>
+      <property final="false" static="true" visibility="public" line="18" package="Default">
+        <name>$base_url</name>
+        <default><![CDATA[]]></default>
+        <docblock line="17">
+          <description><![CDATA[]]></description>
+          <long-description><![CDATA[]]></long-description>
+          <tag line="17" name="type" description="string The (empty) base_url to use for API queries"/>
+        </docblock>
+      </property>
+      <property final="false" static="true" visibility="public" line="21" package="Default">
+        <name>$base_urls</name>
+        <default><![CDATA[array(
+    'production'  => 'https://gocardless.com',
+    'sandbox'     => 'https://sandbox.gocardless.com'
+  )]]></default>
+        <docblock line="20">
+          <description><![CDATA[]]></description>
+          <long-description><![CDATA[]]></long-description>
+          <tag line="20" name="type" description="array Array of possible base_urls to use"/>
+        </docblock>
+      </property>
+      <property final="false" static="true" visibility="public" line="27" package="Default">
+        <name>$api_path</name>
+        <default><![CDATA['/api/v1']]></default>
+        <docblock line="26">
+          <description><![CDATA[]]></description>
+          <long-description><![CDATA[]]></long-description>
+          <tag line="26" name="type" description="string The path to use to call the API"/>
+        </docblock>
+      </property>
+      <property final="false" static="false" visibility="public" line="30" package="Default">
+        <name>$redirect_uri</name>
+        <default><![CDATA[]]></default>
+        <docblock line="29">
+          <description><![CDATA[]]></description>
+          <long-description><![CDATA[]]></long-description>
+          <tag line="29" name="type" description="string The url to redirect the user to"/>
+        </docblock>
+      </property>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="default" line="37" package="Default">
+        <name>__construct</name>
+        <type>function</type>
+        <docblock line="32">
+          <description><![CDATA[Constructor, creates a new instance of GoCardless_Client]]></description>
+          <long-description><![CDATA[]]></long-description>
+          <tag line="32" name="param" description="Parameters" type="array" variable="$account_details">
+            <type by_reference="false">array</type>
+          </tag>
+        </docblock>
+        <argument line="37">
+          <name>$account_details</name>
+          <default><![CDATA[]]></default>
+          <type/>
+        </argument>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="default" line="73" package="Default">
+        <name>authorize_url</name>
+        <type>function</type>
+        <docblock line="66">
+          <description><![CDATA[Generate the OAuth authorize url]]></description>
+          <long-description><![CDATA[]]></long-description>
+          <tag line="66" name="param" description="The parameters to use" type="array" variable="$options">
+            <type by_reference="false">array</type>
+          </tag>
+          <tag line="66" name="return" description="The generated url" type="string">
+            <type by_reference="false">string</type>
+          </tag>
+        </docblock>
+        <argument line="73">
+          <name>$options</name>
+          <default><![CDATA[]]></default>
+          <type/>
+        </argument>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="default" line="99" package="Default">
+        <name>fetch_access_token</name>
+        <type>function</type>
+        <docblock line="91">
+          <description><![CDATA[Fetch an access token for the current user]]></description>
+          <long-description><![CDATA[]]></long-description>
+          <tag line="91" name="param" description="The authorization code" type="string" variable="$auth_code">
+            <type by_reference="false">string</type>
+          </tag>
+          <tag line="91" name="param" description="The parameters to use" type="array" variable="$options">
+            <type by_reference="false">array</type>
+          </tag>
+          <tag line="91" name="return" description="The access token" type="string">
+            <type by_reference="false">string</type>
+          </tag>
+        </docblock>
+        <argument line="99">
+          <name>$options</name>
+          <default><![CDATA[]]></default>
+          <type/>
+        </argument>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="default" line="132" package="Default">
+        <name>api_get</name>
+        <type>function</type>
+        <docblock line="124">
+          <description><![CDATA[Configure a GET request]]></description>
+          <long-description><![CDATA[]]></long-description>
+          <tag line="124" name="param" description="The URL to make the request to" type="string" variable="$path">
+            <type by_reference="false">string</type>
+          </tag>
+          <tag line="124" name="param" description="The parameters to use for the POST body" type="array" variable="$params">
+            <type by_reference="false">array</type>
+          </tag>
+          <tag line="124" name="return" description="The response text" type="string">
+            <type by_reference="false">string</type>
+          </tag>
+        </docblock>
+        <argument line="132">
+          <name>$path</name>
+          <default><![CDATA[]]></default>
+          <type/>
+        </argument>
+        <argument line="132">
+          <name>$params</name>
+          <default><![CDATA[array()]]></default>
+          <type/>
+        </argument>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="default" line="148" package="Default">
+        <name>api_post</name>
+        <type>function</type>
+        <docblock line="140">
+          <description><![CDATA[Configure a POST request]]></description>
+          <long-description><![CDATA[]]></long-description>
+          <tag line="140" name="param" description="The URL to make the request to" type="string" variable="$path">
+            <type by_reference="false">string</type>
+          </tag>
+          <tag line="140" name="param" description="The parameters to use for the POST body" type="array" variable="$data">
+            <type by_reference="false">array</type>
+          </tag>
+          <tag line="140" name="return" description="The response text" type="string">
+            <type by_reference="false">string</type>
+          </tag>
+        </docblock>
+        <argument line="148">
+          <name>$path</name>
+          <default><![CDATA[]]></default>
+          <type/>
+        </argument>
+        <argument line="148">
+          <name>$data</name>
+          <default><![CDATA[array()]]></default>
+          <type/>
+        </argument>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="default" line="164" package="Default">
+        <name>api_put</name>
+        <type>function</type>
+        <docblock line="156">
+          <description><![CDATA[Configure a PUT request]]></description>
+          <long-description><![CDATA[]]></long-description>
+          <tag line="156" name="param" description="The URL to make the request to" type="string" variable="$path">
+            <type by_reference="false">string</type>
+          </tag>
+          <tag line="156" name="param" description="The parameters to use for the PUT body" type="array" variable="$data">
+            <type by_reference="false">array</type>
+          </tag>
+          <tag line="156" name="return" description="The response text" type="string">
+            <type by_reference="false">string</type>
+          </tag>
+        </docblock>
+        <argument line="164">
+          <name>$path</name>
+          <default><![CDATA[]]></default>
+          <type/>
+        </argument>
+        <argument line="164">
+          <name>$data</name>
+          <default><![CDATA[array()]]></default>
+          <type/>
+        </argument>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="default" line="179" package="Default">
+        <name>merchant</name>
+        <type>function</type>
+        <docblock line="172">
+          <description><![CDATA[Returns the merchant associated with the client's access token]]></description>
+          <long-description><![CDATA[]]></long-description>
+          <tag line="172" name="param" description="The id of the merchant to fetch" type="string" variable="$id">
+            <type by_reference="false">string</type>
+          </tag>
+          <tag line="172" name="return" description="The merchant object" type="object">
+            <type by_reference="false">object</type>
+          </tag>
+        </docblock>
+        <argument line="179">
+          <name>$id</name>
+          <default><![CDATA[null]]></default>
+          <type/>
+        </argument>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="default" line="200" package="Default">
+        <name>subscription</name>
+        <type>function</type>
+        <docblock line="193">
+          <description><![CDATA[Get a specific subscription]]></description>
+          <long-description><![CDATA[]]></long-description>
+          <tag line="193" name="param" description="The id of the subscription to fetch" type="string" variable="$id">
+            <type by_reference="false">string</type>
+          </tag>
+          <tag line="193" name="return" description="The subscription matching the id requested" type="object">
+            <type by_reference="false">object</type>
+          </tag>
+        </docblock>
+        <argument line="200">
+          <name>$id</name>
+          <default><![CDATA[]]></default>
+          <type/>
+        </argument>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="default" line="217" package="Default">
+        <name>pre_authorization</name>
+        <type>function</type>
+        <docblock line="210">
+          <description><![CDATA[Get a specific pre_authorization]]></description>
+          <long-description><![CDATA[]]></long-description>
+          <tag line="210" name="param" description="The id of the pre_authorization to fetch" type="string" variable="$id">
+            <type by_reference="false">string</type>
+          </tag>
+          <tag line="210" name="return" description="The pre-authorization matching the id requested" type="object">
+            <type by_reference="false">object</type>
+          </tag>
+        </docblock>
+        <argument line="217">
+          <name>$id</name>
+          <default><![CDATA[]]></default>
+          <type/>
+        </argument>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="default" line="234" package="Default">
+        <name>user</name>
+        <type>function</type>
+        <docblock line="227">
+          <description><![CDATA[Get a specific user]]></description>
+          <long-description><![CDATA[]]></long-description>
+          <tag line="227" name="param" description="The id of the user to fetch" type="string" variable="$id">
+            <type by_reference="false">string</type>
+          </tag>
+          <tag line="227" name="return" description="The user object matching the id requested" type="object">
+            <type by_reference="false">object</type>
+          </tag>
+        </docblock>
+        <argument line="234">
+          <name>$id</name>
+          <default><![CDATA[]]></default>
+          <type/>
+        </argument>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="default" line="251" package="Default">
+        <name>bill</name>
+        <type>function</type>
+        <docblock line="244">
+          <description><![CDATA[Get a specific bill]]></description>
+          <long-description><![CDATA[]]></long-description>
+          <tag line="244" name="param" description="The id of the bill to fetch" type="string" variable="$id">
+            <type by_reference="false">string</type>
+          </tag>
+          <tag line="244" name="return" description="The bill object matching the id requested" type="object">
+            <type by_reference="false">object</type>
+          </tag>
+        </docblock>
+        <argument line="251">
+          <name>$id</name>
+          <default><![CDATA[]]></default>
+          <type/>
+        </argument>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="default" line="268" package="Default">
+        <name>create_bill</name>
+        <type>function</type>
+        <docblock line="261">
+          <description><![CDATA[Create a new bill under a given pre-authorization]]></description>
+          <long-description><![CDATA[]]></long-description>
+          <tag line="261" name="param" description="Must include pre_authorization_id and amount" type="array" variable="$attrs">
+            <type by_reference="false">array</type>
+          </tag>
+          <tag line="261" name="return" description="The new bill object" type="string">
+            <type by_reference="false">string</type>
+          </tag>
+        </docblock>
+        <argument line="268">
+          <name>$attrs</name>
+          <default><![CDATA[]]></default>
+          <type/>
+        </argument>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="default" line="292" package="Default">
+        <name>new_subscription_url</name>
+        <type>function</type>
+        <docblock line="285">
+          <description><![CDATA[Generate a URL to give a user to create a new subscription]]></description>
+          <long-description><![CDATA[]]></long-description>
+          <tag line="285" name="param" description="Parameters to use to generate the URL" type="array" variable="$params">
+            <type by_reference="false">array</type>
+          </tag>
+          <tag line="285" name="return" description="The generated URL" type="string">
+            <type by_reference="false">string</type>
+          </tag>
+        </docblock>
+        <argument line="292">
+          <name>$params</name>
+          <default><![CDATA[]]></default>
+          <type/>
+        </argument>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="default" line="303" package="Default">
+        <name>new_pre_authorization_url</name>
+        <type>function</type>
+        <docblock line="296">
+          <description><![CDATA[Generate a URL to give a user to create a new pre-authorized payment]]></description>
+          <long-description><![CDATA[]]></long-description>
+          <tag line="296" name="param" description="Parameters to use to generate the URL" type="array" variable="$params">
+            <type by_reference="false">array</type>
+          </tag>
+          <tag line="296" name="return" description="The generated URL" type="string">
+            <type by_reference="false">string</type>
+          </tag>
+        </docblock>
+        <argument line="303">
+          <name>$params</name>
+          <default><![CDATA[]]></default>
+          <type/>
+        </argument>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="default" line="314" package="Default">
+        <name>new_bill_url</name>
+        <type>function</type>
+        <docblock line="307">
+          <description><![CDATA[Generate a URL to give a user to create a new bill]]></description>
+          <long-description><![CDATA[]]></long-description>
+          <tag line="307" name="param" description="Parameters to use to generate the URL" type="array" variable="$params">
+            <type by_reference="false">array</type>
+          </tag>
+          <tag line="307" name="return" description="The generated URL" type="string">
+            <type by_reference="false">string</type>
+          </tag>
+        </docblock>
+        <argument line="314">
+          <name>$params</name>
+          <default><![CDATA[]]></default>
+          <type/>
+        </argument>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="default" line="325" package="Default">
+        <name>confirm_resource</name>
+        <type>function</type>
+        <docblock line="318">
+          <description><![CDATA[Send an HTTP request to confirm the creation of a new payment resource]]></description>
+          <long-description><![CDATA[]]></long-description>
+          <tag line="318" name="param" description="Parameters to send with the request" type="array" variable="$params">
+            <type by_reference="false">array</type>
+          </tag>
+          <tag line="318" name="return" description="The result of the HTTP request" type="string">
+            <type by_reference="false">string</type>
+          </tag>
+        </docblock>
+        <argument line="325">
+          <name>$params</name>
+          <default><![CDATA[]]></default>
+          <type/>
+        </argument>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="default" line="405" package="Default">
+        <name>validate_webhook</name>
+        <type>function</type>
+        <docblock line="398">
+          <description><![CDATA[Test whether a webhook is valid or not]]></description>
+          <long-description><![CDATA[]]></long-description>
+          <tag line="398" name="param" description="params The contents of the webhook in array form" type="array" variable="$params">
+            <type by_reference="false">array</type>
+          </tag>
+          <tag line="398" name="return" description="If valid returns true" type="boolean">
+            <type by_reference="false">boolean</type>
+          </tag>
+        </docblock>
+        <argument line="405">
+          <name>$params</name>
+          <default><![CDATA[]]></default>
+          <type/>
+        </argument>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="protected" namespace="default" line="433" package="Default">
+        <name>request</name>
+        <type>function</type>
+        <docblock line="424">
+          <description><![CDATA[Makes an HTTP request]]></description>
+          <long-description><![CDATA[]]></long-description>
+          <tag line="424" name="param" description="The method to use for the request" type="string" variable="$method">
+            <type by_reference="false">string</type>
+          </tag>
+          <tag line="424" name="param" description="The API path to make the request to" type="string" variable="$path">
+            <type by_reference="false">string</type>
+          </tag>
+          <tag line="424" name="param" description="The parameters to use for the request" type="array" variable="$opts">
+            <type by_reference="false">array</type>
+          </tag>
+          <tag line="424" name="return" description="The response text" type="string">
+            <type by_reference="false">string</type>
+          </tag>
+        </docblock>
+        <argument line="433">
+          <name>$method</name>
+          <default><![CDATA[]]></default>
+          <type/>
+        </argument>
+        <argument line="433">
+          <name>$path</name>
+          <default><![CDATA[]]></default>
+          <type/>
+        </argument>
+        <argument line="433">
+          <name>$opts</name>
+          <default><![CDATA[array()]]></default>
+          <type/>
+        </argument>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="default" line="554" package="Default">
+        <name>validate_signature</name>
+        <type>function</type>
+        <docblock line="547">
+          <description><![CDATA[Confirm whether a signature is valid]]></description>
+          <long-description><![CDATA[]]></long-description>
+          <tag line="547" name="param" description="Should include data, secret and signature" type="array" variable="$params">
+            <type by_reference="false">array</type>
+          </tag>
+          <tag line="547" name="return" description="True or false" type="boolean">
+            <type by_reference="false">boolean</type>
+          </tag>
+        </docblock>
+        <argument line="554">
+          <name>$params</name>
+          <default><![CDATA[]]></default>
+          <type/>
+        </argument>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="default" line="571" package="Default">
+        <name>generate_nonce</name>
+        <type>function</type>
+        <docblock line="566">
+          <description><![CDATA[Generates a nonce]]></description>
+          <long-description><![CDATA[]]></long-description>
+          <tag line="566" name="return" description="Base64 encoded nonce" type="string">
+            <type by_reference="false">string</type>
+          </tag>
+        </docblock>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="private" namespace="default" line="593" package="Default">
+        <name>new_limit_url</name>
+        <type>function</type>
+        <docblock line="585">
+          <description><![CDATA[Generate a new payment url]]></description>
+          <long-description><![CDATA[]]></long-description>
+          <tag line="585" name="param" description="Payment type" type="string" variable="$type">
+            <type by_reference="false">string</type>
+          </tag>
+          <tag line="585" name="param" description="The specific parameters for this payment" type="string" variable="$limit_params">
+            <type by_reference="false">string</type>
+          </tag>
+          <tag line="585" name="return" description="The new payment URL" type="string">
+            <type by_reference="false">string</type>
+          </tag>
+        </docblock>
+        <argument line="593">
+          <name>$type</name>
+          <default><![CDATA[]]></default>
+          <type/>
+        </argument>
+        <argument line="593">
+          <name>$limit_params</name>
+          <default><![CDATA[]]></default>
+          <type/>
+        </argument>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="default" line="629" package="Default">
+        <name>generate_mandatory_params</name>
+        <type>function</type>
+        <docblock line="624">
+          <description><![CDATA[Generate mandatory payment parameters: client_id, nonce and timestamp]]></description>
+          <long-description><![CDATA[]]></long-description>
+          <tag line="624" name="return" description="Mandatory payment parameters" type="array">
+            <type by_reference="false">array</type>
+          </tag>
+        </docblock>
+      </method>
+    </class>
+  </file>
+  <file path="lib/exceptions.php" hash="1b26673068fee96b0df394b56b2d0ba2">
+    <parse_markers>
+      <error line="51" code="50015">Argument $code is missing from the Docblock of __construct()</error>
+      <error line="1" code="50007">No page-level DocBlock was found in file lib/exceptions.php</error>
+    </parse_markers>
+    <class final="false" abstract="false" namespace="default" line="13" package="Default">
+      <name>GoCardless_ClientException</name>
+      <full_name>\GoCardless_ClientException</full_name>
+      <extends>\Exception</extends>
+      <docblock line="8">
+        <description><![CDATA[Exceptions pertaining to the client object]]></description>
+        <long-description><![CDATA[]]></long-description>
+        <tag line="8" name="return" description="" type="\exception">
+          <type by_reference="false">\exception</type>
+        </tag>
+      </docblock>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="default" line="20" package="Default">
+        <name>__construct</name>
+        <type>function</type>
+        <docblock line="15">
+          <description><![CDATA[Throw a default exception]]></description>
+          <long-description><![CDATA[]]></long-description>
+          <tag line="15" name="param" description="Description of the error" type="string" variable="$description">
+            <type by_reference="false">string</type>
+          </tag>
+        </docblock>
+        <argument line="20">
+          <name>$description</name>
+          <default><![CDATA['Unknown client error']]></default>
+          <type/>
+        </argument>
+      </method>
+    </class>
+    <class final="false" abstract="false" namespace="default" line="31" package="Default">
+      <name>GoCardless_ArgumentsException</name>
+      <full_name>\GoCardless_ArgumentsException</full_name>
+      <extends>\Exception</extends>
+      <docblock line="26">
+        <description><![CDATA[Exceptions pertaining to the arguments used in a function]]></description>
+        <long-description><![CDATA[]]></long-description>
+        <tag line="26" name="return" description="" type="\exception">
+          <type by_reference="false">\exception</type>
+        </tag>
+      </docblock>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="default" line="38" package="Default">
+        <name>__construct</name>
+        <type>function</type>
+        <docblock line="33">
+          <description><![CDATA[Throw a default exception]]></description>
+          <long-description><![CDATA[]]></long-description>
+          <tag line="33" name="param" description="Description of the error" type="string" variable="$description">
+            <type by_reference="false">string</type>
+          </tag>
+        </docblock>
+        <argument line="38">
+          <name>$description</name>
+          <default><![CDATA['Unknown argument error']]></default>
+          <type/>
+        </argument>
+      </method>
+    </class>
+    <class final="false" abstract="false" namespace="default" line="49" package="Default">
+      <name>GoCardless_ApiException</name>
+      <full_name>\GoCardless_ApiException</full_name>
+      <extends>\Exception</extends>
+      <docblock line="44">
+        <description><![CDATA[Exceptions pertaining to the GoCardless API]]></description>
+        <long-description><![CDATA[]]></long-description>
+        <tag line="44" name="return" description="" type="\exception">
+          <type by_reference="false">\exception</type>
+        </tag>
+      </docblock>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="default" line="56" package="Default">
+        <name>__construct</name>
+        <type>function</type>
+        <docblock line="51">
+          <description><![CDATA[Throw a default exception]]></description>
+          <long-description><![CDATA[]]></long-description>
+          <tag line="51" name="param" description="Description of the error" type="string" variable="$description">
+            <type by_reference="false">string</type>
+          </tag>
+        </docblock>
+        <argument line="56">
+          <name>$description</name>
+          <default><![CDATA['Unknown error']]></default>
+          <type/>
+        </argument>
+        <argument line="56">
+          <name>$code</name>
+          <default><![CDATA[0]]></default>
+          <type/>
+        </argument>
+      </method>
+    </class>
+    <class final="false" abstract="false" namespace="default" line="70" package="Default">
+      <name>GoCardless_SignatureException</name>
+      <full_name>\GoCardless_SignatureException</full_name>
+      <extends>\Exception</extends>
+      <docblock line="65">
+        <description><![CDATA[Exceptions pertaining to the signature]]></description>
+        <long-description><![CDATA[]]></long-description>
+        <tag line="65" name="return" description="" type="\exception">
+          <type by_reference="false">\exception</type>
+        </tag>
+      </docblock>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="default" line="77" package="Default">
+        <name>__construct</name>
+        <type>function</type>
+        <docblock line="72">
+          <description><![CDATA[Throw a default exception]]></description>
+          <long-description><![CDATA[]]></long-description>
+          <tag line="72" name="param" description="Description of the error" type="string" variable="$description">
+            <type by_reference="false">string</type>
+          </tag>
+        </docblock>
+        <argument line="77">
+          <name>$description</name>
+          <default><![CDATA['Signature error']]></default>
+          <type/>
+        </argument>
+      </method>
+    </class>
+  </file>
+  <file path="lib/merchant.php" hash="fad8c004fa8e9babeff96e7e7531c2ce">
+    <parse_markers>
+      <error line="14" code="50018">No DocBlock was found for property $endpoint</error>
+      <error line="16" code="50010">No DocBlock was found for method __construct()</error>
+      <error line="41" code="50014">Name of argument $client does not match with the DocBlock's name $id in find_with_client()</error>
+      <error line="41" code="50015">Argument $id is missing from the Docblock of find_with_client()</error>
+      <notice line="56" code="50013">Parameter $id could not be found in subscriptions()</notice>
+      <notice line="77" code="50013">Parameter $id could not be found in pre_authorizations()</notice>
+      <notice line="98" code="50013">Parameter $id could not be found in users()</notice>
+      <notice line="119" code="50013">Parameter $id could not be found in bills()</notice>
+      <error line="1" code="50007">No page-level DocBlock was found in file lib/merchant.php</error>
+    </parse_markers>
+    <class final="false" abstract="false" namespace="default" line="12" package="Default">
+      <name>GoCardless_Merchant</name>
+      <full_name>\GoCardless_Merchant</full_name>
+      <extends/>
+      <docblock line="8">
+        <description><![CDATA[GoCardless merchant class]]></description>
+        <long-description><![CDATA[]]></long-description>
+      </docblock>
+      <property final="false" static="true" visibility="public" line="14">
+        <name>$endpoint</name>
+        <default><![CDATA['/merchants']]></default>
+      </property>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="default" line="16">
+        <name>__construct</name>
+        <type>function</type>
+        <argument line="16">
+          <name>$client</name>
+          <default><![CDATA[]]></default>
+          <type/>
+        </argument>
+        <argument line="16">
+          <name>$attrs</name>
+          <default><![CDATA[]]></default>
+          <type/>
+        </argument>
+      </method>
+      <method final="false" abstract="false" static="true" visibility="public" namespace="default" line="33" package="Default">
+        <name>find</name>
+        <type>function</type>
+        <docblock line="26">
+          <description><![CDATA[Fetch a merchant object from the API]]></description>
+          <long-description><![CDATA[]]></long-description>
+          <tag line="26" name="param" description="The id of the merchant to fetch" type="string" variable="$id">
+            <type by_reference="false">string</type>
+          </tag>
+          <tag line="26" name="return" description="The merchant object" type="object">
+            <type by_reference="false">object</type>
+          </tag>
+        </docblock>
+        <argument line="33">
+          <name>$id</name>
+          <default><![CDATA[]]></default>
+          <type/>
+        </argument>
+      </method>
+      <method final="false" abstract="false" static="true" visibility="public" namespace="default" line="48" package="Default">
+        <name>find_with_client</name>
+        <type>function</type>
+        <docblock line="41">
+          <description><![CDATA[Fetch a bill item from the API]]></description>
+          <long-description><![CDATA[]]></long-description>
+          <tag line="41" name="param" description="The id of the bill to fetch" type="string" variable="$id">
+            <type by_reference="false">string</type>
+          </tag>
+          <tag line="41" name="return" description="The bill object" type="object">
+            <type by_reference="false">object</type>
+          </tag>
+        </docblock>
+        <argument line="48">
+          <name>$client</name>
+          <default><![CDATA[]]></default>
+          <type/>
+        </argument>
+        <argument line="48">
+          <name>$id</name>
+          <default><![CDATA[]]></default>
+          <type/>
+        </argument>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="default" line="63" package="Default">
+        <name>subscriptions</name>
+        <type>function</type>
+        <docblock line="56">
+          <description><![CDATA[Fetch a merchant's subscriptions from the API]]></description>
+          <long-description><![CDATA[]]></long-description>
+          <tag line="56" name="param" description="The id of the merchant's subscriptions to fetch" type="string" variable="$id">
+            <type by_reference="false">string</type>
+          </tag>
+          <tag line="56" name="return" description="Array of subscription objects" type="array">
+            <type by_reference="false">array</type>
+          </tag>
+        </docblock>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="default" line="84" package="Default">
+        <name>pre_authorizations</name>
+        <type>function</type>
+        <docblock line="77">
+          <description><![CDATA[Fetch a merchant's pre-authorisations from the API]]></description>
+          <long-description><![CDATA[]]></long-description>
+          <tag line="77" name="param" description="The id of the merchant's pre-authorisations to fetch" type="string" variable="$id">
+            <type by_reference="false">string</type>
+          </tag>
+          <tag line="77" name="return" description="Array of pre-authorisation objects" type="array">
+            <type by_reference="false">array</type>
+          </tag>
+        </docblock>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="default" line="105" package="Default">
+        <name>users</name>
+        <type>function</type>
+        <docblock line="98">
+          <description><![CDATA[Fetch a list of the users associated with a given merchant]]></description>
+          <long-description><![CDATA[]]></long-description>
+          <tag line="98" name="param" description="The id of the merchant's users to fetch" type="string" variable="$id">
+            <type by_reference="false">string</type>
+          </tag>
+          <tag line="98" name="return" description="Array of user objects" type="array">
+            <type by_reference="false">array</type>
+          </tag>
+        </docblock>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="default" line="126" package="Default">
+        <name>bills</name>
+        <type>function</type>
+        <docblock line="119">
+          <description><![CDATA[Fetch a merchant's bills from the API]]></description>
+          <long-description><![CDATA[]]></long-description>
+          <tag line="119" name="param" description="The id of the merchant's bills to fetch" type="string" variable="$id">
+            <type by_reference="false">string</type>
+          </tag>
+          <tag line="119" name="return" description="Array of bill objects" type="array">
+            <type by_reference="false">array</type>
+          </tag>
+        </docblock>
+      </method>
+    </class>
+  </file>
+  <file path="lib/pre_authorization.php" hash="a725e30eaf1a8aa87f16c7e188e4e9d6">
+    <parse_markers>
+      <error line="14" code="50018">No DocBlock was found for property $endpoint</error>
+      <error line="16" code="50010">No DocBlock was found for method __construct()</error>
+      <error line="41" code="50014">Name of argument $client does not match with the DocBlock's name $id in find_with_client()</error>
+      <error line="41" code="50015">Argument $id is missing from the Docblock of find_with_client()</error>
+      <error line="56" code="50014">Name of argument $attrs does not match with the DocBlock's name $id in create_bill()</error>
+      <notice line="56" code="50013">Parameter $id could not be found in create_bill()</notice>
+      <notice line="90" code="50013">Parameter $id could not be found in cancel()</notice>
+      <error line="1" code="50007">No page-level DocBlock was found in file lib/pre_authorization.php</error>
+    </parse_markers>
+    <class final="false" abstract="false" namespace="default" line="12" package="Default">
+      <name>GoCardless_PreAuthorization</name>
+      <full_name>\GoCardless_PreAuthorization</full_name>
+      <extends/>
+      <docblock line="8">
+        <description><![CDATA[GoCardless pre-authorization class]]></description>
+        <long-description><![CDATA[]]></long-description>
+      </docblock>
+      <property final="false" static="true" visibility="public" line="14">
+        <name>$endpoint</name>
+        <default><![CDATA['/pre_authorizations']]></default>
+      </property>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="default" line="16">
+        <name>__construct</name>
+        <type>function</type>
+        <argument line="16">
+          <name>$client</name>
+          <default><![CDATA[]]></default>
+          <type/>
+        </argument>
+        <argument line="16">
+          <name>$attrs</name>
+          <default><![CDATA[]]></default>
+          <type/>
+        </argument>
+      </method>
+      <method final="false" abstract="false" static="true" visibility="public" namespace="default" line="33" package="Default">
+        <name>find</name>
+        <type>function</type>
+        <docblock line="26">
+          <description><![CDATA[Fetch a pre-authorisation object from the API]]></description>
+          <long-description><![CDATA[]]></long-description>
+          <tag line="26" name="param" description="The id of the pre-authorisation to fetch" type="string" variable="$id">
+            <type by_reference="false">string</type>
+          </tag>
+          <tag line="26" name="return" description="The pre-authorisation object" type="object">
+            <type by_reference="false">object</type>
+          </tag>
+        </docblock>
+        <argument line="33">
+          <name>$id</name>
+          <default><![CDATA[]]></default>
+          <type/>
+        </argument>
+      </method>
+      <method final="false" abstract="false" static="true" visibility="public" namespace="default" line="48" package="Default">
+        <name>find_with_client</name>
+        <type>function</type>
+        <docblock line="41">
+          <description><![CDATA[Fetch a bill item from the API]]></description>
+          <long-description><![CDATA[]]></long-description>
+          <tag line="41" name="param" description="The id of the bill to fetch" type="string" variable="$id">
+            <type by_reference="false">string</type>
+          </tag>
+          <tag line="41" name="return" description="The bill object" type="object">
+            <type by_reference="false">object</type>
+          </tag>
+        </docblock>
+        <argument line="48">
+          <name>$client</name>
+          <default><![CDATA[]]></default>
+          <type/>
+        </argument>
+        <argument line="48">
+          <name>$id</name>
+          <default><![CDATA[]]></default>
+          <type/>
+        </argument>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="default" line="63" package="Default">
+        <name>create_bill</name>
+        <type>function</type>
+        <docblock line="56">
+          <description><![CDATA[Fetch a pre-authorisation item from the API]]></description>
+          <long-description><![CDATA[]]></long-description>
+          <tag line="56" name="param" description="The id of the pre-authorisation to fetch" type="string" variable="$id">
+            <type by_reference="false">string</type>
+          </tag>
+          <tag line="56" name="return" description="The pre-authorisations object" type="object">
+            <type by_reference="false">object</type>
+          </tag>
+        </docblock>
+        <argument line="63">
+          <name>$attrs</name>
+          <default><![CDATA[]]></default>
+          <type/>
+        </argument>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="default" line="97" package="Default">
+        <name>cancel</name>
+        <type>function</type>
+        <docblock line="90">
+          <description><![CDATA[Cancel a pre-authorisation]]></description>
+          <long-description><![CDATA[]]></long-description>
+          <tag line="90" name="param" description="The id of the pre-authorisation to fetch" type="string" variable="$id">
+            <type by_reference="false">string</type>
+          </tag>
+          <tag line="90" name="return" description="The result of the cancel query" type="object">
+            <type by_reference="false">object</type>
+          </tag>
+        </docblock>
+      </method>
+    </class>
+  </file>
+  <file path="lib/subscription.php" hash="21467bbd782f06970c616e6f9abedf82">
+    <parse_markers>
+      <error line="14" code="50018">No DocBlock was found for property $endpoint</error>
+      <error line="16" code="50010">No DocBlock was found for method __construct()</error>
+      <error line="41" code="50014">Name of argument $client does not match with the DocBlock's name $id in find_with_client()</error>
+      <error line="41" code="50015">Argument $id is missing from the Docblock of find_with_client()</error>
+      <notice line="56" code="50013">Parameter $id could not be found in cancel()</notice>
+      <error line="1" code="50007">No page-level DocBlock was found in file lib/subscription.php</error>
+    </parse_markers>
+    <class final="false" abstract="false" namespace="default" line="12" package="Default">
+      <name>GoCardless_Subscription</name>
+      <full_name>\GoCardless_Subscription</full_name>
+      <extends/>
+      <docblock line="8">
+        <description><![CDATA[GoCardless subscription class]]></description>
+        <long-description><![CDATA[]]></long-description>
+      </docblock>
+      <property final="false" static="true" visibility="public" line="14">
+        <name>$endpoint</name>
+        <default><![CDATA['/subscriptions']]></default>
+      </property>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="default" line="16">
+        <name>__construct</name>
+        <type>function</type>
+        <argument line="16">
+          <name>$client</name>
+          <default><![CDATA[]]></default>
+          <type/>
+        </argument>
+        <argument line="16">
+          <name>$attrs</name>
+          <default><![CDATA[]]></default>
+          <type/>
+        </argument>
+      </method>
+      <method final="false" abstract="false" static="true" visibility="public" namespace="default" line="33" package="Default">
+        <name>find</name>
+        <type>function</type>
+        <docblock line="26">
+          <description><![CDATA[Fetch a subscription item from the API]]></description>
+          <long-description><![CDATA[]]></long-description>
+          <tag line="26" name="param" description="The id of the subscription to fetch" type="string" variable="$id">
+            <type by_reference="false">string</type>
+          </tag>
+          <tag line="26" name="return" description="The subscription object" type="object">
+            <type by_reference="false">object</type>
+          </tag>
+        </docblock>
+        <argument line="33">
+          <name>$id</name>
+          <default><![CDATA[]]></default>
+          <type/>
+        </argument>
+      </method>
+      <method final="false" abstract="false" static="true" visibility="public" namespace="default" line="48" package="Default">
+        <name>find_with_client</name>
+        <type>function</type>
+        <docblock line="41">
+          <description><![CDATA[Fetch a bill item from the API]]></description>
+          <long-description><![CDATA[]]></long-description>
+          <tag line="41" name="param" description="The id of the bill to fetch" type="string" variable="$id">
+            <type by_reference="false">string</type>
+          </tag>
+          <tag line="41" name="return" description="The bill object" type="object">
+            <type by_reference="false">object</type>
+          </tag>
+        </docblock>
+        <argument line="48">
+          <name>$client</name>
+          <default><![CDATA[]]></default>
+          <type/>
+        </argument>
+        <argument line="48">
+          <name>$id</name>
+          <default><![CDATA[]]></default>
+          <type/>
+        </argument>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="default" line="63" package="Default">
+        <name>cancel</name>
+        <type>function</type>
+        <docblock line="56">
+          <description><![CDATA[Cancel a subscription in the API]]></description>
+          <long-description><![CDATA[]]></long-description>
+          <tag line="56" name="param" description="The id of the subscription to fetch" type="string" variable="$id">
+            <type by_reference="false">string</type>
+          </tag>
+          <tag line="56" name="return" description="The result of the cancel query" type="object">
+            <type by_reference="false">object</type>
+          </tag>
+        </docblock>
+      </method>
+    </class>
+  </file>
+  <file path="lib/user.php" hash="077de622d249ff9a0a3ba6ba3de53648">
+    <parse_markers>
+      <error line="14" code="50018">No DocBlock was found for property $endpoint</error>
+      <error line="16" code="50010">No DocBlock was found for method __construct()</error>
+      <error line="41" code="50014">Name of argument $client does not match with the DocBlock's name $id in find_with_client()</error>
+      <error line="41" code="50015">Argument $id is missing from the Docblock of find_with_client()</error>
+      <error line="1" code="50007">No page-level DocBlock was found in file lib/user.php</error>
+    </parse_markers>
+    <class final="false" abstract="false" namespace="default" line="12" package="Default">
+      <name>GoCardless_User</name>
+      <full_name>\GoCardless_User</full_name>
+      <extends/>
+      <docblock line="8">
+        <description><![CDATA[GoCardless user class]]></description>
+        <long-description><![CDATA[]]></long-description>
+      </docblock>
+      <property final="false" static="true" visibility="public" line="14">
+        <name>$endpoint</name>
+        <default><![CDATA['/users']]></default>
+      </property>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="default" line="16">
+        <name>__construct</name>
+        <type>function</type>
+        <argument line="16">
+          <name>$client</name>
+          <default><![CDATA[]]></default>
+          <type/>
+        </argument>
+        <argument line="16">
+          <name>$attrs</name>
+          <default><![CDATA[]]></default>
+          <type/>
+        </argument>
+      </method>
+      <method final="false" abstract="false" static="true" visibility="public" namespace="default" line="33" package="Default">
+        <name>find</name>
+        <type>function</type>
+        <docblock line="26">
+          <description><![CDATA[Fetch a user item from the API]]></description>
+          <long-description><![CDATA[]]></long-description>
+          <tag line="26" name="param" description="The id of the user to fetch" type="string" variable="$id">
+            <type by_reference="false">string</type>
+          </tag>
+          <tag line="26" name="return" description="The user object" type="object">
+            <type by_reference="false">object</type>
+          </tag>
+        </docblock>
+        <argument line="33">
+          <name>$id</name>
+          <default><![CDATA[]]></default>
+          <type/>
+        </argument>
+      </method>
+      <method final="false" abstract="false" static="true" visibility="public" namespace="default" line="48" package="Default">
+        <name>find_with_client</name>
+        <type>function</type>
+        <docblock line="41">
+          <description><![CDATA[Fetch a bill item from the API]]></description>
+          <long-description><![CDATA[]]></long-description>
+          <tag line="41" name="param" description="The id of the bill to fetch" type="string" variable="$id">
+            <type by_reference="false">string</type>
+          </tag>
+          <tag line="41" name="return" description="The bill object" type="object">
+            <type by_reference="false">object</type>
+          </tag>
+        </docblock>
+        <argument line="48">
+          <name>$client</name>
+          <default><![CDATA[]]></default>
+          <type/>
+        </argument>
+        <argument line="48">
+          <name>$id</name>
+          <default><![CDATA[]]></default>
+          <type/>
+        </argument>
+      </method>
+    </class>
+  </file>
+  <file path="lib/utils.php" hash="80df421d90432537b9a0c94aa1ebabf4">
+    <parse_markers>
+      <error line="1" code="50007">No page-level DocBlock was found in file lib/utils.php</error>
+    </parse_markers>
+    <class final="false" abstract="false" namespace="default" line="12" package="Default">
+      <name>Utils</name>
+      <full_name>\Utils</full_name>
+      <extends/>
+      <docblock line="8">
+        <description><![CDATA[GoCardless utils class]]></description>
+        <long-description><![CDATA[]]></long-description>
+      </docblock>
+      <method final="false" abstract="false" static="true" visibility="public" namespace="default" line="22" package="Default">
+        <name>generate_signature</name>
+        <type>function</type>
+        <docblock line="14">
+          <description><![CDATA[Generate a signature for a request given the app secret]]></description>
+          <long-description><![CDATA[]]></long-description>
+          <tag line="14" name="param" description="The parameters to generate a signature for" type="array" variable="$params">
+            <type by_reference="false">array</type>
+          </tag>
+          <tag line="14" name="param" description="The key to generate the signature with" type="string" variable="$key">
+            <type by_reference="false">string</type>
+          </tag>
+          <tag line="14" name="return" description="A URL-encoded string of parameters" type="string">
+            <type by_reference="false">string</type>
+          </tag>
+        </docblock>
+        <argument line="22">
+          <name>$params</name>
+          <default><![CDATA[]]></default>
+          <type/>
+        </argument>
+        <argument line="22">
+          <name>$key</name>
+          <default><![CDATA[]]></default>
+          <type/>
+        </argument>
+      </method>
+      <method final="false" abstract="false" static="true" visibility="public" namespace="default" line="37" package="Default">
+        <name>generate_query_string</name>
+        <type>function</type>
+        <docblock line="28">
+          <description><![CDATA[Generates, encodes, re-orders variables for the query string.]]></description>
+          <long-description><![CDATA[]]></long-description>
+          <tag line="28" name="param" description="The specific parameters for this payment" type="array" variable="$params">
+            <type by_reference="false">array</type>
+          </tag>
+          <tag line="28" name="param" description="Pairs" type="array" variable="$pairs">
+            <type by_reference="false">array</type>
+          </tag>
+          <tag line="28" name="param" description="The namespace" type="string" variable="$namespace">
+            <type by_reference="false">string</type>
+          </tag>
+          <tag line="28" name="return" description="An encoded string of parameters" type="string">
+            <type by_reference="false">string</type>
+          </tag>
+        </docblock>
+        <argument line="37">
+          <name>$params</name>
+          <default><![CDATA[]]></default>
+          <type/>
+        </argument>
+        <argument line="37">
+          <name>$pairs</name>
+          <default><![CDATA[array()]]></default>
+          <type/>
+        </argument>
+        <argument line="37">
+          <name>$namespace</name>
+          <default><![CDATA[null]]></default>
+          <type/>
+        </argument>
+      </method>
+    </class>
+  </file>
+  <package name="Default"/>
+  <package name="GoCardless"/>
+  <namespace name="default"/>
+  <marker>todo</marker>
+  <marker>fixme</marker>
+</project>
