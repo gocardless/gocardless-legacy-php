@@ -17,12 +17,13 @@
  *
  * This page then does the following:
  *
- *  1. Shows an authorize link
+ *  1. Generates an authorize link
  *  2. Generates an access_token from the retured $_GET['code']
- *  3. Instantiate new GoCardless_Client object
- *  (4. Check for GET vars required to confirm a payment)
- *  5. Show new bill url
- *  6. Fetch a bill from the API
+ *  3. Instantiates a new GoCardless_Client object
+ *  4. Fetch the current merchant's details
+ *  5. Fetch the current merchant's pre-authorizations
+ *  6. Create a bill under a pre-authorizations
+ *  7. Repeat steps 4 and 5 with a new GoCardless_Client object
  *
 */
 
@@ -47,7 +48,7 @@ if (isset($_GET['code'])) {
   $params = array(
     'client_id'     => $account_details['app_id'],
     'code'          => $_GET['code'],
-    'redirect_uri'  => 'http://localhost:8888/demo_partner.php',
+    'redirect_uri'  => 'http://localhost/examples/demo_partner.php',
     'grant_type'    => 'authorization_code'
   );
 
@@ -77,9 +78,6 @@ if ($account_details['access_token']) {
 
   echo '<p>Access token found!</p>';
 
-  // New pre-authorization
-
-
   echo '$gocardless_client->merchant()';
   echo '<blockquote><pre>';
   $merchant = $gocardless_client->merchant();
@@ -99,7 +97,7 @@ if ($account_details['access_token']) {
     'amount'                => '5.00'
   );
   $bill = $gocardless_client->create_bill($pre_auth_details);
-  print_r($pre_auth);
+  print_r($bill);
   echo '</pre></blockquote>';
 
   $account_details = array(
@@ -128,7 +126,7 @@ if ($account_details['access_token']) {
 
   echo '<h2>Partner authorization</h2>';
   $authorize_url_options = array(
-    'redirect_uri' => 'http://localhost:8888/demo_partner.php'
+    'redirect_uri' => 'http://localhost/examples/demo_partner.php'
   );
   $authorize_url = $gocardless_client->authorize_url($authorize_url_options);
   echo '<p><a href="'.$authorize_url.'">Authorize app</a></p>';
