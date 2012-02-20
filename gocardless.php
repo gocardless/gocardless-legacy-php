@@ -29,6 +29,8 @@ require 'lib/pre_authorization.php';
  */
 class GoCardless {
 
+  const VERSION = '0.1.0';
+
   /**
    * The environment: sandbox or live
    *
