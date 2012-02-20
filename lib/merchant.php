@@ -3,6 +3,7 @@
 /**
  * GoCardless merchant functions
  *
+ * @package GoCardless\Merchant
  */
 
 /**
@@ -11,8 +12,21 @@
  */
 class GoCardless_Merchant {
 
+  /**
+   * The API endpoint for merchants
+   *
+   * @var string $endpoint
+   */
   public static $endpoint = '/merchants';
 
+  /**
+   * Instantiate a new instance of the merchant object
+   *
+   * @param object $client The client to use for the merchant object
+   * @param array $attrs The properties of the merchant
+   *
+   * @return object The merchant object
+   */
   function __construct($client, $attrs) {
 
     $this->client = $client;
@@ -39,9 +53,10 @@ class GoCardless_Merchant {
   }
 
   /**
-   * Fetch a bill item from the API
+   * Fetch a merchant from the API
    *
-   * @param string $id The id of the bill to fetch
+   * @param object $client The client object to use to make the query
+   * @param string $id The id of the merchant to fetch
    *
    * @return object The bill object
    */
@@ -55,8 +70,6 @@ class GoCardless_Merchant {
 
   /**
    * Fetch a merchant's subscriptions from the API
-   *
-   * @param string $id The id of the merchant's subscriptions to fetch
    *
    * @return array Array of subscription objects
    */
@@ -77,8 +90,6 @@ class GoCardless_Merchant {
   /**
    * Fetch a merchant's pre-authorisations from the API
    *
-   * @param string $id The id of the merchant's pre-authorisations to fetch
-   *
    * @return array Array of pre-authorisation objects
    */
   public function pre_authorizations() {
@@ -98,8 +109,6 @@ class GoCardless_Merchant {
   /**
    * Fetch a list of the users associated with a given merchant
    *
-   * @param string $id The id of the merchant's users to fetch
-   *
    * @return array Array of user objects
    */
   public function users() {
@@ -118,8 +127,6 @@ class GoCardless_Merchant {
 
   /**
    * Fetch a merchant's bills from the API
-   *
-   * @param string $id The id of the merchant's bills to fetch
    *
    * @return array Array of bill objects
    */

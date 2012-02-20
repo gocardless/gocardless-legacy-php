@@ -3,6 +3,7 @@
 /**
  * GoCardless user functions
  *
+ * @package GoCardless\User
  */
 
 /**
@@ -11,8 +12,21 @@
  */
 class GoCardless_User {
 
+  /**
+   * The API endpoint for users
+   *
+   * @var string $endpoint
+   */
   public static $endpoint = '/users';
 
+  /**
+   * Instantiate a new instance of the user object
+   *
+   * @param object $client The client to use for the user object
+   * @param array $attrs The properties of the user
+   *
+   * @return object The user object
+   */
   function __construct($client, $attrs) {
 
     $this->client = $client;
@@ -41,6 +55,7 @@ class GoCardless_User {
   /**
    * Fetch a bill item from the API
    *
+   * @param object $client The client object to use to make the query
    * @param string $id The id of the bill to fetch
    *
    * @return object The bill object

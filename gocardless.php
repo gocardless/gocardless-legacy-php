@@ -29,16 +29,24 @@ require 'lib/pre_authorization.php';
  */
 class GoCardless {
 
-  /** @type string The environment: sandbox or live */
+  /**
+   * The environment: sandbox or live
+   *
+   * @var array $environment
+   */
   public static $environment;
 
-  /** @type object The client object */
+  /**
+   * The environment: sandbox or live
+   *
+   * @var object $client
+   */
   public static $client;
 
   /**
    * Initialization function called with account details
    *
-   * $account_details array Array of account details
+   * @param $account_details array Array of account details
    */
   public static function set_account_details($account_details) {
     GoCardless::$client = new GoCardless_Client($account_details);

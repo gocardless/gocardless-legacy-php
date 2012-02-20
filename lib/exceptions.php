@@ -3,6 +3,7 @@
 /**
  * GoCardless exceptions
  *
+ * @package GoCardless\Exceptions
  */
 
 /**
@@ -52,6 +53,7 @@ class GoCardless_ApiException extends Exception {
    * Throw a default exception
    *
    * @param string $description Description of the error
+   * @param integer $code The returned error code
    */
   public function __construct($description = 'Unknown error', $code = 0) {
     if (empty($description)) {

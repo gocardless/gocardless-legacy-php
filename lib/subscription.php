@@ -3,6 +3,7 @@
 /**
  * GoCardless subscription functions
  *
+ * @package GoCardless\Subscription
  */
 
 /**
@@ -11,8 +12,21 @@
  */
 class GoCardless_Subscription {
 
+  /**
+   * The API endpoint for subscriptions
+   *
+   * @var string $endpoint
+   */
   public static $endpoint = '/subscriptions';
 
+  /**
+   * Instantiate a new instance of the subscription object
+   *
+   * @param object $client The client to use for the subscription object
+   * @param array $attrs The properties of the subscription
+   *
+   * @return object The subscription object
+   */
   function __construct($client, $attrs) {
 
     $this->client = $client;
@@ -41,6 +55,7 @@ class GoCardless_Subscription {
   /**
    * Fetch a bill item from the API
    *
+   * @param object $client The client object to use to make the query
    * @param string $id The id of the bill to fetch
    *
    * @return object The bill object
@@ -55,8 +70,6 @@ class GoCardless_Subscription {
 
   /**
    * Cancel a subscription in the API
-   *
-   * @param string $id The id of the subscription to fetch
    *
    * @return object The result of the cancel query
    */

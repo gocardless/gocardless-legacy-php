@@ -3,6 +3,7 @@
 /**
  * GoCardless client functions
  *
+ * @package GoCardless\Client
  */
 
 /**
@@ -11,22 +12,42 @@
  */
 class GoCardless_Client {
 
-  /** @type array Account details for this instance of GoCardless_Client */
+  /**
+   * Account details for this instance of GoCardless_Client
+   *
+   * @var array $account_details
+   */
   public $account_details;
 
-  /** @type string The (empty) base_url to use for API queries */
+  /**
+   * The (empty) base_url to use for API queries
+   *
+   * @var string $base_url
+   */
   public static $base_url;
 
-  /** @type array Array of possible base_urls to use */
+  /**
+   * Array of possible base_urls to use
+   *
+   * @var array $base_urls
+   */
   public static $base_urls = array(
     'production'  => 'https://gocardless.com',
     'sandbox'     => 'https://sandbox.gocardless.com'
   );
 
-  /** @type string The path to use to call the API */
+  /**
+   * The path to use to call the API
+   *
+   * @var string $api_path
+   */
   public static $api_path = '/api/v1';
 
-  /** @type string The url to redirect the user to */
+  /**
+   * The url to redirect the user to
+   *
+   * @var string $redirect_uri
+   */
   public $redirect_uri;
 
   /**
@@ -91,7 +112,6 @@ class GoCardless_Client {
   /**
    * Fetch an access token for the current user
    *
-   * @param string $auth_code The authorization code
    * @param array $options The parameters to use
    *
    * @return string The access token

@@ -3,6 +3,7 @@
 /**
  * GoCardless pre-authorisation functions
  *
+ * @package GoCardless\PreAuthorization
  */
 
 /**
@@ -11,8 +12,21 @@
  */
 class GoCardless_PreAuthorization {
 
+  /**
+   * The API endpoint for pre-authorizations
+   *
+   * @var string $endpoint
+   */
   public static $endpoint = '/pre_authorizations';
 
+  /**
+   * Instantiate a new instance of the pre-auth object
+   *
+   * @param object $client The client to use for the pre-auth object
+   * @param array $attrs The properties of the pre-auth
+   *
+   * @return object The pre-auth object
+   */
   function __construct($client, $attrs) {
 
     $this->client = $client;
@@ -41,6 +55,7 @@ class GoCardless_PreAuthorization {
   /**
    * Fetch a bill item from the API
    *
+   * @param object $client The client object to use to make the query
    * @param string $id The id of the bill to fetch
    *
    * @return object The bill object
@@ -54,9 +69,9 @@ class GoCardless_PreAuthorization {
   }
 
   /**
-   * Fetch a pre-authorisation item from the API
+   * Create a bill under an existing pre-authorization
    *
-   * @param string $id The id of the pre-authorisation to fetch
+   * @param array $attrs The properties of the bill being created
    *
    * @return object The pre-authorisations object
    */
@@ -89,8 +104,6 @@ class GoCardless_PreAuthorization {
 
   /**
    * Cancel a pre-authorisation
-   *
-   * @param string $id The id of the pre-authorisation to fetch
    *
    * @return object The result of the cancel query
    */

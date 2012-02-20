@@ -3,6 +3,7 @@
 /**
  * GoCardless utility functions
  *
+ * @package GoCardless\Utils
  */
 
 /**
