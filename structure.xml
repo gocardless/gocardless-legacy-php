@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<project version="0.18.1" title="">
+<project version="0.18.1" title="GoCardless PHP Library">
   <file path="gocardless.php" hash="4d4214184994b2d8e4de1afe2785bee2" package="GoCardless">
     <docblock line="3">
       <description><![CDATA[GoCardless PHP library, core class]]></description>
