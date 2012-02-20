@@ -10,7 +10,7 @@
  *
  * @return exception
  */
-class GoCardlessClientException extends Exception {
+class GoCardless_ClientException extends Exception {
 
   /**
    * Throw a default exception
@@ -28,7 +28,7 @@ class GoCardlessClientException extends Exception {
  *
  * @return exception
  */
-class GoCardlessArgumentsException extends Exception {
+class GoCardless_ArgumentsException extends Exception {
 
   /**
    * Throw a default exception
@@ -46,7 +46,7 @@ class GoCardlessArgumentsException extends Exception {
  *
  * @return exception
  */
-class GoCardlessApiException extends Exception {
+class GoCardless_ApiException extends Exception {
 
   /**
    * Throw a default exception
@@ -67,7 +67,7 @@ class GoCardlessApiException extends Exception {
  *
  * @return exception
  */
-class GoCardlessSignatureException extends Exception {
+class GoCardless_SignatureException extends Exception {
 
   /**
    * Throw a default exception

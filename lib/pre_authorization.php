@@ -63,7 +63,7 @@ class GoCardless_PreAuthorization {
   public function create_bill($attrs) {
 
     if(!isset($attrs['amount'])) {
-      throw new GoCardlessArgumentsException('Amount required');
+      throw new GoCardless_ArgumentsException('Amount required');
     }
 
     $params = array(

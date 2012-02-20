@@ -43,12 +43,12 @@ class GoCardless_Client {
 
     // Check for app_id
     if (!isset($this->account_details['app_id'])) {
-      throw new GoCardlessClientException('No app_id specified');
+      throw new GoCardless_ClientException('No app_id specified');
     }
 
     // Check for app_secret
     if (!isset($this->account_details['app_secret'])) {
-      throw new GoCardlessClientException('No app_secret specfied');
+      throw new GoCardless_ClientException('No app_secret specfied');
     }
 
     // If environment is not set then default to production
@@ -73,7 +73,7 @@ class GoCardless_Client {
   public function authorize_url($options) {
 
     if (!isset($options['redirect_uri'])) {
-      throw new GoCardlessArgumentsException('redirect_uri required');
+      throw new GoCardless_ArgumentsException('redirect_uri required');
     }
 
     $endpoint = '/oauth/authorize';
@@ -99,7 +99,7 @@ class GoCardless_Client {
   public function fetch_access_token($options){
 
     if (!isset($options['redirect_uri'])) {
-      throw new GoCardlessArgumentsException('redirect_uri required');
+      throw new GoCardless_ArgumentsException('redirect_uri required');
     }
 
     $path = '/oauth/access_token';
@@ -183,7 +183,7 @@ class GoCardless_Client {
     }
 
     if (!isset($this->account_details['access_token'])) {
-      throw new GoCardlessClientException('Access token missing');
+      throw new GoCardless_ClientException('Access token missing');
     }
 
     return GoCardless_Merchant::find_with_client($this, $id);
@@ -200,7 +200,7 @@ class GoCardless_Client {
   public function subscription($id) {
 
     if (!isset($this->account_details['access_token'])) {
-      throw new GoCardlessClientException('Access token missing');
+      throw new GoCardless_ClientException('Access token missing');
     }
 
     return GoCardless_Subscription::find_with_client($this, $id);
@@ -217,7 +217,7 @@ class GoCardless_Client {
   public function pre_authorization($id) {
 
     if (!isset($this->account_details['access_token'])) {
-      throw new GoCardlessClientException('Access token missing');
+      throw new GoCardless_ClientException('Access token missing');
     }
 
     return GoCardless_PreAuthorization::find_with_client($this, $id);
@@ -234,7 +234,7 @@ class GoCardless_Client {
   public function user($id) {
 
     if (!isset($this->account_details['access_token'])) {
-      throw new GoCardlessClientException('Access token missing');
+      throw new GoCardless_ClientException('Access token missing');
     }
 
     return GoCardless_User::find_with_client($this, $id);
@@ -251,7 +251,7 @@ class GoCardless_Client {
   public function bill($id) {
 
     if (!isset($this->account_details['access_token'])) {
-      throw new GoCardlessClientException('Access token missing');
+      throw new GoCardless_ClientException('Access token missing');
     }
 
     return GoCardless_Bill::find_with_client($this, $id);
@@ -268,11 +268,11 @@ class GoCardless_Client {
   public function create_bill($attrs) {
 
     if (!isset($this->account_details['access_token'])) {
-      throw new GoCardlessClientException('Access token missing');
+      throw new GoCardless_ClientException('Access token missing');
     }
 
     if (!isset($attrs['pre_authorization_id'])) {
-      throw new GoCardlessArgumentsException('pre_authorization_id missing');
+      throw new GoCardless_ArgumentsException('pre_authorization_id missing');
     }
 
     $pre_auth_attrs = array('id' => $attrs['pre_authorization_id']);
@@ -339,7 +339,7 @@ class GoCardless_Client {
     // Add to $data or throw exception if missing
     foreach ($required_params as $key => $value) {
       if (!isset($params[$value])) {
-        throw new GoCardlessArgumentsException("$value missing");
+        throw new GoCardless_ArgumentsException("$value missing");
       }
       $data[$value] = $params[$value];
     }
@@ -361,7 +361,7 @@ class GoCardless_Client {
     );
 
     if ($this->validate_signature($sig_validation_data) == false) {
-      throw new GoCardlessSignatureException();
+      throw new GoCardless_SignatureException();
     }
 
     // Sig valid, now send confirm request
@@ -389,7 +389,7 @@ class GoCardless_Client {
 
     } else {
 
-      throw new GoCardlessClientException('Failed to fetch the confirmed resource.');
+      throw new GoCardless_ClientException('Failed to fetch the confirmed resource.');
 
     }
 
@@ -456,7 +456,7 @@ class GoCardless_Client {
     } else {
 
       if (!isset($this->account_details['access_token'])) {
-        throw new GoCardlessClientException('Access token missing');
+        throw new GoCardless_ClientException('Access token missing');
       }
 
       $curl_options[CURLOPT_HTTPHEADER][] = 'Authorization: Bearer ' . $this->account_details['access_token'];
@@ -530,7 +530,7 @@ class GoCardless_Client {
         }
       }
 
-      throw new GoCardlessApiException($message, $http_response_code);
+      throw new GoCardless_ApiException($message, $http_response_code);
 
     }
 
