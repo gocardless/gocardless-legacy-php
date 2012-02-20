@@ -6,7 +6,7 @@
 // You'll also need to to change the various ids throughout this demo
 
 // Include library
-include_once 'gocardless.php';
+include_once '../lib/gocardless.php';
 
 // Sandbox
 GoCardless::$environment = 'sandbox';
