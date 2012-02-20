@@ -96,7 +96,17 @@
               Table of Contents
           </div>
 </div>
-<a xmlns:dbx="http://docblox-project.org/xsl/functions" name="top" class="anchor"></a><a name="classes" class="anchor"></a><a xmlns:dbx="http://docblox-project.org/xsl/functions" id="\GoCardless_Subscription" class="anchor"></a><h2 xmlns:dbx="http://docblox-project.org/xsl/functions" class="class">\GoCardless_Subscription<div class="to-top"><a href="#top">jump to top</a></div>
+<a xmlns:dbx="http://docblox-project.org/xsl/functions" name="top" class="anchor"></a><div id="file-description">
+<p xmlns:dbx="http://docblox-project.org/xsl/functions" class="short-description">GoCardless subscription functions</p>
+<div xmlns:dbx="http://docblox-project.org/xsl/functions" class="long-description"></div>
+</div>
+<dl class="file-info">
+<dt xmlns:dbx="http://docblox-project.org/xsl/functions">Package</dt>
+<dd xmlns:dbx="http://docblox-project.org/xsl/functions">GoCardless\Subscription
+         
+    </dd>
+</dl>
+<a name="classes" class="anchor"></a><a xmlns:dbx="http://docblox-project.org/xsl/functions" id="\GoCardless_Subscription" class="anchor"></a><h2 xmlns:dbx="http://docblox-project.org/xsl/functions" class="class">\GoCardless_Subscription<div class="to-top"><a href="#top">jump to top</a></div>
 </h2>
 <div xmlns:dbx="http://docblox-project.org/xsl/functions" class="class">
 <small class="package"><b>Package: </b>Default</small><p class="short-description">GoCardless subscription class</p>
@@ -105,13 +115,15 @@
 <h3>Properties</h3>
 <div>
 <a id="\GoCardless_Subscription::$endpoint" class="anchor"></a><div class="property public">
-<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/property.png" alt="Property"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/property.png" alt="Property"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public">string
                  <span class="highlight">$endpoint</span>= ''/subscriptions''
-                </code><div class="description"><span class="attribute">static</span></div>
+                </code><div class="description">
+<span class="attribute">static</span><p class="short-description">The API endpoint for subscriptions</p></div>
 <div class="code-tabs">
+<div class="long-description"></div>
 <strong>Default value</strong><code>'/subscriptions'</code><strong>Details</strong><dl class="property-info">
 <dt>Type</dt>
-<dd>n/a</dd>
+<dd>string</dd>
 </dl>
 </div>
 <div class="clear"></div>
@@ -121,12 +133,13 @@
 <div>
 <a id="\GoCardless_Subscription::__construct()" class="anchor"></a><div class="method public">
 <a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">__construct</span><span class="nb-faded-text">(
-           $client,  $attrs
+          object $client, array $attrs
           )
         </span>
         :
-          void</code><div class="description"><p class="short_description"></p></div>
+          object</code><div class="description"><p class="short_description">Instantiate a new instance of the subscription object</p></div>
 <div class="code-tabs">
+<div class="long-description"></div>
 <strong>Parameters</strong><table class="argument-info">
 <thead><tr>
 <th>Name</th>
@@ -135,13 +148,23 @@
 </tr></thead>
 <tr>
 <th>$client</th>
-<td></td>
-<td><em></em></td>
+<td>object</td>
+<td><em><p>The client to use for the subscription object</p></em></td>
 </tr>
 <tr>
 <th>$attrs</th>
-<td></td>
-<td><em></em></td>
+<td>array</td>
+<td><em><p>The properties of the subscription</p></em></td>
+</tr>
+</table>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>object</td>
+<td>The subscription object</td>
 </tr>
 </table>
 </div>
@@ -207,7 +230,7 @@
 </div>
 <a id="\GoCardless_Subscription::find_with_client()" class="anchor"></a><div class="method public">
 <a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">find_with_client</span><span class="nb-faded-text">(
-           $client, string $id
+          object $client, string $id
           )
         </span>
         :
@@ -224,8 +247,8 @@
 </tr></thead>
 <tr>
 <th>$client</th>
-<td></td>
-<td><em></em></td>
+<td>object</td>
+<td><em><p>The client object to use to make the query</p></em></td>
 </tr>
 <tr>
 <th>$id</th>
