@@ -70,15 +70,15 @@ class GoCardless_Client {
       GoCardless::$environment = 'production';
     }
 
-	// Take base_url from array
-	if (isset($account_details['base_url'])) {
-		GoCardless::$base_url = $account_details['base_url'];
-		unset($account_details['base_url']);
-	}
+    // Take base_url from array
+    if (isset($account_details['base_url'])) {
+      GoCardless::$base_url = $account_details['base_url'];
+      unset($account_details['base_url']);
+    }
 
     // If base_url is not set then set it based on environment
     if ( ! isset(GoCardless::$base_url)) {
-		  GoCardless::$base_url = GoCardless_Client::$base_urls[GoCardless::$environment];
+      GoCardless::$base_url = GoCardless_Client::$base_urls[GoCardless::$environment];
     }
 
   }

@@ -4,11 +4,11 @@ class Test_GoCardless extends PHPUnit_Framework_TestCase {
 
 	public function setUp() {
 
-		
+
 
 	}
 
-	
+
 	public function testAccountDetails()
 	{
 		// Initialize GoCardless
@@ -18,9 +18,9 @@ class Test_GoCardless extends PHPUnit_Framework_TestCase {
 		  'merchant_id'   => 1,
 		  'access_token'  => 'X',
 		));
-		
+
 		$class = get_class(GoCardless::$client);
-		
+
 		$this->assertEquals('GoCardless_Client', $class);
 	}
 

@@ -132,5 +132,3 @@ if ($account_details['access_token']) {
   echo '<p><a href="'.$authorize_url.'">Authorize app</a></p>';
 
 }
-
-?>

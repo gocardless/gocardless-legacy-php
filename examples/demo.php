@@ -113,5 +113,3 @@ $webhook_json = '{"payload":{"bills":[{"id":"880807"},{"status":"pending"},{"sou
 $webhook = json_decode($webhook_json, true);
 var_dump(GoCardless::validate_webhook($webhook['payload']));
 echo '</pre></blockquote>';
-
-?>
