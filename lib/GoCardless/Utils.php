@@ -10,7 +10,7 @@
  * GoCardless utils class
  *
  */
-class Utils {
+class GoCardless_Utils {
 
   /**
    * Generate a signature for a request given the app secret
@@ -22,7 +22,7 @@ class Utils {
    */
   public static function generate_signature($params, $key) {
 
-    return hash_hmac('sha256', Utils::generate_query_string($params), $key);
+    return hash_hmac('sha256', GoCardless_Utils::generate_query_string($params), $key);
 
   }
 
@@ -42,9 +42,9 @@ class Utils {
       foreach ($params as $k => $v) {
 
         if (is_int($k)) {
-          Utils::generate_query_string($v, $pairs, $namespace . '[]');
+          GoCardless_Utils::generate_query_string($v, $pairs, $namespace . '[]');
         } else {
-          Utils::generate_query_string($v, $pairs, $namespace !== null ? $namespace . "[$k]" : $k);
+          GoCardless_Utils::generate_query_string($v, $pairs, $namespace !== null ? $namespace . "[$k]" : $k);
         }
 
       }
