@@ -28,7 +28,7 @@
 */
 
 // Include library
-include_once '../lib/gocardless.php';
+include_once '../lib/GoCardless.php';
 
 // Sandbox
 GoCardless::$environment = 'sandbox';

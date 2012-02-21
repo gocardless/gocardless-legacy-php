@@ -21,7 +21,7 @@ require 'GoCardless/User.php';
 require 'GoCardless/Client.php';
 require 'GoCardless/Merchant.php';
 require 'GoCardless/Subscription.php';
-require 'GoCardless/Pre_authorization.php';
+require 'GoCardless/Pre_Authorization.php';
 
 /**
  * GoCardless class
