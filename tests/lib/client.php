@@ -50,6 +50,4 @@ class Test_Client extends PHPUnit_Framework_TestCase {
 		$this->assertEquals('https://abc.gocardless.com', $this->_GoCardless->base_url);
 	}
 
-	}
-
 }

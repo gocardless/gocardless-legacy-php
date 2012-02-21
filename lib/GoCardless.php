@@ -13,15 +13,8 @@ if ( ! function_exists('json_decode')) {
   throw new Exception('GoCardless needs the JSON PHP extension.');
 }
 
-// Include subclasses
-require 'GoCardless/Utils.php';
-require 'GoCardless/Exceptions.php';
-require 'GoCardless/Bill.php';
-require 'GoCardless/User.php';
-require 'GoCardless/Client.php';
-require 'GoCardless/Merchant.php';
-require 'GoCardless/Subscription.php';
-require 'GoCardless/Pre_Authorization.php';
+// Autoload sub-classes
+spl_autoload_register(array('GoCardless', 'autoload'));
 
 /**
  * GoCardless class
@@ -44,6 +37,18 @@ class GoCardless {
    * @var object $client
    */
   public static $client;
+
+
+  /**
+   * Autoload sub-classes
+   *
+   * @var object $class Name of the class to load
+   */
+  public static function autoload($class) {
+	if (strpos($class, 'GoCardless') === 0) {
+		require str_replace('_', '/', $class).'.php';
+	}
+  }
 
   /**
    * Initialization function called with account details
