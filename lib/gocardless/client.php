@@ -24,7 +24,7 @@ class GoCardless_Client {
    *
    * @var string $base_url
    */
-  public static $base_url;
+  public $base_url;
 
   /**
    * Array of possible base_urls to use
@@ -78,8 +78,8 @@ class GoCardless_Client {
     }
 
     // If base_url is not set then set it based on environment
-    if (!isset(GoCardless_Client::$base_url)) {
-      GoCardless_Client::$base_url = GoCardless_Client::$base_urls[GoCardless::$environment];
+    if (!isset($this->base_url)) {
+      $this->base_url = GoCardless_Client::$base_urls[GoCardless::$environment];
     }
 
   }
@@ -99,7 +99,7 @@ class GoCardless_Client {
 
     $endpoint = '/oauth/authorize';
 
-    $url =  GoCardless_Client::$base_url . $endpoint .
+    $url =  $this->base_url . $endpoint .
         '?client_id='. urlencode($this->account_details['app_id']) .
         '&redirect_uri=' . urlencode($options['redirect_uri']) .
         '&scope=manage_merchant' .
@@ -452,7 +452,7 @@ class GoCardless_Client {
    */
   protected function request($method, $path, $opts = array()) {
 
-    $path = GoCardless_Client::$base_url . $path;
+    $path = $this->base_url . $path;
 
     $ch = curl_init($path);
 
@@ -634,7 +634,7 @@ class GoCardless_Client {
     $query_string = Utils::generate_query_string($request);
 
     // Generate url NB. Pluralises resource
-    $url = GoCardless_Client::$base_url . '/connect/' . $type . 's/new?' . $query_string;
+    $url = $this->base_url . '/connect/' . $type . 's/new?' . $query_string;
 
     // Return the result
     return $url;

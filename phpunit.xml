@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<phpunit colors="true" stopOnFailure="false" bootstrap="tests/bootstrap.php">
+	<testsuites>
+		<testsuite name="lib">
+			<file>./tests/gocardless.php</file>
+			<directory suffix=".php">./tests/lib</directory>
+		</testsuite>
+	</testsuites>
+</phpunit>

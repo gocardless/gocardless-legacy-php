@@ -1,8 +1,6 @@
 <?php
 
-require_once '../lib/gocardless.php';
-
-class GoCardlessTest extends PHPUnit_Framework_TestCase {
+class Test_Client extends PHPUnit_Framework_TestCase {
 
 	public function setUp() {
 
@@ -12,24 +10,32 @@ class GoCardlessTest extends PHPUnit_Framework_TestCase {
 			'merchant_id'	=> '258584',
 			'access_token'	=> '+vJh7dkHLr5rbdqBLlRk3dPALyn0uvAKTMvRnfWOAKcQ6WRCx/QGsdOefGqEs6h6'
 		);
-
 	}
 
 	// Porting tests from client.rb
 
 	public function testBaseUrlInSandbox() {
 
-		$this->config['environment'] = 'sandbox';
+		// Set the environment to TEST
+		GoCardless::$environment = 'sandbox';
 
 		$this->_GoCardless = new GoCardless_Client($this->config);
 
 		$this->assertEquals('https://sandbox.gocardless.com', $this->_GoCardless->base_url);
 
+		/* If this is a static, do this 
+		$this->assertAttributeEquals(
+			'https://sandbox.gocardless.com',
+			'base_url', 
+			$this->_GoCardless
+		);
+		*/
 	}
 
 	public function testBaseUrlInProduction() {
 
-		$this->config['environment'] = 'production';
+		// Set the environment to TEST
+		GoCardless::$environment = 'production';
 
 		$this->_GoCardless = new GoCardless_Client($this->config);
 
@@ -38,5 +44,3 @@ class GoCardlessTest extends PHPUnit_Framework_TestCase {
 	}
 
 }
-
-?>
