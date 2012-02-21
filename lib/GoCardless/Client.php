@@ -74,10 +74,9 @@ class GoCardless_Client {
     if (isset($account_details['base_url'])) {
       GoCardless::$base_url = $account_details['base_url'];
       unset($account_details['base_url']);
-    }
 
-    // If base_url is not set then set it based on environment
-    if ( ! isset(GoCardless::$base_url)) {
+    } else {
+      // Otherwise set it based on environment
       GoCardless::$base_url = GoCardless_Client::$base_urls[GoCardless::$environment];
     }
 
@@ -90,7 +89,7 @@ class GoCardless_Client {
    *
    * @return string The generated url
    */
-  public function authorize_url($options) {
+  public function authorize_url($options = null) {
 
     if ( ! isset($options['redirect_uri'])) {
       throw new GoCardless_ArgumentsException('redirect_uri required');
@@ -160,7 +159,6 @@ class GoCardless_Client {
     }
 
     return GoCardless_PreAuthorization::find_with_client($this, $id);
-
   }
 
   /**
