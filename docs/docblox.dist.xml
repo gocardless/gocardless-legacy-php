@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<docblox>
+  <title>GoCardless PHP Library</title>
+  <parser>
+    <target>build</target>
+  </parser>
+  <transformer>
+    <target>build</target>
+  </transformer>
+  <files>
+    <file>../gocardless.php</file>
+    <file>../lib/*</file>
+  </files>
+  <transformations>
+    <template name="gocardless-template" />
+  </transformations>
+</docblox>
