@@ -47,8 +47,9 @@ class GoCardless_PreAuthorization {
   public static function find($id) {
 
     $endpoint = self::$endpoint . '/' . $id;
+    $params['http_bearer'] = GoCardless::$client->account_details['access_token'];
 
-    return new self(GoCardless::$client, GoCardless_Request::get($endpoint));
+    return new self(GoCardless::$client, GoCardless_Request::get($endpoint, $params));
 
   }
 
@@ -63,8 +64,9 @@ class GoCardless_PreAuthorization {
   public static function find_with_client($client, $id) {
 
     $endpoint = self::$endpoint . '/' . $id;
+    $params['http_bearer'] = GoCardless::$client->account_details['access_token'];
 
-    return new self($client, GoCardless_Request::get($endpoint));
+    return new self($client, GoCardless_Request::get($endpoint, $params));
 
   }
 
@@ -97,6 +99,7 @@ class GoCardless_PreAuthorization {
     }
 
     $endpoint = GoCardless_Bill::$endpoint;
+    $params['http_bearer'] = $this->client->account_details['access_token'];
 
     return new GoCardless_Bill($this->client, GoCardless_Request::post($endpoint, $params));
 
@@ -110,11 +113,10 @@ class GoCardless_PreAuthorization {
   public function cancel() {
 
     $endpoint = self::$endpoint . '/' . $this->id . '/cancel';
+    $params['http_bearer'] = $this->client->account_details['access_token'];
 
     return new self($this->client, GoCardless_Request::put($endpoint));
 
   }
 
 }
-
-?>

@@ -10,7 +10,7 @@
  * GoCardless request class
  *
  */
-class GoCardless_Request extends GoCardless {
+class GoCardless_Request {
 
   /**
    * Configure a GET request
@@ -75,8 +75,6 @@ class GoCardless_Request extends GoCardless {
 
     $path = '/oauth/access_token';
 
-    var_dump(get_class_vars());
-
     $path = GoCardless_Client::$api_path . $path;
 
     $options['http_authorization'] = GoCardless::$client->account_details['app_id'] . ':' . GoCardless::$client->account_details['app_secret'];
@@ -107,7 +105,7 @@ class GoCardless_Request extends GoCardless {
    */
   protected static function request($method, $path, $opts = array()) {
 
-    $path = GoCardless::$client->base_url . $path;
+    $path = GoCardless::$base_url . $path;
 
     $ch = curl_init($path);
 
@@ -120,8 +118,6 @@ class GoCardless_Request extends GoCardless {
     // Request format
     $curl_options[CURLOPT_HTTPHEADER][] = 'Accept: application/json';
 
-    $authorization = GoCardless::$client->account_details['access_token'];
-
     // HTTP Authentication (for confirming new payments)
     if (isset($opts['http_authorization'])) {
 
@@ -130,11 +126,12 @@ class GoCardless_Request extends GoCardless {
 
     } else {
 
-      if (!isset(GoCardless::$client->account_details['access_token'])) {
+      if (!isset($opts['http_bearer'])) {
         throw new GoCardless_ClientException('Access token missing');
       }
 
-      $curl_options[CURLOPT_HTTPHEADER][] = 'Authorization: Bearer ' . GoCardless::$client->account_details['access_token'];
+      $curl_options[CURLOPT_HTTPHEADER][] = 'Authorization: Bearer ' . $opts['http_bearer'];
+      unset($opts['http_bearer']);
 
     }
 
@@ -157,33 +154,33 @@ class GoCardless_Request extends GoCardless {
     }
 
     // Debug
-    if ($method == 'post') {
-      // POST request, so show url and vars
-      $vars = htmlspecialchars(print_r($curl_options[CURLOPT_POSTFIELDS], true));
-      echo "<pre>\n\nRequest\n\nPOST: $path\n";
-      echo "Post vars sent:\n";
-      echo "$vars\n";
-      echo "Full curl vars:\n";
-      print_r($curl_options);
-      echo '</pre>';
-    } elseif ($method == 'get') {
-      // GET request, so show just show url
-      echo "<pre>\n\nRequest\nGET: $path\n";
-      echo "Full curl vars: ";
-      print_r($curl_options);
-      echo '</pre>';
-    } else {
-      echo "Method not set!";
-    }
+    //if ($method == 'post') {
+    //  // POST request, so show url and vars
+    //  $vars = htmlspecialchars(print_r($curl_options[CURLOPT_POSTFIELDS], true));
+    //  echo "<pre>\n\nRequest\n\nPOST: $path\n";
+    //  echo "Post vars sent:\n";
+    //  echo "$vars\n";
+    //  echo "Full curl vars:\n";
+    //  print_r($curl_options);
+    //  echo '</pre>';
+    //} elseif ($method == 'get') {
+    //  // GET request, so show just show url
+    //  echo "<pre>\n\nRequest\nGET: $path\n";
+    //  echo "Full curl vars: ";
+    //  print_r($curl_options);
+    //  echo '</pre>';
+    //} else {
+    //  echo "Method not set!";
+    //}
 
     curl_setopt_array($ch, $curl_options);
 
     $result = curl_exec($ch);
 
     // Debug
-    echo "<pre>\nCurl result: ";
-    print_r(curl_getinfo($ch));
-    echo "</pre>";
+    //echo "<pre>\nCurl result: ";
+    //print_r(curl_getinfo($ch));
+    //echo "</pre>";
 
     // Grab the response code and throw an exception if it's not good
     $http_response_code = curl_getinfo($ch, CURLINFO_HTTP_CODE);

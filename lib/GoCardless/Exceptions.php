@@ -81,5 +81,3 @@ class GoCardless_SignatureException extends Exception {
   }
 
 }
-
-?>

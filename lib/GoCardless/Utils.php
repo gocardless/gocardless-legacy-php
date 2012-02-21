@@ -71,5 +71,3 @@ class GoCardless_Utils {
   }
 
 }
-
-?>

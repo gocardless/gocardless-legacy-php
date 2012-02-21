@@ -40,6 +40,7 @@ class GoCardless {
    */
   public static $client;
 
+  public static $base_url;
 
   /**
    * Autoload sub-classes
@@ -47,9 +48,9 @@ class GoCardless {
    * @var object $class Name of the class to load
    */
   public static function autoload($class) {
-	if (strpos($class, 'GoCardless') === 0) {
-		require str_replace('_', '/', $class).'.php';
-	}
+	  if (strpos($class, 'GoCardless') === 0) {
+	  	require str_replace('_', '/', $class).'.php';
+	  }
   }
 
   /**

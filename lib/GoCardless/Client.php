@@ -20,13 +20,6 @@ class GoCardless_Client {
   public $account_details;
 
   /**
-   * The (empty) base_url to use for API queries
-   *
-   * @var string $base_url
-   */
-  public $base_url;
-
-  /**
    * Array of possible base_urls to use
    *
    * @var array $base_urls
@@ -79,13 +72,13 @@ class GoCardless_Client {
 
 	// Take base_url from array
 	if (isset($account_details['base_url'])) {
-		$this->base_url = $account_details['base_url'];
+		GoCardless::$base_url = $account_details['base_url'];
 		unset($account_details['base_url']);
 	}
 
     // If base_url is not set then set it based on environment
-    if ( ! isset($this->base_url)) {
-      $this->base_url = GoCardless_Client::$base_urls[GoCardless::$environment];
+    if ( ! isset(GoCardless::$base_url)) {
+		  GoCardless::$base_url = GoCardless_Client::$base_urls[GoCardless::$environment];
     }
 
   }
@@ -105,7 +98,7 @@ class GoCardless_Client {
 
     $endpoint = '/oauth/authorize';
 
-    $url =  $this->base_url . $endpoint .
+    $url =  GoCardless::$base_url . $endpoint .
         '?client_id='. urlencode($this->account_details['app_id']) .
         '&redirect_uri=' . urlencode($options['redirect_uri']) .
         '&scope=manage_merchant' .
@@ -329,9 +322,10 @@ class GoCardless_Client {
 
     if ($response['success'] == true) {
 
-      $endpoint = '/' . $params['resource_type'] . 's/' . $params['resource_id'];
+      $endpoint = GoCardless::$base_url . '/' . $params['resource_type'] . 's/' . $params['resource_id'];
+      $params['http_bearer'] = $this->account_details['access_token'];
 
-      return GoCardless_Request::get($endpoint);
+      return GoCardless_Request::get($endpoint, $params);
 
     } else {
 
@@ -434,7 +428,7 @@ class GoCardless_Client {
     $query_string = GoCardless_Utils::generate_query_string($request);
 
     // Generate url NB. Pluralises resource
-    $url = $this->base_url . '/connect/' . $type . 's/new?' . $query_string;
+    $url = GoCardless::$base_url . '/connect/' . $type . 's/new?' . $query_string;
 
     // Return the result
     return $url;
@@ -462,5 +456,3 @@ class GoCardless_Client {
   }
 
 }
-
-?>
