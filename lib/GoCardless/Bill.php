@@ -49,7 +49,7 @@ class GoCardless_Bill {
 
     $endpoint = self::$endpoint . '/' . $id;
 
-    return new self(GoCardless::$client, GoCardless::$client->api_get($endpoint));
+    return new self(GoCardless::$client, GoCardless_Request::get($endpoint));
 
   }
 
@@ -65,7 +65,7 @@ class GoCardless_Bill {
 
     $endpoint = self::$endpoint . '/' . $id;
 
-    return new self($client, GoCardless::$client->api_get($endpoint));
+    return new self($client, GoCardless_Request::get($endpoint));
 
   }
 
@@ -80,7 +80,7 @@ class GoCardless_Bill {
 
     $params['headers']['authorization'] = true;
 
-    return new self($this->$client, $this->client->api_post(self::$endpoint, $params));
+    return new self($this->$client, GoCardless_Request::post(self::$endpoint, $params));
 
   }
 

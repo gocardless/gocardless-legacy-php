@@ -48,7 +48,7 @@ class GoCardless_PreAuthorization {
 
     $endpoint = self::$endpoint . '/' . $id;
 
-    return new self(GoCardless::$client, GoCardless::$client->api_get($endpoint));
+    return new self(GoCardless::$client, GoCardless_Request::get($endpoint));
 
   }
 
@@ -64,7 +64,7 @@ class GoCardless_PreAuthorization {
 
     $endpoint = self::$endpoint . '/' . $id;
 
-    return new self($client, $client->api_get($endpoint));
+    return new self($client, GoCardless_Request::get($endpoint));
 
   }
 
@@ -98,7 +98,7 @@ class GoCardless_PreAuthorization {
 
     $endpoint = GoCardless_Bill::$endpoint;
 
-    return new GoCardless_Bill($this->client, $this->client->api_post($endpoint, $params));
+    return new GoCardless_Bill($this->client, GoCardless_Request::post($endpoint, $params));
 
   }
 
@@ -111,7 +111,7 @@ class GoCardless_PreAuthorization {
 
     $endpoint = self::$endpoint . '/' . $this->id . '/cancel';
 
-    return new self($this->client, $this->client->api_put($endpoint));
+    return new self($this->client, GoCardless_Request::put($endpoint));
 
   }
 
