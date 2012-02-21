@@ -1,0 +1,21 @@
+{
+  "name": "gocardless/gocardless",
+  "type": "library",
+  "description": "The PHP client library for the GoCardless API",
+  "keywords": ["gocardless", "payments", "pay"],
+  "homepage": "https://github.com/gocardless/gocardless-php",
+  "license": "MIT",
+  "authors": [ {
+    "name": "Harry Marr",
+    "email": "harry@gocardless.com",
+    "homepage": "https://gocardless.com/"
+  }, {
+    "name": "David Haywood-Smith",
+    "email": "dave@gocardless.com",
+    "homepage": "https://gocardless.com/"
+  }],
+  "version": "0.1.0",
+  "require": {
+      "php": ">= 5.2.0"
+  }
+}
