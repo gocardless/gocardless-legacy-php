@@ -5,10 +5,9 @@ class Test_Client extends PHPUnit_Framework_TestCase {
 	public function setUp() {
 
 		$this->config = array(
-			'app_id'		=> 'eCxrcWDxjYsQ55zhsDTgs6VeKf6YWZP7be/9rY0PGFbeyqmLJV6k84SUQdISLUhf',
-			'app_secret'	=> '2utXOc65Hy9dolp3urYBMoIN0DM11Q9uuoboFDkHY3nzsugqcuzD1FuJYA7X9TP+',
-			'merchant_id'	=> '258584',
-			'access_token'	=> '+vJh7dkHLr5rbdqBLlRk3dPALyn0uvAKTMvRnfWOAKcQ6WRCx/QGsdOefGqEs6h6'
+			'app_id'		=> 'abc',
+			'app_secret'	=> 'xyz',
+			'redirect_uri'	=> 'http://test.com/cb'
 		);
 	}
 
@@ -40,6 +39,16 @@ class Test_Client extends PHPUnit_Framework_TestCase {
 		$this->_GoCardless = new GoCardless_Client($this->config);
 
 		$this->assertEquals('https://gocardless.com', $this->_GoCardless->base_url);
+	}
+	
+	public function testBaseUrlSetManually() {
+		
+		$this->config['base_url'] = 'https://abc.gocardless.com';
+		
+		$this->_GoCardless = new GoCardless_Client($this->config);
+		
+		$this->assertEquals('https://abc.gocardless.com', $this->_GoCardless->base_url);
+	}
 
 	}
 

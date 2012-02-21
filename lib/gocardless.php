@@ -6,22 +6,22 @@
  * @package GoCardless
  */
 
-if (!function_exists('curl_init')) {
+if ( ! function_exists('curl_init')) {
   throw new Exception('GoCardless needs the CURL PHP extension.');
 }
-if (!function_exists('json_decode')) {
+if ( ! function_exists('json_decode')) {
   throw new Exception('GoCardless needs the JSON PHP extension.');
 }
 
 // Include subclasses
-require 'gocardless/utils.php';
-require 'gocardless/exceptions.php';
-require 'gocardless/bill.php';
-require 'gocardless/user.php';
-require 'gocardless/client.php';
-require 'gocardless/merchant.php';
-require 'gocardless/subscription.php';
-require 'gocardless/pre_authorization.php';
+require 'GoCardless/Utils.php';
+require 'GoCardless/Exceptions.php';
+require 'GoCardless/Bill.php';
+require 'GoCardless/User.php';
+require 'GoCardless/Client.php';
+require 'GoCardless/Merchant.php';
+require 'GoCardless/Subscription.php';
+require 'GoCardless/Pre_authorization.php';
 
 /**
  * GoCardless class

@@ -63,22 +63,28 @@ class GoCardless_Client {
     }
 
     // Check for app_id
-    if (!isset($this->account_details['app_id'])) {
+    if ( ! isset($this->account_details['app_id'])) {
       throw new GoCardless_ClientException('No app_id specified');
     }
 
     // Check for app_secret
-    if (!isset($this->account_details['app_secret'])) {
+    if ( ! isset($this->account_details['app_secret'])) {
       throw new GoCardless_ClientException('No app_secret specfied');
     }
 
     // If environment is not set then default to production
-    if (!isset(GoCardless::$environment)) {
+    if ( ! isset(GoCardless::$environment)) {
       GoCardless::$environment = 'production';
     }
 
+	// Take base_url from array
+	if (isset($account_details['base_url'])) {
+		$this->base_url = $account_details['base_url'];
+		unset($account_details['base_url']);
+	}
+
     // If base_url is not set then set it based on environment
-    if (!isset($this->base_url)) {
+    if ( ! isset($this->base_url)) {
       $this->base_url = GoCardless_Client::$base_urls[GoCardless::$environment];
     }
 
@@ -93,7 +99,7 @@ class GoCardless_Client {
    */
   public function authorize_url($options) {
 
-    if (!isset($options['redirect_uri'])) {
+    if ( ! isset($options['redirect_uri'])) {
       throw new GoCardless_ArgumentsException('redirect_uri required');
     }
 
@@ -118,7 +124,7 @@ class GoCardless_Client {
    */
   public function fetch_access_token($options){
 
-    if (!isset($options['redirect_uri'])) {
+    if ( ! isset($options['redirect_uri'])) {
       throw new GoCardless_ArgumentsException('redirect_uri required');
     }
 
@@ -154,7 +160,6 @@ class GoCardless_Client {
     $path = GoCardless_Client::$api_path . $path;
 
     return $this->request('get', $path, $params);
-
   }
 
   /**
@@ -170,7 +175,6 @@ class GoCardless_Client {
     $path = GoCardless_Client::$api_path . $path;
 
     return $this->request('post', $path, $data);
-
   }
 
   /**
@@ -202,7 +206,7 @@ class GoCardless_Client {
       $id = $this->account_details['merchant_id'];
     }
 
-    if (!isset($this->account_details['access_token'])) {
+    if ( ! isset($this->account_details['access_token'])) {
       throw new GoCardless_ClientException('Access token missing');
     }
 
@@ -219,7 +223,7 @@ class GoCardless_Client {
    */
   public function subscription($id) {
 
-    if (!isset($this->account_details['access_token'])) {
+    if ( ! isset($this->account_details['access_token'])) {
       throw new GoCardless_ClientException('Access token missing');
     }
 
@@ -236,7 +240,7 @@ class GoCardless_Client {
    */
   public function pre_authorization($id) {
 
-    if (!isset($this->account_details['access_token'])) {
+    if ( ! isset($this->account_details['access_token'])) {
       throw new GoCardless_ClientException('Access token missing');
     }
 
@@ -253,7 +257,7 @@ class GoCardless_Client {
    */
   public function user($id) {
 
-    if (!isset($this->account_details['access_token'])) {
+    if ( ! isset($this->account_details['access_token'])) {
       throw new GoCardless_ClientException('Access token missing');
     }
 
@@ -270,7 +274,7 @@ class GoCardless_Client {
    */
   public function bill($id) {
 
-    if (!isset($this->account_details['access_token'])) {
+    if ( ! isset($this->account_details['access_token'])) {
       throw new GoCardless_ClientException('Access token missing');
     }
 
@@ -287,11 +291,11 @@ class GoCardless_Client {
    */
   public function create_bill($attrs) {
 
-    if (!isset($this->account_details['access_token'])) {
+    if ( ! isset($this->account_details['access_token'])) {
       throw new GoCardless_ClientException('Access token missing');
     }
 
-    if (!isset($attrs['pre_authorization_id'])) {
+    if ( ! isset($attrs['pre_authorization_id'])) {
       throw new GoCardless_ArgumentsException('pre_authorization_id missing');
     }
 
@@ -358,7 +362,7 @@ class GoCardless_Client {
     // Loop through required params
     // Add to $data or throw exception if missing
     foreach ($required_params as $key => $value) {
-      if (!isset($params[$value])) {
+      if ( ! isset($params[$value])) {
         throw new GoCardless_ArgumentsException("$value missing");
       }
       $data[$value] = $params[$value];
@@ -394,7 +398,7 @@ class GoCardless_Client {
     $confirm_params['http_authorization'] = $this->account_details['app_id'] . ':' . $this->account_details['app_secret'];
 
     // If no method-specific redirect sent, use class level if available
-    if (!isset($params['redirect_uri']) && isset($this)) {
+    if ( ! isset($params['redirect_uri']) && isset($this)) {
       $confirm_params['redirect_uri'] = $this->redirect_uri;
     }
 
@@ -427,7 +431,7 @@ class GoCardless_Client {
     $sig = $params['signature'];
     unset($params['signature']);
 
-    if (!isset($sig)) {
+    if ( ! isset($sig)) {
       return false;
     }
 
@@ -475,7 +479,7 @@ class GoCardless_Client {
 
     } else {
 
-      if (!isset($this->account_details['access_token'])) {
+      if ( ! isset($this->account_details['access_token'])) {
         throw new GoCardless_ClientException('Access token missing');
       }
 
@@ -550,15 +554,14 @@ class GoCardless_Client {
         }
       }
 
-      throw new GoCardless_ApiException($message, $http_response_code);
+      throw new GoCardless_ApiException($message.': '.$path, $http_response_code);
 
     }
 
     curl_close($ch);
 
-    $object = json_decode($result, true);
-
-    return $object;
+	// object
+    return json_decode($result, true);
 
   }
 
@@ -575,12 +578,7 @@ class GoCardless_Client {
 
     $new_sig = Utils::generate_signature($params['data'], $params['secret']);
 
-    if ($new_sig == $params['signature']) {
-      return true;
-    } else {
-      return false;
-    }
-
+    return ($new_sig === $params['signature']);
   }
 
   /**
@@ -614,7 +612,7 @@ class GoCardless_Client {
 
     // If no method-specific redirect submitted then
     // use class level if available
-    if (!isset($limit_params['redirect_uri']) && isset($this)) {
+    if ( ! isset($limit_params['redirect_uri']) && isset($this)) {
       $limit_params['redirect_uri'] = $this->redirect_uri;
     }
 
