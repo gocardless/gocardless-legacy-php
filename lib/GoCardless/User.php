@@ -48,7 +48,7 @@ class GoCardless_User {
 
     $endpoint = self::$endpoint . '/' . $id;
 
-    return new self(GoCardless::$client, GoCardless_Request::get($endpoint));
+    return new self(GoCardless::$client, GoCardless::$client->api_get($endpoint));
 
   }
 
@@ -64,7 +64,7 @@ class GoCardless_User {
 
     $endpoint = self::$endpoint . '/' . $id;
 
-    return new self($client, GoCardless_Request::get($endpoint));
+    return new self($client, $client->api_get($endpoint));
 
   }
 
