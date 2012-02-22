@@ -27,14 +27,15 @@ class GoCardless_PreAuthorization {
    *
    * @return object The pre-auth object
    */
-  function __construct($client, $attrs) {
+  function __construct($client, array $attrs = null) {
 
     $this->client = $client;
 
-    foreach ($attrs as $key => $value) {
-      $this->$key = $value;
-    }
-
+	if (is_array($attrs)) {
+	    foreach ($attrs as $key => $value) {
+	      $this->$key = $value;
+	    }
+	}
   }
 
   /**
@@ -47,10 +48,8 @@ class GoCardless_PreAuthorization {
   public static function find($id) {
 
     $endpoint = self::$endpoint . '/' . $id;
-    $params['http_bearer'] = GoCardless::$client->account_details['access_token'];
 
-    return new self(GoCardless::$client, GoCardless_Request::get($endpoint, $params));
-
+    return new self(GoCardless::$client, GoCardless::$client->request('get', $endpoint));
   }
 
   /**
@@ -64,10 +63,8 @@ class GoCardless_PreAuthorization {
   public static function find_with_client($client, $id) {
 
     $endpoint = self::$endpoint . '/' . $id;
-    $params['http_bearer'] = GoCardless::$client->account_details['access_token'];
 
-    return new self($client, GoCardless_Request::get($endpoint, $params));
-
+    return new self($client, GoCardless::$client->request('get', $endpoint));
   }
 
   /**
@@ -79,7 +76,7 @@ class GoCardless_PreAuthorization {
    */
   public function create_bill($attrs) {
 
-    if(!isset($attrs['amount'])) {
+    if ( ! isset($attrs['amount'])) {
       throw new GoCardless_ArgumentsException('Amount required');
     }
 
@@ -99,10 +96,8 @@ class GoCardless_PreAuthorization {
     }
 
     $endpoint = GoCardless_Bill::$endpoint;
-    $params['http_bearer'] = $this->client->account_details['access_token'];
 
-    return new GoCardless_Bill($this->client, GoCardless_Request::post($endpoint, $params));
-
+    return new GoCardless_Bill($this->client, $this->client->request('post', $endpoint));
   }
 
   /**
@@ -113,10 +108,8 @@ class GoCardless_PreAuthorization {
   public function cancel() {
 
     $endpoint = self::$endpoint . '/' . $this->id . '/cancel';
-    $params['http_bearer'] = $this->client->account_details['access_token'];
 
-    return new self($this->client, GoCardless_Request::put($endpoint));
-
+    return new self($this->client, $this->client->request('put', $endpoint));
   }
 
 }

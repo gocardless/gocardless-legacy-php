@@ -35,9 +35,11 @@ class Test_Client extends PHPUnit_Framework_TestCase {
 	
 	public function testBaseUrlSetManually() {
 		
-		$this->config['base_url'] = 'https://abc.gocardless.com';
+		$config = $this->config;
 		
-		new GoCardless_Client($this->config);
+		$config['base_url'] = 'https://abc.gocardless.com';
+		
+		new GoCardless_Client($config);
 		
 		$this->assertEquals('https://abc.gocardless.com', GoCardless::$base_url);
 	}
@@ -47,9 +49,10 @@ class Test_Client extends PHPUnit_Framework_TestCase {
 	 */
 	public function testNoAppIdError() {
 		
-		unset($this->config['app_id']);
+		$config = $this->config;
+		unset($config['app_id']);
 		
-		new GoCardless_Client($this->config);
+		new GoCardless_Client($config);
 	}
 	
 	/**
@@ -57,9 +60,10 @@ class Test_Client extends PHPUnit_Framework_TestCase {
 	 */
 	public function testNoAppSecretError() {
 		
-		unset($this->config['app_secret']);
+		$config = $this->config;
+		unset($config['app_secret']);
 		
-		new GoCardless_Client($this->config);
+		new GoCardless_Client($config);
 	}
 	
 	/**
@@ -209,19 +213,37 @@ class Test_Client extends PHPUnit_Framework_TestCase {
 	}
 	
 	
+	/**
+	 * Fails without an access_token
+	 * @expectedException GoCardless_ClientException
+	 */
+	public function testNoAccessTokenException()
+	{
+		// Remove the access token from config
+		$config = $this->config;
+		
+		unset($config['access_token']);
+		
+		// Assign as a method for the next test
+		GoCardless::set_account_details($config);
+		
+		// Create a Mock Object for the Observer class
+		// mocking only the update() method.
+		$stub = $this->getMock('GoCardless_Request', array('get'));
+
+		// Static dependency injection
+		GoCardless::setClass('Request', get_class($stub));
+		
+		// Call Merchant class, knowning it will throw an exception
+		GoCardless_Merchant::find('123');
+	}
+	
 	
 	/*
 
 
   describe "#api_get" do
-    it "uses the correct path prefix" do
-      @client.access_token = 'TOKEN123 a:1 b:2'
-      token = @client.instance_variable_get(:@access_token)
-      r = mock
-      r.stubs(:parsed)
-      token.expects(:get).with { |p,o| p =~ %r|/api/v1/test| }.returns(r)
-      @client.api_get('/test')
-    end
+ 
 
     it "fails without an access_token" do
       expect { @client.api_get '/' }.to raise_exception GoCardless::ClientError

@@ -27,14 +27,15 @@ class GoCardless_Bill {
    *
    * @return object The bill object
    */
-  function __construct($client, $attrs) {
+  function __construct($client, array $attrs = null) {
 
     $this->client = $client;
 
-    foreach ($attrs as $key => $value) {
-      $this->$key = $value;
-    }
-
+	if (is_array($attrs)) {
+    	foreach ($attrs as $key => $value) {
+	      $this->$key = $value;
+	    }
+	}
   }
 
   /**
@@ -48,10 +49,10 @@ class GoCardless_Bill {
   public static function find($id, $client = null) {
 
     $endpoint = self::$endpoint . '/' . $id;
-    $client or $client = parent::$client;
-    $params['http_bearer'] = $client->account_details['access_token'];
 
-    return new self($client, GoCardless_Request::get($endpoint, $params));
+    $client or $client = parent::$client;
+
+    return new self($client, $client->request('get', $endpoint));
 
   }
 
@@ -66,9 +67,8 @@ class GoCardless_Bill {
   public function find_with_client($client, $id) {
 
     $endpoint = $client->$api_path . self::$endpoint . '/' . $id;
-    $params['http_bearer'] = $client->account_details['access_token'];
 
-    return new self($client, GoCardless_Request::get($endpoint, $params));
+    return new self($client, $client->request('get', $endpoint));
 
   }
 
@@ -82,9 +82,10 @@ class GoCardless_Bill {
   public function create($params) {
 
     $endpoint = self::$endpoint;
+
     $params['http_authorization'] = true;
 
-    return new self($this->client, GoCardless_Request::post($endpoint, $params));
+    return new self($this->client, $this->client->request('post', $endpoint, $params));
 
   }
 

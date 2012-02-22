@@ -27,14 +27,15 @@ class GoCardless_Subscription {
    *
    * @return object The subscription object
    */
-  function __construct($client, $attrs) {
+  function __construct($client, array $attrs = null) {
 
     $this->client = $client;
 
-    foreach ($attrs as $key => $value) {
-      $this->$key = $value;
-    }
-
+	if (is_array($attrs)) {
+    	foreach ($attrs as $key => $value) {
+	      $this->$key = $value;
+	    }
+	}
   }
 
   /**
@@ -47,10 +48,8 @@ class GoCardless_Subscription {
   public static function find($id) {
 
     $endpoint = self::$endpoint . '/' . $id;
-    $params['http_bearer'] = GoCardless::$client->account_details['access_token'];
 
-    return new self(GoCardless::$client, GoCardless_Request::get($endpoint, $params));
-
+    return new self(GoCardless::$client, GoCardless::$client->request('get', $endpoint));
   }
 
   /**
@@ -64,10 +63,8 @@ class GoCardless_Subscription {
   public static function find_with_client($client, $id) {
 
     $endpoint = self::$endpoint . '/' . $id;
-    $params['http_bearer'] = $client->account_details['access_token'];
 
-    return new self($client, GoCardless_Request::get($endpoint, $params));
-
+    return new self($client, $client->request('get', $endpoint));
   }
 
   /**
@@ -78,10 +75,8 @@ class GoCardless_Subscription {
   public function cancel() {
 
     $endpoint = self::$endpoint . '/' . $this->id . '/cancel';
-    $params['http_bearer'] = $this->client->account_details['access_token'];
 
-    return new self($this->client, GoCardless_Request::put($endpoint, $params));
-
+    return new self($this->client, $this->client->request('put', $endpoint));
   }
 
 }

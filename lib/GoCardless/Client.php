@@ -120,10 +120,6 @@ class GoCardless_Client {
       $id = $this->account_details['merchant_id'];
     }
 
-    if ( ! isset($this->account_details['access_token'])) {
-      throw new GoCardless_ClientException('Access token missing');
-    }
-
     return GoCardless_Merchant::find_with_client($this, $id);
   }
 
@@ -136,6 +132,10 @@ class GoCardless_Client {
    */
 	public function request($method, $endpoint, $params = array())
 	{
+		if ( ! isset($this->account_details['access_token'])) {
+	      throw new GoCardless_ClientException('Access token missing');
+	    }
+	
 		$params['http_bearer'] = $this->account_details['access_token'];
 		
 		return call_user_func(GoCardless::getClass('Request').'::get', self::$api_path.'/'.$endpoint, $params);
@@ -149,13 +149,7 @@ class GoCardless_Client {
    * @return object The subscription matching the id requested
    */
   public function subscription($id) {
-
-    if ( ! isset($this->account_details['access_token'])) {
-      throw new GoCardless_ClientException('Access token missing');
-    }
-
     return GoCardless_Subscription::find_with_client($this, $id);
-
   }
 
   /**
@@ -166,11 +160,6 @@ class GoCardless_Client {
    * @return object The pre-authorization matching the id requested
    */
   public function pre_authorization($id) {
-
-    if ( ! isset($this->account_details['access_token'])) {
-      throw new GoCardless_ClientException('Access token missing');
-    }
-
     return GoCardless_PreAuthorization::find_with_client($this, $id);
   }
 
@@ -182,13 +171,7 @@ class GoCardless_Client {
    * @return object The user object matching the id requested
    */
   public function user($id) {
-
-    if ( ! isset($this->account_details['access_token'])) {
-      throw new GoCardless_ClientException('Access token missing');
-    }
-
     return GoCardless_User::find_with_client($this, $id);
-
   }
 
   /**
@@ -199,13 +182,7 @@ class GoCardless_Client {
    * @return object The bill object matching the id requested
    */
   public function bill($id) {
-
-    if ( ! isset($this->account_details['access_token'])) {
-      throw new GoCardless_ClientException('Access token missing');
-    }
-
     return GoCardless_Bill::find_with_client($this, $id);
-
   }
 
   /**
@@ -217,10 +194,6 @@ class GoCardless_Client {
    */
   public function create_bill($attrs) {
 
-    if ( ! isset($this->account_details['access_token'])) {
-      throw new GoCardless_ClientException('Access token missing');
-    }
-
     if ( ! isset($attrs['pre_authorization_id'])) {
       throw new GoCardless_ArgumentsException('pre_authorization_id missing');
     }
@@ -229,7 +202,6 @@ class GoCardless_Client {
     $pre_auth = new GoCardless_PreAuthorization($this, $pre_auth_attrs);
 
     return $pre_auth->create_bill($attrs);
-
   }
 
   /**

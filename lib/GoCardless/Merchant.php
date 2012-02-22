@@ -27,7 +27,7 @@ class GoCardless_Merchant {
    *
    * @return object The merchant object
    */
-  function __construct($client, $attrs) {
+  function __construct($client, array $attrs = null) {
 
     $this->client = $client;
 
@@ -136,7 +136,6 @@ class GoCardless_Merchant {
     }
 
     return $objects;
-
   }
 
 }
