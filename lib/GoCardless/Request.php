@@ -49,40 +49,6 @@ class GoCardless_Request {
   }
 
   /**
-   * Fetch an access token for the current user
-   *
-   * @param array $options The parameters to use
-   *
-   * @return string The access token
-   */
-  public static function fetch_access_token($options) {
-
-    if ( ! isset($options['redirect_uri'])) {
-      throw new GoCardless_ArgumentsException('redirect_uri required');
-    }
-
-    $path = '/oauth/access_token';
-
-    $path = GoCardless_Client::$api_path . $path;
-
-    $options['http_authorization'] = GoCardless::$client->account_details['app_id'] . ':' . GoCardless::$client->account_details['app_secret'];
-
-    $response = self::request('post', $path, $options);
-
-    $merchant = explode(':', $response['scope']);
-    $merchant_id = $merchant[1];
-    $access_token = $response['access_token'];
-
-    $return = array(
-      'merchant_id'   => $merchant_id,
-      'access_token'  => $access_token
-    );
-
-    return $return;
-
-  }
-
-  /**
    * Makes an HTTP request
    *
    * @param string $method The method to use for the request

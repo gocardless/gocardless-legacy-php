@@ -132,14 +132,45 @@ class GoCardless_Client {
    */
 	public function request($method, $endpoint, $params = array())
 	{
-		if ( ! isset($this->account_details['access_token'])) {
-	      throw new GoCardless_ClientException('Access token missing');
-	    }
-	
-		$params['http_bearer'] = $this->account_details['access_token'];
+		// If there is no http_authorization, try checking for access tokens
+		if ( ! isset($params['http_authorization'])) {
+			
+			if ( ! isset($this->account_details['access_token'])) {
+		      throw new GoCardless_ClientException('Access token missing');
+		    }
 		
-		return call_user_func(GoCardless::getClass('Request').'::get', self::$api_path.'/'.$endpoint, $params);
+			$params['http_bearer'] = $this->account_details['access_token'];
+		}
+		
+		return call_user_func(GoCardless::getClass('Request').'::'.$method, self::$api_path.$endpoint, $params);
 	}
+
+  /**
+   * Fetch an access token for the current user
+   *
+   * @param array $options The parameters to use
+   *
+   * @return string The access token
+   */
+  public function fetch_access_token($options) {
+
+    if ( ! isset($options['redirect_uri'])) {
+      throw new GoCardless_ArgumentsException('redirect_uri required');
+    }
+
+    $params['http_authorization'] = $this->account_details['app_id'] . ':' . $this->account_details['app_secret'];
+
+    $response = $this->request('post', '/oauth/access_token', $params);
+
+    $merchant = explode(':', $response['scope']);
+    $merchant_id = isset($merchant[1]) ? $merchant[1] : null;
+    $access_token = $response['access_token'];
+
+    return array(
+      'merchant_id'   => $merchant_id,
+      'access_token'  => $access_token
+    );
+  }
 
   /**
    * Get a specific subscription

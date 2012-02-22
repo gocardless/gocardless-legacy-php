@@ -113,16 +113,16 @@ class Test_Client extends PHPUnit_Framework_TestCase {
 	/**
 	 * Test that Access Tokens are requests with the right arguments
 	 */
-	
-	/*
 	public function testFetchAccessTokenArguments() {
-		
-		// Assign as a method for the next test
-		GoCardless::set_account_details($this->config);
+
+		$client = new GoCardless_Client(array(
+		  'app_id'        => 'EuHqvzOJfD9NFSACSK8Q0ZfpwpmbyQao4NdYbgi0IidwlQQ_HzIgdrVZsjRUosNc',
+		  'app_secret'    => 'KNa1GoyIKFwcNN_OVdN8D5ykZQkfnCVIyHCFBdP_iXquB7_O7WaZRTWRLhPGsCBQ',
+		));
 		
 		// Create a Mock Object for the Observer class
 		// mocking only the update() method.
-		$stub = $this->getMock('GoCardless_Request', array('fetch_access_token'));
+		$stub = $this->getMock('GoCardless_Request', array('post'));
 
 		// Static dependency injection
 		GoCardless::setClass('Request', get_class($stub));
@@ -131,47 +131,25 @@ class Test_Client extends PHPUnit_Framework_TestCase {
 		// to be called only once and with the string 'something'
 		// as its parameter.
 		$stub->staticExpects($this->once())
-			->method('get')
-			->with($this->matchesRegularExpression('#api/v1/#'));
-	
-		// Call Merchant class, knowning it will use our mock to request
-		GoCardless_Merchant::find('123');
+			->method('post')
+			->with($this->matchesRegularExpression('#/oauth/access_token#'));
+			
+		// Fetching token returns merchant_id and access_token
+		$token = $client->fetch_access_token(array(
+			'client_id'     => $this->config['app_id'],
+			'code'          => 'fakecode',
+			'redirect_uri'  => 'http://localhost/examples/demo_partner.php',
+			'grant_type'    => 'authorization_code'
+		));
 		
-		it "calls correct method with correct args" do
-	        auth_code = 'fakecode'
-	        access_token = mock
-
-	        @client.instance_variable_get(:@access_token).should be_nil
-
-	        oauth_client = @client.instance_variable_get(:@oauth_client)
-	        oauth_client.auth_code.expects(:get_token).with(
-	          auth_code, has_entry(:redirect_uri => @redirect_uri)
-	        )
-
-	        @client.fetch_access_token(auth_code, {:redirect_uri => @redirect_uri})
-	      end
+		$this->arrayHasKey($token, 'access_token');
+		$this->arrayHasKey($token, 'merchant_id');
 	}
 	
-
+/*
   
   describe "#fetch_access_token" do
-    access_token_url = "#{GoCardless::Client.base_url}/oauth/access_token"
-
-    describe "with valid params" do
-      it "calls correct method with correct args" do
-        auth_code = 'fakecode'
-        access_token = mock
-
-        @client.instance_variable_get(:@access_token).should be_nil
-
-        oauth_client = @client.instance_variable_get(:@oauth_client)
-        oauth_client.auth_code.expects(:get_token).with(
-          auth_code, has_entry(:redirect_uri => @redirect_uri)
-        )
-
-        @client.fetch_access_token(auth_code, {:redirect_uri => @redirect_uri})
-      end
-
+  
       it "sets @access_token" do
         access_token = mock
         access_token.stubs(:params).returns('scope' => '')
@@ -249,7 +227,6 @@ class Test_Client extends PHPUnit_Framework_TestCase {
 		GoCardless_Merchant::find('123');
 	}
 	
-	
 	/**
 	 * Fails without an access_token
 	 * @expectedException GoCardless_ClientException
@@ -275,43 +252,36 @@ class Test_Client extends PHPUnit_Framework_TestCase {
 		GoCardless_Merchant::find('123');
 	}
 	
-	
-	/*
+	/**
+	 * Fails without an access_token
+	 */
+	public function testLookupMerchant()
+	{
+		// Remove the access token from config
+		$config = $this->config;
+		
+		// Assign as a method for the next test
+		GoCardless::set_account_details($config);
+		
+		// Create a Mock Object for the Observer class
+		// mocking only the update() method.
+		$stub = $this->getMock('GoCardless_Request', array('get'));
 
+		// Static dependency injection
+		GoCardless::setClass('Request', get_class($stub));
+		
+		// Expected URL
+		$merchant_url = '/api/v1/merchants/123';
+		
+		$stub->staticExpects($this->once())
+			->method('get')
+			->with($this->equalTo($merchant_url));
+		
+		// Call Merchant class, knowning it will throw an exception
+		GoCardless_Merchant::find('123');
+    }
 
-  describe "#api_get" do
- 
-
-  describe "#api_post" do
-    it "encodes data to json" do
-      @client.access_token = 'TOKEN123 a:1 b:2'
-      token = @client.instance_variable_get(:@access_token)
-      r = mock
-      r.stubs(:parsed)
-      token.expects(:post).with { |p,opts| opts[:body] == '{"a":1}' }.returns(r)
-      @client.api_post('/test', {:a => 1})
-    end
-
-    it "fails without an access_token" do
-      expect { @client.api_get '/' }.to raise_exception GoCardless::ClientError
-    end
-  end
-
-  describe "#merchant" do
-    it "looks up the correct merchant" do
-      @client.access_token = 'TOKEN a manage_merchant:123 b'
-      response = mock
-      response.expects(:parsed)
-
-      token = @client.instance_variable_get(:@access_token)
-      merchant_url = '/api/v1/merchants/123'
-      token.expects(:get).with { |p,o| p == merchant_url }.returns response
-
-      GoCardless::Merchant.stubs(:new_with_client)
-
-      @client.merchant
-    end
-
+/*
     it "creates a Merchant object" do
       @client.access_token = 'TOKEN manage_merchant:123'
       response = mock
