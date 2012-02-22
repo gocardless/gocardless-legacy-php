@@ -42,6 +42,25 @@ class GoCardless {
 
   public static $base_url;
 
+
+  /**
+   * Class References
+   * Help map references to static classes for use in mocking
+   *
+   * @var object $classes
+   */
+  protected static $classes = array(
+  	'Request' => 'GoCardless_Request',
+  );
+
+  public function setClass($name, $class) {
+	self::$classes[$name] = $class;
+  }
+
+  public function getClass($name) {
+	return self::$classes[$name];
+  }
+
   /**
    * Autoload sub-classes
    *

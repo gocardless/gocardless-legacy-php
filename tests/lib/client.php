@@ -7,6 +7,7 @@ class Test_Client extends PHPUnit_Framework_TestCase {
 		$this->config = array(
 			'app_id'		=> 'abc',
 			'app_secret'	=> 'xyz',
+			'access_token'	=> 'foo',
 		);
 	}
 
@@ -91,6 +92,7 @@ class Test_Client extends PHPUnit_Framework_TestCase {
 	    $this->assertEquals($params['client_id'], $this->config['app_id']);
 	}
 	
+
 	/*
 
 
@@ -179,6 +181,37 @@ class Test_Client extends PHPUnit_Framework_TestCase {
       expect { @client.access_token = token }.to raise_exception ArgumentError
     end
   end
+
+
+	*/
+	
+	public function testApiUrlFormation()
+	{
+		// Assign as a method for the next test
+		GoCardless::set_account_details($this->config);
+		
+		// Create a Mock Object for the Observer class
+		// mocking only the update() method.
+		$stub = $this->getMock('GoCardless_Request', array('get'));
+
+		// Static dependency injection
+		GoCardless::setClass('Request', get_class($stub));
+		
+		// Set up the expectation for the update() method
+		// to be called only once and with the string 'something'
+		// as its parameter.
+		$stub->staticExpects($this->once())
+			->method('get')
+			->with($this->matchesRegularExpression('#api/v1/#'));
+	
+		// Call Merchant class, knowning it will use our mock to request
+		GoCardless_Merchant::find('123');
+	}
+	
+	
+	
+	/*
+
 
   describe "#api_get" do
     it "uses the correct path prefix" do

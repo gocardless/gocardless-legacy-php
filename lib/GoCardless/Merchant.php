@@ -51,8 +51,7 @@ class GoCardless_Merchant {
     $endpoint = self::$endpoint . '/' . $id;
     $params['http_bearer'] = GoCardless::$client->account_details['access_token'];
 
-    return new self(GoCardless::$client, GoCardless_Request::get($endpoint, $params));
-
+	return new self(GoCardless::$client, call_user_func(GoCardless::getClass('Request').'::get', $endpoint, $params));
   }
 
   /**
@@ -68,7 +67,7 @@ class GoCardless_Merchant {
     $endpoint = self::$endpoint . '/' . $id;
     $params['http_bearer'] = $client->account_details['access_token'];
 
-    return new self($client, GoCardless_Request::get($endpoint, $params));
+    return new self($client, call_user_func(GoCardless::getClass('Request').'::get', $endpoint, $params));
 
   }
 
@@ -84,7 +83,7 @@ class GoCardless_Merchant {
     $endpoint = self::$endpoint . '/' . $this->id . '/subscriptions';
     $params['http_bearer'] = $this->client->account_details['access_token'];
 
-    foreach (GoCardless_Request::get($endpoint, $params) as $value) {
+    foreach (call_user_func(GoCardless::getClass('Request').'::get', $endpoint, $params) as $value) {
       $objects[] = new GoCardless_Subscriptions($this->client, $value);
     }
 
@@ -104,7 +103,7 @@ class GoCardless_Merchant {
 
     $objects = array();
 
-    foreach (GoCardless_Request::get($endpoint, $params) as $value) {
+    foreach (call_user_func(GoCardless::getClass('Request').'::get', $endpoint, $params) as $value) {
       $objects[] = new GoCardless_PreAuthorization($this->client, $value);
     }
 
@@ -124,7 +123,7 @@ class GoCardless_Merchant {
 
     $objects = array();
 
-    foreach (GoCardless_Request::get($endpoint, $params) as $value) {
+    foreach (call_user_func(GoCardless::getClass('Request').'::get', $endpoint, $params) as $value) {
       $objects[] = new GoCardless_Users($this->client, $value);
     }
 
@@ -144,7 +143,7 @@ class GoCardless_Merchant {
 
     $objects = array();
 
-    foreach (GoCardless_Request::get($endpoint, $params) as $value) {
+    foreach (call_user_func(GoCardless::getClass('Request').'::get', $endpoint, $params) as $value) {
       $objects[] = new GoCardless_Bill($this->client, $value);
     }
 
