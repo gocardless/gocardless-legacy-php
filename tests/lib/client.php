@@ -12,7 +12,10 @@ class Test_Client extends PHPUnit_Framework_TestCase {
 	}
 
 	// Porting tests from client.rb
-
+	
+	/**
+	 * Base URL is set correctly for Sandbox
+	 */
 	public function testBaseUrlInSandbox() {
 
 		// Set the environment to TEST
@@ -22,7 +25,10 @@ class Test_Client extends PHPUnit_Framework_TestCase {
 
 		$this->assertEquals('https://sandbox.gocardless.com', GoCardless::$base_url);
 	}
-
+	
+	/**
+	 * Base URL is set correctly for Production
+	 */
 	public function testBaseUrlInProduction() {
 
 		// Set the environment to TEST
@@ -33,6 +39,9 @@ class Test_Client extends PHPUnit_Framework_TestCase {
 		$this->assertEquals('https://gocardless.com', GoCardless::$base_url);
 	}
 	
+	/**
+	 * Ensure custom base_url's can be set
+	 */
 	public function testBaseUrlSetManually() {
 		
 		$config = $this->config;
@@ -45,6 +54,7 @@ class Test_Client extends PHPUnit_Framework_TestCase {
 	}
 	
 	/**
+	 * Test if an exception is thrown when app_id is missing from Client
 	 * @expectedException GoCardless_ClientException
 	 */
 	public function testNoAppIdError() {
@@ -56,6 +66,7 @@ class Test_Client extends PHPUnit_Framework_TestCase {
 	}
 	
 	/**
+	 * Test if an exception is thrown when app_secret is missing from Client
 	 * @expectedException GoCardless_ClientException
 	 */
 	public function testNoAppSecretError() {
@@ -67,6 +78,7 @@ class Test_Client extends PHPUnit_Framework_TestCase {
 	}
 	
 	/**
+	 * Test if an exception is thrown when redirect_uri is missing Client
 	 * @expectedException GoCardless_ArgumentsException
 	 */
 	public function testNoRedirectUriError() {
@@ -77,9 +89,11 @@ class Test_Client extends PHPUnit_Framework_TestCase {
 		$client->authorize_url();
 	}
 	
+	/**
+	 * Generate authorize_url correct
+	 */
 	public function testGenerateAuthUrl() {
 		
-		// Assign as a method for the next test
 		$client = new GoCardless_Client($this->config);
 		
 		$redirect_uri = 'http://test.com/cb';
@@ -96,29 +110,51 @@ class Test_Client extends PHPUnit_Framework_TestCase {
 	    $this->assertEquals($params['client_id'], $this->config['app_id']);
 	}
 	
+	/**
+	 * Test that Access Tokens are requests with the right arguments
+	 */
+	public function testFetchAccessTokenArguments() {
+		
+		// Assign as a method for the next test
+		GoCardless::set_account_details($this->config);
+		
+		// Create a Mock Object for the Observer class
+		// mocking only the update() method.
+		$stub = $this->getMock('GoCardless_Request', array('fetch_access_token'));
+
+		// Static dependency injection
+		GoCardless::setClass('Request', get_class($stub));
+		
+		// Set up the expectation for the update() method
+		// to be called only once and with the string 'something'
+		// as its parameter.
+		$stub->staticExpects($this->once())
+			->method('get')
+			->with($this->matchesRegularExpression('#api/v1/#'));
+	
+		// Call Merchant class, knowning it will use our mock to request
+		GoCardless_Merchant::find('123');
+		
+		it "calls correct method with correct args" do
+	        auth_code = 'fakecode'
+	        access_token = mock
+
+	        @client.instance_variable_get(:@access_token).should be_nil
+
+	        oauth_client = @client.instance_variable_get(:@oauth_client)
+	        oauth_client.auth_code.expects(:get_token).with(
+	          auth_code, has_entry(:redirect_uri => @redirect_uri)
+	        )
+
+	        @client.fetch_access_token(auth_code, {:redirect_uri => @redirect_uri})
+	      end
+	}
+	
 
 	/*
-
-
-  describe "#authorize_url" do
   
-    it "generates the authorize url correctly" do
-      url = URI.parse(@client.authorize_url(:redirect_uri => @redirect_uri))
-      query = CGI.parse(url.query)
-      $this->assertEquals($params['response_type'].first.should == 'code'
-      $this->assertEquals($params['redirect_uri'].first.should == @redirect_uri
-      $this->assertEquals($params['client_id'].first.should == @app_id
-    end
-  end
-
   describe "#fetch_access_token" do
     access_token_url = "#{GoCardless::Client.base_url}/oauth/access_token"
-
-    it "fails without a redirect uri" do
-      lambda do
-        @client.fetch_access_token('code', {})
-      end.should raise_exception(ArgumentError)
-    end
 
     describe "with valid params" do
       it "calls correct method with correct args" do
@@ -244,11 +280,6 @@ class Test_Client extends PHPUnit_Framework_TestCase {
 
   describe "#api_get" do
  
-
-    it "fails without an access_token" do
-      expect { @client.api_get '/' }.to raise_exception GoCardless::ClientError
-    end
-  end
 
   describe "#api_post" do
     it "encodes data to json" do
