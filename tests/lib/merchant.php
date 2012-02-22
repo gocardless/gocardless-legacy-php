@@ -9,6 +9,9 @@ class Test_Merchant extends PHPUnit_Framework_TestCase {
 			'app_secret'	=> 'xyz',
 			'access_token'	=> 'foo',
 		);
+	
+		// Set the environment to TEST
+		GoCardless::$environment = 'sandbox';
 	}
 	
 	/**

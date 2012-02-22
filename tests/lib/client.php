@@ -9,6 +9,9 @@ class Test_Client extends PHPUnit_Framework_TestCase {
 			'app_secret'	=> 'xyz',
 			'access_token'	=> 'foo',
 		);
+		
+		// Set the environment to TEST
+		GoCardless::$environment = 'sandbox';
 	}
 
 	// Porting tests from client.rb
@@ -17,9 +20,6 @@ class Test_Client extends PHPUnit_Framework_TestCase {
 	 * Base URL is set correctly for Sandbox
 	 */
 	public function testBaseUrlInSandbox() {
-
-		// Set the environment to TEST
-		GoCardless::$environment = 'sandbox';
 
 		new GoCardless_Client($this->config);
 
@@ -37,6 +37,9 @@ class Test_Client extends PHPUnit_Framework_TestCase {
 		new GoCardless_Client($this->config);
 
 		$this->assertEquals('https://gocardless.com', GoCardless::$base_url);
+		
+		// Set the environment to TEST
+		GoCardless::$environment = 'sandbox';
 	}
 
 	/**

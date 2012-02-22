@@ -408,7 +408,6 @@ class GoCardless_Client {
     } while ($n <= 45);
 
     return base64_encode($rand);
-
   }
 
   /**
@@ -443,11 +442,7 @@ class GoCardless_Client {
     $query_string = GoCardless_Utils::generate_query_string($request);
 
     // Generate url NB. Pluralises resource
-    $url = GoCardless::$base_url . '/connect/' . $type . 's/new?' . $query_string;
-
-    // Return the result
-    return $url;
-
+    return GoCardless::$base_url . '/connect/' . $type . 's/new?' . $query_string;
   }
 
   /**

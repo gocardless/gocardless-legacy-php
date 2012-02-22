@@ -2,7 +2,7 @@
 
 /**
  * GoCardless bill functions
- *
+ * 
  * @package GoCardless\Bill
  */
 
