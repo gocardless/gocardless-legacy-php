@@ -254,7 +254,7 @@ class Test_Client extends PHPUnit_Framework_TestCase {
 	 * Fails without an access_token
 	 * @expectedException GoCardless_ClientException
 	 */
-	public function testNoAccessTokenException()
+	public function testApiGetFailsWithoutAccessToken()
 	{
 		// Remove the access token from config
 		$config = $this->config;
@@ -275,12 +275,33 @@ class Test_Client extends PHPUnit_Framework_TestCase {
 		GoCardless_Merchant::find('123');
 	}
 
+	/**
+	 * Fails without an access_token
+	 * @expectedException GoCardless_ClientException
+	 */
+	public function testApiPostFailsWithoutAccessToken()
+	{
+		// Remove the access token from config
+		$config = $this->config;
+
+		unset($config['access_token']);
+
+		// Assign as a method for the next test
+		GoCardless::set_account_details($config);
+
+		// Create a Mock Object for the Observer class
+		// mocking only the update() method.
+		$stub = $this->getMock('GoCardless_Request', array('post'));
+
+		// Static dependency injection
+		GoCardless::setClass('Request', get_class($stub));
+
+		// Call Merchant class, knowning it will throw an exception
+		GoCardless_Merchant::find('123');
+	}
+
 
 	/*
-
-
-  describe "#api_get" do
-
 
   describe "#api_post" do
     it "encodes data to json" do
@@ -290,10 +311,6 @@ class Test_Client extends PHPUnit_Framework_TestCase {
       r.stubs(:parsed)
       token.expects(:post).with { |p,opts| opts[:body] == '{"a":1}' }.returns(r)
       @client.api_post('/test', {:a => 1})
-    end
-
-    it "fails without an access_token" do
-      expect { @client.api_get '/' }.to raise_exception GoCardless::ClientError
     end
   end
 
