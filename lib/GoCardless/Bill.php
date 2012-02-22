@@ -66,7 +66,7 @@ class GoCardless_Bill {
    */
   public function find_with_client($client, $id) {
 
-    $endpoint = $client->$api_path . self::$endpoint . '/' . $id;
+    $endpoint = self::$endpoint . '/' . $id;
 
     return new self($client, $client->request('get', $endpoint));
 
