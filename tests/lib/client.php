@@ -12,7 +12,7 @@ class Test_Client extends PHPUnit_Framework_TestCase {
 	}
 
 	// Porting tests from client.rb
-	
+
 	/**
 	 * Base URL is set correctly for Sandbox
 	 */
@@ -25,7 +25,7 @@ class Test_Client extends PHPUnit_Framework_TestCase {
 
 		$this->assertEquals('https://sandbox.gocardless.com', GoCardless::$base_url);
 	}
-	
+
 	/**
 	 * Base URL is set correctly for Production
 	 */
@@ -38,105 +38,105 @@ class Test_Client extends PHPUnit_Framework_TestCase {
 
 		$this->assertEquals('https://gocardless.com', GoCardless::$base_url);
 	}
-	
+
 	/**
 	 * Ensure custom base_url's can be set
 	 */
 	public function testBaseUrlSetManually() {
-		
+
 		$config = $this->config;
-		
+
 		$config['base_url'] = 'https://abc.gocardless.com';
-		
+
 		new GoCardless_Client($config);
-		
+
 		$this->assertEquals('https://abc.gocardless.com', GoCardless::$base_url);
 	}
-	
+
 	/**
 	 * Test if an exception is thrown when app_id is missing from Client
 	 * @expectedException GoCardless_ClientException
 	 */
 	public function testNoAppIdError() {
-		
+
 		$config = $this->config;
 		unset($config['app_id']);
-		
+
 		new GoCardless_Client($config);
 	}
-	
+
 	/**
 	 * Test if an exception is thrown when app_secret is missing from Client
 	 * @expectedException GoCardless_ClientException
 	 */
 	public function testNoAppSecretError() {
-		
+
 		$config = $this->config;
 		unset($config['app_secret']);
-		
+
 		new GoCardless_Client($config);
 	}
-	
+
 	/**
 	 * Test if an exception is thrown when redirect_uri is missing Client
 	 * @expectedException GoCardless_ArgumentsException
 	 */
 	public function testNoRedirectUriError() {
-		
+
 		// Assign as a method for the next test
 		$client = new GoCardless_Client($this->config);
-		
+
 		$client->authorize_url();
 	}
-	
+
 	/**
 	 * Generate authorize_url correct
 	 */
 	public function testGenerateAuthUrl() {
-		
+
 		$client = new GoCardless_Client($this->config);
-		
+
 		$redirect_uri = 'http://test.com/cb';
-		
+
 		$url = $client->authorize_url(array(
 			'redirect_uri' => $redirect_uri,
 		));
-	
+
 		$parts = parse_url($url);
 		parse_str($parts['query'], $params);
-		
+
 		$this->assertEquals($params['response_type'], 'code');
 	    $this->assertEquals($params['redirect_uri'], $redirect_uri);
 	    $this->assertEquals($params['client_id'], $this->config['app_id']);
 	}
-	
+
 	/**
 	 * Test that Access Tokens are requests with the right arguments
 	 */
-	
+
 	/*
 	public function testFetchAccessTokenArguments() {
-		
+
 		// Assign as a method for the next test
 		GoCardless::set_account_details($this->config);
-		
+
 		// Create a Mock Object for the Observer class
 		// mocking only the update() method.
 		$stub = $this->getMock('GoCardless_Request', array('fetch_access_token'));
 
 		// Static dependency injection
 		GoCardless::setClass('Request', get_class($stub));
-		
+
 		// Set up the expectation for the update() method
 		// to be called only once and with the string 'something'
 		// as its parameter.
 		$stub->staticExpects($this->once())
 			->method('get')
 			->with($this->matchesRegularExpression('#api/v1/#'));
-	
+
 		// Call Merchant class, knowning it will use our mock to request
 		GoCardless_Merchant::find('123');
-		
+
 		it "calls correct method with correct args" do
 	        auth_code = 'fakecode'
 	        access_token = mock
@@ -151,9 +151,9 @@ class Test_Client extends PHPUnit_Framework_TestCase {
 	        @client.fetch_access_token(auth_code, {:redirect_uri => @redirect_uri})
 	      end
 	}
-	
 
-  
+
+
   describe "#fetch_access_token" do
     access_token_url = "#{GoCardless::Client.base_url}/oauth/access_token"
 
@@ -225,31 +225,31 @@ class Test_Client extends PHPUnit_Framework_TestCase {
 
 
 	*/
-	
+
 	public function testApiUrlFormation()
 	{
 		// Assign as a method for the next test
 		GoCardless::set_account_details($this->config);
-		
+
 		// Create a Mock Object for the Observer class
 		// mocking only the update() method.
 		$stub = $this->getMock('GoCardless_Request', array('get'));
 
 		// Static dependency injection
 		GoCardless::setClass('Request', get_class($stub));
-		
+
 		// Set up the expectation for the update() method
 		// to be called only once and with the string 'something'
 		// as its parameter.
 		$stub->staticExpects($this->once())
 			->method('get')
 			->with($this->matchesRegularExpression('#api/v1/#'));
-	
+
 		// Call Merchant class, knowning it will use our mock to request
 		GoCardless_Merchant::find('123');
 	}
-	
-	
+
+
 	/**
 	 * Fails without an access_token
 	 * @expectedException GoCardless_ClientException
@@ -258,29 +258,29 @@ class Test_Client extends PHPUnit_Framework_TestCase {
 	{
 		// Remove the access token from config
 		$config = $this->config;
-		
+
 		unset($config['access_token']);
-		
+
 		// Assign as a method for the next test
 		GoCardless::set_account_details($config);
-		
+
 		// Create a Mock Object for the Observer class
 		// mocking only the update() method.
 		$stub = $this->getMock('GoCardless_Request', array('get'));
 
 		// Static dependency injection
 		GoCardless::setClass('Request', get_class($stub));
-		
+
 		// Call Merchant class, knowning it will throw an exception
 		GoCardless_Merchant::find('123');
 	}
-	
-	
+
+
 	/*
 
 
   describe "#api_get" do
- 
+
 
   describe "#api_post" do
     it "encodes data to json" do
