@@ -21,11 +21,7 @@ class GoCardless_Request {
    * @return string The response text
    */
   public static function get($path, $params = array()) {
-
-    $path = GoCardless_Client::$api_path . $path;
-
-    return self::request('get', $path, $params);
-
+    return self::call('get', $path, $params);
   }
 
   /**
@@ -37,11 +33,7 @@ class GoCardless_Request {
    * @return string The response text
    */
   public static function post($path, $data = array()) {
-
-    $path = GoCardless_Client::$api_path . $path;
-
-    return self::request('post', $path, $data);
-
+    return self::call('post', $path, $data);
   }
 
   /**
@@ -53,11 +45,7 @@ class GoCardless_Request {
    * @return string The response text
    */
   public static function put($path, $data = array()) {
-
-    $path = GoCardless_Client::$api_path . $path;
-
-    return self::request('put', $path, $data);
-
+    return self::call('put', $path, $data);
   }
 
   /**
@@ -67,9 +55,9 @@ class GoCardless_Request {
    *
    * @return string The access token
    */
-  public static function fetch_access_token($options){
+  public static function fetch_access_token($options) {
 
-    if (!isset($options['redirect_uri'])) {
+    if ( ! isset($options['redirect_uri'])) {
       throw new GoCardless_ArgumentsException('redirect_uri required');
     }
 
@@ -103,7 +91,7 @@ class GoCardless_Request {
    *
    * @return string The response text
    */
-  protected static function request($method, $path, $opts = array()) {
+  protected static function call($method, $path, $opts = array()) {
 
     $path = GoCardless::$base_url . $path;
 
@@ -126,7 +114,7 @@ class GoCardless_Request {
 
     } else {
 
-      if (!isset($opts['http_bearer'])) {
+      if ( ! isset($opts['http_bearer'])) {
         throw new GoCardless_ClientException('Access token missing');
       }
 

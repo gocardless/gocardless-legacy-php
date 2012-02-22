@@ -125,8 +125,21 @@ class GoCardless_Client {
     }
 
     return GoCardless_Merchant::find_with_client($this, $id);
-
   }
+
+  /**
+   * Returns the merchant associated with the client's access token
+   *
+   * @param string $id The id of the merchant to fetch
+   *
+   * @return object The merchant object
+   */
+	public function request($method, $endpoint, $params = array())
+	{
+		$params['http_bearer'] = $this->account_details['access_token'];
+		
+		return call_user_func(GoCardless::getClass('Request').'::get', self::$api_path.'/'.$endpoint, $params);
+	}
 
   /**
    * Get a specific subscription
