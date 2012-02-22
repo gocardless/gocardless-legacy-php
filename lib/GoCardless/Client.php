@@ -576,7 +576,7 @@ class GoCardless_Client {
    */
   public function validate_signature($params) {
 
-    $new_sig = Utils::generate_signature($params['data'], $params['secret']);
+    $new_sig = GoCardless_Utils::generate_signature($params['data'], $params['secret']);
 
     return ($new_sig === $params['signature']);
   }
@@ -626,10 +626,10 @@ class GoCardless_Client {
     $request = array_merge($limit_params, $this->generate_mandatory_params());
 
     // Generate signature
-    $request['signature'] = Utils::generate_signature($request, $this->account_details['app_secret']);
+    $request['signature'] = GoCardless_Utils::generate_signature($request, $this->account_details['app_secret']);
 
     // Generate query string from all parameters
-    $query_string = Utils::generate_query_string($request);
+    $query_string = GoCardless_Utils::generate_query_string($request);
 
     // Generate url NB. Pluralises resource
     $url = $this->base_url . '/connect/' . $type . 's/new?' . $query_string;

@@ -16,6 +16,8 @@ if ( ! function_exists('json_decode')) {
 // Autoload sub-classes
 spl_autoload_register(array('GoCardless', 'autoload'));
 
+require 'GoCardless/Exceptions.php';
+
 /**
  * GoCardless class
  *
