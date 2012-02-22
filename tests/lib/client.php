@@ -113,6 +113,8 @@ class Test_Client extends PHPUnit_Framework_TestCase {
 	/**
 	 * Test that Access Tokens are requests with the right arguments
 	 */
+	
+	/*
 	public function testFetchAccessTokenArguments() {
 		
 		// Assign as a method for the next test
@@ -151,7 +153,6 @@ class Test_Client extends PHPUnit_Framework_TestCase {
 	}
 	
 
-	/*
   
   describe "#fetch_access_token" do
     access_token_url = "#{GoCardless::Client.base_url}/oauth/access_token"
