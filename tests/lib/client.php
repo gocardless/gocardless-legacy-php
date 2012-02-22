@@ -228,7 +228,7 @@ class Test_Client extends PHPUnit_Framework_TestCase {
 	}
 
 	/**
-	 * Fails without an access_token
+	 * GET requests without an access_token
 	 * @expectedException GoCardless_ClientException
 	 */
 	public function testApiGetFailsWithoutAccessToken()
@@ -248,41 +248,12 @@ class Test_Client extends PHPUnit_Framework_TestCase {
 		// Static dependency injection
 		GoCardless::setClass('Request', get_class($stub));
 
-		// Call Merchant class, knowning it will throw an exception
+		// Call Merchant class, knowning it will use our mock to request
 		GoCardless_Merchant::find('123');
 	}
 	
 	/**
-	 * Fails without an access_token
-	 */
-	public function testLookupMerchant()
-	{
-		// Remove the access token from config
-		$config = $this->config;
-		
-		// Assign as a method for the next test
-		GoCardless::set_account_details($config);
-		
-		// Create a Mock Object for the Observer class
-		// mocking only the update() method.
-		$stub = $this->getMock('GoCardless_Request', array('get'));
-		
-		// Static dependency injection
-		GoCardless::setClass('Request', get_class($stub));
-		
-		// Expected URL
-		$merchant_url = '/api/v1/merchants/123';
-		
-		$stub->staticExpects($this->once())
-			->method('get')
-			->with($this->equalTo($merchant_url));
-		
-		// Call Merchant class, knowning it will throw an exception
-		GoCardless_Merchant::find('123');
-	}
-	
-	/**
-	 * Fails without an access_token
+	 * PO requests without an access_token
 	 * @expectedException GoCardless_ClientException
 	 */
 	public function testApiPostFailsWithoutAccessToken()
@@ -302,8 +273,10 @@ class Test_Client extends PHPUnit_Framework_TestCase {
 		// Static dependency injection
 		GoCardless::setClass('Request', get_class($stub));
 
-		// Call Merchant class, knowning it will throw an exception
-		GoCardless_Merchant::find('123');
+		$bill = GoCardless::$client->create_bill(array(
+		    'pre_authorization_id'  => '014PS77JW3',
+			'amount'                => '5.00'
+		));	
     }
 
 

@@ -7,41 +7,37 @@ class Test_Merchant extends PHPUnit_Framework_TestCase {
 		$this->config = array(
 			'app_id'		=> 'abc',
 			'app_secret'	=> 'xyz',
-			'access_token'	=> 'TOKEN123',
-			'merchant_id'	=> '123',
+			'access_token'	=> 'foo',
 		);
-		
-		// Set the environment to TEST
-		GoCardless::$environment = 'sandbox';
-		
-		$this->client = new GoCardless_Client($this->config);
 	}
-
-	public function testMerchantMethods() {
-
-		foreach (array('subscriptions', 'pre_authorizations', 'users', 'payments', 'bills') as $method)
-		{
-			$merchant = new GoCardless_Merchant($this->client);
-
-			$data = array(
-				'id' => 1, 
-				'id' => 2
-			);
-			
-			/* TODO Ask Harry 
-			stub_get(@client, data)
-
-			merchant.send(method).should be_a Array
-			merchant.send(method).length.should == 2
-			merchant.send(method).zip(data).each do |obj,attrs|
-			  class_name = GoCardless::Utils.camelize(method.to_s).sub(/s$/, '')
-			  obj.class.to_s.should == "GoCardless::#{class_name}"
-			  attrs.each { |k,v| obj.send(k).should == v }
-			end
-			*/
-		}
-
-		// $this->assertEquals('https://sandbox.gocardless.com', GoCardless::$base_url);
+	
+	/**
+	 * Fails without an access_token
+	 */
+	public function testLookupMerchant()
+	{
+		// Remove the access token from config
+		$config = $this->config;
+		
+		// Assign as a method for the next test
+		GoCardless::set_account_details($config);
+		
+		// Create a Mock Object for the Observer class
+		// mocking only the update() method.
+		$stub = $this->getMock('GoCardless_Request', array('get'));
+		
+		// Static dependency injection
+		GoCardless::setClass('Request', get_class($stub));
+		
+		// Expected URL
+		$merchant_url = '/api/v1/merchants/123';
+		
+		$stub->staticExpects($this->once())
+			->method('get')
+			->with($this->equalTo($merchant_url));
+		
+		// Call Merchant class, knowning it will throw an exception
+		GoCardless_Merchant::find('123');
 	}
 
 }

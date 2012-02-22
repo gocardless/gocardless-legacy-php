@@ -32,8 +32,8 @@ class GoCardless_Request {
    *
    * @return string The response text
    */
-  public static function post($path, $data = array()) {
-    return self::call('post', $path, $data);
+  public static function post($path, $params = array()) {
+    return self::call('post', $path, $params);
   }
 
   /**
@@ -44,8 +44,8 @@ class GoCardless_Request {
    *
    * @return string The response text
    */
-  public static function put($path, $data = array()) {
-    return self::call('put', $path, $data);
+  public static function put($path, $params = array()) {
+    return self::call('put', $path, $params);
   }
 
   /**
@@ -57,7 +57,7 @@ class GoCardless_Request {
    *
    * @return string The response text
    */
-  protected static function call($method, $path, $opts = array()) {
+  protected static function call($method, $path, $params = array()) {
 
     $path = GoCardless::$base_url . $path;
 
@@ -73,10 +73,10 @@ class GoCardless_Request {
     $curl_options[CURLOPT_HTTPHEADER][] = 'Accept: application/json';
 
     // HTTP Authentication (for confirming new payments)
-    if (isset($opts['http_authorization'])) {
+    if (isset($params['http_authorization'])) {
 
-      $curl_options[CURLOPT_USERPWD] = $opts['http_authorization'];
-      unset($opts['http_authorization']);
+      $curl_options[CURLOPT_USERPWD] = $params['http_authorization'];
+      unset($params['http_authorization']);
 
     } else {
 
@@ -84,7 +84,7 @@ class GoCardless_Request {
         throw new GoCardless_ClientException('Access token missing');
       }
 
-      $curl_options[CURLOPT_HTTPHEADER][] = 'Authorization: Bearer ' . $opts['http_bearer'];
+      $curl_options[CURLOPT_HTTPHEADER][] = 'Authorization: Bearer ' . $params['http_bearer'];
       unset($opts['http_bearer']);
 
     }
@@ -94,7 +94,7 @@ class GoCardless_Request {
       $curl_options[CURLOPT_POST] = 1;
 
       if (isset($opts)) {
-        $curl_options[CURLOPT_POSTFIELDS] = http_build_query($opts, null, '&');
+        $curl_options[CURLOPT_POSTFIELDS] = http_build_query($params, null, '&');
       }
 
     } elseif ($method == 'get') {
@@ -162,10 +162,7 @@ class GoCardless_Request {
 
     curl_close($ch);
 
-    $object = json_decode($result, true);
-
-    return $object;
-
+    return json_decode($result, true);
   }
 
 }

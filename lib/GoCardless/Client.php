@@ -334,14 +334,13 @@ class GoCardless_Client {
     }
 
     // Do query
-    $response = GoCardless_Request::post($endpoint, $confirm_params);
+    $response = $this->request('post', $endpoint, $confirm_params);
 
     if ($response['success'] == true) {
 
-      $endpoint = GoCardless::$base_url . '/' . $params['resource_type'] . 's/' . $params['resource_id'];
-      $params['http_bearer'] = $this->account_details['access_token'];
+      $endpoint = $params['resource_type'] . 's/' . $params['resource_id'];
 
-      return GoCardless_Request::get($endpoint, $params);
+      return $this->request('get', $endpoint, $params);
 
     } else {
 
