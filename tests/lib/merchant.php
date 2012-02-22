@@ -33,7 +33,7 @@ class Test_Merchant extends PHPUnit_Framework_TestCase {
 		GoCardless::setClass('Request', get_class($stub));
 		
 		// Expected URL
-		$merchant_url = '/api/v1/merchants/123';
+		$merchant_url = GoCardless::$client->base_url . '/api/v1/merchants/123';
 		
 		$stub->staticExpects($this->once())
 			->method('get')

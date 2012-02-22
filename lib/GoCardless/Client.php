@@ -20,6 +20,13 @@ class GoCardless_Client {
   public $account_details;
 
   /**
+   * The base_url for the API to use for all client requests
+   *
+   * @var string $base_url
+   */
+  public $base_url;
+
+  /**
    * Array of possible base_urls to use
    *
    * @var array $base_urls
@@ -72,12 +79,12 @@ class GoCardless_Client {
 
     // Take base_url from array
     if (isset($account_details['base_url'])) {
-      GoCardless::$base_url = $account_details['base_url'];
+      $this->base_url = $account_details['base_url'];
       unset($account_details['base_url']);
 
     } else {
       // Otherwise set it based on environment
-      GoCardless::$base_url = GoCardless_Client::$base_urls[GoCardless::$environment];
+      $this->base_url = self::$base_urls[GoCardless::$environment];
     }
 
   }
@@ -97,14 +104,13 @@ class GoCardless_Client {
 
     $endpoint = '/oauth/authorize';
 
-    $url =  GoCardless::$base_url . $endpoint .
+    $url =  $this->base_url . $endpoint .
         '?client_id='. urlencode($this->account_details['app_id']) .
         '&redirect_uri=' . urlencode($options['redirect_uri']) .
         '&scope=manage_merchant' .
         '&response_type=code';
 
     return $url;
-
   }
 
   /**
@@ -140,12 +146,14 @@ class GoCardless_Client {
       }
 
       $params['http_bearer'] = $this->account_details['access_token'];
-
     }
 
-    return call_user_func(GoCardless::getClass('Request').'::'.$method, self::$api_path.$endpoint, $params);
+	// http://sandbox.gocardless.com | /api/v1 | /test
+	$url = $this->base_url . self::$api_path . $endpoint;
 
-	}
+    // Call the Request library (might be aliases for testing) with URL and params
+    return call_user_func(GoCardless::getClass('Request').'::'.$method, $url, $params);
+  }
 
   /**
    * Fetch an access token for the current user
@@ -442,7 +450,7 @@ class GoCardless_Client {
     $query_string = GoCardless_Utils::generate_query_string($request);
 
     // Generate url NB. Pluralises resource
-    return GoCardless::$base_url . '/connect/' . $type . 's/new?' . $query_string;
+    return $this->base_url . '/connect/' . $type . 's/new?' . $query_string;
   }
 
   /**

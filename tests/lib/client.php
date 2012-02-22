@@ -21,9 +21,9 @@ class Test_Client extends PHPUnit_Framework_TestCase {
 	 */
 	public function testBaseUrlInSandbox() {
 
-		new GoCardless_Client($this->config);
+		$client = new GoCardless_Client($this->config);
 
-		$this->assertEquals('https://sandbox.gocardless.com', GoCardless::$base_url);
+		$this->assertEquals('https://sandbox.gocardless.com', $client->base_url);
 	}
 
 	/**
@@ -34,9 +34,9 @@ class Test_Client extends PHPUnit_Framework_TestCase {
 		// Set the environment to TEST
 		GoCardless::$environment = 'production';
 
-		new GoCardless_Client($this->config);
+		$client = new GoCardless_Client($this->config);
 
-		$this->assertEquals('https://gocardless.com', GoCardless::$base_url);
+		$this->assertEquals('https://gocardless.com', $client->base_url);
 		
 		// Set the environment to TEST
 		GoCardless::$environment = 'sandbox';
@@ -51,9 +51,9 @@ class Test_Client extends PHPUnit_Framework_TestCase {
 
 		$config['base_url'] = 'https://abc.gocardless.com';
 
-		new GoCardless_Client($config);
+		$client = new GoCardless_Client($config);
 
-		$this->assertEquals('https://abc.gocardless.com', GoCardless::$base_url);
+		$this->assertEquals('https://abc.gocardless.com', $client->base_url);
 	}
 
 	/**

@@ -40,9 +40,6 @@ class GoCardless {
    */
   public static $client;
 
-  public static $base_url;
-
-
   /**
    * Class References
    * Help map references to static classes for use in mocking
