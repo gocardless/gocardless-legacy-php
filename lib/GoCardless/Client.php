@@ -130,15 +130,16 @@ class GoCardless_Client {
    *
    * @return object The merchant object
    */
-	public function request($method, $endpoint, $params = array())
-	{
-		if ( ! isset($this->account_details['access_token'])) {
-	      throw new GoCardless_ClientException('Access token missing');
-	    }
-	
-		$params['http_bearer'] = $this->account_details['access_token'];
-		
-		return call_user_func(GoCardless::getClass('Request').'::get', self::$api_path.'/'.$endpoint, $params);
+	public function request($method, $endpoint, $params = array()) {
+
+    if ( ! isset($this->account_details['access_token'])) {
+      throw new GoCardless_ClientException('Access token missing');
+    }
+
+    $params['http_bearer'] = $this->account_details['access_token'];
+
+    return call_user_func(GoCardless::getClass('Request').'::get', self::$api_path.'/'.$endpoint, $params);
+
 	}
 
   /**
