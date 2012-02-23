@@ -31,7 +31,7 @@ class GoCardless_Merchant {
 
     $this->client = $client;
 
-	if (is_array($attrs)) {
+	  if (is_array($attrs)) {
     	foreach ($attrs as $key => $value) {
 	      $this->$key = $value;
 	    }
@@ -110,7 +110,7 @@ class GoCardless_Merchant {
   public function users() {
 
     $endpoint = self::$endpoint . '/' . $this->id . '/users';
-    
+
     $objects = array();
 
     foreach ($this->client->request('get', $endpoint, $params) as $value) {
@@ -118,6 +118,7 @@ class GoCardless_Merchant {
     }
 
     return $objects;
+
   }
 
   /**
@@ -136,6 +137,7 @@ class GoCardless_Merchant {
     }
 
     return $objects;
+
   }
 
 }

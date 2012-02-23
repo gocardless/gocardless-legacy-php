@@ -31,11 +31,12 @@ class GoCardless_User {
 
     $this->client = $client;
 
-	if (is_array($attrs)) {
+	  if (is_array($attrs)) {
     	foreach ($attrs as $key => $value) {
 	      $this->$key = $value;
 	    }
-	}
+	  }
+
   }
 
   /**

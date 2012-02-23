@@ -104,13 +104,12 @@ class GoCardless_Client {
 
     $endpoint = '/oauth/authorize';
 
-    $url =  $this->base_url . $endpoint .
+    return $this->base_url . $endpoint .
         '?client_id='. urlencode($this->account_details['app_id']) .
         '&redirect_uri=' . urlencode($options['redirect_uri']) .
         '&scope=manage_merchant' .
         '&response_type=code';
 
-    return $url;
   }
 
   /**
@@ -127,6 +126,7 @@ class GoCardless_Client {
     }
 
     return GoCardless_Merchant::find_with_client($this, $id);
+
   }
 
   /**
@@ -146,6 +146,7 @@ class GoCardless_Client {
       }
 
       $params['http_bearer'] = $this->account_details['access_token'];
+
     }
 
 	// http://sandbox.gocardless.com | /api/v1 | /test
@@ -153,6 +154,7 @@ class GoCardless_Client {
 
     // Call the Request library (might be aliases for testing) with URL and params
     return call_user_func(GoCardless::getClass('Request').'::'.$method, $url, $params);
+
   }
 
   /**
@@ -180,6 +182,7 @@ class GoCardless_Client {
       'merchant_id'   => $merchant_id,
       'access_token'  => $access_token
     );
+
   }
 
   /**
@@ -243,6 +246,7 @@ class GoCardless_Client {
     $pre_auth = new GoCardless_PreAuthorization($this, $pre_auth_attrs);
 
     return $pre_auth->create_bill($attrs);
+
   }
 
   /**
@@ -398,6 +402,7 @@ class GoCardless_Client {
     $new_sig = GoCardless_Utils::generate_signature($params['data'], $params['secret']);
 
     return ($new_sig === $params['signature']);
+
   }
 
   /**
@@ -416,6 +421,7 @@ class GoCardless_Client {
     } while ($n <= 45);
 
     return base64_encode($rand);
+
   }
 
   /**
@@ -451,6 +457,7 @@ class GoCardless_Client {
 
     // Generate url NB. Pluralises resource
     return $this->base_url . '/connect/' . $type . 's/new?' . $query_string;
+
   }
 
   /**
@@ -463,13 +470,11 @@ class GoCardless_Client {
     // Create new UTC date object
     $date = new DateTime(null, new DateTimeZone('UTC'));
 
-    $request = array(
+    return array(
       'client_id' => $this->account_details['app_id'],
       'nonce'     => GoCardless_Client::generate_nonce(),
       'timestamp' => $date->format('Y-m-d\TH:i:s\Z')
     );
-
-    return $request;
 
   }
 

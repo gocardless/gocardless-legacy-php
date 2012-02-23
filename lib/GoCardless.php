@@ -51,11 +51,11 @@ class GoCardless {
   );
 
   public function setClass($name, $class) {
-	self::$classes[$name] = $class;
+	  self::$classes[$name] = $class;
   }
 
   public function getClass($name) {
-	return self::$classes[$name];
+	  return self::$classes[$name];
   }
 
   /**

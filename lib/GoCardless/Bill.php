@@ -2,7 +2,7 @@
 
 /**
  * GoCardless bill functions
- * 
+ *
  * @package GoCardless\Bill
  */
 
@@ -31,11 +31,12 @@ class GoCardless_Bill {
 
     $this->client = $client;
 
-	if (is_array($attrs)) {
+	  if (is_array($attrs)) {
     	foreach ($attrs as $key => $value) {
 	      $this->$key = $value;
 	    }
-	}
+	  }
+
   }
 
   /**

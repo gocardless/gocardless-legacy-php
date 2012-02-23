@@ -31,11 +31,12 @@ class GoCardless_Subscription {
 
     $this->client = $client;
 
-	if (is_array($attrs)) {
+	  if (is_array($attrs)) {
     	foreach ($attrs as $key => $value) {
 	      $this->$key = $value;
 	    }
-	}
+	  }
+
   }
 
   /**
@@ -50,6 +51,7 @@ class GoCardless_Subscription {
     $endpoint = self::$endpoint . '/' . $id;
 
     return new self(GoCardless::$client, GoCardless::$client->request('get', $endpoint));
+
   }
 
   /**
@@ -65,6 +67,7 @@ class GoCardless_Subscription {
     $endpoint = self::$endpoint . '/' . $id;
 
     return new self($client, $client->request('get', $endpoint));
+
   }
 
   /**
@@ -77,6 +80,7 @@ class GoCardless_Subscription {
     $endpoint = self::$endpoint . '/' . $this->id . '/cancel';
 
     return new self($this->client, $this->client->request('put', $endpoint));
+
   }
 
 }
