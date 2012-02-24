@@ -28,7 +28,7 @@ class GoCardless_Request {
    * Configure a POST request
    *
    * @param string $url The URL to make the request to
-   * @param array $data The parameters to use for the POST body
+   * @param array $params The parameters to use for the POST body
    *
    * @return string The response text
    */
@@ -40,7 +40,7 @@ class GoCardless_Request {
    * Configure a PUT request
    *
    * @param string $url The URL to make the request to
-   * @param array $data The parameters to use for the PUT body
+   * @param array $params The parameters to use for the PUT body
    *
    * @return string The response text
    */

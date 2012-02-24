@@ -130,11 +130,13 @@ class GoCardless_Client {
   }
 
   /**
-   * Returns the merchant associated with the client's access token
+   * Make a request to the API
    *
-   * @param string $id The id of the merchant to fetch
+   * @param string $method The request method to use
+   * @param string $endpoint The API endpoint to call
+   * @param string $params The parameters to send with the request
    *
-   * @return object The merchant object
+   * @return object The returned object
    */
   public function request($method, $endpoint, $params = array()) {
 
@@ -149,8 +151,8 @@ class GoCardless_Client {
 
     }
 
-	// http://sandbox.gocardless.com | /api/v1 | /test
-	$url = $this->base_url . self::$api_path . $endpoint;
+    // http://sandbox.gocardless.com | /api/v1 | /test
+    $url = $this->base_url . self::$api_path . $endpoint;
 
     // Call the Request library (might be aliases for testing) with URL and params
     return call_user_func(GoCardless::getClass('Request').'::'.$method, $url, $params);
