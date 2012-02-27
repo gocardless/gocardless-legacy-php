@@ -77,7 +77,7 @@ class GoCardless_Merchant {
     $endpoint = self::$endpoint . '/' . $this->id . '/subscriptions';
 
     foreach ($this->client->request('get', $endpoint) as $value) {
-      $objects[] = new GoCardless_Subscriptions($this->client, $value);
+      $objects[] = new GoCardless_Subscription($this->client, $value);
     }
 
     return $objects;
@@ -114,7 +114,7 @@ class GoCardless_Merchant {
     $objects = array();
 
     foreach ($this->client->request('get', $endpoint, $params) as $value) {
-      $objects[] = new GoCardless_Users($this->client, $value);
+      $objects[] = new GoCardless_User($this->client, $value);
     }
 
     return $objects;
