@@ -441,6 +441,13 @@ class GoCardless_Client {
     if ( ! isset($limit_params['redirect_uri']) && isset($this)) {
       $limit_params['redirect_uri'] = $this->redirect_uri;
     }
+    
+    // Grab the state, if there is one, and remove it from
+    // the params so it doesn't get attached to the "type" object
+    if (isset($limit_params['state'])) {
+      $state = $limit_params['state'];
+      unset($limit_params['state']);
+    }
 
     // Add in merchant id
     $limit_params['merchant_id'] = $this->account_details['merchant_id'];
@@ -450,6 +457,11 @@ class GoCardless_Client {
 
     // Merge passed and mandatory params
     $request = array_merge($limit_params, $this->generate_mandatory_params());
+    
+    // Add in state, if applicable
+    if (isset($state)) {
+      $request['state'] = $state;
+    }
 
     // Generate signature
     $request['signature'] = GoCardless_Utils::generate_signature($request, $this->account_details['app_secret']);
