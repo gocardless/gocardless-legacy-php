@@ -47,14 +47,17 @@ $webhook = file_get_contents('php://input');
 //    }
 //}';
 
+// Convert json blog to array
 $webhook_array = json_decode($webhook, true);
 
-if (GoCardless::validate_webhook($webhook['payload'])) {
+// Validate webhook
+if (GoCardless::validate_webhook($webhook_array['payload'])) {
 
   header('HTTP/1.1 200 OK');
 
+  // Write webhook to a file for inspection
   $log = fopen("webhooks.txt", "a");
-  fwrite($log, print_r($webhook, TRUE)."\n\n");
+  fwrite($log, print_r($webhook_array, TRUE) . "\n\n");
   fclose($log);
 
 }
