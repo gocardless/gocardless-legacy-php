@@ -463,6 +463,13 @@ class GoCardless_Client {
       $request['redirect_uri'] = $this->redirect_uri;
     }
 
+    // Grab the state, if there is one, and remove it from
+    // the params so it doesn't get attached to the "type" object
+    if (isset($limit_params['state'])) {
+      $state = $limit_params['state'];
+      unset($limit_params['state']);
+    }
+
     // Create array of payment params
     $payment_params = array($type => $params);
 
