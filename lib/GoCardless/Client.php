@@ -430,26 +430,26 @@ class GoCardless_Client {
    * Generate a new payment url
    *
    * @param string $type Payment type
-   * @param string $limit_params The specific parameters for this payment
+   * @param string $params The specific parameters for this payment
    *
    * @return string The new payment URL
    */
-  private function new_limit_url($type, $limit_params) {
+  private function new_limit_url($type, $params) {
 
     // If no method-specific redirect submitted then
     // use class level if available
-    if ( ! isset($limit_params['redirect_uri']) && isset($this)) {
-      $limit_params['redirect_uri'] = $this->redirect_uri;
+    if ( ! isset($params['redirect_uri']) && isset($this)) {
+      $params['redirect_uri'] = $this->redirect_uri;
     }
 
     // Add in merchant id
-    $limit_params['merchant_id'] = $this->account_details['merchant_id'];
+    $params['merchant_id'] = $this->account_details['merchant_id'];
 
     // Add passed params to an array named by type
-    $limit_params = array($type => $limit_params);
+    $bill_params = array($type => $params);
 
     // Merge passed and mandatory params
-    $request = array_merge($limit_params, $this->generate_mandatory_params());
+    $request = array_merge($bill_params, $this->generate_mandatory_params());
 
     // Generate signature
     $request['signature'] = GoCardless_Utils::generate_signature($request, $this->account_details['app_secret']);
