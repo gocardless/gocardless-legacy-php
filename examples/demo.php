@@ -18,6 +18,9 @@ $account_details = array(
   'merchant_id'   => null,
   'access_token'  => null
 );
+if ( ! $account_details['app_id'] && ! $account_details['app_secret']) {
+  echo '<p>First sign up to <a href="http://gocardless.com">GoCardless</a> and copy your sandbox API credentials from the \'Developer\' tab into the top of this script.</p>';
+}
 // Initialize GoCardless
 GoCardless::set_account_details($account_details);
 
