@@ -343,7 +343,7 @@ class GoCardless_Client {
     $confirm_params['http_authorization'] = $this->account_details['app_id'] . ':' . $this->account_details['app_secret'];
 
     // If no method-specific redirect sent, use class level if available
-    if ( ! isset($params['redirect_uri']) && isset($this)) {
+    if ( ! isset($params['redirect_uri']) && isset($this->redirect_uri)) {
       $confirm_params['redirect_uri'] = $this->redirect_uri;
     }
 
@@ -441,8 +441,8 @@ class GoCardless_Client {
 
     // If no method-specific redirect submitted then
     // use class level if available
-    if ( ! isset($params['redirect_uri']) && isset($this)) {
-      $params['redirect_uri'] = $this->redirect_uri;
+    if ( ! isset($request['redirect_uri']) && isset($this->redirect_uri)) {
+      $request['redirect_uri'] = $this->redirect_uri;
     }
 
     // Add in merchant id
