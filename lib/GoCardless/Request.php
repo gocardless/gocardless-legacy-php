@@ -102,6 +102,9 @@ class GoCardless_Request {
     } elseif ($method == 'put') {
 
       $curl_options[CURLOPT_PUT] = 1;
+      $fh = fopen('php://memory', 'rw+');
+      $curl_options[CURLOPT_INFILE] = $fh;
+      $curl_options[CURLOPT_INFILESIZE] = 0;
 
     }
 
@@ -159,6 +162,10 @@ class GoCardless_Request {
     }
 
     curl_close($ch);
+
+  if (isset($fh)) {
+      fclose($fh);
+  }
 
     return json_decode($result, true);
   }
