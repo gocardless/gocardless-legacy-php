@@ -436,8 +436,26 @@ class GoCardless_Client {
    */
   private function new_limit_url($type, $params) {
 
-    // Declare empty array used in array_merge later
+    // Declare empty array
     $request = array();
+
+    // Add in merchant id
+    $params['merchant_id'] = $this->account_details['merchant_id'];
+
+    // Define optional parameters
+    $opt_params = array(
+      'redirect_uri',
+      'cancel_uri',
+      'state'
+    );
+
+    // Loop through optional parameters
+    foreach ($opt_params as $opt_param) {
+      if (isset($params[$opt_param])) {
+        $request[$opt_param] = $params[$opt_param];
+        unset($params[$opt_param]);
+      }
+    }
 
     // If no method-specific redirect submitted then
     // use class level if available
@@ -445,14 +463,11 @@ class GoCardless_Client {
       $request['redirect_uri'] = $this->redirect_uri;
     }
 
-    // Add in merchant id
-    $params['merchant_id'] = $this->account_details['merchant_id'];
+    // Create array of payment params
+    $payment_params = array($type => $params);
 
-    // Add passed params to an array named by type
-    $bill_params = array($type => $params);
-
-    // Merge passed and mandatory params
-    $request = array_merge($bill_params, $this->generate_mandatory_params());
+    // Put together all the bits: passed params inc payment params & mandatory
+    $request = array_merge($request, $payment_params, $this->generate_mandatory_params());
 
     // Generate signature
     $request['signature'] = GoCardless_Utils::generate_signature($request, $this->account_details['app_secret']);
