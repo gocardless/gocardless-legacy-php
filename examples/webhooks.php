@@ -53,11 +53,13 @@ $webhook_array = json_decode($webhook, true);
 // Validate webhook
 if (GoCardless::validate_webhook($webhook_array['payload'])) {
 
-  header('HTTP/1.1 200 OK');
-
   // Write webhook to a file for inspection
+  // You'll probably need to create this file and make it writable
   $log = fopen("webhooks.txt", "a");
   fwrite($log, print_r($webhook_array, TRUE) . "\n\n");
   fclose($log);
+
+  // Send a success header
+  header('HTTP/1.1 200 OK');
 
 }
