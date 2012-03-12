@@ -61,7 +61,7 @@ class GoCardless {
    * @param string $name The nickname of the class to load
    * @param object $class The class to load
    */
-  public function setClass($name, $class) {
+  public static function setClass($name, $class) {
 	  self::$classes[$name] = $class;
   }
 
@@ -72,7 +72,7 @@ class GoCardless {
    *
    * @return The loaded class
    */
-  public function getClass($name) {
+  public static function getClass($name) {
 	  return self::$classes[$name];
   }
 
