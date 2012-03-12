@@ -38,7 +38,9 @@ if (isset($_GET['resource_id']) && isset($_GET['resource_type'])) {
 
   $confirmed_resource = GoCardless::confirm_resource($confirm_params);
 
-  echo '<p>Payment confirmed!</p>';
+  echo '<p>Payment confirmed:<br /><pre>';
+  print_r($confirmed_resource);
+  echo '</pre></p>';
 
 }
 
@@ -85,15 +87,15 @@ echo 'NB. The \'new bill\' link is also a demo of pre-populated user data';
 
 echo '<h2>API calls</h2>';
 
-echo 'GoCardless_Merchant::find(\'258584\')';
+echo 'GoCardless_Merchant::find(\''.$account_details['merchant_id'].'\')';
 echo '<blockquote><pre>';
-$merchant = GoCardless_Merchant::find('258584');
+$merchant = GoCardless_Merchant::find($account_details['merchant_id']);
 print_r($merchant);
 echo '</pre></blockquote>';
 
-echo 'GoCardless_Merchant::find(\'258584\')->pre_authorizations()';
+echo 'GoCardless_Merchant::find(\''.$account_details['merchant_id'].'\')->pre_authorizations()';
 echo '<blockquote><pre>';
-$preauths = GoCardless_Merchant::find('258584')->pre_authorizations();
+$preauths = GoCardless_Merchant::find($account_details['merchant_id'])->pre_authorizations();
 print_r($preauths);
 echo '</pre></blockquote>';
 
