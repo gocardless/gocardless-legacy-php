@@ -143,7 +143,8 @@ class GoCardless_Request {
 
       $response = json_decode($result, true);
 
-      // Urgh
+      // Convert json blob API error messages into a readable string
+      // One layer of recursion due to arbitrary keys
       $message = '';
       if (is_array($response)) {
         foreach ($response as $key => $value) {
@@ -163,11 +164,12 @@ class GoCardless_Request {
 
     curl_close($ch);
 
-  if (isset($fh)) {
+    if (isset($fh)) {
       fclose($fh);
-  }
+    }
 
     return json_decode($result, true);
+
   }
 
 }
