@@ -102,13 +102,6 @@ $preauths = GoCardless_Merchant::find($account_details['merchant_id'])->pre_auth
 print_r($preauths);
 echo '</pre></blockquote>';
 
-
-echo 'validate webhook:';
-echo '<blockquote><pre>';
-$webhook_json = '{"payload":{"bills":[{"id":"880807"},{"status":"pending"},{"source_type":"subscription"},{"source_id":"21"},{"uri":"https:\/\/sandbox.gocardless.com\/api\/v1\/bills\/880807"}],"action":"created","resource_type":"bill","signature":"f25a611fb9afbc272ab369ead52109edd8a88cbb29a3a00903ffbce0ec6be5cb"}}';
-$webhook = json_decode($webhook_json, true);
-var_dump(GoCardless::validate_webhook($webhook['payload']));
-echo '</pre></blockquote>';
 // Create a pre-auth using the url generated above then fetch it's ID
 // using the query above. Now you can create bills within that pre-auth.
 //echo 'GoCardless_PreAuthorization::find(\'992869\')->create_bill($bill_details)';
