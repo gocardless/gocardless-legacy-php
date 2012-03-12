@@ -436,6 +436,9 @@ class GoCardless_Client {
    */
   private function new_limit_url($type, $params) {
 
+    // Declare empty array used in array_merge later
+    $request = array();
+
     // If no method-specific redirect submitted then
     // use class level if available
     if ( ! isset($params['redirect_uri']) && isset($this)) {
