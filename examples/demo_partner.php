@@ -38,8 +38,8 @@ GoCardless::$environment = 'sandbox';
 $account_details = array(
   'app_id'        => null,
   'app_secret'    => null,
-  'access_token'  => null,
-  'merchant_id'   => null
+//  'access_token'  => null,
+//  'merchant_id'   => null
 );
 
 // Fail nicely if no account details set
@@ -67,10 +67,10 @@ if (isset($_GET['code'])) {
   $token = $gocardless_client->fetch_access_token($params);
 
   $account_details = array(
-    'app_id'        => null,
-    'app_secret'    => null,
-    'access_token'  => null,
-    'merchant_id'   => null
+    'app_id'        => $account_details['app_id'],
+    'app_secret'    => $account_details['app_secret'],
+    'access_token'  => $token['access_token'],
+    'merchant_id'   => $token['merchant_id']
   );
 
   // Create new Client object
@@ -79,8 +79,8 @@ if (isset($_GET['code'])) {
   // Yay!
   echo '<p>Authorization successful!
   <br />Add the following to your database for this merchant
-  <br />Access token: '.$token['access_token'].'
-  <br />Merchant id: '.$token['merchant_id'].'</p>';
+  <br />Access token: '.$account_details['access_token'].'
+  <br />Merchant id: '.$account_details['merchant_id'].'</p>';
 
 }
 
