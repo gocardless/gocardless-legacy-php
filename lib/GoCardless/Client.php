@@ -162,13 +162,13 @@ class GoCardless_Client {
   /**
    * Fetch an access token for the current user
    *
-   * @param array $options The parameters to use
+   * @param array $params The parameters to use
    *
    * @return string The access token
    */
-  public function fetch_access_token($options) {
+  public function fetch_access_token($params) {
 
-    if ( ! isset($options['redirect_uri'])) {
+    if ( ! isset($params['redirect_uri'])) {
       throw new GoCardless_ArgumentsException('redirect_uri required');
     }
 
