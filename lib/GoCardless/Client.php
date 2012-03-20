@@ -140,13 +140,15 @@ class GoCardless_Client {
    */
   public function request($method, $endpoint, $params = array()) {
 
-    // If there is no http_authorization, try checking for access tokens
+    // If there is no http_authorization, try checking for access_token
     if ( ! isset($params['http_authorization'])) {
 
+      // No http_authorization and no access_token? Fail
       if ( ! isset($this->account_details['access_token'])) {
         throw new GoCardless_ClientException('Access token missing');
       }
 
+      // access_token found so set Authorization header to contain bearer
       $params['http_bearer'] = $this->account_details['access_token'];
 
     }
