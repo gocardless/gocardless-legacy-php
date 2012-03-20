@@ -1,8 +1,9 @@
 <?php
 
 /**
- * First create your partner application in the GoCardless sandbox:
- * https://sandbox.gocardless.com
+ * Sign up for an account at GoCardless.com
+ * Email help@gocardless.com to upgrade to a partner account
+ * Copy your app id and secret from the developer tab and paste them in below
  *
  * Then grab your application identifier and secret and paste them in below
  *

@@ -1,9 +1,7 @@
 <?php
 
-// First create your application in the GoCardless sandbox:
-// https://sandbox.gocardless.com
-// Then grab your application id and secret and paste them in below
-// You'll also need to to change the various ids throughout this demo
+// Sign up for an account at GoCardless.com
+// Copy your app id and secret from the developer tab and paste them in below
 
 // Include library
 include_once '../lib/GoCardless.php';
