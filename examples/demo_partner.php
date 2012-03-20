@@ -41,14 +41,17 @@ $account_details = array(
   'merchant_id'   => null
 );
 
+// Fail nicely if no account details set
 if ( ! $account_details['app_id'] && ! $account_details['app_secret']) {
   echo '<p>First sign up to <a href="http://gocardless.com">GoCardless</a> and copy your sandbox API credentials from the \'Developer\' tab into the top of this script.</p>';
   exit();
 }
 
+// Initalize new Client object
 $gocardless_client = new GoCardless_Client($account_details);
 
 if (isset($_GET['code'])) {
+  // Code being passed as a get var
 
   $params = array(
     'client_id'     => $account_details['app_id'],
@@ -67,8 +70,10 @@ if (isset($_GET['code'])) {
     'merchant_id'   => null
   );
 
+  // Create new Client object
   $gocardless_client = new GoCardless_Client($account_details);
 
+  // Yay!
   echo '<p>Authorization successful!
   <br />Add the following to your database for this merchant
   <br />Access token: '.$token['access_token'].'
@@ -77,7 +82,7 @@ if (isset($_GET['code'])) {
 }
 
 if (isset($account_details['access_token'])) {
-  // We have an access token
+  // We have an access token, run some API queries using our shiny new token
 
   echo '<h2>Partner authorization</h2>';
 
