@@ -76,7 +76,7 @@ if (isset($_GET['code'])) {
 
 }
 
-if ($account_details['access_token']) {
+if (isset($account_details['access_token'])) {
   // We have an access token
 
   echo '<h2>Partner authorization</h2>';
