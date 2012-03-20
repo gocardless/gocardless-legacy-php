@@ -5,28 +5,23 @@
  * Email help@gocardless.com to upgrade to a partner account
  * Copy your app id and secret from the developer tab and paste them in below
  *
- * Then grab your application identifier and secret and paste them in below
+ * Load the page and use the 'authorize app' link to generate an access_token
  *
- * Now test the 'authorize app' link which will generate an access_token
- *
- * Save access_token and merchant_id in your database against the current user
- * And use them to initialize GoCardless for that user
- *
- * NB. You can then paste in access_token and merchant_id below for testing
- * And you may want to replace the ids in the various API calls too.
+ * Now you can initialize a Client object using that access_token
+ * You'll probably want to save the access_token in your database too
  *
  *
- * This page then does the following:
+ * This page does the following:
  *
  *  1. Generates an authorize link
- *  2. Generates an access_token from the retured $_GET['code']
- *  3. Instantiates a new GoCardless_Client object
- *  4. Fetch the current merchant's details
- *  5. Fetch the current merchant's pre-authorizations
- *  6. Create a bill under a pre-authorizations
- *  7. Repeat steps 4 and 5 with a new GoCardless_Client object
+ *  2. Generates an access_token (using $_GET['code'])
+ *  3. Instantiates a Client object
+ *  4. Fetches the current merchant's details
+ *  5. Fetches the current merchant's pre-authorizations
+ *  6. Creates a bill under a pre-authorizations
+ *  7. Repeats steps 4 and 5 with a different Client object
  *
-*/
+ */
 
 // Include library
 include_once '../lib/GoCardless.php';
