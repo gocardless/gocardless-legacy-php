@@ -73,8 +73,9 @@ if (isset($_GET['code'])) {
 
   // Yay!
   echo '<p>Authorization successful!
-  <br />Copy and paste this access token into the code to continue testing the
-  partner demo. In your own app, you\'ll want to save it to your database.
+  <br />Copy and paste this access token into the top of the code for this
+  page to continue testing the partner demo. In your own app, you\'ll want to
+  save it to your database.
   <br />Access token: '.$account_details['access_token'].'
   <br />Merchant id: '.$account_details['merchant_id'].'</p>';
 
@@ -118,10 +119,11 @@ if (isset($account_details['access_token'])) {
   );
 
   // Fail nicely if no second set of account details
-  if ($account_details['access_token'] == null
-    || $account_details['app_secret'] == null) {
-    echo '<p>To fully test partner mode, create a second merchant account and
-      paste the details into the second $account_details array.</p>';
+  if (!isset($account_details['merchant_id'])
+    || !isset($account_details['access_token'])) {
+    echo '<p>To fully test partner mode, authorize a second merchant account
+    and paste the merchant_id access_token into the $account_details for
+    $gocardless_client2.</p>';
     exit();
   }
 
