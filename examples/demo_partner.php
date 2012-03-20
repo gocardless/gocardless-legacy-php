@@ -73,7 +73,8 @@ if (isset($_GET['code'])) {
 
   // Yay!
   echo '<p>Authorization successful!
-  <br />Add the following to your database for this merchant
+  <br />Copy and paste this access token into the code to continue testing the
+  partner demo. In your own app, you\'ll want to save it to your database.
   <br />Access token: '.$account_details['access_token'].'
   <br />Merchant id: '.$account_details['merchant_id'].'</p>';
 
@@ -98,22 +99,31 @@ if (isset($account_details['access_token'])) {
   print_r($preauths);
   echo '</pre></blockquote>';
 
-  echo '$gocardless_client->create_bill($pre_auth_details)';
-  echo '<blockquote><pre>';
-  $pre_auth_details = array(
-    'pre_authorization_id'  => '014PS77JW3',
-    'amount'                => '5.00'
-  );
-  $bill = $gocardless_client->create_bill($pre_auth_details);
-  print_r($bill);
-  echo '</pre></blockquote>';
+  //echo '$gocardless_client->create_bill($pre_auth_details)';
+  //echo '<blockquote><pre>';
+  //$pre_auth_details = array(
+  //  'pre_authorization_id'  => '014PS77JW3',
+  //  'amount'                => '5.00'
+  //);
+  //$bill = $gocardless_client->create_bill($pre_auth_details);
+  //print_r($bill);
+  //echo '</pre></blockquote>';
 
+  // Instantiate a second client object, just as an experiment
   $account_details = array(
     'app_id'        => $account_details['app_id'],
     'app_secret'    => $account_details['app_secret'],
     'merchant_id'   => null,
     'access_token'  => null
   );
+
+  // Fail nicely if no second set of account details
+  if ($account_details['access_token'] == null
+    || $account_details['app_secret'] == null) {
+    echo '<p>To fully test partner mode, create a second merchant account and
+      paste the details into the second $account_details array.</p>';
+    exit();
+  }
 
   $gocardless_client2 = new GoCardless_Client($account_details);
 
