@@ -33,8 +33,8 @@ GoCardless::$environment = 'sandbox';
 $account_details = array(
   'app_id'        => null,
   'app_secret'    => null,
-//  'access_token'  => null,
-//  'merchant_id'   => null
+//  'merchant_id'   => null,
+//  'access_token'  => null
 );
 
 // Fail nicely if no account details set
@@ -109,10 +109,10 @@ if (isset($account_details['access_token'])) {
   echo '</pre></blockquote>';
 
   $account_details = array(
-    'app_id'        => null,
-    'app_secret'    => null,
-    'access_token'  => null,
-    'merchant_id'   => null
+    'app_id'        => $account_details['app_id'],
+    'app_secret'    => $account_details['app_secret'],
+    'merchant_id'   => null,
+    'access_token'  => null
   );
 
   $gocardless_client2 = new GoCardless_Client($account_details);
