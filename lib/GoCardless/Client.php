@@ -151,8 +151,17 @@ class GoCardless_Client {
 
     }
 
-    // http://sandbox.gocardless.com | /api/v1 | /test
-    $url = $this->base_url . self::$api_path . $endpoint;
+    if (substr($endpoint, 0, 6) == '/oauth') {
+
+      // OAuth API calls don't require /api/v1 base
+      $url = $this->base_url . $endpoint;
+
+    } else {
+
+      // http://sandbox.gocardless.com | /api/v1 | /test
+      $url = $this->base_url . self::$api_path . $endpoint;
+
+    }
 
     // Call the Request library (might be aliases for testing) with URL and params
     return call_user_func(GoCardless::getClass('Request').'::'.$method, $url, $params);
