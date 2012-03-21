@@ -1,12 +1,10 @@
 <?php
 
-// First create your application in the GoCardless sandbox:
-// https://sandbox.gocardless.com
-// Then grab your application id and secret and paste them in below
-// You'll also need to to change the various ids throughout this demo
+// Sign up for an account at GoCardless.com
+// Copy your app id and secret from the developer tab and paste them in below
 
 // Include library
-include_once '../lib/gocardless.php';
+include_once '../lib/GoCardless.php';
 
 // Sandbox
 GoCardless::$environment = 'sandbox';
@@ -18,6 +16,15 @@ $account_details = array(
   'merchant_id'   => null,
   'access_token'  => null
 );
+
+// Fail nicely if no account details set
+if ( ! $account_details['app_id'] && ! $account_details['app_secret']) {
+  echo '<p>First sign up to <a href="http://gocardless.com">GoCardless</a> and
+copy your sandbox API credentials from the \'Developer\' tab into the top of
+this script.</p>';
+  exit();
+}
+
 // Initialize GoCardless
 GoCardless::set_account_details($account_details);
 
@@ -38,7 +45,9 @@ if (isset($_GET['resource_id']) && isset($_GET['resource_type'])) {
 
   $confirmed_resource = GoCardless::confirm_resource($confirm_params);
 
-  echo '<p>Payment confirmed!</p>';
+  echo '<p>Payment confirmed:<br /><pre>';
+  print_r($confirmed_resource);
+  echo '</pre></p>';
 
 }
 
@@ -58,7 +67,7 @@ echo '<p><a href="'.$subscription_url.'">New subscription</a>';
 // New pre-authorization
 
 $payment_details = array(
-  'max_amount'      => '20.00',
+  'max_amount'      => '100.00',
   'interval_length' => 1,
   'interval_unit'   => 'month'
 );
@@ -85,33 +94,44 @@ echo 'NB. The \'new bill\' link is also a demo of pre-populated user data';
 
 echo '<h2>API calls</h2>';
 
-echo 'GoCardless_Merchant::find(\'258584\')';
+echo 'GoCardless_Merchant::find(\''.$account_details['merchant_id'].'\')';
 echo '<blockquote><pre>';
-$merchant = GoCardless_Merchant::find('258584');
+$merchant = GoCardless_Merchant::find($account_details['merchant_id']);
 print_r($merchant);
 echo '</pre></blockquote>';
 
-echo 'GoCardless_Merchant::find(\'258584\')->pre_authorizations()';
+echo 'GoCardless_Merchant::find(\''.$account_details['merchant_id'].'\')->pre_authorizations()';
 echo '<blockquote><pre>';
-$preauths = GoCardless_Merchant::find('258584')->pre_authorizations();
+$preauths = GoCardless_Merchant::find($account_details['merchant_id'])->pre_authorizations();
 print_r($preauths);
 echo '</pre></blockquote>';
 
-echo 'GoCardless_PreAuthorization::find(\'992869\')->create_bill($bill_details)';
+// Create a pre-auth using the url generated above then fetch it's ID
+// using the query above. Now you can create bills within that pre-auth
+// like this:
+
+//echo 'GoCardless_PreAuthorization::find(\'992869\')->create_bill($bill_details)';
+//echo '<blockquote><pre>';
+//$pre_auth = GoCardless_PreAuthorization::find('013M018V0K');
+//$bill_details = array(
+//  'amount'  => '5.00'
+//);
+//$bill = $pre_auth->create_bill($bill_details);
+//print_r($bill);
+//echo '</pre></blockquote>';
+
+echo 'GoCardless_Merchant::find(\''.$account_details['merchant_id'].'\')->subscriptions()';
 echo '<blockquote><pre>';
-$pre_auth = GoCardless_PreAuthorization::find('013M018V0K');
-$bill_details = array(
-  'amount'  => '15.00'
-);
-$bill = $pre_auth->create_bill($bill_details);
-print_r($bill);
+$preauths = GoCardless_Merchant::find($account_details['merchant_id'])->subscriptions();
+print_r($preauths);
 echo '</pre></blockquote>';
 
-echo 'validate webhook:';
-echo '<blockquote><pre>';
-$webhook_json = '{"payload":{"bills":[{"id":"880807"},{"status":"pending"},{"source_type":"subscription"},{"source_id":"21"},{"uri":"https:\/\/sandbox.gocardless.com\/api\/v1\/bills\/880807"}],"action":"created","resource_type":"bill","signature":"f25a611fb9afbc272ab369ead52109edd8a88cbb29a3a00903ffbce0ec6be5cb"}}';
-$webhook = json_decode($webhook_json, true);
-var_dump(GoCardless::validate_webhook($webhook['payload']));
-echo '</pre></blockquote>';
+// Create a subscription using the url generated above then fetch it's ID
+// using the query above. Now you can cancel subscriptions using the
+// following:
 
-?>
+//echo 'GoCardless_Subscription::find('01BXN6FKSP')->cancel()';
+//echo '<blockquote><pre>';
+//$sub = GoCardless_Subscription::find('01BXN6FKSP')->cancel();
+//print_r($sub);
+//echo '</pre></blockquote>';

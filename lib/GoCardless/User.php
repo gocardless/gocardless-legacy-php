@@ -27,13 +27,15 @@ class GoCardless_User {
    *
    * @return object The user object
    */
-  function __construct($client, $attrs) {
+  function __construct($client, array $attrs = null) {
 
     $this->client = $client;
 
-    foreach ($attrs as $key => $value) {
-      $this->$key = $value;
-    }
+	  if (is_array($attrs)) {
+    	foreach ($attrs as $key => $value) {
+	      $this->$key = $value;
+	    }
+	  }
 
   }
 
@@ -48,7 +50,7 @@ class GoCardless_User {
 
     $endpoint = self::$endpoint . '/' . $id;
 
-    return new self(GoCardless::$client, GoCardless::$client->api_get($endpoint));
+    return new self(GoCardless::$client, GoCardless::$client->request('get', $endpoint));
 
   }
 
@@ -64,10 +66,8 @@ class GoCardless_User {
 
     $endpoint = self::$endpoint . '/' . $id;
 
-    return new self($client, $client->api_get($endpoint));
+    return new self($client, $client->request('get', $endpoint));
 
   }
 
 }
-
-?>

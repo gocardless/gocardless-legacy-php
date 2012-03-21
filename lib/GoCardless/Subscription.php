@@ -27,13 +27,15 @@ class GoCardless_Subscription {
    *
    * @return object The subscription object
    */
-  function __construct($client, $attrs) {
+  function __construct($client, array $attrs = null) {
 
     $this->client = $client;
 
-    foreach ($attrs as $key => $value) {
-      $this->$key = $value;
-    }
+	  if (is_array($attrs)) {
+    	foreach ($attrs as $key => $value) {
+	      $this->$key = $value;
+	    }
+	  }
 
   }
 
@@ -48,7 +50,7 @@ class GoCardless_Subscription {
 
     $endpoint = self::$endpoint . '/' . $id;
 
-    return new self(GoCardless::$client, GoCardless::$client->api_get($endpoint));
+    return new self(GoCardless::$client, GoCardless::$client->request('get', $endpoint));
 
   }
 
@@ -64,7 +66,7 @@ class GoCardless_Subscription {
 
     $endpoint = self::$endpoint . '/' . $id;
 
-    return new self($client, $client->api_get($endpoint));
+    return new self($client, $client->request('get', $endpoint));
 
   }
 
@@ -77,10 +79,8 @@ class GoCardless_Subscription {
 
     $endpoint = self::$endpoint . '/' . $this->id . '/cancel';
 
-    return new self($this->client, $this->client->api_put($endpoint));
+    return new self($this->client, $this->client->request('put', $endpoint));
 
   }
 
 }
-
-?>

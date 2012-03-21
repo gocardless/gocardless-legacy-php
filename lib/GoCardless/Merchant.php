@@ -27,12 +27,14 @@ class GoCardless_Merchant {
    *
    * @return object The merchant object
    */
-  function __construct($client, $attrs) {
+  function __construct($client, array $attrs = null) {
 
     $this->client = $client;
 
-    foreach ($attrs as $key => $value) {
-      $this->$key = $value;
+	  if (is_array($attrs)) {
+    	foreach ($attrs as $key => $value) {
+	      $this->$key = $value;
+	    }
     }
 
   }
@@ -46,9 +48,9 @@ class GoCardless_Merchant {
    */
   public static function find($id) {
 
-    $endpoint = self::$endpoint . '/' . $id;
+    $client = GoCardless::$client;
 
-    return new self(GoCardless::$client, GoCardless::$client->api_get($endpoint));
+	  return new self($client, $client->request('get', self::$endpoint . '/' . $id));
 
   }
 
@@ -62,9 +64,7 @@ class GoCardless_Merchant {
    */
   public static function find_with_client($client, $id) {
 
-    $endpoint = self::$endpoint . '/' . $id;
-
-    return new self($client, $client->api_get($endpoint));
+    return new self($client, $client->request('get', self::$endpoint . '/' . $id));
 
   }
 
@@ -79,12 +79,11 @@ class GoCardless_Merchant {
 
     $endpoint = self::$endpoint . '/' . $this->id . '/subscriptions';
 
-    foreach ($this->client->api_get($endpoint) as $value) {
+    foreach ($this->client->request('get', $endpoint) as $value) {
       $objects[] = new GoCardless_Subscription($this->client, $value);
     }
 
     return $objects;
-
   }
 
   /**
@@ -98,7 +97,7 @@ class GoCardless_Merchant {
 
     $objects = array();
 
-    foreach ($this->client->api_get($endpoint) as $value) {
+    foreach ($this->client->request('get', $endpoint) as $value) {
       $objects[] = new GoCardless_PreAuthorization($this->client, $value);
     }
 
@@ -117,7 +116,7 @@ class GoCardless_Merchant {
 
     $objects = array();
 
-    foreach (GoCardless::$client->api_get($endpoint) as $value) {
+    foreach ($this->client->request('get', $endpoint, $params) as $value) {
       $objects[] = new GoCardless_User($this->client, $value);
     }
 
@@ -136,7 +135,7 @@ class GoCardless_Merchant {
 
     $objects = array();
 
-    foreach ($this->client->api_get($endpoint) as $value) {
+    foreach ($this->client->request('get', $endpoint, $params) as $value) {
       $objects[] = new GoCardless_Bill($this->client, $value);
     }
 
@@ -145,5 +144,3 @@ class GoCardless_Merchant {
   }
 
 }
-
-?>

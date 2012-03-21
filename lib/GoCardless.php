@@ -6,22 +6,17 @@
  * @package GoCardless
  */
 
-if (!function_exists('curl_init')) {
+if ( ! function_exists('curl_init')) {
   throw new Exception('GoCardless needs the CURL PHP extension.');
 }
-if (!function_exists('json_decode')) {
+if ( ! function_exists('json_decode')) {
   throw new Exception('GoCardless needs the JSON PHP extension.');
 }
 
-// Include subclasses
-require 'gocardless/utils.php';
-require 'gocardless/exceptions.php';
-require 'gocardless/bill.php';
-require 'gocardless/user.php';
-require 'gocardless/client.php';
-require 'gocardless/merchant.php';
-require 'gocardless/subscription.php';
-require 'gocardless/pre_authorization.php';
+// Autoload sub-classes
+spl_autoload_register(array('GoCardless', 'autoload'));
+
+require 'GoCardless/Exceptions.php';
 
 /**
  * GoCardless class
@@ -29,12 +24,17 @@ require 'gocardless/pre_authorization.php';
  */
 class GoCardless {
 
-  const VERSION = '0.1.1';
+  /**
+   * The environment: sandbox or live
+   *
+   * @var constant VERSION
+   */
+  const VERSION = '0.2.0';
 
   /**
    * The environment: sandbox or live
    *
-   * @var array $environment
+   * @var string $environment
    */
   public static $environment;
 
@@ -46,9 +46,51 @@ class GoCardless {
   public static $client;
 
   /**
+   * Class References
+   * Help map references to static classes for use in mocking
+   *
+   * @var array $classes
+   */
+  protected static $classes = array(
+  	'Request' => 'GoCardless_Request',
+  );
+
+  /**
+   * Set the class to use
+   *
+   * @param string $name The nickname of the class to load
+   * @param object $class The class to load
+   */
+  public static function setClass($name, $class) {
+	  self::$classes[$name] = $class;
+  }
+
+  /**
+   * Get the class to use
+   *
+   * @param string $name The nickname of the class to get
+   *
+   * @return The loaded class
+   */
+  public static function getClass($name) {
+	  return self::$classes[$name];
+  }
+
+  /**
+   * Autoload sub-classes
+   *
+   * @param string $class Name of the class to load
+   */
+  public static function autoload($class) {
+    if (strpos($class, 'GoCardless') === 0) {
+      require str_replace('_', '/', $class).'.php';
+    }
+  }
+
+  /**
    * Initialization function called with account details
    *
-   * @param $account_details array Array of account details
+   * @param array $account_details Array of account details
    */
   public static function set_account_details($account_details) {
     GoCardless::$client = new GoCardless_Client($account_details);
@@ -110,5 +152,3 @@ class GoCardless {
   }
 
 }
-
-?>

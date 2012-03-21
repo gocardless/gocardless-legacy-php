@@ -27,13 +27,15 @@ class GoCardless_PreAuthorization {
    *
    * @return object The pre-auth object
    */
-  function __construct($client, $attrs) {
+  function __construct($client, array $attrs = null) {
 
     $this->client = $client;
 
-    foreach ($attrs as $key => $value) {
-      $this->$key = $value;
-    }
+	  if (is_array($attrs)) {
+	    foreach ($attrs as $key => $value) {
+	      $this->$key = $value;
+	    }
+	  }
 
   }
 
@@ -48,7 +50,7 @@ class GoCardless_PreAuthorization {
 
     $endpoint = self::$endpoint . '/' . $id;
 
-    return new self(GoCardless::$client, GoCardless::$client->api_get($endpoint));
+    return new self(GoCardless::$client, GoCardless::$client->request('get', $endpoint));
 
   }
 
@@ -64,7 +66,7 @@ class GoCardless_PreAuthorization {
 
     $endpoint = self::$endpoint . '/' . $id;
 
-    return new self($client, $client->api_get($endpoint));
+    return new self($client, GoCardless::$client->request('get', $endpoint));
 
   }
 
@@ -77,7 +79,7 @@ class GoCardless_PreAuthorization {
    */
   public function create_bill($attrs) {
 
-    if(!isset($attrs['amount'])) {
+    if ( ! isset($attrs['amount'])) {
       throw new GoCardless_ArgumentsException('Amount required');
     }
 
@@ -98,7 +100,7 @@ class GoCardless_PreAuthorization {
 
     $endpoint = GoCardless_Bill::$endpoint;
 
-    return new GoCardless_Bill($this->client, $this->client->api_post($endpoint, $params));
+    return new GoCardless_Bill($this->client, $this->client->request('post', $endpoint));
 
   }
 
@@ -111,10 +113,8 @@ class GoCardless_PreAuthorization {
 
     $endpoint = self::$endpoint . '/' . $this->id . '/cancel';
 
-    return new self($this->client, $this->client->api_put($endpoint));
+    return new self($this->client, $this->client->request('put', $endpoint));
 
   }
 
 }
-
-?>
