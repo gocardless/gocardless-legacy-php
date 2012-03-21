@@ -29,7 +29,7 @@ class GoCardless {
    *
    * @var constant VERSION
    */
-  const VERSION = '0.1.1';
+  const VERSION = '0.2.0';
 
   /**
    * The environment: sandbox or live
