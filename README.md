@@ -26,7 +26,7 @@ $ curl -L https://github.com/downloads/gocardless/gocardless-php/gocardless-php-
 
 #### Download the Zip
 
-[Click here](https://github.com/downloads/gocardless/gocardless-php/gocardless-php-v0.2.0.zip)
+[Click here](https://github.com/downloads/gocardless/gocardless-php/gocardless-php-v0.2.0.tgz)
 to download the zip file.
 
 #### Installing with Composer
