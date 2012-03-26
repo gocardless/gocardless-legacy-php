@@ -51,7 +51,9 @@ class GoCardless_Bill {
 
     $endpoint = self::$endpoint . '/' . $id;
 
-    $client or $client = parent::$client;
+    if ($client == null) {
+      $client = GoCardless::$client;
+    }
 
     return new self($client, $client->request('get', $endpoint));
 
