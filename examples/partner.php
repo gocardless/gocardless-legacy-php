@@ -54,7 +54,7 @@ if (isset($_GET['code'])) {
   $params = array(
     'client_id'     => $account_details['app_id'],
     'code'          => $_GET['code'],
-    'redirect_uri'  => 'http://localhost/examples/demo_partner.php',
+    'redirect_uri'  => 'http://localhost/examples/partner.php',
     'grant_type'    => 'authorization_code'
   );
 
@@ -146,7 +146,7 @@ if (isset($account_details['access_token'])) {
 
   echo '<h2>Partner authorization</h2>';
   $authorize_url_options = array(
-    'redirect_uri' => 'http://localhost/examples/demo_partner.php'
+    'redirect_uri' => 'http://localhost/examples/partner.php'
   );
   $authorize_url = $gocardless_client->authorize_url($authorize_url_options);
   echo '<p><a href="'.$authorize_url.'">Authorize app</a></p>';
