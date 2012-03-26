@@ -139,9 +139,7 @@ class Test_Client extends PHPUnit_Framework_TestCase {
 		// Static dependency injection
 		GoCardless::setClass('Request', get_class($stub));
 
-		// Set up the expectation for the update() method
-		// to be called only once and with the string 'something'
-		// as its parameter.
+		// Set up the expectation for the post() method to be called
 		$stub->staticExpects($this->once())
 			->method('post')
 			->with($this->matchesRegularExpression('#/oauth/access_token#'));
@@ -222,7 +220,6 @@ class Test_Client extends PHPUnit_Framework_TestCase {
   */
 	public function testApiUrlFormation() {
 
-		// Assign as a method for the next test
 		GoCardless::set_account_details($this->config);
 
 		// Create a mock for the get method of GoCardless_Request
@@ -231,9 +228,7 @@ class Test_Client extends PHPUnit_Framework_TestCase {
 		// Static dependency injection
 		GoCardless::setClass('Request', get_class($stub));
 
-		// Set up the expectation for the update() method
-		// to be called only once and with the string 'something'
-		// as its parameter.
+		// Set up the expectation for the get() method to be called
 		$stub->staticExpects($this->once())
 			->method('get')
 			->with($this->matchesRegularExpression('#api/v1/#'));
@@ -250,12 +245,11 @@ class Test_Client extends PHPUnit_Framework_TestCase {
 	 */
 	public function testApiGetFailsWithoutAccessToken() {
 
-		// Remove the access token from config
 		$config = $this->config;
 
+		// Remove the access token from config
 		unset($config['access_token']);
 
-		// Assign as a method for the next test
 		GoCardless::set_account_details($config);
 
 		// Create a mock for the get method of GoCardless_Request

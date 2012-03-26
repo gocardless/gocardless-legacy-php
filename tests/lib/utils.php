@@ -20,11 +20,7 @@ class Test_Utils extends PHPUnit_Framework_TestCase {
 	 */
 	public function testGenerateSignature() {
 
-		// Remove the access token from config
-		$config = $this->config;
-
-		// Assign as a method for the next test
-		GoCardless::set_account_details($config);
+		GoCardless::set_account_details($this->config);
 
 		$payment_details = array(
 		  'amount'          => '10.00',

@@ -19,9 +19,7 @@ class Test_Merchant extends PHPUnit_Framework_TestCase {
 	 */
 	public function testLookupMerchant() {
 
-		$config = $this->config;
-
-		GoCardless::set_account_details($config);
+		GoCardless::set_account_details($this->config);
 
 		// Create a mock for the get method of GoCardless_Request
 		$stub = $this->getMock('GoCardless_Request', array('get'));
