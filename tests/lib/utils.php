@@ -32,6 +32,7 @@ class Test_Utils extends PHPUnit_Framework_TestCase {
 
 		// Check against a pre-built hash
 		$this->assertEquals('889b12a1aa31ca4c804d8554d4991fccc2d6d269bca4a20ecde6ef0cc20abc9c', $sig);
+
 	}
 
 }

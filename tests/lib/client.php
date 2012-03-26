@@ -233,7 +233,7 @@ class Test_Client extends PHPUnit_Framework_TestCase {
 			->method('get')
 			->with($this->matchesRegularExpression('#api/v1/#'));
 
-		// Call Merchant class, knowning it will use our mock to request
+		// Call Merchant class, knowing it will use our mock to request
 		GoCardless_Merchant::find('123');
 
 	}
@@ -258,7 +258,7 @@ class Test_Client extends PHPUnit_Framework_TestCase {
 		// Static dependency injection
 		GoCardless::setClass('Request', get_class($stub));
 
-		// Call Merchant class, knowning it will use our mock to request
+		// Call Merchant class, knowing it will use our mock to request
 		GoCardless_Merchant::find('123');
 
 	}

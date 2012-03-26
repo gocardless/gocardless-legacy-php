@@ -34,7 +34,7 @@ class Test_Merchant extends PHPUnit_Framework_TestCase {
 			->method('get')
 			->with($this->equalTo($merchant_url));
 
-		// Call Merchant class, knowning it will throw an exception
+    // Call Merchant class, knowing it will throw an exception
 		GoCardless_Merchant::find('123');
 
 	}
