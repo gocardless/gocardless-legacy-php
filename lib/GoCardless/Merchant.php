@@ -50,7 +50,8 @@ class GoCardless_Merchant {
 
     $client = GoCardless::$client;
 
-	  return new self($client, $client->request('get', self::$endpoint . '/' . $id));
+	  return new self($client, $client->request('get', self::$endpoint . '/' .
+	    $id));
 
   }
 
@@ -64,7 +65,8 @@ class GoCardless_Merchant {
    */
   public static function find_with_client($client, $id) {
 
-    return new self($client, $client->request('get', self::$endpoint . '/' . $id));
+    return new self($client, $client->request('get', self::$endpoint . '/' .
+      $id));
 
   }
 

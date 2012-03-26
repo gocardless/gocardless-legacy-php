@@ -50,7 +50,8 @@ class GoCardless_Subscription {
 
     $endpoint = self::$endpoint . '/' . $id;
 
-    return new self(GoCardless::$client, GoCardless::$client->request('get', $endpoint));
+    return new self(GoCardless::$client, GoCardless::$client->request('get',
+      $endpoint));
 
   }
 

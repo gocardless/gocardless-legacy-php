@@ -86,7 +86,8 @@ class GoCardless_Bill {
 
     $params['http_authorization'] = true;
 
-    return new self($this->client, $this->client->request('post', $endpoint, $params));
+    return new self($this->client, $this->client->request('post', $endpoint,
+      $params));
 
   }
 

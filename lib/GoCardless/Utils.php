@@ -22,7 +22,8 @@ class GoCardless_Utils {
    */
   public static function generate_signature($params, $key) {
 
-    return hash_hmac('sha256', GoCardless_Utils::generate_query_string($params), $key);
+    return hash_hmac('sha256',
+      GoCardless_Utils::generate_query_string($params), $key);
 
   }
 
@@ -35,16 +36,19 @@ class GoCardless_Utils {
    *
    * @return string An encoded string of parameters
    */
-  public static function generate_query_string($params, &$pairs = array(), $namespace = null) {
+  public static function generate_query_string($params, &$pairs = array(),
+    $namespace = null) {
 
     if (is_array($params)) {
 
       foreach ($params as $k => $v) {
 
         if (is_int($k)) {
-          GoCardless_Utils::generate_query_string($v, $pairs, $namespace . '[]');
+          GoCardless_Utils::generate_query_string($v, $pairs, $namespace .
+            '[]');
         } else {
-          GoCardless_Utils::generate_query_string($v, $pairs, $namespace !== null ? $namespace . "[$k]" : $k);
+          GoCardless_Utils::generate_query_string($v, $pairs,
+            $namespace !== null ? $namespace . "[$k]" : $k);
         }
 
       }

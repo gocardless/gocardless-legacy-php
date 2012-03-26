@@ -81,7 +81,6 @@ class GoCardless_Client {
     if (isset($account_details['base_url'])) {
       $this->base_url = $account_details['base_url'];
       unset($account_details['base_url']);
-
     } else {
       // Otherwise set it based on environment
       $this->base_url = self::$base_urls[GoCardless::$environment];
@@ -165,8 +164,9 @@ class GoCardless_Client {
 
     }
 
-    // Call the Request library (might be aliases for testing) with URL and params
-    return call_user_func(GoCardless::getClass('Request').'::'.$method, $url, $params);
+    // Call Request class (might be aliased for testing) with URL & params
+    return call_user_func(GoCardless::getClass('Request').'::'.$method, $url,
+      $params);
 
   }
 
@@ -183,7 +183,8 @@ class GoCardless_Client {
       throw new GoCardless_ArgumentsException('redirect_uri required');
     }
 
-    $params['http_authorization'] = $this->account_details['app_id'] . ':' . $this->account_details['app_secret'];
+    $params['http_authorization'] = $this->account_details['app_id'] . ':' .
+      $this->account_details['app_secret'];
 
     $response = $this->request('post', '/oauth/access_token', $params);
 
@@ -351,7 +352,8 @@ class GoCardless_Client {
     );
 
     // Use HTTP Basic Authorization
-    $confirm_params['http_authorization'] = $this->account_details['app_id'] . ':' . $this->account_details['app_secret'];
+    $confirm_params['http_authorization'] = $this->account_details['app_id']
+      . ':' . $this->account_details['app_secret'];
 
     // If no method-specific redirect sent, use class level if available
     if ( ! isset($params['redirect_uri']) && isset($this->redirect_uri)) {
@@ -363,13 +365,15 @@ class GoCardless_Client {
 
     if ($response['success'] == true) {
 
-      $endpoint = '/' . $params['resource_type'] . 's/' . $params['resource_id'];
+      $endpoint = '/' . $params['resource_type'] . 's/' .
+        $params['resource_id'];
 
       return $this->request('get', $endpoint, $params);
 
     } else {
 
-      throw new GoCardless_ClientException('Failed to fetch the confirmed resource.');
+      throw new GoCardless_ClientException('Failed to fetch the confirmed
+        resource.');
 
     }
 
@@ -412,7 +416,8 @@ class GoCardless_Client {
    */
   public function validate_signature($params) {
 
-    $new_sig = GoCardless_Utils::generate_signature($params['data'], $params['secret']);
+    $new_sig = GoCardless_Utils::generate_signature($params['data'],
+      $params['secret']);
 
     return ($new_sig === $params['signature']);
 
@@ -485,10 +490,12 @@ class GoCardless_Client {
     $payment_params = array($type => $params);
 
     // Put together all the bits: passed params inc payment params & mandatory
-    $request = array_merge($request, $payment_params, $this->generate_mandatory_params());
+    $request = array_merge($request, $payment_params,
+      $this->generate_mandatory_params());
 
     // Generate signature
-    $request['signature'] = GoCardless_Utils::generate_signature($request, $this->account_details['app_secret']);
+    $request['signature'] = GoCardless_Utils::generate_signature($request,
+      $this->account_details['app_secret']);
 
     // Generate query string from all parameters
     $query_string = GoCardless_Utils::generate_query_string($request);

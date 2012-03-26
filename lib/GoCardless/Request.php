@@ -82,7 +82,8 @@ class GoCardless_Request {
         throw new GoCardless_ClientException('Access token missing');
       }
 
-      $curl_options[CURLOPT_HTTPHEADER][] = 'Authorization: Bearer ' . $params['http_bearer'];
+      $curl_options[CURLOPT_HTTPHEADER][] = 'Authorization: Bearer ' .
+        $params['http_bearer'];
       unset($params['http_bearer']);
 
     }
@@ -92,7 +93,8 @@ class GoCardless_Request {
       $curl_options[CURLOPT_POST] = 1;
 
       if (isset($params)) {
-        $curl_options[CURLOPT_POSTFIELDS] = http_build_query($params, null, '&');
+        $curl_options[CURLOPT_POSTFIELDS] = http_build_query($params, null,
+          '&');
       }
 
     } elseif ($method == 'get') {
