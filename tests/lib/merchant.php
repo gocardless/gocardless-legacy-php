@@ -10,15 +10,15 @@ class Test_Merchant extends PHPUnit_Framework_TestCase {
 			'access_token'	=> 'foo',
 		);
 
-		// Set the environment to TEST
 		GoCardless::$environment = 'sandbox';
+
 	}
 
 	/**
 	 * Fails without an access_token
 	 */
-	public function testLookupMerchant()
-	{
+	public function testLookupMerchant() {
+
 		// Remove the access token from config
 		$config = $this->config;
 
@@ -41,6 +41,7 @@ class Test_Merchant extends PHPUnit_Framework_TestCase {
 
 		// Call Merchant class, knowning it will throw an exception
 		GoCardless_Merchant::find('123');
+
 	}
 
 }

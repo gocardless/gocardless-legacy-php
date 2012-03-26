@@ -10,54 +10,57 @@ class Test_Client extends PHPUnit_Framework_TestCase {
 			'access_token'	=> 'foo',
 		);
 
-		// Set the environment to TEST
 		GoCardless::$environment = 'sandbox';
+
 	}
 
-	// Porting tests from client.rb
-
 	/**
-	 * Base URL is set correctly for Sandbox
+	 * base_url correct in sandbox
 	 */
 	public function testBaseUrlInSandbox() {
 
 		$client = new GoCardless_Client($this->config);
 
 		$this->assertEquals('https://sandbox.gocardless.com', $client->base_url);
+
 	}
 
 	/**
-	 * Base URL is set correctly for Production
+	 * base_url correct in production
 	 */
 	public function testBaseUrlInProduction() {
 
-		// Set the environment to TEST
+		// Set environment to production
 		GoCardless::$environment = 'production';
 
 		$client = new GoCardless_Client($this->config);
 
 		$this->assertEquals('https://gocardless.com', $client->base_url);
 
-		// Set the environment to TEST
+		// Set environment back to sandbox for remaining tests
 		GoCardless::$environment = 'sandbox';
+
 	}
 
 	/**
-	 * Ensure custom base_url's can be set
+	 * Ensure custom base_url can be set
 	 */
 	public function testBaseUrlSetManually() {
 
 		$config = $this->config;
 
+		// Set custo base_url
 		$config['base_url'] = 'https://abc.gocardless.com';
 
 		$client = new GoCardless_Client($config);
 
 		$this->assertEquals('https://abc.gocardless.com', $client->base_url);
+
 	}
 
 	/**
-	 * Test if an exception is thrown when app_id is missing from Client
+	 * Test if an exception is thrown when app_id is not passed to Client
+	 *
 	 * @expectedException GoCardless_ClientException
 	 */
 	public function testNoAppIdError() {
@@ -66,10 +69,12 @@ class Test_Client extends PHPUnit_Framework_TestCase {
 		unset($config['app_id']);
 
 		new GoCardless_Client($config);
+
 	}
 
 	/**
-	 * Test if an exception is thrown when app_secret is missing from Client
+	 * Test if an exception is thrown when app_secret is not passed to Client
+	 *
 	 * @expectedException GoCardless_ClientException
 	 */
 	public function testNoAppSecretError() {
@@ -78,10 +83,13 @@ class Test_Client extends PHPUnit_Framework_TestCase {
 		unset($config['app_secret']);
 
 		new GoCardless_Client($config);
+
 	}
 
 	/**
-	 * Test if an exception is thrown when redirect_uri is missing Client
+	 * Test if an exception is thrown when redirect_uri is not passed to
+	 * authorize_url
+	 *
 	 * @expectedException GoCardless_ArgumentsException
 	 */
 	public function testNoRedirectUriError() {
@@ -90,6 +98,7 @@ class Test_Client extends PHPUnit_Framework_TestCase {
 		$client = new GoCardless_Client($this->config);
 
 		$client->authorize_url();
+
 	}
 
 	/**
@@ -109,18 +118,19 @@ class Test_Client extends PHPUnit_Framework_TestCase {
 		parse_str($parts['query'], $params);
 
 		$this->assertEquals($params['response_type'], 'code');
-	    $this->assertEquals($params['redirect_uri'], $redirect_uri);
-	    $this->assertEquals($params['client_id'], $this->config['app_id']);
+	  $this->assertEquals($params['redirect_uri'], $redirect_uri);
+	  $this->assertEquals($params['client_id'], $this->config['app_id']);
+
 	}
 
 	/**
-	 * Test that Access Tokens are requests with the right arguments
+	 * Test that fetch_access_token works with correct arguments
 	 */
 	public function testFetchAccessTokenArguments() {
 
 		$client = new GoCardless_Client(array(
-		  'app_id'        => 'EuHqvzOJfD9NFSACSK8Q0ZfpwpmbyQao4NdYbgi0IidwlQQ_HzIgdrVZsjRUosNc',
-		  'app_secret'    => 'KNa1GoyIKFwcNN_OVdN8D5ykZQkfnCVIyHCFBdP_iXquB7_O7WaZRTWRLhPGsCBQ',
+		  'app_id'        => '123',
+		  'app_secret'    => 'abc',
 		));
 
 		// Create a Mock Object for the Observer class
@@ -141,12 +151,13 @@ class Test_Client extends PHPUnit_Framework_TestCase {
 		$token = $client->fetch_access_token(array(
 			'client_id'     => $this->config['app_id'],
 			'code'          => 'fakecode',
-			'redirect_uri'  => 'http://localhost/examples/demo_partner.php',
+			'redirect_uri'  => 'http://localhost/examples/partner.php',
 			'grant_type'    => 'authorization_code'
 		));
 
 		$this->arrayHasKey($token, 'access_token');
 		$this->arrayHasKey($token, 'merchant_id');
+
 	}
 
 /*
@@ -207,8 +218,11 @@ class Test_Client extends PHPUnit_Framework_TestCase {
 
 	*/
 
-	public function testApiUrlFormation()
-	{
+  /**
+  * Ensure API url is set up correctly
+  */
+	public function testApiUrlFormation() {
+
 		// Assign as a method for the next test
 		GoCardless::set_account_details($this->config);
 
@@ -228,14 +242,16 @@ class Test_Client extends PHPUnit_Framework_TestCase {
 
 		// Call Merchant class, knowning it will use our mock to request
 		GoCardless_Merchant::find('123');
+
 	}
 
 	/**
 	 * GET requests without an access_token
+	 *
 	 * @expectedException GoCardless_ClientException
 	 */
-	public function testApiGetFailsWithoutAccessToken()
-	{
+	public function testApiGetFailsWithoutAccessToken() {
+
 		// Remove the access token from config
 		$config = $this->config;
 
@@ -253,14 +269,16 @@ class Test_Client extends PHPUnit_Framework_TestCase {
 
 		// Call Merchant class, knowning it will use our mock to request
 		GoCardless_Merchant::find('123');
+
 	}
 
 	/**
 	 * PO requests without an access_token
+	 *
 	 * @expectedException GoCardless_ClientException
 	 */
-	public function testApiPostFailsWithoutAccessToken()
-	{
+	public function testApiPostFailsWithoutAccessToken() {
+
 		// Remove the access token from config
 		$config = $this->config;
 
@@ -277,10 +295,10 @@ class Test_Client extends PHPUnit_Framework_TestCase {
 		GoCardless::setClass('Request', get_class($stub));
 
 		$bill = GoCardless::$client->create_bill(array(
-		    'pre_authorization_id'  => '014PS77JW3',
+		  'pre_authorization_id'  => '014PS77JW3',
 			'amount'                => '5.00'
 		));
-    }
 
+  }
 
 }

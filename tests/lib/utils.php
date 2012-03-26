@@ -11,15 +11,15 @@ class Test_Utils extends PHPUnit_Framework_TestCase {
 			'merchant_id'	=> '123',
 		);
 
-		// Set the environment to TEST
 		GoCardless::$environment = 'sandbox';
+
 	}
 
 	/**
 	 * Check the signature is being generated correctly
 	 */
-	public function testGenerateSignature()
-	{
+	public function testGenerateSignature() {
+
 		// Remove the access token from config
 		$config = $this->config;
 
