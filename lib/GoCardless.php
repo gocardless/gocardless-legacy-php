@@ -52,7 +52,7 @@ class GoCardless {
    * @var array $classes
    */
   protected static $classes = array(
-  	'Request' => 'GoCardless_Request',
+    'Request' => 'GoCardless_Request',
   );
 
   /**
@@ -62,7 +62,7 @@ class GoCardless {
    * @param object $class The class to load
    */
   public static function setClass($name, $class) {
-	  self::$classes[$name] = $class;
+    self::$classes[$name] = $class;
   }
 
   /**
@@ -73,7 +73,7 @@ class GoCardless {
    * @return The loaded class
    */
   public static function getClass($name) {
-	  return self::$classes[$name];
+    return self::$classes[$name];
   }
 
   /**

@@ -104,10 +104,10 @@ class GoCardless_Client {
     $endpoint = '/oauth/authorize';
 
     return $this->base_url . $endpoint .
-        '?client_id='. urlencode($this->account_details['app_id']) .
-        '&redirect_uri=' . urlencode($options['redirect_uri']) .
-        '&scope=manage_merchant' .
-        '&response_type=code';
+      '?client_id='. urlencode($this->account_details['app_id']) .
+      '&redirect_uri=' . urlencode($options['redirect_uri']) .
+      '&scope=manage_merchant' .
+      '&response_type=code';
 
   }
 
