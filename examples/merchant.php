@@ -61,7 +61,7 @@ $payment_details = array(
 );
 
 $bill_url = GoCardless::new_bill_url($payment_details);
-echo ' &middot; <a href="'.$bill_url.'">New bill</a></p>';
+echo '<p><a href="'.$bill_url.'">New bill</a>';
 
 // New subscription
 
@@ -72,7 +72,7 @@ $payment_details = array(
 );
 
 $subscription_url = GoCardless::new_subscription_url($payment_details);
-echo '<p><a href="'.$subscription_url.'">New subscription</a>';
+echo '&middot; <a href="'.$subscription_url.'">New subscription</a>';
 
 // New pre-authorization
 
@@ -88,10 +88,10 @@ $payment_details = array(
 );
 
 $pre_auth_url = GoCardless::new_pre_authorization_url($payment_details);
-echo ' &middot; <a href="'.$pre_auth_url.'">New pre-authorized payment</a>';
+echo ' &middot; <a href="'.$pre_auth_url.'">New pre-authorized payment</a></p>';
 
-echo 'NB. The \'new pre-authorization\' link is also a demo of pre-populated
-user data';
+echo '<p>NB. The \'new pre-authorization\' link is also a demo of pre-populated
+user data.</p>';
 
 echo '<h2>API calls</h2>';
 
