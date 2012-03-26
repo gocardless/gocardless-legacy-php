@@ -19,14 +19,11 @@ class Test_Merchant extends PHPUnit_Framework_TestCase {
 	 */
 	public function testLookupMerchant() {
 
-		// Remove the access token from config
 		$config = $this->config;
 
-		// Assign as a method for the next test
 		GoCardless::set_account_details($config);
 
-		// Create a Mock Object for the Observer class
-		// mocking only the update() method.
+		// Create a mock for the get method of GoCardless_Request
 		$stub = $this->getMock('GoCardless_Request', array('get'));
 
 		// Static dependency injection

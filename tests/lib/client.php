@@ -133,8 +133,7 @@ class Test_Client extends PHPUnit_Framework_TestCase {
 		  'app_secret'    => 'abc',
 		));
 
-		// Create a Mock Object for the Observer class
-		// mocking only the update() method.
+		// Create a mock for the post method of GoCardless_Request
 		$stub = $this->getMock('GoCardless_Request', array('post'));
 
 		// Static dependency injection
@@ -226,8 +225,7 @@ class Test_Client extends PHPUnit_Framework_TestCase {
 		// Assign as a method for the next test
 		GoCardless::set_account_details($this->config);
 
-		// Create a Mock Object for the Observer class
-		// mocking only the update() method.
+		// Create a mock for the get method of GoCardless_Request
 		$stub = $this->getMock('GoCardless_Request', array('get'));
 
 		// Static dependency injection
@@ -246,7 +244,7 @@ class Test_Client extends PHPUnit_Framework_TestCase {
 	}
 
 	/**
-	 * GET requests without an access_token
+	 * Get requests without an access_token should fail
 	 *
 	 * @expectedException GoCardless_ClientException
 	 */
@@ -260,8 +258,7 @@ class Test_Client extends PHPUnit_Framework_TestCase {
 		// Assign as a method for the next test
 		GoCardless::set_account_details($config);
 
-		// Create a Mock Object for the Observer class
-		// mocking only the update() method.
+		// Create a mock for the get method of GoCardless_Request
 		$stub = $this->getMock('GoCardless_Request', array('get'));
 
 		// Static dependency injection
@@ -273,29 +270,27 @@ class Test_Client extends PHPUnit_Framework_TestCase {
 	}
 
 	/**
-	 * PO requests without an access_token
+	 * Post requests without an access_token should fail
 	 *
 	 * @expectedException GoCardless_ClientException
 	 */
 	public function testApiPostFailsWithoutAccessToken() {
 
-		// Remove the access token from config
 		$config = $this->config;
 
+		// Remove access_token from config vars
 		unset($config['access_token']);
 
-		// Assign as a method for the next test
 		GoCardless::set_account_details($config);
 
-		// Create a Mock Object for the Observer class
-		// mocking only the update() method.
+		// Create a mock for the post method of GoCardless_Request
 		$stub = $this->getMock('GoCardless_Request', array('post'));
 
 		// Static dependency injection
 		GoCardless::setClass('Request', get_class($stub));
 
 		$bill = GoCardless::$client->create_bill(array(
-		  'pre_authorization_id'  => '014PS77JW3',
+		  'pre_authorization_id'  => '123',
 			'amount'                => '5.00'
 		));
 
