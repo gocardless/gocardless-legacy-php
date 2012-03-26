@@ -53,6 +53,16 @@ if (isset($_GET['resource_id']) && isset($_GET['resource_type'])) {
 
 echo '<h2>New payment URLs</h2>';
 
+// New bill
+
+$payment_details = array(
+  'amount'  => '30.00',
+  'name'    => 'Donation'
+);
+
+$bill_url = GoCardless::new_bill_url($payment_details);
+echo ' &middot; <a href="'.$bill_url.'">New bill</a></p>';
+
 // New subscription
 
 $payment_details = array(
@@ -69,17 +79,7 @@ echo '<p><a href="'.$subscription_url.'">New subscription</a>';
 $payment_details = array(
   'max_amount'      => '100.00',
   'interval_length' => 1,
-  'interval_unit'   => 'month'
-);
-
-$pre_auth_url = GoCardless::new_pre_authorization_url($payment_details);
-echo ' &middot; <a href="'.$pre_auth_url.'">New pre-authorized payment</a>';
-
-// New bill
-
-$payment_details = array(
-  'amount'  => '30.00',
-  'name'    => 'Donation',
+  'interval_unit'   => 'month',
   'user'    => array(
     'first_name'  => 'Tom',
     'last_name'   => 'Blomfield',
@@ -87,10 +87,11 @@ $payment_details = array(
     )
 );
 
-$bill_url = GoCardless::new_bill_url($payment_details);
-echo ' &middot; <a href="'.$bill_url.'">New bill</a></p>';
+$pre_auth_url = GoCardless::new_pre_authorization_url($payment_details);
+echo ' &middot; <a href="'.$pre_auth_url.'">New pre-authorized payment</a>';
 
-echo 'NB. The \'new bill\' link is also a demo of pre-populated user data';
+echo 'NB. The \'new pre-authorization\' link is also a demo of pre-populated
+user data';
 
 echo '<h2>API calls</h2>';
 
