@@ -9,7 +9,7 @@ class Test_Client extends PHPUnit_Framework_TestCase {
 			'app_secret'	=> 'xyz',
 			'access_token'	=> 'foo',
 		);
-		
+
 		// Set the environment to TEST
 		GoCardless::$environment = 'sandbox';
 	}
@@ -37,7 +37,7 @@ class Test_Client extends PHPUnit_Framework_TestCase {
 		$client = new GoCardless_Client($this->config);
 
 		$this->assertEquals('https://gocardless.com', $client->base_url);
-		
+
 		// Set the environment to TEST
 		GoCardless::$environment = 'sandbox';
 	}
@@ -122,7 +122,7 @@ class Test_Client extends PHPUnit_Framework_TestCase {
 		  'app_id'        => 'EuHqvzOJfD9NFSACSK8Q0ZfpwpmbyQao4NdYbgi0IidwlQQ_HzIgdrVZsjRUosNc',
 		  'app_secret'    => 'KNa1GoyIKFwcNN_OVdN8D5ykZQkfnCVIyHCFBdP_iXquB7_O7WaZRTWRLhPGsCBQ',
 		));
-		
+
 		// Create a Mock Object for the Observer class
 		// mocking only the update() method.
 		$stub = $this->getMock('GoCardless_Request', array('post'));
@@ -136,7 +136,7 @@ class Test_Client extends PHPUnit_Framework_TestCase {
 		$stub->staticExpects($this->once())
 			->method('post')
 			->with($this->matchesRegularExpression('#/oauth/access_token#'));
-			
+
 		// Fetching token returns merchant_id and access_token
 		$token = $client->fetch_access_token(array(
 			'client_id'     => $this->config['app_id'],
@@ -144,15 +144,15 @@ class Test_Client extends PHPUnit_Framework_TestCase {
 			'redirect_uri'  => 'http://localhost/examples/demo_partner.php',
 			'grant_type'    => 'authorization_code'
 		));
-		
+
 		$this->arrayHasKey($token, 'access_token');
 		$this->arrayHasKey($token, 'merchant_id');
 	}
-	
+
 /*
-  
+
   describe "#fetch_access_token" do
-  
+
       it "sets @access_token" do
         access_token = mock
         access_token.stubs(:params).returns('scope' => '')
@@ -254,7 +254,7 @@ class Test_Client extends PHPUnit_Framework_TestCase {
 		// Call Merchant class, knowning it will use our mock to request
 		GoCardless_Merchant::find('123');
 	}
-	
+
 	/**
 	 * PO requests without an access_token
 	 * @expectedException GoCardless_ClientException
@@ -279,7 +279,7 @@ class Test_Client extends PHPUnit_Framework_TestCase {
 		$bill = GoCardless::$client->create_bill(array(
 		    'pre_authorization_id'  => '014PS77JW3',
 			'amount'                => '5.00'
-		));	
+		));
     }
 
 
