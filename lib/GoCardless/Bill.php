@@ -67,7 +67,7 @@ class GoCardless_Bill {
    *
    * @return object The bill object
    */
-  public function find_with_client($client, $id) {
+  public static function find_with_client($client, $id) {
 
     $endpoint = self::$endpoint . '/' . $id;
 
