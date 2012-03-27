@@ -4,24 +4,27 @@ class Test_GoCardless extends PHPUnit_Framework_TestCase {
 
 	public function setUp() {
 
-
+		$this->config = array(
+			'app_id'		=> 'abc',
+			'app_secret'	=> 'xyz',
+			'access_token'	=> 'foo',
+		);
 
 	}
 
+	/**
+	 * Test that set_account_details creates an instance of client
+	 */
+	public function testSetAccountDetailsCreatesClient() {
 
-	public function testAccountDetails()
-	{
+    // Use sandbox
+    GoCardless::$environment = 'sandbox';
+
 		// Initialize GoCardless
-		GoCardless::set_account_details(array(
-		  'app_id'        => 'X',
-		  'app_secret'    => 'X',
-		  'merchant_id'   => 1,
-		  'access_token'  => 'X',
-		));
+		GoCardless::set_account_details($this->config);
 
-		$class = get_class(GoCardless::$client);
+		$this->assertInstanceOf('GoCardless_Client', GoCardless::$client);
 
-		$this->assertEquals('GoCardless_Client', $class);
 	}
 
 /*
