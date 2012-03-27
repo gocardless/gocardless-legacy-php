@@ -27,30 +27,36 @@ class Test_GoCardless extends PHPUnit_Framework_TestCase {
 
 	}
 
-/*
-    it "gets upset if the token is missing" do
-      expect {
-        subject.account_details = @details.merge(:token => nil)
-      }.to raise_exception GoCardless::ClientError
-    end
-  end
+	/**
+	 * Test that set_account_details fails without an app id
+	 *
+	 * @expectedException GoCardless_ClientException
+	 */
+	public function testSetAccountDetailsFailsWithoutAppId() {
 
+		$config = $this->config;
 
-  describe "delegated methods" do
-    %w(new_subscription_url new_pre_authorization_url new_bill_url confirm_resource webhook_valid?).each do |name|
-      it "#{name} delegates to @client" do
-        subject.account_details = @details
-        subject.instance_variable_get(:@client).expects(name.to_sym)
-        subject.send(name)
-      end
+		// Remove the access token from config
+		unset($config['app_id']);
 
-      it "raises an exception if the account details aren't set" do
-        expect {
-          subject.send(name)
-        }.to raise_exception GoCardless::ClientError
-      end
-    end
-  end
-*/
+		GoCardless::set_account_details($config);
+
+	}
+
+	/**
+	 * Test that set_account_details fails without an app secret
+	 *
+	 * @expectedException GoCardless_ClientException
+	 */
+	public function testSetAccountDetailsFailsWithoutAppSecret() {
+
+		$config = $this->config;
+
+		// Remove the access token from config
+		unset($config['app_secret']);
+
+		GoCardless::set_account_details($config);
+
+	}
 
 }
