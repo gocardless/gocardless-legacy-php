@@ -10,16 +10,15 @@ class Test_Merchant extends PHPUnit_Framework_TestCase {
 			'access_token'	=> 'foo',
 		);
 
-		GoCardless::$environment = 'sandbox';
+    GoCardless::$environment = 'sandbox';
+	  GoCardless::set_account_details($this->config);
 
 	}
 
 	/**
-	 * Fails without an access_token
+	 * Test that find generates the correct url
 	 */
-	public function testLookupMerchant() {
-
-		GoCardless::set_account_details($this->config);
+	public function testFind() {
 
 		// Create a mock for the get method of GoCardless_Request
 		$stub = $this->getMock('GoCardless_Request', array('get'));
@@ -36,6 +35,23 @@ class Test_Merchant extends PHPUnit_Framework_TestCase {
 
     // Call Merchant class, knowing it will throw an exception
 		GoCardless_Merchant::find('123');
+
+	}
+
+	/**
+	 * Test that find_with_client returns the correct object
+	 */
+	public function testFindWithClientInstantiatesCorrectObject() {
+
+		// Create a mock for the GET method of GoCardless_Request
+		$stub = $this->getMock('GoCardless_Request', array('get'));
+
+		// Static dependency injection
+		GoCardless::setClass('Request', get_class($stub));
+
+    $bill = GoCardless_Merchant::find_with_client(GoCardless::$client, '123');
+
+    $this->assertInstanceOf('GoCardless_Merchant', $bill);
 
 	}
 

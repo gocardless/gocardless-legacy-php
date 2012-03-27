@@ -1,17 +1,17 @@
 <?php
 
-class Test_Bill extends PHPUnit_Framework_TestCase {
+class Test_PreAuthorization extends PHPUnit_Framework_TestCase {
 
 	public function setUp() {
 
-    $this->config = array(
+		$this->config = array(
       'app_id'		=> 'abc',
       'app_secret'	=> 'xyz',
       'access_token'  => 'foo'
-    );
+		);
 
     GoCardless::$environment = 'sandbox';
-    GoCardless::set_account_details($this->config);
+	  GoCardless::set_account_details($this->config);
 
 	}
 
@@ -27,14 +27,14 @@ class Test_Bill extends PHPUnit_Framework_TestCase {
 		GoCardless::setClass('Request', get_class($stub));
 
 		// Expected URL
-		$merchant_url = GoCardless::$client->base_url . '/api/v1/merchants/123';
+		$preauthorization_url = GoCardless::$client->base_url . '/api/v1/pre_authorizations/123';
 
 		$stub->staticExpects($this->once())
 			->method('get')
-			->with($this->equalTo($merchant_url));
+			->with($this->equalTo($preauthorization_url));
 
-    // Call Merchant class, knowing it will throw an exception
-		GoCardless_Merchant::find('123');
+    // Call PreAuthorization class, knowing it will throw an exception
+		GoCardless_PreAuthorization::find('123');
 
 	}
 
@@ -49,9 +49,9 @@ class Test_Bill extends PHPUnit_Framework_TestCase {
 		// Static dependency injection
 		GoCardless::setClass('Request', get_class($stub));
 
-    $bill = GoCardless_Bill::find_with_client(GoCardless::$client, '123');
+    $bill = GoCardless_PreAuthorization::find_with_client(GoCardless::$client, '123');
 
-    $this->assertInstanceOf('GoCardless_Bill', $bill);
+    $this->assertInstanceOf('GoCardless_PreAuthorization', $bill);
 
 	}
 
