@@ -49,9 +49,14 @@ class Test_Subscription extends PHPUnit_Framework_TestCase {
 		// Static dependency injection
 		GoCardless::setClass('Request', get_class($stub));
 
+		$stub->staticExpects($this->any())
+			->method('get')
+			->will($this->returnValue(array('id' => '123')));
+
     $subscription = GoCardless_Subscription::find_with_client(GoCardless::$client, '123');
 
     $this->assertInstanceOf('GoCardless_Subscription', $subscription);
+    $this->assertEquals('123', $subscription->id);
 
 	}
 

@@ -48,9 +48,14 @@ class Test_Merchant extends PHPUnit_Framework_TestCase {
 		// Static dependency injection
 		GoCardless::setClass('Request', get_class($stub));
 
+		$stub->staticExpects($this->any())
+			->method('get')
+			->will($this->returnValue(array('id' => '123')));
+
     $merchant = GoCardless_Merchant::find_with_client(GoCardless::$client, '123');
 
     $this->assertInstanceOf('GoCardless_Merchant', $merchant);
+    $this->assertEquals('123', $merchant->id);
 
 	}
 
