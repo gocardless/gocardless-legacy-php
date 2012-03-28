@@ -14,7 +14,7 @@
     "email": "dave@gocardless.com",
     "homepage": "https://gocardless.com/"
   }],
-  "version": "0.2.0",
+  "version": "0.2.1",
   "require": {
       "php": ">= 5.2.0"
   },
