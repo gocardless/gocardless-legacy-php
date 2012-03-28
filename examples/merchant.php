@@ -72,7 +72,7 @@ $payment_details = array(
 );
 
 $subscription_url = GoCardless::new_subscription_url($payment_details);
-echo '&middot; <a href="'.$subscription_url.'">New subscription</a>';
+echo ' &middot; <a href="'.$subscription_url.'">New subscription</a>';
 
 // New pre-authorization
 
