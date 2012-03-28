@@ -49,9 +49,9 @@ class Test_PreAuthorization extends PHPUnit_Framework_TestCase {
 		// Static dependency injection
 		GoCardless::setClass('Request', get_class($stub));
 
-    $bill = GoCardless_PreAuthorization::find_with_client(GoCardless::$client, '123');
+    $preauth = GoCardless_PreAuthorization::find_with_client(GoCardless::$client, '123');
 
-    $this->assertInstanceOf('GoCardless_PreAuthorization', $bill);
+    $this->assertInstanceOf('GoCardless_PreAuthorization', $preauth);
 
 	}
 

@@ -66,8 +66,10 @@ class Test_Client extends PHPUnit_Framework_TestCase {
 	public function testNoAppIdError() {
 
 		$config = $this->config;
+
 		unset($config['app_id']);
 
+    // Instantiate new Client knowing it will throw an exception
 		new GoCardless_Client($config);
 
 	}
@@ -80,8 +82,10 @@ class Test_Client extends PHPUnit_Framework_TestCase {
 	public function testNoAppSecretError() {
 
 		$config = $this->config;
+
 		unset($config['app_secret']);
 
+    // Instantiate new Client knowing it will throw an exception
 		new GoCardless_Client($config);
 
 	}
@@ -94,9 +98,9 @@ class Test_Client extends PHPUnit_Framework_TestCase {
 	 */
 	public function testNoRedirectUriError() {
 
-		// Assign as a method for the next test
 		$client = new GoCardless_Client($this->config);
 
+    // Call authorize_url() knowing it will throw an exception
 		$client->authorize_url();
 
 	}
@@ -258,7 +262,7 @@ class Test_Client extends PHPUnit_Framework_TestCase {
 		// Static dependency injection
 		GoCardless::setClass('Request', get_class($stub));
 
-		// Call Merchant class, knowing it will use our mock to request
+		// Call Merchant class, knowing it will throw an exception
 		GoCardless_Merchant::find('123');
 
 	}
@@ -283,6 +287,7 @@ class Test_Client extends PHPUnit_Framework_TestCase {
 		// Static dependency injection
 		GoCardless::setClass('Request', get_class($stub));
 
+    // Call create_bill() knowing it will throw an exception
 		$bill = GoCardless::$client->create_bill(array(
 		  'pre_authorization_id'  => '123',
 			'amount'                => '5.00'

@@ -33,7 +33,6 @@ class Test_Merchant extends PHPUnit_Framework_TestCase {
 			->method('get')
 			->with($this->equalTo($merchant_url));
 
-    // Call Merchant class, knowing it will throw an exception
 		GoCardless_Merchant::find('123');
 
 	}
@@ -49,9 +48,9 @@ class Test_Merchant extends PHPUnit_Framework_TestCase {
 		// Static dependency injection
 		GoCardless::setClass('Request', get_class($stub));
 
-    $bill = GoCardless_Merchant::find_with_client(GoCardless::$client, '123');
+    $merchant = GoCardless_Merchant::find_with_client(GoCardless::$client, '123');
 
-    $this->assertInstanceOf('GoCardless_Merchant', $bill);
+    $this->assertInstanceOf('GoCardless_Merchant', $merchant);
 
 	}
 
