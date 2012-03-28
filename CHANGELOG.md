@@ -1,3 +1,11 @@
+## 0.2.1 - March 28, 2012
+
+- Fix for find method in Bill class
+- Fix for bills method in Merchant class
+- Removed PHPSpec
+- Added more PHPUnit tests
+
+
 ## 0.2.0 - March 21, 2012
 
 - Fixed cancelling subscriptions
