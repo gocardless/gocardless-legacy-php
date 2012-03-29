@@ -374,4 +374,36 @@ class Test_Client extends PHPUnit_Framework_TestCase {
 
 	}
 
+	/**
+  * Test validate_webhook returns false if sig is invalid
+  */
+	public function testValidateWebhookReturnsFalseIfInvalid() {
+
+    GoCardless::set_account_details($this->config);
+
+    $result = GoCardless::$client->validate_webhook(array(
+      'some'      => 'stuff',
+      'signature' => 'fail',
+    ));
+
+    $this->assertFalse($result);
+
+	}
+
+	/**
+  * Test validate_webhook returns true if sig is valid
+  */
+	public function testValidateWebhookReturnsTrueIfValid() {
+
+    GoCardless::set_account_details($this->config);
+
+    $result = GoCardless::$client->validate_webhook(array(
+      'some'      => 'stuff',
+      'signature' => '175e814f0f64e5e86d41fb8fe06a857cedda715a96d3dc3d885e6d97dbeb7e49',
+    ));
+
+    $this->assertTrue($result);
+
+	}
+
 }
