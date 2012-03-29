@@ -125,9 +125,9 @@ class Test_Client extends PHPUnit_Framework_TestCase {
 		$parts = parse_url($url);
 		parse_str($parts['query'], $params);
 
-		$this->assertEquals($params['response_type'], 'code');
-	  $this->assertEquals($params['redirect_uri'], $redirect_uri);
-	  $this->assertEquals($params['client_id'], $this->config['app_id']);
+		$this->assertEquals('code', $params['response_type']);
+	  $this->assertEquals($redirect_uri, $params['redirect_uri']);
+	  $this->assertEquals($this->config['app_id'], $params['client_id']);
 
 	}
 
