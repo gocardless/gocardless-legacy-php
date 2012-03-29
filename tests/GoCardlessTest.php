@@ -5,9 +5,10 @@ class Test_GoCardless extends PHPUnit_Framework_TestCase {
 	public function setUp() {
 
 		$this->config = array(
-			'app_id'		=> 'abc',
-			'app_secret'	=> 'xyz',
-			'access_token'	=> 'foo',
+			'app_id'        => 'abc',
+			'app_secret'    => 'xyz',
+			'access_token'  => 'foo',
+			'merchant_id'   => 'bar',
 		);
 
 	}
