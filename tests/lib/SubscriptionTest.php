@@ -43,7 +43,7 @@ class Test_Subscription extends PHPUnit_Framework_TestCase {
 	 */
 	public function testFindWithClientInstantiatesCorrectObject() {
 
-		// Create a mock for the GET method of GoCardless_Request
+		// Create a mock for the get method of GoCardless_Request
 		$stub = $this->getMock('GoCardless_Request', array('get'));
 
 		// Static dependency injection
