@@ -450,7 +450,7 @@ class GoCardless_Client {
    *
    * @return string The new payment URL
    */
-  private function new_limit_url($type, $params) {
+  public function new_limit_url($type, $params) {
 
     // $params are passed in
     // Optional $params are saved in $request and removed from $params
