@@ -405,8 +405,6 @@ class GoCardless_Client {
 
   }
 
-  // Sign params
-
   /**
    * Confirm whether a signature is valid
    *
