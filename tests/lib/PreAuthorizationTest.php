@@ -60,6 +60,46 @@ class Test_PreAuthorization extends PHPUnit_Framework_TestCase {
 	}
 
 	/**
+	 * Tests creating bills under a preauth
+	 */
+	public function testCreateBill() {
+
+    // Create a mock for the get method of GoCardless_Request
+    $get_stub = $this->getMock('GoCardless_Request', array('get'));
+
+    // Static dependency injection
+    GoCardless::setClass('Request', get_class($get_stub));
+
+    // Test finding a pre-authorization uses get
+		$get_stub->staticExpects($this->once())
+			->method('get')
+			->will($this->returnValue(array('id' => '123')));
+
+    // Load a mock pre-authorization
+    $preauth = GoCardless_PreAuthorization::find('123');
+
+    // Create a mock for the post method of GoCardless_Request
+    $put_stub = $this->getMock('GoCardless_Request', array('post'));
+
+    // Static dependency injection
+    GoCardless::setClass('Request', get_class($put_stub));
+
+    // Test that create bill uses post
+		$put_stub->staticExpects($this->once())
+			->method('post')
+			->will($this->returnValue(array('id' => '123')));
+
+    // Call the preauth->cancel() method
+    $result = $preauth->create_bill(array(
+      'amount' => '10'
+    ));
+
+    // Test that create bill returns a bill object
+    $this->assertInstanceOf('GoCardless_Bill', $result);
+
+	}
+
+	/**
 	 * Tests for preauth->cancel
 	 */
 	public function testCancel() {
