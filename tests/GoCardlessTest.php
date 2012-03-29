@@ -36,7 +36,7 @@ class Test_GoCardless extends PHPUnit_Framework_TestCase {
 
 		$config = $this->config;
 
-		// Remove the access token from config
+		// Remove app_id from config
 		unset($config['app_id']);
 
     // Call set_account_details() knowing it will throw an exception
@@ -53,7 +53,7 @@ class Test_GoCardless extends PHPUnit_Framework_TestCase {
 
 		$config = $this->config;
 
-		// Remove the access token from config
+		// Remove app_secret from config
 		unset($config['app_secret']);
 
     // Call set_account_details() knowing it will throw an exception

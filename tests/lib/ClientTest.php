@@ -49,7 +49,7 @@ class Test_Client extends PHPUnit_Framework_TestCase {
 
 		$config = $this->config;
 
-		// Set custo base_url
+		// Set custom base_url
 		$config['base_url'] = 'https://abc.gocardless.com';
 
 		$client = new GoCardless_Client($config);
@@ -67,6 +67,7 @@ class Test_Client extends PHPUnit_Framework_TestCase {
 
 		$config = $this->config;
 
+		// Remove app_id from config
 		unset($config['app_id']);
 
     // Instantiate new Client knowing it will throw an exception
@@ -83,6 +84,7 @@ class Test_Client extends PHPUnit_Framework_TestCase {
 
 		$config = $this->config;
 
+		// Remove app_secret from config
 		unset($config['app_secret']);
 
     // Instantiate new Client knowing it will throw an exception
@@ -100,7 +102,8 @@ class Test_Client extends PHPUnit_Framework_TestCase {
 
 		$client = new GoCardless_Client($this->config);
 
-    // Call authorize_url() knowing it will throw an exception
+    // Call authorize_url() without passing redirect_uri as an argument
+    // knowing it will throw an exception
 		$client->authorize_url();
 
 	}
@@ -251,7 +254,7 @@ class Test_Client extends PHPUnit_Framework_TestCase {
 
 		$config = $this->config;
 
-		// Remove the access token from config
+		// Remove access_token from config
 		unset($config['access_token']);
 
 		GoCardless::set_account_details($config);
@@ -276,7 +279,7 @@ class Test_Client extends PHPUnit_Framework_TestCase {
 
 		$config = $this->config;
 
-		// Remove access_token from config vars
+		// Remove access_token from config
 		unset($config['access_token']);
 
 		GoCardless::set_account_details($config);
