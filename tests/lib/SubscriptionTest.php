@@ -33,7 +33,6 @@ class Test_Subscription extends PHPUnit_Framework_TestCase {
 			->method('get')
 			->with($this->equalTo($subscription_url));
 
-    // Call Subscription class, knowing it will throw an exception
 		GoCardless_Subscription::find('123');
 
 	}

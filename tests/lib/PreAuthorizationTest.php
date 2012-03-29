@@ -33,7 +33,6 @@ class Test_PreAuthorization extends PHPUnit_Framework_TestCase {
 			->method('get')
 			->with($this->equalTo($preauthorization_url));
 
-    // Call PreAuthorization class, knowing it will throw an exception
 		GoCardless_PreAuthorization::find('123');
 
 	}
