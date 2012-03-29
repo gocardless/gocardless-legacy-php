@@ -452,6 +452,15 @@ class GoCardless_Client {
    */
   private function new_limit_url($type, $params) {
 
+    // $params are passed in
+    // Optional $params are saved in $request and removed from $params
+    // $params now only contains params for the payments
+    // $payment_params is created containing sub-object named after $type
+    // Merge $payment_params, $request and mandatory params
+    // Sign
+    // Generate query string
+    // Return resulting url
+
     // Declare empty array
     $request = array();
 
