@@ -194,8 +194,10 @@ class Test_Client extends PHPUnit_Framework_TestCase {
 
 		GoCardless::set_account_details($this->config);
 
-    $this->assertNotEquals(GoCardless::$client->generate_nonce(),
-      GoCardless::$client->generate_nonce());
+    $this->assertNotEquals(
+      GoCardless::$client->generate_nonce(),
+      GoCardless::$client->generate_nonce()
+    );
 
 	}
 
