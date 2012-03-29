@@ -75,22 +75,4 @@ class GoCardless_Bill {
 
   }
 
-  /**
-   * Create a bill under an existing pre-auth
-   *
-   * @param array $params Parameters to use to create the bill
-   *
-   * @return object The result of the cancel query
-   */
-  public function create($params) {
-
-    $endpoint = self::$endpoint;
-
-    $params['http_authorization'] = true;
-
-    return new self($this->client, $this->client->request('post', $endpoint,
-      $params));
-
-  }
-
 }
