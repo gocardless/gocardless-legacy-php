@@ -86,7 +86,8 @@ class Test_Subscription extends PHPUnit_Framework_TestCase {
 
     // Test that cancel a subscription uses put
 		$put_stub->staticExpects($this->once())
-			->method('put');
+			->method('put')
+			->will($this->returnValue(array('id' => '123')));
 
     // Call the subscription->cancel() method
     $result = $subscription->cancel();
@@ -95,7 +96,7 @@ class Test_Subscription extends PHPUnit_Framework_TestCase {
     $this->assertInstanceOf('GoCardless_Subscription', $result);
 
     // Test that cancel returns the right id
-    $this->assertEquals('123', $subscription->id);
+    $this->assertEquals('123', $result->id);
 
 	}
 
