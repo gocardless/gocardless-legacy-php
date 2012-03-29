@@ -187,4 +187,16 @@ class Test_Client extends PHPUnit_Framework_TestCase {
 
 	}
 
+	/**
+  * Test nonces are random
+  */
+	public function testNoncesAreRandom() {
+
+		GoCardless::set_account_details($this->config);
+
+    $this->assertNotEquals(GoCardless::$client->generate_nonce(),
+      GoCardless::$client->generate_nonce());
+
+	}
+
 }
