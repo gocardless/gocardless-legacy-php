@@ -202,4 +202,176 @@ class Test_Client extends PHPUnit_Framework_TestCase {
 
 	}
 
+	/**
+  * Test new_limit_url uses correct path
+  */
+	public function testNewLimitUrlUsesCorrectPath() {
+
+    GoCardless::set_account_details($this->config);
+
+    $url = GoCardless::$client->new_limit_url('test_limit', array(
+      'amount'  => '30.00',
+    ));
+
+    $parts = parse_url($url);
+    $this->assertEquals('/connect/test_limits/new', $parts['path']);
+
+	}
+
+	/**
+  * Test new_limit_url includes params in url
+  */
+	public function testNewLimitUrlIncludesParamsInUrl() {
+
+    GoCardless::set_account_details($this->config);
+
+    $params = array('a' => '1', 'b' => '2');
+
+    $url = GoCardless::$client->new_limit_url('subscription', $params);
+
+    $parts = parse_url($url);
+		parse_str($parts['query'], $url_params);
+
+		foreach ($params as $key => $value) {
+		  $this->assertEquals($value, $url_params['subscription'][$key]);
+		}
+
+	}
+
+	/**
+  * Test new_limit_url includes state in url
+  */
+	public function testNewLimitUrlIncludesState() {
+
+    GoCardless::set_account_details($this->config);
+
+    $params = array('a' => '1', 'b' => '2', 'state' => 'monkey');
+
+    $url = GoCardless::$client->new_limit_url('subscription', $params);
+
+    $parts = parse_url($url);
+		parse_str($parts['query'], $url_params);
+
+		$this->assertEquals('monkey', $url_params['state']);
+
+	}
+
+	/**
+  * Test new_limit_url includes redirect_uri in url
+  */
+	public function testNewLimitUrlIncludesRedirectUri() {
+
+    GoCardless::set_account_details($this->config);
+
+    $params = array(
+      'a' => '1',
+      'b' => '2',
+      'redirect_uri' => 'http://www.google.com'
+    );
+
+    $url = GoCardless::$client->new_limit_url('subscription', $params);
+
+    $parts = parse_url($url);
+		parse_str($parts['query'], $url_params);
+
+		$this->assertEquals('http://www.google.com', $url_params['redirect_uri']);
+
+	}
+
+	/**
+  * Test new_limit_url adds in merchant_id
+  */
+	public function testNewLimitUrlIncludesMerchantId() {
+
+    GoCardless::set_account_details($this->config);
+
+    $params = array('a' => '1', 'b' => '2');
+
+    $url = GoCardless::$client->new_limit_url('subscription', $params);
+
+    $parts = parse_url($url);
+		parse_str($parts['query'], $url_params);
+
+	  $this->assertEquals('bar', $url_params['subscription']['merchant_id']);
+
+	}
+
+	/**
+  * Test new_limit_url uses a valid sig
+  */
+	public function testNewLimitUrlIncludesValidSig() {
+
+    GoCardless::set_account_details($this->config);
+
+    $params = array('a' => '1', 'b' => '2');
+
+    $url = GoCardless::$client->new_limit_url('subscription', $params);
+
+    $parts = parse_url($url);
+		parse_str($parts['query'], $url_params);
+    $returned_sig = $url_params['signature'];
+    unset($url_params['signature']);
+
+	  $sig = GoCardless_Utils::generate_signature($url_params,
+	      $this->config['app_secret']);
+
+	  $this->assertNotEmpty($returned_sig);
+    $this->assertEquals($sig, $returned_sig);
+
+	}
+
+	/**
+  * Test new_limit_url uses a nonce
+  */
+	public function testNewLimitUrlIncludesNonce() {
+
+    GoCardless::set_account_details($this->config);
+
+    $url = GoCardless::$client->new_limit_url('subscription',
+      array('x' => '1'));
+
+    $parts = parse_url($url);
+		parse_str($parts['query'], $url_params);
+
+	  $this->assertNotEmpty($url_params['nonce']);
+
+	}
+
+	/**
+  * Test new_limit_url adds in client_id
+  */
+	public function testNewLimitUrlIncludesClientId() {
+
+    GoCardless::set_account_details($this->config);
+
+    $url = GoCardless::$client->new_limit_url('subscription',
+      array('x' => '1'));
+
+    $parts = parse_url($url);
+		parse_str($parts['query'], $url_params);
+
+	  $this->assertNotEmpty($url_params['client_id']);
+
+	}
+
+	/**
+  * Test new_limit_url adds valid timestamp
+  */
+	public function testNewLimitUrlIncludesTimestamp() {
+
+    GoCardless::set_account_details($this->config);
+
+    $date = new DateTime(null, new DateTimeZone('UTC'));
+    $timestamp = $date->format('Y-m-d\TH:i:s\Z');
+
+    $url = GoCardless::$client->new_limit_url('subscription',
+      array('x' => '1'));
+
+    $parts = parse_url($url);
+		parse_str($parts['query'], $url_params);
+
+    $this->assertStringMatchesFormat($timestamp, $url_params['timestamp']);
+
+	}
+
 }
