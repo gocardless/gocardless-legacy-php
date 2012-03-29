@@ -164,64 +164,6 @@ class Test_Client extends PHPUnit_Framework_TestCase {
 
 	}
 
-/*
-
-  describe "#fetch_access_token" do
-
-      it "sets @access_token" do
-        access_token = mock
-        access_token.stubs(:params).returns('scope' => '')
-        access_token.stubs(:token).returns('')
-
-        oauth_client = @client.instance_variable_get(:@oauth_client)
-        oauth_client.auth_code.expects(:get_token).returns(access_token)
-
-        @client.instance_variable_get(:@access_token).should be_nil
-        @client.fetch_access_token('code', {:redirect_uri => @redirect_uri})
-        @client.instance_variable_get(:@access_token).should == access_token
-      end
-    end
-  end
-
-  describe "#access_token" do
-    it "serializes access token correctly" do
-      oauth_client = @client.instance_variable_get(:@oauth_client)
-      token = OAuth2::AccessToken.new(oauth_client, 'TOKEN123')
-      token.params['scope'] = 'a:1 b:2'
-      @client.instance_variable_set(:@access_token, token)
-
-      @client.access_token.should == 'TOKEN123 a:1 b:2'
-    end
-
-    it "returns nil when there's no token" do
-      @client.access_token.should be_nil
-    end
-  end
-
-  describe "#access_token=" do
-    it "deserializes access token correctly" do
-      @client.access_token = 'TOKEN123 a:1 b:2'
-      token = @client.instance_variable_get(:@access_token)
-      token.token.should == 'TOKEN123'
-      token.params['scope'].should == 'a:1 b:2'
-    end
-
-    it "ignores 'bearer' if it is present at the start of the string" do
-      @client.access_token = 'Bearer TOKEN manage_merchant:123'
-      token = @client.instance_variable_get(:@access_token)
-      token.token.should == 'TOKEN'
-      token.params['scope'].should == 'manage_merchant:123'
-    end
-
-    it "handles invalid values correctly" do
-      token = 'TOKEN123'  # missing scope
-      expect { @client.access_token = token }.to raise_exception ArgumentError
-    end
-  end
-
-
-	*/
-
   /**
   * Ensure API url is set up correctly
   */
