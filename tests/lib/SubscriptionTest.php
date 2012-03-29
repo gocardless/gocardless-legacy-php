@@ -59,4 +59,44 @@ class Test_Subscription extends PHPUnit_Framework_TestCase {
 
 	}
 
+	/**
+	 * Tests for subscription->cancel
+	 */
+	public function testCancel() {
+
+    // Create a mock for the get method of GoCardless_Request
+    $get_stub = $this->getMock('GoCardless_Request', array('get'));
+
+    // Static dependency injection
+    GoCardless::setClass('Request', get_class($get_stub));
+
+    // Test finding a subscription uses get
+		$get_stub->staticExpects($this->once())
+			->method('get')
+			->will($this->returnValue(array('id' => '123')));
+
+    // Load a mock subscription
+    $subscription = GoCardless_Subscription::find('123');
+
+    // Create a mock for the put method of GoCardless_Request
+    $put_stub = $this->getMock('GoCardless_Request', array('put'));
+
+    // Static dependency injection
+    GoCardless::setClass('Request', get_class($put_stub));
+
+    // Test that cancel a subscription uses put
+		$put_stub->staticExpects($this->once())
+			->method('put');
+
+    // Call the subscription->cancel() method
+    $result = $subscription->cancel();
+
+    // Test that cancel returns the subscription object
+    $this->assertInstanceOf('GoCardless_Subscription', $result);
+
+    // Test that cancel returns the right id
+    $this->assertEquals('123', $subscription->id);
+
+	}
+
 }
