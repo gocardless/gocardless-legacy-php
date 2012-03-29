@@ -112,65 +112,6 @@ class GoCardless_Client {
   }
 
   /**
-   * Returns the merchant associated with the client's access token
-   *
-   * @param string $id The id of the merchant to fetch
-   *
-   * @return object The merchant object
-   */
-  public function merchant($id = null) {
-
-    if ($id == null) {
-      $id = $this->account_details['merchant_id'];
-    }
-
-    return GoCardless_Merchant::find_with_client($this, $id);
-
-  }
-
-  /**
-   * Make a request to the API
-   *
-   * @param string $method The request method to use
-   * @param string $endpoint The API endpoint to call
-   * @param string $params The parameters to send with the request
-   *
-   * @return object The returned object
-   */
-  public function request($method, $endpoint, $params = array()) {
-
-    // If there is no http_authorization, try checking for access_token
-    if ( ! isset($params['http_authorization'])) {
-
-      // No http_authorization and no access_token? Fail
-      if ( ! isset($this->account_details['access_token'])) {
-        throw new GoCardless_ClientException('Access token missing');
-      }
-
-      // access_token found so set Authorization header to contain bearer
-      $params['http_bearer'] = $this->account_details['access_token'];
-
-    }
-
-    if (substr($endpoint, 0, 6) == '/oauth') {
-
-      // OAuth API calls don't require /api/v1 base
-      $url = $this->base_url . $endpoint;
-
-    } else {
-
-      // http://sandbox.gocardless.com | /api/v1 | /test
-      $url = $this->base_url . self::$api_path . $endpoint;
-
-    }
-
-    // Call Request class (might be aliased for testing) with URL & params
-    return call_user_func(GoCardless::getClass('Request').'::'.$method, $url,
-      $params);
-
-  }
-
-  /**
    * Fetch an access token for the current user
    *
    * @param array $params The parameters to use
@@ -197,6 +138,67 @@ class GoCardless_Client {
       'access_token'  => $access_token
     );
 
+  }
+
+  /**
+   * Generate a URL to give a user to create a new bill
+   *
+   * @param array $params Parameters to use to generate the URL
+   *
+   * @return string The generated URL
+   */
+  public function new_bill_url($params) {
+    return $this->new_limit_url('bill', $params);
+  }
+
+  /**
+   * Generate a URL to give a user to create a new subscription
+   *
+   * @param array $params Parameters to use to generate the URL
+   *
+   * @return string The generated URL
+   */
+  public function new_subscription_url($params) {
+    return $this->new_limit_url('subscription', $params);
+  }
+
+  /**
+   * Generate a URL to give a user to create a new pre-authorized payment
+   *
+   * @param array $params Parameters to use to generate the URL
+   *
+   * @return string The generated URL
+   */
+  public function new_pre_authorization_url($params) {
+    return $this->new_limit_url('pre_authorization', $params);
+  }
+
+  /**
+   * Returns the merchant associated with the client's access token
+   *
+   * @param string $id The id of the merchant to fetch
+   *
+   * @return object The merchant object
+   */
+  public function merchant($id = null) {
+
+    if ($id == null) {
+      $id = $this->account_details['merchant_id'];
+    }
+
+    return GoCardless_Merchant::find_with_client($this, $id);
+
+  }
+
+  /**
+   * Get a specific bill
+   *
+   * @param string $id The id of the bill to fetch
+   *
+   * @return object The bill object matching the id requested
+   */
+  public function bill($id) {
+    return GoCardless_Bill::find_with_client($this, $id);
   }
 
   /**
@@ -233,17 +235,6 @@ class GoCardless_Client {
   }
 
   /**
-   * Get a specific bill
-   *
-   * @param string $id The id of the bill to fetch
-   *
-   * @return object The bill object matching the id requested
-   */
-  public function bill($id) {
-    return GoCardless_Bill::find_with_client($this, $id);
-  }
-
-  /**
    * Create a new bill under a given pre-authorization
    *
    * @param array $attrs Must include pre_authorization_id and amount
@@ -261,39 +252,6 @@ class GoCardless_Client {
 
     return $pre_auth->create_bill($attrs);
 
-  }
-
-  /**
-   * Generate a URL to give a user to create a new subscription
-   *
-   * @param array $params Parameters to use to generate the URL
-   *
-   * @return string The generated URL
-   */
-  public function new_subscription_url($params) {
-    return $this->new_limit_url('subscription', $params);
-  }
-
-  /**
-   * Generate a URL to give a user to create a new pre-authorized payment
-   *
-   * @param array $params Parameters to use to generate the URL
-   *
-   * @return string The generated URL
-   */
-  public function new_pre_authorization_url($params) {
-    return $this->new_limit_url('pre_authorization', $params);
-  }
-
-  /**
-   * Generate a URL to give a user to create a new bill
-   *
-   * @param array $params Parameters to use to generate the URL
-   *
-   * @return string The generated URL
-   */
-  public function new_bill_url($params) {
-    return $this->new_limit_url('bill', $params);
   }
 
   /**
@@ -380,67 +338,6 @@ class GoCardless_Client {
   }
 
   /**
-   * Test whether a webhook is valid or not
-   *
-   * @param array params The contents of the webhook in array form
-   *
-   * @return boolean If valid returns true
-   */
-  public function validate_webhook($params) {
-
-    $sig = $params['signature'];
-    unset($params['signature']);
-
-    if ( ! isset($sig)) {
-      return false;
-    }
-
-    $data = array(
-      'data'      => $params,
-      'secret'    => $this->account_details['app_secret'],
-      'signature' => $sig
-    );
-
-    return $this->validate_signature($data);
-
-  }
-
-  /**
-   * Confirm whether a signature is valid
-   *
-   * @param array $params Should include data, secret and signature
-   *
-   * @return boolean True or false
-   */
-  public function validate_signature($params) {
-
-    $new_sig = GoCardless_Utils::generate_signature($params['data'],
-      $params['secret']);
-
-    return ($new_sig === $params['signature']);
-
-  }
-
-  /**
-   * Generates a nonce
-   *
-   * @return string Base64 encoded nonce
-   */
-  public function generate_nonce() {
-
-    $n = 1;
-    $rand = '';
-
-    do {
-      $rand .= rand(1, 256);
-      $n++;
-    } while ($n <= 45);
-
-    return base64_encode($rand);
-
-  }
-
-  /**
    * Generate a new payment url
    *
    * @param string $type Payment type
@@ -506,6 +403,90 @@ class GoCardless_Client {
   }
 
   /**
+   * Make a request to the API
+   *
+   * @param string $method The request method to use
+   * @param string $endpoint The API endpoint to call
+   * @param string $params The parameters to send with the request
+   *
+   * @return object The returned object
+   */
+  public function request($method, $endpoint, $params = array()) {
+
+    // If there is no http_authorization, try checking for access_token
+    if ( ! isset($params['http_authorization'])) {
+
+      // No http_authorization and no access_token? Fail
+      if ( ! isset($this->account_details['access_token'])) {
+        throw new GoCardless_ClientException('Access token missing');
+      }
+
+      // access_token found so set Authorization header to contain bearer
+      $params['http_bearer'] = $this->account_details['access_token'];
+
+    }
+
+    if (substr($endpoint, 0, 6) == '/oauth') {
+
+      // OAuth API calls don't require /api/v1 base
+      $url = $this->base_url . $endpoint;
+
+    } else {
+
+      // http://sandbox.gocardless.com | /api/v1 | /test
+      $url = $this->base_url . self::$api_path . $endpoint;
+
+    }
+
+    // Call Request class (might be aliased for testing) with URL & params
+    return call_user_func(GoCardless::getClass('Request').'::'.$method, $url,
+      $params);
+
+  }
+
+  /**
+   * Test whether a webhook is valid or not
+   *
+   * @param array params The contents of the webhook in array form
+   *
+   * @return boolean If valid returns true
+   */
+  public function validate_webhook($params) {
+
+    $sig = $params['signature'];
+    unset($params['signature']);
+
+    if ( ! isset($sig)) {
+      return false;
+    }
+
+    $data = array(
+      'data'      => $params,
+      'secret'    => $this->account_details['app_secret'],
+      'signature' => $sig
+    );
+
+    return $this->validate_signature($data);
+
+  }
+
+  /**
+   * Confirm whether a signature is valid
+   *
+   * @param array $params Should include data, secret and signature
+   *
+   * @return boolean True or false
+   */
+  public function validate_signature($params) {
+
+    $new_sig = GoCardless_Utils::generate_signature($params['data'],
+      $params['secret']);
+
+    return ($new_sig === $params['signature']);
+
+  }
+
+  /**
    * Generate mandatory payment parameters: client_id, nonce and timestamp
    *
    * @return array Mandatory payment parameters
@@ -520,6 +501,25 @@ class GoCardless_Client {
       'nonce'     => GoCardless_Client::generate_nonce(),
       'timestamp' => $date->format('Y-m-d\TH:i:s\Z')
     );
+
+  }
+
+  /**
+   * Generates a nonce
+   *
+   * @return string Base64 encoded nonce
+   */
+  public function generate_nonce() {
+
+    $n = 1;
+    $rand = '';
+
+    do {
+      $rand .= rand(1, 256);
+      $n++;
+    } while ($n <= 45);
+
+    return base64_encode($rand);
 
   }
 
