@@ -102,7 +102,7 @@ class GoCardless_PreAuthorization {
     $endpoint = GoCardless_Bill::$endpoint;
 
     return new GoCardless_Bill($this->client, $this->client->request('post',
-      $endpoint));
+      $endpoint, $params));
 
   }
 
