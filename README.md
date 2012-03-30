@@ -31,12 +31,12 @@ $ git clone git://github.com/gocardless/gocardless-php.git
 #### Installing from the tarball
 
 ```console
-$ curl -L https://github.com/downloads/gocardless/gocardless-php/gocardless-php-v0.2.1.tgz | tar xzv
+$ curl -L https://github.com/downloads/gocardless/gocardless-php/gocardless-php-v0.2.2.tgz | tar xzv
 ```
 
 #### Download the Zip
 
-[Click here](https://github.com/gocardless/gocardless-php/zipball/v0.2.1)
+[Click here](https://github.com/gocardless/gocardless-php/zipball/v0.2.2)
 to download the zip file.
 
 #### Installing with Composer
@@ -46,7 +46,7 @@ Add `gocardless/gocardless` to the contents of your composer.json:
 ```javascript
 {
     "require": {
-        "gocardless/gocardless": ">=0.2.1"
+        "gocardless/gocardless": ">=0.2.2"
     }
 }
 ```
