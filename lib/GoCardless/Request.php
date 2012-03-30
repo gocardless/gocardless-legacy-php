@@ -64,7 +64,8 @@ class GoCardless_Request {
     $curl_options = array(
       CURLOPT_CONNECTTIMEOUT  => 10,
       CURLOPT_RETURNTRANSFER  => true,
-      CURLOPT_TIMEOUT         => 60
+      CURLOPT_TIMEOUT         => 60,
+      CURLOPT_USERAGENT       => 'gocardless-php-v' . GoCardless::VERSION
     );
 
     // Request format
