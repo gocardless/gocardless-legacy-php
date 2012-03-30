@@ -118,7 +118,7 @@ class GoCardless_Merchant {
 
     $objects = array();
 
-    foreach ($this->client->request('get', $endpoint, $params) as $value) {
+    foreach ($this->client->request('get', $endpoint) as $value) {
       $objects[] = new GoCardless_User($this->client, $value);
     }
 
