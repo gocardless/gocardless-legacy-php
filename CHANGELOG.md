@@ -1,3 +1,12 @@
+## 0.2.2 - March 31, 2012
+
+- Fix for create_bill method in PreAuthorization class
+- Fix for users method in Merchant class
+- Fix for find_with_client in PreAuthorization class
+- Added user agent to requests
+- Improved test coverage
+
+
 ## 0.2.1 - March 28, 2012
 
 - Fix for find method in Bill class
