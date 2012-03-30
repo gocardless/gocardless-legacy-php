@@ -67,7 +67,7 @@ class GoCardless_PreAuthorization {
 
     $endpoint = self::$endpoint . '/' . $id;
 
-    return new self($client, GoCardless::$client->request('get', $endpoint));
+    return new self($client, $client->request('get', $endpoint));
 
   }
 
