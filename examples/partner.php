@@ -4,6 +4,8 @@
  * Sign up for an account at GoCardless.com
  * Email help@gocardless.com to upgrade to a partner account
  * Copy your app id and secret from the developer tab and paste them in below
+ * Change the 'Redirect URI' in the developer tab to the address of this page
+ * on your server
  *
  * Load the page and use the 'authorize app' link to generate an access_token
  *

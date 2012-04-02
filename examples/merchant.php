@@ -2,6 +2,8 @@
 
 // Sign up for an account at GoCardless.com
 // Copy your app id and secret from the developer tab and paste them in below
+// Change the 'Redirect URI' in the developer tab to the address of this page
+// on your server
 
 // Include library
 include_once '../lib/GoCardless.php';
