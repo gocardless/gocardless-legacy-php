@@ -1,5 +1,13 @@
 <?php
 
+// You can use this script with the webhook testing tool in the developer tab.
+// At the moment, the best way to learn about the different webhooks is to
+// change the options in the webhook tester and read the annotations that pop
+// up.
+
+// Webhook documentation:
+// https://sandbox.gocardless.com/docs/web_hooks_guide
+
 // Include library
 include_once '../lib/GoCardless.php';
 
