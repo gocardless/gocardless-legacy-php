@@ -93,7 +93,7 @@ class GoCardless_Request {
 
       $curl_options[CURLOPT_POST] = 1;
 
-      if (isset($params)) {
+      if ( ! empty($params)) {
         $curl_options[CURLOPT_POSTFIELDS] = http_build_query($params, null,
           '&');
       }
@@ -101,6 +101,9 @@ class GoCardless_Request {
     } elseif ($method == 'get') {
 
       $curl_options[CURLOPT_HTTPGET] = 1;
+      if ( ! empty($params)) {
+        $url .= '?' . http_build_query($params, 'null', '&');
+      }
 
     } elseif ($method == 'put') {
 
