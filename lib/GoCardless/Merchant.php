@@ -73,6 +73,8 @@ class GoCardless_Merchant {
   /**
    * Fetch a merchant's subscriptions from the API
    *
+   * @param array $params Params to append to the query ie. for filtering
+   *
    * @return array Array of subscription objects
    */
   public function subscriptions($params = array()) {
@@ -90,6 +92,8 @@ class GoCardless_Merchant {
 
   /**
    * Fetch a merchant's pre-authorisations from the API
+   *
+   * @param array $params Params to append to the query ie. for filtering
    *
    * @return array Array of pre-authorisation objects
    */
@@ -128,6 +132,8 @@ class GoCardless_Merchant {
 
   /**
    * Fetch a merchant's bills from the API
+   *
+   * @param array $params Params to append to the query ie. for filtering
    *
    * @return array Array of bill objects
    */
