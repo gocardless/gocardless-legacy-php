@@ -1,3 +1,9 @@
+## 0.2.3 - April 3, 2012
+
+- Added ability to filter index results
+- Tweaks to sample code in /examples
+
+
 ## 0.2.2 - March 31, 2012
 
 - Fix for create_bill method in PreAuthorization class
