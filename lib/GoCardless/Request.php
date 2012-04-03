@@ -59,7 +59,7 @@ class GoCardless_Request {
    */
   protected static function call($method, $url, $params = array()) {
 
-    $ch = curl_init($url);
+    $ch = curl_init();
 
     $curl_options = array(
       CURLOPT_CONNECTTIMEOUT  => 10,
@@ -102,7 +102,7 @@ class GoCardless_Request {
 
       $curl_options[CURLOPT_HTTPGET] = 1;
       if ( ! empty($params)) {
-        $url .= '?' . http_build_query($params, 'null', '&');
+        $url .= '?' . http_build_query($params, null, '&');
       }
 
     } elseif ($method == 'put') {
@@ -113,6 +113,9 @@ class GoCardless_Request {
       $curl_options[CURLOPT_INFILESIZE] = 0;
 
     }
+
+    // Set the url to query
+    curl_setopt($ch, CURLOPT_URL, $url);
 
     // Debug
     //if ($method == 'post') {
