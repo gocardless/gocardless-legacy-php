@@ -109,15 +109,15 @@ $preauths = GoCardless_Merchant::find($account_details['merchant_id'])->pre_auth
 print_r($preauths);
 echo '</pre></blockquote>';
 
-// Create a pre-auth using the url generated above then fetch it's ID
+// Create a pre-auth using the link generated above then fetch it's ID
 // using the query above. Now you can create bills within that pre-auth
 // like this:
 
-//echo 'GoCardless_PreAuthorization::find(\'992869\')->create_bill($bill_details)';
+//echo 'GoCardless_PreAuthorization::find(\'123\')->create_bill($bill_details)';
 //echo '<blockquote><pre>';
-//$pre_auth = GoCardless_PreAuthorization::find('013M018V0K');
+//$pre_auth = GoCardless_PreAuthorization::find('123');
 //$bill_details = array(
-//  'amount'  => '5.00'
+//  'amount'  => '1.00'
 //);
 //$bill = $pre_auth->create_bill($bill_details);
 //print_r($bill);
