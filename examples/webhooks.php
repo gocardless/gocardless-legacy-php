@@ -59,15 +59,26 @@ $webhook = file_get_contents('php://input');
 $webhook_array = json_decode($webhook, true);
 
 // Validate webhook
-if (GoCardless::validate_webhook($webhook_array['payload'])) {
+$webhook_valid = GoCardless::validate_webhook($webhook_array['payload']);
 
-  // Write webhook to a file for inspection
-  // You'll probably need to create this file and make it writable
-  $log = fopen("webhooks.txt", "a");
-  fwrite($log, print_r($webhook_array, TRUE) . "\n\n");
-  fclose($log);
+// Write webhook to a file for inspection
+// You'll probably need to create this file and make it writable
+$log = fopen("webhooks.txt", "a");
+
+if ($webhook_valid != TRUE) {
+  fwrite($log, "Invalid webhook:\n\n");
+}
+
+fwrite($log, print_r($webhook_array, TRUE) . "\n\n");
+fclose($log);
+
+if ($webhook_valid == TRUE) {
 
   // Send a success header
   header('HTTP/1.1 200 OK');
+
+} else {
+
+  header('HTTP/1.1 403 Invalid signature');
 
 }
