@@ -68,6 +68,14 @@ class GoCardless_Request {
       CURLOPT_USERAGENT       => 'gocardless-php-v' . GoCardless::VERSION
     );
 
+    // Set application specific user agent suffix if found
+    if (isset($params['ua_tag'])) {
+
+      $curl_options[CURLOPT_USERAGENT] .= '-' . $params['ua_tag'];
+      unset($params['ua_tag']);
+
+    }
+
     // Request format
     $curl_options[CURLOPT_HTTPHEADER][] = 'Accept: application/json';
 

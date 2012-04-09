@@ -426,6 +426,11 @@ class GoCardless_Client {
 
     }
 
+    // Set application specific user agent suffix if found
+    if (isset($this->account_details['ua_tag'])) {
+      $params['ua_tag'] = $this->account_details['ua_tag'];
+    }
+
     if (substr($endpoint, 0, 6) == '/oauth') {
 
       // OAuth API calls don't require /api/v1 base
