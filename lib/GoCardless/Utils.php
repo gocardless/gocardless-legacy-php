@@ -74,4 +74,17 @@ class GoCardless_Utils {
 
   }
 
+  /**
+   * Strip underscores and convert to CamelCaps
+   *
+   * @param string $string The string to process
+   *
+   * @return string The result
+   */
+  public static function camelize($string) {
+
+    return implode(array_map('ucfirst', explode('_', $string)));
+
+  }
+
 }

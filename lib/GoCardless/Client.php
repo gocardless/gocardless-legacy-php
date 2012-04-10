@@ -326,7 +326,10 @@ class GoCardless_Client {
       $endpoint = '/' . $params['resource_type'] . 's/' .
         $params['resource_id'];
 
-      return $this->request('get', $endpoint, $params);
+      $class_name = 'GoCardless_' .
+        GoCardless_Utils::camelize($params['resource_type']);
+
+      return new $class_name($this, $this->request('get', $endpoint));
 
     } else {
 
