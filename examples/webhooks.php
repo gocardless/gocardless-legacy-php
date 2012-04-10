@@ -1,12 +1,17 @@
 <?php
 
-// You can use this script with the webhook testing tool in the developer tab.
-// At the moment, the best way to learn about the different webhooks is to
-// change the options in the webhook tester and read the annotations that pop
-// up.
-
-// Webhook documentation:
-// https://sandbox.gocardless.com/docs/web_hooks_guide
+/**
+ * This is a demo of the webhook functionality of GoCardless.
+ *
+ * You can use this script with the webhook testing tool in the developer tab.
+ * At the moment, the best way to learn about the different webhooks is to
+ * change the options in the webhook tester and read the annotations that pop
+ * up.
+ *
+ * Webhook documentation:
+ * https://sandbox.gocardless.com/docs/web_hooks_guide
+ *
+ */
 
 // Include library
 include_once '../lib/GoCardless.php';
@@ -63,7 +68,7 @@ $webhook_valid = GoCardless::validate_webhook($webhook_array['payload']);
 
 // Write webhook to a file for inspection
 // You'll probably need to create this file and make it writable
-$log = fopen("webhooks.txt", "a");
+$log = fopen('webhooks.txt', 'a');
 
 if ($webhook_valid != TRUE) {
   fwrite($log, "Invalid webhook:\n\n");

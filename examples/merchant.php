@@ -5,7 +5,7 @@
  *
  * We also have a partner system here. More info here:
  * http://blog.gocardless.com/post/19695292096
- * See partner.php for the partner demo
+ * See partner.php for the partner demo.
  *
  * Setup
  *
