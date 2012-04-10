@@ -5,7 +5,7 @@
  *
  * For a typical merchant integration demo see merchant.php.
  *
- * More info about our partner systen:
+ * More info about our partner system:
  * http://blog.gocardless.com/post/19695292096
  *
  * Setup
