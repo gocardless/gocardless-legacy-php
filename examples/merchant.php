@@ -1,9 +1,19 @@
 <?php
 
-// Sign up for an account at GoCardless.com
-// Copy your app id and secret from the developer tab and paste them in below
-// Change the 'Redirect URI' in the developer tab to the address of this page
-// on your server
+/**
+ * This is a demo of a typical merchant integration with GoCardless.
+ *
+ * We also have a partner system here. More info here:
+ * http://blog.gocardless.com/post/19695292096
+ * See partner.php for the partner demo
+ *
+ * Setup
+ *
+ * 1. Sign up for an account at GoCardless.com
+ * 2. Copy your app id and secret from the developer tab and paste them below
+ * 3. Change 'Redirect URI' in the developer tab to point to this page
+ *
+ */
 
 // Include library
 include_once '../lib/GoCardless.php';

@@ -1,17 +1,22 @@
 <?php
 
 /**
- * Sign up for an account at GoCardless.com
- * Email help@gocardless.com to upgrade to a partner account
- * Copy your app id and secret from the developer tab and paste them in below
- * Change the 'Redirect URI' in the developer tab to the address of this page
- * on your server
+ * This is a demo of a partner integration with GoCardless.
  *
- * Load the page and use the 'authorize app' link to generate an access_token
+ * For a typical merchant integration demo see merchant.php.
  *
- * Now you can initialize a Client object using that access_token
- * You'll probably want to save the access_token in your database too
+ * More info about our partner systen:
+ * http://blog.gocardless.com/post/19695292096
  *
+ * Setup
+ *
+ * 1. Sign up for an account at GoCardless.com
+ * 2. Copy your app id and secret from the developer tab and paste them below
+ * 3. Change 'Redirect URI' in the developer tab to point to this page
+ * 4. Load the page and click 'authorize app' to generate an access_token
+ * 5. You can now initialize a Client object using that access_token
+ *
+ * NB. You'll probably want to save the access_token in your database too
  *
  * This page does the following:
  *
