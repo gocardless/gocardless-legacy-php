@@ -1,3 +1,10 @@
+## 0.3.0 - April 11, 2012
+
+- Confirm resource returns correct object type
+- Webhook demo logs invalid webhooks and returns 403
+- Application specific tag can be added to request user agent
+
+
 ## 0.2.3 - April 3, 2012
 
 - Added ability to filter index results
