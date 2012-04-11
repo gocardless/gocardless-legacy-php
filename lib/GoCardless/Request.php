@@ -71,7 +71,7 @@ class GoCardless_Request {
     // Set application specific user agent suffix if found
     if (isset($params['ua_tag'])) {
 
-      $curl_options[CURLOPT_USERAGENT] .= '-' . $params['ua_tag'];
+      $curl_options[CURLOPT_USERAGENT] .= ' ' . $params['ua_tag'];
       unset($params['ua_tag']);
 
     }
