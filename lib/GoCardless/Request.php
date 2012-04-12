@@ -65,7 +65,7 @@ class GoCardless_Request {
       CURLOPT_CONNECTTIMEOUT  => 10,
       CURLOPT_RETURNTRANSFER  => true,
       CURLOPT_TIMEOUT         => 60,
-      CURLOPT_USERAGENT       => 'gocardless-php-v' . GoCardless::VERSION
+      CURLOPT_USERAGENT       => 'gocardless-php/v' . GoCardless::VERSION
     );
 
     // Set application specific user agent suffix if found
