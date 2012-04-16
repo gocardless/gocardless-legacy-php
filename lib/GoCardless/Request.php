@@ -126,32 +126,25 @@ class GoCardless_Request {
     curl_setopt($ch, CURLOPT_URL, $url);
 
     // Debug
-    //if ($method == 'post') {
-    //  // POST request, so show url and vars
-    //  $vars = htmlspecialchars(print_r($curl_options[CURLOPT_POSTFIELDS], true));
-    //  echo "<pre>\n\nRequest\n\nPOST: $url\n";
-    //  echo "Post vars sent:\n";
-    //  echo "$vars\n";
-    //  echo "Full curl vars:\n";
-    //  print_r($curl_options);
-    //  echo '</pre>';
-    //} elseif ($method == 'get') {
-    //  // GET request, so show just show url
-    //  echo "<pre>\n\nRequest\nGET: $url\n";
-    //  echo "Full curl vars: ";
-    //  print_r($curl_options);
-    //  echo '</pre>';
-    //} else {
-    //  echo "Method not set!";
+    //echo "<pre>\nCurl " . strtoupper($method) . " request to: $url\n";
+    //if (isset($curl_options[CURLOPT_POSTFIELDS])) {
+    //  echo "Post vars:\n";
+    //  echo htmlspecialchars(print_r($curl_options[CURLOPT_POSTFIELDS], true));
+    //  echo "\n";
     //}
+    //echo "Curl request config:\n";
+    //print_r($curl_options);
+    //echo '</pre>';
 
     curl_setopt_array($ch, $curl_options);
 
     $result = curl_exec($ch);
 
     // Debug
-    //echo "<pre>\nCurl result: ";
+    //echo "<pre>\nCurl result config:\n";
     //print_r(curl_getinfo($ch));
+    //echo "Curl result:\n";
+    //echo htmlspecialchars($result) . "\n";
     //echo "</pre>";
 
     // Grab the response code and throw an exception if it's not good
