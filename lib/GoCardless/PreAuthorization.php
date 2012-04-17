@@ -119,4 +119,28 @@ class GoCardless_PreAuthorization {
 
   }
 
+  /**
+   * Fetch bills created under a pre-authorization from the API
+   *
+   * @param array $params Params to append to the query ie. for filtering
+   *
+   * @return array Array of bill objects
+   */
+  public function bills($params = array()) {
+
+    $params['source_id'] = $this->id;
+
+    $endpoint = GoCardless_Merchant::$endpoint . '/' . $this->merchant_id .
+      '/bills';
+
+    $objects = array();
+
+    foreach ($this->client->request('get', $endpoint, $params) as $value) {
+      $objects[] = new GoCardless_Bill($this->client, $value);
+    }
+
+    return $objects;
+
+  }
+
 }
