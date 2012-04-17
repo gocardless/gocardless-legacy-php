@@ -88,6 +88,7 @@ class GoCardless_Merchant {
     }
 
     return $objects;
+
   }
 
   /**

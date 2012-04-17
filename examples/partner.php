@@ -110,8 +110,8 @@ if (isset($account_details['access_token'])) {
   //echo '$gocardless_client->create_bill($pre_auth_details)';
   //echo '<blockquote><pre>';
   //$pre_auth_details = array(
-  //  'pre_authorization_id'  => '014PS77JW3',
-  //  'amount'                => '5.00'
+  //  'pre_authorization_id'  => '123',
+  //  'amount'                => '1.00'
   //);
   //$bill = $gocardless_client->create_bill($pre_auth_details);
   //print_r($bill);

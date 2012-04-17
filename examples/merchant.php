@@ -153,8 +153,8 @@ echo '</pre></blockquote>';
 // using the query above. Now you can cancel subscriptions using the
 // following:
 
-//echo 'GoCardless_Subscription::find('01BXN6FKSP')->cancel()';
+//echo 'GoCardless_Subscription::find('123')->cancel()';
 //echo '<blockquote><pre>';
-//$sub = GoCardless_Subscription::find('01BXN6FKSP')->cancel();
+//$sub = GoCardless_Subscription::find('123')->cancel();
 //print_r($sub);
 //echo '</pre></blockquote>';
