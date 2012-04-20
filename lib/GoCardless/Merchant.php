@@ -48,6 +48,11 @@ class GoCardless_Merchant {
         $endpoint = preg_replace('/api\/v[0-9]+\//', '',
           parse_url($value, PHP_URL_PATH));
 
+        // Add params to endpoint
+        if (parse_url($value, PHP_URL_QUERY)) {
+          $endpoint .= '/?' . parse_url($value, PHP_URL_QUERY);
+        }
+
         // Generate the class name
         $class = 'GoCardless_' .
           GoCardless_Utils::camelize(GoCardless_Utils::singularize($key));
