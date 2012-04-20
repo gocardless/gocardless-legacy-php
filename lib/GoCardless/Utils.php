@@ -87,4 +87,23 @@ class GoCardless_Utils {
 
   }
 
+  /**
+   * Convert a word to the singular
+   *
+   * @param string $string The string to process
+   *
+   * @return string The result
+   */
+  public static function singularize($string) {
+
+    if (substr($string, -1) == 's') {
+      return substr($string, 0, -1);
+    } elseif (substr($string, -1) == 'i') {
+      return substr($string, 0, -1) . 'us';
+    } else {
+      return $string;
+    }
+
+  }
+
 }
