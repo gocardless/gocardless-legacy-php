@@ -37,6 +37,63 @@ class GoCardless_Merchant {
       }
     }
 
+    // Check for subresources
+    if (isset($this->sub_resource_uris)) {
+
+      // Loop through each subresource loading it as appropriate object
+      foreach ($this->sub_resource_uris as $key => $value) {
+
+        // Generate subresource endpoint by snipping out the
+        // right part of the url
+        $endpoint = preg_replace('/api\/v[0-9]+\//', '',
+          parse_url($value, PHP_URL_PATH));
+
+        // Generate the class name
+        $class = 'GoCardless_' .
+          GoCardless_Utils::camelize(GoCardless_Utils::singularize($key));
+
+        // Create an array for the subresource
+        $this->$key = array();
+
+        // Query the API
+        foreach ($this->client->request('get', $endpoint) as $value) {
+
+          // Load each element into the appropriate class
+          $this->{$key}[] = new $class($this->client, $value);
+
+        }
+
+      }
+
+      // Unset the sub_resource_uris feild as we now have now loaded the
+      // subresources themselves
+      unset($this->sub_resource_uris);
+
+    }
+
+  }
+
+  /**
+   * This magic method is used to call subresources ie. merchant()->users()
+   *
+   * @param string $method The name of the method being called
+   *
+   * @return array The subresource index
+   */
+  public function __call($method, $params) {
+
+    // Check the subresource exists
+    if (isset($this->$method)) {
+
+      // Return the subresource
+      return $this->fetch_sub_resource($method, $params);
+
+    }
+
+    // Subresource doesn't exist so error out
+    $class = get_class($this);
+    trigger_error("Call to undefined method $class::$method()", E_USER_ERROR);
+
   }
 
   /**
@@ -71,81 +128,24 @@ class GoCardless_Merchant {
   }
 
   /**
-   * Fetch a merchant's subscriptions from the API
+   * Fetch an object's subresource from the API
    *
-   * @param array $params Params to append to the query ie. for filtering
+   * @param string $type The subresource to fetch
+   * @param array $params The params for the subresource query
    *
-   * @return array Array of subscription objects
+   * @return object The subresource object
    */
-  public function subscriptions($params = array()) {
+  public function fetch_sub_resource($type, $params = array()) {
 
-    $objects = array();
+    $endpoint = self::$endpoint . '/' . $this->id . '/' . $type;
 
-    $endpoint = self::$endpoint . '/' . $this->id . '/subscriptions';
-
-    foreach ($this->client->request('get', $endpoint, $params) as $value) {
-      $objects[] = new GoCardless_Subscription($this->client, $value);
-    }
-
-    return $objects;
-
-  }
-
-  /**
-   * Fetch a merchant's pre-authorisations from the API
-   *
-   * @param array $params Params to append to the query ie. for filtering
-   *
-   * @return array Array of pre-authorisation objects
-   */
-  public function pre_authorizations($params = array()) {
-
-    $endpoint = self::$endpoint . '/' . $this->id . '/pre_authorizations';
+    $class = 'GoCardless_' .
+      GoCardless_Utils::camelize(GoCardless_Utils::singularize($type));
 
     $objects = array();
 
     foreach ($this->client->request('get', $endpoint, $params) as $value) {
-      $objects[] = new GoCardless_PreAuthorization($this->client, $value);
-    }
-
-    return $objects;
-
-  }
-
-  /**
-   * Fetch a list of the users associated with a given merchant
-   *
-   * @return array Array of user objects
-   */
-  public function users() {
-
-    $endpoint = self::$endpoint . '/' . $this->id . '/users';
-
-    $objects = array();
-
-    foreach ($this->client->request('get', $endpoint) as $value) {
-      $objects[] = new GoCardless_User($this->client, $value);
-    }
-
-    return $objects;
-
-  }
-
-  /**
-   * Fetch a merchant's bills from the API
-   *
-   * @param array $params Params to append to the query ie. for filtering
-   *
-   * @return array Array of bill objects
-   */
-  public function bills($params = array()) {
-
-    $endpoint = self::$endpoint . '/' . $this->id . '/bills';
-
-    $objects = array();
-
-    foreach ($this->client->request('get', $endpoint, $params) as $value) {
-      $objects[] = new GoCardless_Bill($this->client, $value);
+      $objects[] = new $class($this->client, $value);
     }
 
     return $objects;
