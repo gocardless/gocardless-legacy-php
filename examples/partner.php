@@ -83,8 +83,8 @@ if (isset($_GET['code'])) {
   <br />Copy and paste this access token into the top of the code for this
   page to continue testing the partner demo. In your own app, you\'ll want to
   save it to your database.
-  <br />Access token: '.$account_details['access_token'].'
-  <br />Merchant id: '.$account_details['merchant_id'].'</p>';
+  <br />Access token: ' . $account_details['access_token'] . '
+  <br />Merchant id: ' . $account_details['merchant_id'] . '</p>';
 
 }
 
@@ -156,6 +156,6 @@ if (isset($account_details['access_token'])) {
     'redirect_uri' => 'http://localhost/examples/partner.php'
   );
   $authorize_url = $gocardless_client->authorize_url($authorize_url_options);
-  echo '<p><a href="'.$authorize_url.'">Authorize app</a></p>';
+  echo '<p><a href="' . $authorize_url . '">Authorize app</a></p>';
 
 }
