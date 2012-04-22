@@ -37,45 +37,6 @@ class GoCardless_Subscription {
       }
     }
 
-    // Check for subresources
-    if (isset($this->sub_resource_uris)) {
-
-      // Loop through each subresource loading it as appropriate object
-      foreach ($this->sub_resource_uris as $key => $value) {
-
-        // Generate subresource endpoint by snipping out the
-        // right part of the url
-        $endpoint = preg_replace('/api\/v[0-9]+\//', '',
-          parse_url($value, PHP_URL_PATH));
-
-        // Add params to endpoint
-        if (parse_url($value, PHP_URL_QUERY)) {
-          $endpoint .= '?' . parse_url($value, PHP_URL_QUERY);
-        }
-
-        // Generate the class name
-        $class = 'GoCardless_' .
-          GoCardless_Utils::camelize(GoCardless_Utils::singularize($key));
-
-        // Create an array for the subresource
-        $this->$key = array();
-
-        // Query the API
-        foreach ($this->client->request('get', $endpoint) as $value) {
-
-          // Load each element into the appropriate class
-          $this->{$key}[] = new $class($this->client, $value);
-
-        }
-
-      }
-
-      // Unset the sub_resource_uris feild as we now have now loaded the
-      // subresources themselves
-      unset($this->sub_resource_uris);
-
-    }
-
   }
 
   /**
@@ -88,7 +49,7 @@ class GoCardless_Subscription {
   public function __call($method, $params = array()) {
 
     // Check the subresource exists
-    if (isset($this->$method)) {
+    if (array_key_exists($method, $this->sub_resource_uris)) {
 
       // Return the subresource
       return $this->fetch_sub_resource($method, $params);
@@ -143,7 +104,36 @@ class GoCardless_Subscription {
    */
   public function fetch_sub_resource($type, $params = array()) {
 
-    return $this->$type;
+    // Generate subresource endpoint by snipping out the
+    // right part of the sub_resource_uri
+    $endpoint = preg_replace('/api\/v[0-9]+\//', '',
+      parse_url($this->sub_resource_uris[$type], PHP_URL_PATH));
+
+    // Extract params from subresource uri if available and create array
+    if ($param_string = parse_url($this->sub_resource_uris[$type],
+      PHP_URL_QUERY)) {
+
+      $split_params = explode('&', $param_string);
+
+      foreach ($split_params as $split_param) {
+          $parts = explode('=', $split_param);
+          $sub_resource_params[$parts[0]] = $parts[1];
+      }
+
+    }
+
+    $params = array_merge($params, $sub_resource_params);
+
+    $class = 'GoCardless_' .
+      GoCardless_Utils::camelize(GoCardless_Utils::singularize($type));
+
+    $objects = array();
+
+    foreach ($this->client->request('get', $endpoint, $params) as $value) {
+      $objects[] = new $class($this->client, $value);
+    }
+
+    return $objects;
 
   }
 
