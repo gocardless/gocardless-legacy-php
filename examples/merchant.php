@@ -145,8 +145,8 @@ echo '</pre></blockquote>';
 
 echo 'GoCardless_Merchant::find(\''.$account_details['merchant_id'].'\')->subscriptions()';
 echo '<blockquote><pre>';
-$preauths = GoCardless_Merchant::find($account_details['merchant_id'])->subscriptions();
-print_r($preauths);
+$subscriptions = GoCardless_Merchant::find($account_details['merchant_id'])->subscriptions();
+print_r($subscriptions);
 echo '</pre></blockquote>';
 
 // Create a subscription using the url generated above then fetch it's ID
