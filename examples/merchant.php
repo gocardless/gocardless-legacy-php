@@ -137,10 +137,10 @@ echo '</pre></blockquote>';
 // code. NB. This is an example of filtering API results. More info here:
 // https://gocardless.com/docs/api_guide#filtering
 
-//echo 'GoCardless_Merchant::find(\''.$account_details['merchant_id'].'\')->pre_authorizations(array(\'source_id\' => \'123\'))';
+//echo 'GoCardless_Merchant::find(\''.$account_details['merchant_id'].'\')->bills(array(\'source_id\' => \'123\'))';
 //echo '<blockquote><pre>';
-//$preauths = GoCardless_Merchant::find($account_details['merchant_id'])->pre_authorizations(array('source_id' => '123'));
-//print_r($preauths);
+//$bills = GoCardless_Merchant::find($account_details['merchant_id'])->bills(array('source_id' => '123'));
+//print_r($bills);
 //echo '</pre></blockquote>';
 
 echo 'GoCardless_Merchant::find(\''.$account_details['merchant_id'].'\')->subscriptions()';
