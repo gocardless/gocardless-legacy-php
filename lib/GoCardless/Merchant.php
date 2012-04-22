@@ -50,7 +50,7 @@ class GoCardless_Merchant {
 
         // Add params to endpoint
         if (parse_url($value, PHP_URL_QUERY)) {
-          $endpoint .= '/?' . parse_url($value, PHP_URL_QUERY);
+          $endpoint .= '?' . parse_url($value, PHP_URL_QUERY);
         }
 
         // Generate the class name
@@ -142,18 +142,7 @@ class GoCardless_Merchant {
    */
   public function fetch_sub_resource($type, $params = array()) {
 
-    $endpoint = self::$endpoint . '/' . $this->id . '/' . $type;
-
-    $class = 'GoCardless_' .
-      GoCardless_Utils::camelize(GoCardless_Utils::singularize($type));
-
-    $objects = array();
-
-    foreach ($this->client->request('get', $endpoint, $params) as $value) {
-      $objects[] = new $class($this->client, $value);
-    }
-
-    return $objects;
+    return $this->$type;
 
   }
 
