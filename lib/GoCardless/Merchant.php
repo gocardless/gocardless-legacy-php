@@ -46,7 +46,9 @@ class GoCardless_Merchant {
    *
    * @return array The subresource index
    */
-  public function __call($method, $params = array()) {
+  public function __call($method, $arguments = array()) {
+
+    $params = isset($arguments[0]) ? $arguments[0] : array();
 
     // Check the subresource exists
     if (array_key_exists($method, $this->sub_resource_uris)) {
