@@ -12,6 +12,7 @@ class Test_Utils extends PHPUnit_Framework_TestCase {
 		);
 
 		GoCardless::$environment = 'sandbox';
+		GoCardless::set_account_details($this->config);
 
 	}
 
@@ -19,8 +20,6 @@ class Test_Utils extends PHPUnit_Framework_TestCase {
 	 * Check the signature is being generated correctly
 	 */
 	public function testGenerateSignature() {
-
-		GoCardless::set_account_details($this->config);
 
 		$payment_details = array(
 		  'amount'          => '10.00',
@@ -34,5 +33,29 @@ class Test_Utils extends PHPUnit_Framework_TestCase {
 		$this->assertEquals('889b12a1aa31ca4c804d8554d4991fccc2d6d269bca4a20ecde6ef0cc20abc9c', $sig);
 
 	}
+
+	/**
+	 * Check camelize function
+	 */
+	public function testCamelize() {
+
+	  $return = GoCardless_Utils::camelize('a_test_string');
+
+    $this->assertEquals('ATestString', $return);
+
+  }
+
+	/**
+	 * Check singularize function
+	 */
+	public function testSingularize() {
+
+	  $a = GoCardless_Utils::singularize('desks');
+    $this->assertEquals('desk', $a);
+
+    $b = GoCardless_Utils::singularize('cacti');
+    $this->assertEquals('cactus', $b);
+
+  }
 
 }
