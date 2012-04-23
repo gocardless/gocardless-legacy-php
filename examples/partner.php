@@ -12,7 +12,8 @@
  *
  * 1. Sign up for an account at GoCardless.com
  * 2. Copy your app id and secret from the developer tab and paste them below
- * 3. Change 'Redirect URI' in the developer tab to point to this page
+ * 3. Change 'Redirect URI' in the developer tab to point to this page and
+ *    update it in both places in the code below
  * 4. Load the page and click 'authorize app' to generate an access_token
  * 5. You can now initialize a Client object using that access_token
  *
@@ -83,8 +84,8 @@ if (isset($_GET['code'])) {
   <br />Copy and paste this access token into the top of the code for this
   page to continue testing the partner demo. In your own app, you\'ll want to
   save it to your database.
-  <br />Access token: '.$account_details['access_token'].'
-  <br />Merchant id: '.$account_details['merchant_id'].'</p>';
+  <br />Access token: ' . $account_details['access_token'] . '
+  <br />Merchant id: ' . $account_details['merchant_id'] . '</p>';
 
 }
 
@@ -156,6 +157,6 @@ if (isset($account_details['access_token'])) {
     'redirect_uri' => 'http://localhost/examples/partner.php'
   );
   $authorize_url = $gocardless_client->authorize_url($authorize_url_options);
-  echo '<p><a href="'.$authorize_url.'">Authorize app</a></p>';
+  echo '<p><a href="' . $authorize_url . '">Authorize app</a></p>';
 
 }

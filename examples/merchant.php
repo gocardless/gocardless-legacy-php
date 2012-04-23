@@ -73,7 +73,7 @@ $payment_details = array(
 );
 
 $bill_url = GoCardless::new_bill_url($payment_details);
-echo '<p><a href="'.$bill_url.'">New bill</a>';
+echo '<p><a href="' . $bill_url . '">New bill</a>';
 
 // New subscription
 
@@ -84,7 +84,7 @@ $payment_details = array(
 );
 
 $subscription_url = GoCardless::new_subscription_url($payment_details);
-echo ' &middot; <a href="'.$subscription_url.'">New subscription</a>';
+echo ' &middot; <a href="' . $subscription_url . '">New subscription</a>';
 
 // New pre-authorization
 
@@ -100,7 +100,7 @@ $payment_details = array(
 );
 
 $pre_auth_url = GoCardless::new_pre_authorization_url($payment_details);
-echo ' &middot; <a href="'.$pre_auth_url.'">New pre-authorized payment</a></p>';
+echo ' &middot; <a href="' . $pre_auth_url . '">New pre-authorized payment</a></p>';
 
 echo '<p>NB. The \'new pre-authorization\' link is also a demo of pre-populated
 user data.</p>';
@@ -111,7 +111,7 @@ echo '<h2>API calls</h2>';
 
 // Merchant API call
 
-echo 'GoCardless_Merchant::find(\''.$account_details['merchant_id'].'\')';
+echo 'GoCardless_Merchant::find(\'' . $account_details['merchant_id'] . '\')';
 echo '<blockquote><pre>';
 $merchant = GoCardless_Merchant::find($account_details['merchant_id']);
 print_r($merchant);
@@ -119,7 +119,7 @@ echo '</pre></blockquote>';
 
 // Pre-authorization API calls
 
-echo 'GoCardless_Merchant::find(\''.$account_details['merchant_id'].'\')->pre_authorizations()';
+echo 'GoCardless_Merchant::find(\'' . $account_details['merchant_id'] . '\')->pre_authorizations()';
 echo '<blockquote><pre>';
 $preauths = GoCardless_Merchant::find($account_details['merchant_id'])->pre_authorizations();
 print_r($preauths);
@@ -145,7 +145,7 @@ echo '</pre></blockquote>';
 // code. NB. This is an example of filtering API results. More info here:
 // https://gocardless.com/docs/api_guide#filtering
 
-//echo 'GoCardless_Merchant::find(\''.$account_details['merchant_id'].'\')->bills(array(\'source_id\' => \'123\'))';
+//echo 'GoCardless_Merchant::find(\'' . $account_details['merchant_id'] . '\')->bills(array(\'source_id\' => \'123\'))';
 //echo '<blockquote><pre>';
 //$bills = GoCardless_Merchant::find($account_details['merchant_id'])->bills(array('source_id' => '123'));
 //print_r($bills);
@@ -153,10 +153,10 @@ echo '</pre></blockquote>';
 
 // Subscriptions API calls
 
-echo 'GoCardless_Merchant::find(\''.$account_details['merchant_id'].'\')->subscriptions()';
+echo 'GoCardless_Merchant::find(\'' . $account_details['merchant_id'] . '\')->subscriptions()';
 echo '<blockquote><pre>';
-$preauths = GoCardless_Merchant::find($account_details['merchant_id'])->subscriptions();
-print_r($preauths);
+$subscriptions = GoCardless_Merchant::find($account_details['merchant_id'])->subscriptions();
+print_r($subscriptions);
 echo '</pre></blockquote>';
 
 // Create a subscription using the url generated above then fetch it's ID
