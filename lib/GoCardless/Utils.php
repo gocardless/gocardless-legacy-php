@@ -62,7 +62,11 @@ class GoCardless_Utils {
       }
 
       sort($pairs);
-      $strs = array_map('implode', array_fill(0, count($pairs), '='), $pairs);
+
+      $strs = array();
+      foreach ($pairs as $pair) {
+        $strs[] = $pair[0] . '=' . $pair[1];
+      }
 
       return implode('&', $strs);
 
