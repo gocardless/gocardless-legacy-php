@@ -237,20 +237,21 @@ class GoCardless_Client {
   /**
    * Create a new bill under a given pre-authorization
    *
-   * @param array $attrs Must include pre_authorization_id and amount
+   * @param array $params Must include pre_authorization_id and amount
    *
    * @return string The new bill object
    */
-  public function create_bill($attrs) {
+  public function create_bill($params) {
 
-    if ( ! isset($attrs['pre_authorization_id'])) {
+    if ( ! isset($params['pre_authorization_id'])) {
       throw new GoCardless_ArgumentsException('pre_authorization_id missing');
     }
 
-    $pre_auth_attrs = array('id' => $attrs['pre_authorization_id']);
-    $pre_auth = new GoCardless_PreAuthorization($this, $pre_auth_attrs);
+    $pre_auth = new GoCardless_PreAuthorization($this, array(
+      'id' => $params['pre_authorization_id']
+    ));
 
-    return $pre_auth->create_bill($attrs);
+    return $pre_auth->create_bill(array('amount' => $params['amount']));
 
   }
 
