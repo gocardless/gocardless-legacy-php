@@ -109,6 +109,8 @@ class GoCardless_Subscription {
     $endpoint = preg_replace('/api\/v[0-9]+\//', '',
       parse_url($this->sub_resource_uris[$type], PHP_URL_PATH));
 
+    $sub_resource_params = array();
+
     // Extract params from subresource uri if available and create array
     if ($param_string = parse_url($this->sub_resource_uris[$type],
       PHP_URL_QUERY)) {
