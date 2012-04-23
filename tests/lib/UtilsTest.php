@@ -84,4 +84,28 @@ class Test_Utils extends PHPUnit_Framework_TestCase {
 
 	}
 
+	/**
+	 * Check generate_query_string returns empty string when empty array passed
+	 */
+	public function testGenerateQueryStringReturnWhenEmptyArrayPassed() {
+
+    $return = GoCardless_Utils::generate_query_string(array());
+
+    $this->assertEquals('', $return);
+
+  }
+
+	/**
+	 * Check generate_query_string works with integer keys and values
+	 */
+	public function testGenerateQueryStringWorksWithIntegerKeysAndValues() {
+
+    //$params = array('123' => '456');
+    //
+	  //$return = GoCardless_Utils::generate_query_string($params);
+    //
+    //$this->assertEquals('123=456', $return);
+
+  }
+
 }
