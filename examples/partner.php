@@ -12,7 +12,8 @@
  *
  * 1. Sign up for an account at GoCardless.com
  * 2. Copy your app id and secret from the developer tab and paste them below
- * 3. Change 'Redirect URI' in the developer tab to point to this page
+ * 3. Change 'Redirect URI' in the developer tab to point to this page and
+ *    update it in both places in the code below
  * 4. Load the page and click 'authorize app' to generate an access_token
  * 5. You can now initialize a Client object using that access_token
  *
