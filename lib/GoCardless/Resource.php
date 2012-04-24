@@ -11,6 +11,8 @@ class GoCardless_Resource {
    */
   public function __call($method, $arguments = array()) {
 
+    // Params may be passed as first argument to method
+    // If not, use empty array
     $params = isset($arguments[0]) ? $arguments[0] : array();
 
     // Check the subresource exists
@@ -44,7 +46,8 @@ class GoCardless_Resource {
 
     $sub_resource_params = array();
 
-    // Extract params from subresource uri if available and create array
+    // Extract params from subresource uri if available and create
+    // sub_resource_params array
     if ($param_string = parse_url($this->sub_resource_uris[$type],
       PHP_URL_QUERY)) {
 
@@ -57,17 +60,21 @@ class GoCardless_Resource {
 
     }
 
+    // Overwrite params from subresource uri with passed params, if found
     $params = array_merge($params, $sub_resource_params);
 
+    // Get class name
     $class = 'GoCardless_' .
       GoCardless_Utils::camelize(GoCardless_Utils::singularize($type));
 
     $objects = array();
 
+    // Create an array of objects
     foreach ($this->client->request('get', $endpoint, $params) as $value) {
       $objects[] = new $class($this->client, $value);
     }
 
+    // Return the array of objects
     return $objects;
 
   }
