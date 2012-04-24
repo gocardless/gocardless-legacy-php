@@ -10,7 +10,7 @@
  * GoCardless bill class
  *
  */
-class GoCardless_Bill {
+class GoCardless_Bill extends GoCardless_Resource {
 
   /**
    * The API endpoint for bills
@@ -36,31 +36,6 @@ class GoCardless_Bill {
         $this->$key = $value;
       }
     }
-
-  }
-
-  /**
-   * This magic method is used to call subresources
-   *
-   * @param string $method The name of the method being called
-   *
-   * @return array The subresource index
-   */
-  public function __call($method, $arguments = array()) {
-
-    $params = isset($arguments[0]) ? $arguments[0] : array();
-
-    // Check the subresource exists
-    if (array_key_exists($method, $this->sub_resource_uris)) {
-
-      // Return the subresource
-      return $this->fetch_sub_resource($method, $params);
-
-    }
-
-    // Subresource doesn't exist so error out
-    $class = get_class($this);
-    trigger_error("Call to undefined method $class::$method()", E_USER_ERROR);
 
   }
 
@@ -97,51 +72,6 @@ class GoCardless_Bill {
     $endpoint = self::$endpoint . '/' . $id;
 
     return new self($client, $client->request('get', $endpoint));
-
-  }
-
-  /**
-   * Fetch an object's subresource from the API
-   *
-   * @param string $type The subresource to fetch
-   * @param array $params The params for the subresource query
-   *
-   * @return object The subresource object
-   */
-  public function fetch_sub_resource($type, $params = array()) {
-
-    // Generate subresource endpoint by snipping out the
-    // right part of the sub_resource_uri
-    $endpoint = preg_replace('/api\/v[0-9]+\//', '',
-      parse_url($this->sub_resource_uris[$type], PHP_URL_PATH));
-
-    $sub_resource_params = array();
-
-    // Extract params from subresource uri if available and create array
-    if ($param_string = parse_url($this->sub_resource_uris[$type],
-      PHP_URL_QUERY)) {
-
-      $split_params = explode('&', $param_string);
-
-      foreach ($split_params as $split_param) {
-          $parts = explode('=', $split_param);
-          $sub_resource_params[$parts[0]] = $parts[1];
-      }
-
-    }
-
-    $params = array_merge($params, $sub_resource_params);
-
-    $class = 'GoCardless_' .
-      GoCardless_Utils::camelize(GoCardless_Utils::singularize($type));
-
-    $objects = array();
-
-    foreach ($this->client->request('get', $endpoint, $params) as $value) {
-      $objects[] = new $class($this->client, $value);
-    }
-
-    return $objects;
 
   }
 
