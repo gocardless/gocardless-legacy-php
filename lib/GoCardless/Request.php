@@ -150,26 +150,8 @@ class GoCardless_Request {
     // Grab the response code and throw an exception if it's not good
     $http_response_code = curl_getinfo($ch, CURLINFO_HTTP_CODE);
     if ($http_response_code < 200 || $http_response_code > 300) {
-
-      $response = json_decode($result, true);
-
-      // Convert json blob API error messages into a readable string
-      // One layer of recursion due to arbitrary keys
-      $message = '';
-      if (is_array($response)) {
-        foreach ($response as $key => $value) {
-          if (is_array($value)) {
-            foreach ($value as $key2 => $value2) {
-              $message .= $key2 . ' : ' . $value2 . '. ';
-            }
-          } else {
-            $message .= $key . ' : ' . $value . '. ';
-          }
-        }
-      }
-
+      $message = print_r(json_decode($result, true), true);
       throw new GoCardless_ApiException($message, $http_response_code);
-
     }
 
     curl_close($ch);
