@@ -1,11 +1,22 @@
 <?php
 
+/**
+ * GoCardless resource functions
+ *
+ * @package GoCardless\Resource
+ */
+
+/**
+ * GoCardless resource class
+ *
+ */
 class GoCardless_Resource {
 
   /**
    * This magic method is used to call subresources
    *
    * @param string $method The name of the method being called
+   * @param array $arguments The arguments to pass to the method
    *
    * @return array The subresource index
    */
