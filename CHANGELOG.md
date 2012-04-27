@@ -1,3 +1,12 @@
+## 0.3.1 - April 27, 2012
+
+- Tweaked user agent syntax
+- Improved curl debugger
+- Improved API error message reporting
+- Create subresource methods dynamically
+- Tweaks to sample code in /examples
+
+
 ## 0.3.0 - April 11, 2012
 
 - Confirm resource returns correct object type
