@@ -1,5 +1,5 @@
 <html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>GoCardless PHP Library</title><link rel="stylesheet" href="css/jquery-ui.css" type="text/css"></link><link rel="stylesheet" href="css/docblox/jquery-ui-1.8.16.custom.css" type="text/css"></link><link rel="stylesheet" href="css/jquery.treeview.css" type="text/css"></link><link rel="stylesheet" href="css/theme.css" type="text/css"></link><script type="text/javascript" src="js/jquery-1.4.2.min.js"></script><script type="text/javascript" src="js/jquery-ui-1.8.2.custom.min.js"></script><script type="text/javascript" src="js/jquery.tools.min.js"></script><script type="text/javascript" src="js/jquery.cookie.js"></script><script type="text/javascript" src="js/jquery.treeview.js"></script><script type="text/javascript">
+<title>DocBlox Documentation</title><link rel="stylesheet" href="css/jquery-ui.css" type="text/css"></link><link rel="stylesheet" href="css/docblox/jquery-ui-1.8.16.custom.css" type="text/css"></link><link rel="stylesheet" href="css/jquery.treeview.css" type="text/css"></link><link rel="stylesheet" href="css/theme.css" type="text/css"></link><script type="text/javascript" src="js/jquery-1.4.2.min.js"></script><script type="text/javascript" src="js/jquery-ui-1.8.2.custom.min.js"></script><script type="text/javascript" src="js/jquery.tools.min.js"></script><script type="text/javascript" src="js/jquery.cookie.js"></script><script type="text/javascript" src="js/jquery.treeview.js"></script><script type="text/javascript">
             $(document).ready(function() {
                 $(".filetree").treeview({
                     collapsed: true,
@@ -78,7 +78,7 @@
       });
 
       
-    </script><h1 xmlns:dbx="http://docblox-project.org/xsl/functions" class="file">lib/bill.php</h1>
+    </script><h1 xmlns:dbx="http://docblox-project.org/xsl/functions" class="file">GoCardless/User.php</h1>
 <div xmlns:dbx="http://docblox-project.org/xsl/functions" id="file-nav-box">
 <div id="file-nav-options">
               Show:
@@ -88,7 +88,7 @@
 <ul id="file-nav"><li>
 <a href="#classes"><img src="images/icons/class.png" height="14">
                           Classes
-                      </a><ul><li><a href="#%5CGoCardless_Bill">\GoCardless_Bill</a></li></ul>
+                      </a><ul><li><a href="#%5CGoCardless_User">\GoCardless_User</a></li></ul>
 </li></ul>
 <div style="clear: left;"></div>
 </div>
@@ -97,31 +97,34 @@
           </div>
 </div>
 <a xmlns:dbx="http://docblox-project.org/xsl/functions" name="top" class="anchor"></a><div id="file-description">
-<p xmlns:dbx="http://docblox-project.org/xsl/functions" class="short-description">GoCardless bill functions</p>
+<p xmlns:dbx="http://docblox-project.org/xsl/functions" class="short-description">GoCardless user functions</p>
 <div xmlns:dbx="http://docblox-project.org/xsl/functions" class="long-description"></div>
 </div>
 <dl class="file-info">
 <dt xmlns:dbx="http://docblox-project.org/xsl/functions">Package</dt>
-<dd xmlns:dbx="http://docblox-project.org/xsl/functions">GoCardless\Bill
+<dd xmlns:dbx="http://docblox-project.org/xsl/functions">GoCardless\User
          
     </dd>
 </dl>
-<a name="classes" class="anchor"></a><a xmlns:dbx="http://docblox-project.org/xsl/functions" id="\GoCardless_Bill" class="anchor"></a><h2 xmlns:dbx="http://docblox-project.org/xsl/functions" class="class">\GoCardless_Bill<div class="to-top"><a href="#top">jump to top</a></div>
+<a name="classes" class="anchor"></a><a xmlns:dbx="http://docblox-project.org/xsl/functions" id="\GoCardless_User" class="anchor"></a><h2 xmlns:dbx="http://docblox-project.org/xsl/functions" class="class">\GoCardless_User<div class="to-top"><a href="#top">jump to top</a></div>
 </h2>
 <div xmlns:dbx="http://docblox-project.org/xsl/functions" class="class">
-<small class="package"><b>Package: </b>Default</small><p class="short-description">GoCardless bill class</p>
+<small class="package"><b>Package: </b>Default</small><p class="short-description">GoCardless user class</p>
 <div class="long-description"></div>
-<dl class="class-info"></dl>
+<dl class="class-info">
+<dt>Parent(s)</dt>
+<dd><a href="db_GoCardless_Resource.html#%5CGoCardless_Resource">\GoCardless_Resource</a></dd>
+</dl>
 <h3>Properties</h3>
 <div>
-<a id="\GoCardless_Bill::$endpoint" class="anchor"></a><div class="property public">
+<a id="\GoCardless_User::$endpoint" class="anchor"></a><div class="property public">
 <a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/property.png" alt="Property"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public">string
-                 <span class="highlight">$endpoint</span>= ''/bills''
+                 <span class="highlight">$endpoint</span>= ''/users''
                 </code><div class="description">
-<span class="attribute">static</span><p class="short-description">The API endpoint for bills</p></div>
+<span class="attribute">static</span><p class="short-description">The API endpoint for users</p></div>
 <div class="code-tabs">
 <div class="long-description"></div>
-<strong>Default value</strong><code>'/bills'</code><strong>Details</strong><dl class="property-info">
+<strong>Default value</strong><code>'/users'</code><strong>Details</strong><dl class="property-info">
 <dt>Type</dt>
 <dd>string</dd>
 </dl>
@@ -131,13 +134,60 @@
 </div>
 <h3>Methods</h3>
 <div>
-<a id="\GoCardless_Bill::__construct()" class="anchor"></a><div class="method public">
-<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">__construct</span><span class="nb-faded-text">(
-          object $client, array $attrs
+<a id="\GoCardless_User::__call()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">__call</span><span class="nb-faded-text">(
+          string $method, array $arguments
+              =
+              array()
           )
         </span>
         :
-          object</code><div class="description"><p class="short_description">Instantiate a new instance of the bill object</p></div>
+          array</code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">This magic method is used to call subresources</p>
+<small>Inherited from:
+                    <a href="db_GoCardless_Resource.html#%5CGoCardless_Resource::__call()">\GoCardless_Resource::__call()</a></small>
+</div>
+<div class="code-tabs">
+<div class="long-description"></div>
+<strong>Parameters</strong><table class="argument-info">
+<thead><tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<th>$method</th>
+<td>string</td>
+<td><em><p>The name of the method being called</p></em></td>
+</tr>
+<tr>
+<th>$arguments</th>
+<td>array</td>
+<td><em><p>The arguments to pass to the method</p></em></td>
+</tr>
+</table>
+<strong>Returns</strong><table class="argument-info">
+<thead><tr>
+<th>Type</th>
+<th>Description</th>
+</tr></thead>
+<tr>
+<td>array</td>
+<td>The subresource index</td>
+</tr>
+</table>
+</div>
+<div class="clear"></div>
+</div>
+<a id="\GoCardless_User::__construct()" class="anchor"></a><div class="method public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">__construct</span><span class="nb-faded-text">(
+          object $client, array $attrs
+              =
+              null
+          )
+        </span>
+        :
+          object</code><div class="description"><p class="short_description">Instantiate a new instance of the user object</p></div>
 <div class="code-tabs">
 <div class="long-description"></div>
 <strong>Parameters</strong><table class="argument-info">
@@ -149,12 +199,12 @@
 <tr>
 <th>$client</th>
 <td>object</td>
-<td><em><p>The client to use for the bill object</p></em></td>
+<td><em><p>The client to use for the user object</p></em></td>
 </tr>
 <tr>
 <th>$attrs</th>
 <td>array</td>
-<td><em><p>The properties of the bill</p></em></td>
+<td><em><p>The properties of the user</p></em></td>
 </tr>
 </table>
 <strong>Returns</strong><table class="argument-info">
@@ -164,19 +214,25 @@
 </tr></thead>
 <tr>
 <td>object</td>
-<td>The bill object</td>
+<td>The user object</td>
 </tr>
 </table>
 </div>
 <div class="clear"></div>
 </div>
-<a id="\GoCardless_Bill::create()" class="anchor"></a><div class="method public">
-<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">create</span><span class="nb-faded-text">(
-          array $params
+<a id="\GoCardless_User::fetch_sub_resource()" class="anchor"></a><div class="method public inherited_from ">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">fetch_sub_resource</span><span class="nb-faded-text">(
+          string $type, array $params
+              =
+              array()
           )
         </span>
         :
-          object</code><div class="description"><p class="short_description">Create a bill under an existing pre-auth</p></div>
+          object</code><div class="description">
+<span class="attribute">inherited</span><p class="short_description">Fetch an object's subresource from the API</p>
+<small>Inherited from:
+                    <a href="db_GoCardless_Resource.html#%5CGoCardless_Resource::fetch_sub_resource()">\GoCardless_Resource::fetch_sub_resource()</a></small>
+</div>
 <div class="code-tabs">
 <div class="long-description"></div>
 <strong>Parameters</strong><table class="argument-info">
@@ -186,9 +242,14 @@
 <th>Description</th>
 </tr></thead>
 <tr>
+<th>$type</th>
+<td>string</td>
+<td><em><p>The subresource to fetch</p></em></td>
+</tr>
+<tr>
 <th>$params</th>
 <td>array</td>
-<td><em><p>Parameters to use to create the bill</p></em></td>
+<td><em><p>The params for the subresource query</p></em></td>
 </tr>
 </table>
 <strong>Returns</strong><table class="argument-info">
@@ -198,22 +259,20 @@
 </tr></thead>
 <tr>
 <td>object</td>
-<td>The result of the cancel query</td>
+<td>The subresource object</td>
 </tr>
 </table>
 </div>
 <div class="clear"></div>
 </div>
-<a id="\GoCardless_Bill::find()" class="anchor"></a><div class="method public">
+<a id="\GoCardless_User::find()" class="anchor"></a><div class="method public">
 <a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">find</span><span class="nb-faded-text">(
-          string $id, object $client
-              =
-              null
+          string $id
           )
         </span>
         :
           object</code><div class="description">
-<span class="attribute">static</span><p class="short_description">Fetch a bill item from the API</p>
+<span class="attribute">static</span><p class="short_description">Fetch a user item from the API</p>
 </div>
 <div class="code-tabs">
 <div class="long-description"></div>
@@ -226,12 +285,7 @@
 <tr>
 <th>$id</th>
 <td>string</td>
-<td><em><p>The id of the bill to fetch</p></em></td>
-</tr>
-<tr>
-<th>$client</th>
-<td>object</td>
-<td><em><p>The client object to use to make the query</p></em></td>
+<td><em><p>The id of the user to fetch</p></em></td>
 </tr>
 </table>
 <strong>Returns</strong><table class="argument-info">
@@ -241,19 +295,21 @@
 </tr></thead>
 <tr>
 <td>object</td>
-<td>The bill object</td>
+<td>The user object</td>
 </tr>
 </table>
 </div>
 <div class="clear"></div>
 </div>
-<a id="\GoCardless_Bill::find_with_client()" class="anchor"></a><div class="method public">
+<a id="\GoCardless_User::find_with_client()" class="anchor"></a><div class="method public">
 <a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">find_with_client</span><span class="nb-faded-text">(
           object $client, string $id
           )
         </span>
         :
-          object</code><div class="description"><p class="short_description">Fetch a bill item from the API</p></div>
+          object</code><div class="description">
+<span class="attribute">static</span><p class="short_description">Fetch a bill item from the API</p>
+</div>
 <div class="code-tabs">
 <div class="long-description"></div>
 <strong>Parameters</strong><table class="argument-info">

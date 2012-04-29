@@ -1,5 +1,5 @@
 <html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>GoCardless PHP Library</title><link rel="stylesheet" href="css/jquery-ui.css" type="text/css"></link><link rel="stylesheet" href="css/docblox/jquery-ui-1.8.16.custom.css" type="text/css"></link><link rel="stylesheet" href="css/jquery.treeview.css" type="text/css"></link><link rel="stylesheet" href="css/theme.css" type="text/css"></link><script type="text/javascript" src="js/jquery-1.4.2.min.js"></script><script type="text/javascript" src="js/jquery-ui-1.8.2.custom.min.js"></script><script type="text/javascript" src="js/jquery.tools.min.js"></script><script type="text/javascript" src="js/jquery.cookie.js"></script><script type="text/javascript" src="js/jquery.treeview.js"></script><script type="text/javascript">
+<title>DocBlox Documentation</title><link rel="stylesheet" href="css/jquery-ui.css" type="text/css"></link><link rel="stylesheet" href="css/docblox/jquery-ui-1.8.16.custom.css" type="text/css"></link><link rel="stylesheet" href="css/jquery.treeview.css" type="text/css"></link><link rel="stylesheet" href="css/theme.css" type="text/css"></link><script type="text/javascript" src="js/jquery-1.4.2.min.js"></script><script type="text/javascript" src="js/jquery-ui-1.8.2.custom.min.js"></script><script type="text/javascript" src="js/jquery.tools.min.js"></script><script type="text/javascript" src="js/jquery.cookie.js"></script><script type="text/javascript" src="js/jquery.treeview.js"></script><script type="text/javascript">
             $(document).ready(function() {
                 $(".filetree").treeview({
                     collapsed: true,
@@ -78,7 +78,7 @@
       });
 
       
-    </script><h1 xmlns:dbx="http://docblox-project.org/xsl/functions" class="file">lib/utils.php</h1>
+    </script><h1 xmlns:dbx="http://docblox-project.org/xsl/functions" class="file">GoCardless/Resource.php</h1>
 <div xmlns:dbx="http://docblox-project.org/xsl/functions" id="file-nav-box">
 <div id="file-nav-options">
               Show:
@@ -88,7 +88,7 @@
 <ul id="file-nav"><li>
 <a href="#classes"><img src="images/icons/class.png" height="14">
                           Classes
-                      </a><ul><li><a href="#%5CUtils">\Utils</a></li></ul>
+                      </a><ul><li><a href="#%5CGoCardless_Resource">\GoCardless_Resource</a></li></ul>
 </li></ul>
 <div style="clear: left;"></div>
 </div>
@@ -97,36 +97,39 @@
           </div>
 </div>
 <a xmlns:dbx="http://docblox-project.org/xsl/functions" name="top" class="anchor"></a><div id="file-description">
-<p xmlns:dbx="http://docblox-project.org/xsl/functions" class="short-description">GoCardless utility functions</p>
+<p xmlns:dbx="http://docblox-project.org/xsl/functions" class="short-description">GoCardless resource functions</p>
 <div xmlns:dbx="http://docblox-project.org/xsl/functions" class="long-description"></div>
 </div>
 <dl class="file-info">
 <dt xmlns:dbx="http://docblox-project.org/xsl/functions">Package</dt>
-<dd xmlns:dbx="http://docblox-project.org/xsl/functions">GoCardless\Utils
+<dd xmlns:dbx="http://docblox-project.org/xsl/functions">GoCardless\Resource
          
     </dd>
 </dl>
-<a name="classes" class="anchor"></a><a xmlns:dbx="http://docblox-project.org/xsl/functions" id="\Utils" class="anchor"></a><h2 xmlns:dbx="http://docblox-project.org/xsl/functions" class="class">\Utils<div class="to-top"><a href="#top">jump to top</a></div>
+<a name="classes" class="anchor"></a><a xmlns:dbx="http://docblox-project.org/xsl/functions" id="\GoCardless_Resource" class="anchor"></a><h2 xmlns:dbx="http://docblox-project.org/xsl/functions" class="class">\GoCardless_Resource<div class="to-top"><a href="#top">jump to top</a></div>
 </h2>
 <div xmlns:dbx="http://docblox-project.org/xsl/functions" class="class">
-<small class="package"><b>Package: </b>Default</small><p class="short-description">GoCardless utils class</p>
+<small class="package"><b>Package: </b>Default</small><p class="short-description">GoCardless resource class</p>
 <div class="long-description"></div>
-<dl class="class-info"></dl>
+<dl class="class-info">
+<dt>Children</dt>
+<dd><a href="db_GoCardless_Bill.html#%5CGoCardless_Bill">\GoCardless_Bill</a></dd>
+<dd><a href="db_GoCardless_Merchant.html#%5CGoCardless_Merchant">\GoCardless_Merchant</a></dd>
+<dd><a href="db_GoCardless_PreAuthorization.html#%5CGoCardless_PreAuthorization">\GoCardless_PreAuthorization</a></dd>
+<dd><a href="db_GoCardless_Subscription.html#%5CGoCardless_Subscription">\GoCardless_Subscription</a></dd>
+<dd><a href="db_GoCardless_User.html#%5CGoCardless_User">\GoCardless_User</a></dd>
+</dl>
 <h3>Methods</h3>
 <div>
-<a id="\Utils::generate_query_string()" class="anchor"></a><div class="method public">
-<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">generate_query_string</span><span class="nb-faded-text">(
-          array $params, array $pairs
+<a id="\GoCardless_Resource::__call()" class="anchor"></a><div class="method public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">__call</span><span class="nb-faded-text">(
+          string $method, array $arguments
               =
-              array(), string $namespace
-              =
-              null
+              array()
           )
         </span>
         :
-          string</code><div class="description">
-<span class="attribute">static</span><p class="short_description">Generates, encodes, re-orders variables for the query string.</p>
-</div>
+          array</code><div class="description"><p class="short_description">This magic method is used to call subresources</p></div>
 <div class="code-tabs">
 <div class="long-description"></div>
 <strong>Parameters</strong><table class="argument-info">
@@ -136,19 +139,14 @@
 <th>Description</th>
 </tr></thead>
 <tr>
-<th>$params</th>
-<td>array</td>
-<td><em><p>The specific parameters for this payment</p></em></td>
-</tr>
-<tr>
-<th>$pairs</th>
-<td>array</td>
-<td><em><p>Pairs</p></em></td>
-</tr>
-<tr>
-<th>$namespace</th>
+<th>$method</th>
 <td>string</td>
-<td><em><p>The namespace</p></em></td>
+<td><em><p>The name of the method being called</p></em></td>
+</tr>
+<tr>
+<th>$arguments</th>
+<td>array</td>
+<td><em><p>The arguments to pass to the method</p></em></td>
 </tr>
 </table>
 <strong>Returns</strong><table class="argument-info">
@@ -157,22 +155,22 @@
 <th>Description</th>
 </tr></thead>
 <tr>
-<td>string</td>
-<td>An encoded string of parameters</td>
+<td>array</td>
+<td>The subresource index</td>
 </tr>
 </table>
 </div>
 <div class="clear"></div>
 </div>
-<a id="\Utils::generate_signature()" class="anchor"></a><div class="method public">
-<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">generate_signature</span><span class="nb-faded-text">(
-          array $params, string $key
+<a id="\GoCardless_Resource::fetch_sub_resource()" class="anchor"></a><div class="method public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">fetch_sub_resource</span><span class="nb-faded-text">(
+          string $type, array $params
+              =
+              array()
           )
         </span>
         :
-          string</code><div class="description">
-<span class="attribute">static</span><p class="short_description">Generate a signature for a request given the app secret</p>
-</div>
+          object</code><div class="description"><p class="short_description">Fetch an object's subresource from the API</p></div>
 <div class="code-tabs">
 <div class="long-description"></div>
 <strong>Parameters</strong><table class="argument-info">
@@ -182,14 +180,14 @@
 <th>Description</th>
 </tr></thead>
 <tr>
-<th>$params</th>
-<td>array</td>
-<td><em><p>The parameters to generate a signature for</p></em></td>
+<th>$type</th>
+<td>string</td>
+<td><em><p>The subresource to fetch</p></em></td>
 </tr>
 <tr>
-<th>$key</th>
-<td>string</td>
-<td><em><p>The key to generate the signature with</p></em></td>
+<th>$params</th>
+<td>array</td>
+<td><em><p>The params for the subresource query</p></em></td>
 </tr>
 </table>
 <strong>Returns</strong><table class="argument-info">
@@ -198,8 +196,8 @@
 <th>Description</th>
 </tr></thead>
 <tr>
-<td>string</td>
-<td>A URL-encoded string of parameters</td>
+<td>object</td>
+<td>The subresource object</td>
 </tr>
 </table>
 </div>

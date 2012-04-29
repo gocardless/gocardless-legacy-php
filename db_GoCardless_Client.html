@@ -1,5 +1,5 @@
 <html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>GoCardless PHP Library</title><link rel="stylesheet" href="css/jquery-ui.css" type="text/css"></link><link rel="stylesheet" href="css/docblox/jquery-ui-1.8.16.custom.css" type="text/css"></link><link rel="stylesheet" href="css/jquery.treeview.css" type="text/css"></link><link rel="stylesheet" href="css/theme.css" type="text/css"></link><script type="text/javascript" src="js/jquery-1.4.2.min.js"></script><script type="text/javascript" src="js/jquery-ui-1.8.2.custom.min.js"></script><script type="text/javascript" src="js/jquery.tools.min.js"></script><script type="text/javascript" src="js/jquery.cookie.js"></script><script type="text/javascript" src="js/jquery.treeview.js"></script><script type="text/javascript">
+<title>DocBlox Documentation</title><link rel="stylesheet" href="css/jquery-ui.css" type="text/css"></link><link rel="stylesheet" href="css/docblox/jquery-ui-1.8.16.custom.css" type="text/css"></link><link rel="stylesheet" href="css/jquery.treeview.css" type="text/css"></link><link rel="stylesheet" href="css/theme.css" type="text/css"></link><script type="text/javascript" src="js/jquery-1.4.2.min.js"></script><script type="text/javascript" src="js/jquery-ui-1.8.2.custom.min.js"></script><script type="text/javascript" src="js/jquery.tools.min.js"></script><script type="text/javascript" src="js/jquery.cookie.js"></script><script type="text/javascript" src="js/jquery.treeview.js"></script><script type="text/javascript">
             $(document).ready(function() {
                 $(".filetree").treeview({
                     collapsed: true,
@@ -78,7 +78,7 @@
       });
 
       
-    </script><h1 xmlns:dbx="http://docblox-project.org/xsl/functions" class="file">lib/client.php</h1>
+    </script><h1 xmlns:dbx="http://docblox-project.org/xsl/functions" class="file">GoCardless/Client.php</h1>
 <div xmlns:dbx="http://docblox-project.org/xsl/functions" id="file-nav-box">
 <div id="file-nav-options">
               Show:
@@ -146,7 +146,7 @@
 <a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/property.png" alt="Property"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public">string
                  <span class="highlight">$base_url</span>= ''
                 </code><div class="description">
-<span class="attribute">static</span><p class="short-description">The (empty) base_url to use for API queries</p></div>
+<p class="short-description">The base_url for the API to use for all client requests</p></div>
 <div class="code-tabs">
 <div class="long-description"></div>
 <strong>Details</strong><dl class="property-info">
@@ -217,132 +217,11 @@
 </div>
 <div class="clear"></div>
 </div>
-<a id="\GoCardless_Client::api_get()" class="anchor"></a><div class="method public">
-<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">api_get</span><span class="nb-faded-text">(
-          string $path, array $params
-              =
-              array()
-          )
-        </span>
-        :
-          string</code><div class="description"><p class="short_description">Configure a GET request</p></div>
-<div class="code-tabs">
-<div class="long-description"></div>
-<strong>Parameters</strong><table class="argument-info">
-<thead><tr>
-<th>Name</th>
-<th>Type</th>
-<th>Description</th>
-</tr></thead>
-<tr>
-<th>$path</th>
-<td>string</td>
-<td><em><p>The URL to make the request to</p></em></td>
-</tr>
-<tr>
-<th>$params</th>
-<td>array</td>
-<td><em><p>The parameters to use for the POST body</p></em></td>
-</tr>
-</table>
-<strong>Returns</strong><table class="argument-info">
-<thead><tr>
-<th>Type</th>
-<th>Description</th>
-</tr></thead>
-<tr>
-<td>string</td>
-<td>The response text</td>
-</tr>
-</table>
-</div>
-<div class="clear"></div>
-</div>
-<a id="\GoCardless_Client::api_post()" class="anchor"></a><div class="method public">
-<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">api_post</span><span class="nb-faded-text">(
-          string $path, array $data
-              =
-              array()
-          )
-        </span>
-        :
-          string</code><div class="description"><p class="short_description">Configure a POST request</p></div>
-<div class="code-tabs">
-<div class="long-description"></div>
-<strong>Parameters</strong><table class="argument-info">
-<thead><tr>
-<th>Name</th>
-<th>Type</th>
-<th>Description</th>
-</tr></thead>
-<tr>
-<th>$path</th>
-<td>string</td>
-<td><em><p>The URL to make the request to</p></em></td>
-</tr>
-<tr>
-<th>$data</th>
-<td>array</td>
-<td><em><p>The parameters to use for the POST body</p></em></td>
-</tr>
-</table>
-<strong>Returns</strong><table class="argument-info">
-<thead><tr>
-<th>Type</th>
-<th>Description</th>
-</tr></thead>
-<tr>
-<td>string</td>
-<td>The response text</td>
-</tr>
-</table>
-</div>
-<div class="clear"></div>
-</div>
-<a id="\GoCardless_Client::api_put()" class="anchor"></a><div class="method public">
-<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">api_put</span><span class="nb-faded-text">(
-          string $path, array $data
-              =
-              array()
-          )
-        </span>
-        :
-          string</code><div class="description"><p class="short_description">Configure a PUT request</p></div>
-<div class="code-tabs">
-<div class="long-description"></div>
-<strong>Parameters</strong><table class="argument-info">
-<thead><tr>
-<th>Name</th>
-<th>Type</th>
-<th>Description</th>
-</tr></thead>
-<tr>
-<th>$path</th>
-<td>string</td>
-<td><em><p>The URL to make the request to</p></em></td>
-</tr>
-<tr>
-<th>$data</th>
-<td>array</td>
-<td><em><p>The parameters to use for the PUT body</p></em></td>
-</tr>
-</table>
-<strong>Returns</strong><table class="argument-info">
-<thead><tr>
-<th>Type</th>
-<th>Description</th>
-</tr></thead>
-<tr>
-<td>string</td>
-<td>The response text</td>
-</tr>
-</table>
-</div>
-<div class="clear"></div>
-</div>
 <a id="\GoCardless_Client::authorize_url()" class="anchor"></a><div class="method public">
 <a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">authorize_url</span><span class="nb-faded-text">(
           array $options
+              =
+              null
           )
         </span>
         :
@@ -444,7 +323,7 @@
 </div>
 <a id="\GoCardless_Client::create_bill()" class="anchor"></a><div class="method public">
 <a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">create_bill</span><span class="nb-faded-text">(
-          array $attrs
+          array $params
           )
         </span>
         :
@@ -458,7 +337,7 @@
 <th>Description</th>
 </tr></thead>
 <tr>
-<th>$attrs</th>
+<th>$params</th>
 <td>array</td>
 <td><em><p>Must include pre_authorization_id and amount</p></em></td>
 </tr>
@@ -478,7 +357,7 @@
 </div>
 <a id="\GoCardless_Client::fetch_access_token()" class="anchor"></a><div class="method public">
 <a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">fetch_access_token</span><span class="nb-faded-text">(
-          array $options
+          array $params
           )
         </span>
         :
@@ -492,7 +371,7 @@
 <th>Description</th>
 </tr></thead>
 <tr>
-<th>$options</th>
+<th>$params</th>
 <td>array</td>
 <td><em><p>The parameters to use</p></em></td>
 </tr>
@@ -624,9 +503,9 @@
 </div>
 <div class="clear"></div>
 </div>
-<a id="\GoCardless_Client::new_limit_url()" class="anchor"></a><div class="method private">
-<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_private.png" style="margin-right: 5px" alt="private"><span class="highlight">new_limit_url</span><span class="nb-faded-text">(
-          string $type, string $limit_params
+<a id="\GoCardless_Client::new_limit_url()" class="anchor"></a><div class="method public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">new_limit_url</span><span class="nb-faded-text">(
+          string $type, string $params
           )
         </span>
         :
@@ -645,7 +524,7 @@
 <td><em><p>Payment type</p></em></td>
 </tr>
 <tr>
-<th>$limit_params</th>
+<th>$params</th>
 <td>string</td>
 <td><em><p>The specific parameters for this payment</p></em></td>
 </tr>
@@ -765,15 +644,15 @@
 </div>
 <div class="clear"></div>
 </div>
-<a id="\GoCardless_Client::request()" class="anchor"></a><div class="method protected">
-<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_protected.png" style="margin-right: 5px" alt="protected"><span class="highlight">request</span><span class="nb-faded-text">(
-          string $method, string $path, array $opts
+<a id="\GoCardless_Client::request()" class="anchor"></a><div class="method public">
+<a href="#" class="gripper"><img src="images/icons/arrow_right.png"><img src="images/icons/arrow_down.png" style="display: none;"></a><code><img src="images/icons/method.png" alt="method"><img src="images/icons/visibility_public.png" style="margin-right: 5px" alt="public"><span class="highlight">request</span><span class="nb-faded-text">(
+          string $method, string $endpoint, string $params
               =
               array()
           )
         </span>
         :
-          string</code><div class="description"><p class="short_description">Makes an HTTP request</p></div>
+          object</code><div class="description"><p class="short_description">Make a request to the API</p></div>
 <div class="code-tabs">
 <div class="long-description"></div>
 <strong>Parameters</strong><table class="argument-info">
@@ -785,17 +664,17 @@
 <tr>
 <th>$method</th>
 <td>string</td>
-<td><em><p>The method to use for the request</p></em></td>
+<td><em><p>The request method to use</p></em></td>
 </tr>
 <tr>
-<th>$path</th>
+<th>$endpoint</th>
 <td>string</td>
-<td><em><p>The API path to make the request to</p></em></td>
+<td><em><p>The API endpoint to call</p></em></td>
 </tr>
 <tr>
-<th>$opts</th>
-<td>array</td>
-<td><em><p>The parameters to use for the request</p></em></td>
+<th>$params</th>
+<td>string</td>
+<td><em><p>The parameters to send with the request</p></em></td>
 </tr>
 </table>
 <strong>Returns</strong><table class="argument-info">
@@ -804,8 +683,8 @@
 <th>Description</th>
 </tr></thead>
 <tr>
-<td>string</td>
-<td>The response text</td>
+<td>object</td>
+<td>The returned object</td>
 </tr>
 </table>
 </div>
