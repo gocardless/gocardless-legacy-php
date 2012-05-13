@@ -61,7 +61,7 @@ class GoCardless_Utils {
         return '';
       }
 
-      sort($pairs);
+      usort($pairs, array(__CLASS__, 'sortPairs'));
 
       $strs = array();
       foreach ($pairs as $pair) {
@@ -76,6 +76,24 @@ class GoCardless_Utils {
 
     }
 
+  }
+
+  /**
+   * Sorts a pair
+   *
+   * @param array $a
+   * @param array $b
+   * @return int
+   */
+  public static function sortPairs($a, $b)
+  {
+    $keys = strcmp($a[0], $b[0]);
+
+    if ($keys !== 0) {
+      return $keys;
+    }
+
+    return strcmp($a[1], $b[1]);
   }
 
   /**
