@@ -66,6 +66,33 @@ class Test_Utils extends PHPUnit_Framework_TestCase {
 
   }
 
+
+  /**
+   *
+   * Test for correct sorting of keys/values
+   */
+  public function testGenerateQueryStringSortsByKeyThenValue() {
+
+    $params = array(
+      'bills' => array(
+        array(
+          'amount' => 10.0,
+          'amount_minus_fees' => 9.9,
+        ),
+        array(
+          'amount' => 19.99,
+          'amount_minus_fees' => 19.79,
+        ),
+      ),
+    );
+
+
+    $sig = GoCardless_Utils::generate_query_string($params);
+
+    // Check against a pre-built hash
+    $this->assertEquals('bills%5B%5D%5Bamount%5D=10&bills%5B%5D%5Bamount%5D=19.99&bills%5B%5D%5Bamount_minus_fees%5D=19.79&bills%5B%5D%5Bamount_minus_fees%5D=9.9', $sig);
+  }
+
 	/**
 	 * Check the signature is being generated correctly
 	 */
