@@ -1,3 +1,7 @@
+## 0.3.2 - May 28, 2012
+
+- Added debugging lines for SSL certificate issues
+
 ## 0.3.1 - April 27, 2012
 
 - Tweaked user agent syntax

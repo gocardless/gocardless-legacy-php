@@ -84,6 +84,9 @@ class GoCardless_Request {
     // Request format
     $curl_options[CURLOPT_HTTPHEADER][] = 'Accept: application/json';
 
+    // Debug - DO NOT USE THIS IN PRODUCTION
+    //$curl_options[CURLOPT_SSL_VERIFYPEER] = false;
+
     // HTTP Authentication (for confirming new payments)
     if (isset($params['http_authorization'])) {
 
