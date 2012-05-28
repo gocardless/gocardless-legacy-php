@@ -13,8 +13,12 @@
     "name": "David Haywood-Smith",
     "email": "dave@gocardless.com",
     "homepage": "https://gocardless.com/"
+  }, {
+	"name": "Tim Rogers",
+	"email": "tim@gocardless.com",
+	"homepage": "https://gocardless.com/"
   }],
-  "version": "0.3.1",
+  "version": "0.3.2",
   "require": {
       "php": ">= 5.2.0"
   },
