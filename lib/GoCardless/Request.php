@@ -84,7 +84,12 @@ class GoCardless_Request {
     // Request format
     $curl_options[CURLOPT_HTTPHEADER][] = 'Accept: application/json';
 
-    // Debug - DO NOT USE THIS IN PRODUCTION
+    // Debug - DO NOT USE THIS IN PRODUCTION FOR SECURITY REASONS
+    //
+    // This fixes a problem in some environments with connecting to HTTPS-enabled servers.
+    // Sometimes, Curl has no list of valid CAs, and so won't connect. With this fix, it    
+    // doesn't verify and just connects anyway, instead of throwing an exception. 
+    //
     //$curl_options[CURLOPT_SSL_VERIFYPEER] = false;
 
     // HTTP Authentication (for confirming new payments)
