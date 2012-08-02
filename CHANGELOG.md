@@ -1,3 +1,7 @@
+## 0.3.3 - August 2, 2012
+
+- Bundled SSL certificates with library.
+
 ## 0.3.2 - May 28, 2012
 
 - Added debugging lines for SSL certificate issues
