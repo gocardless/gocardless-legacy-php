@@ -67,7 +67,7 @@ class GoCardless_Request {
       CURLOPT_CONNECTTIMEOUT  => 10,
       CURLOPT_RETURNTRANSFER  => true,
       CURLOPT_TIMEOUT         => 60,
-      CURLOPT_USERAGENT       => 'gocardless-php/v' . GoCardless::VERSION
+      CURLOPT_USERAGENT       => 'gocardless-php/v' . GoCardless::VERSION,
     );
 
     // Set application specific user agent suffix if found
@@ -87,8 +87,8 @@ class GoCardless_Request {
     // Debug - DO NOT USE THIS IN PRODUCTION FOR SECURITY REASONS
     //
     // This fixes a problem in some environments with connecting to HTTPS-enabled servers.
-    // Sometimes, Curl has no list of valid CAs, and so won't connect. With this fix, it    
-    // doesn't verify and just connects anyway, instead of throwing an exception. 
+    // Sometimes, Curl has no list of valid CAs, and so won't connect. With this fix, it
+    // doesn't verify and just connects anyway, instead of throwing an exception.
     //
     //$curl_options[CURLOPT_SSL_VERIFYPEER] = false;
 
@@ -166,6 +166,13 @@ class GoCardless_Request {
 
     // Send the request
     $result = curl_exec($ch);
+    $error = curl_errno($ch);
+
+    if ($error == CURLE_SSL_PEER_CERTIFICATE || $error == CURLE_SSL_CACERT ||
+        $error == 77) {
+      curl_setopt($ch, CURLOPT_CAINFO, dirname(__FILE__) . '/cert-bundle.crt');
+      $result = curl_exec($ch);
+    }
 
     // Debug
     //echo "<pre>\nCurl result config:\n";
