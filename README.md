@@ -1,6 +1,4 @@
-![GoCardless](https://s3-eu-west-1.amazonaws.com/gocardless/images/gocardless-dark.png)
-
-## GoCardless PHP Client Library
+![GoCardless PHP Client Library](https://s3-eu-west-1.amazonaws.com/gocardless/images/client-lib-headers/php-lib-header.png)
 
 The GoCardless PHP client provides a simple PHP interface to the GoCardless
 API.
