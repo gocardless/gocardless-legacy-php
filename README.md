@@ -1,4 +1,4 @@
-![GoCardless](https://gocardless.com/resources/logo.png)
+![GoCardless](https://s3-eu-west-1.amazonaws.com/gocardless/images/gocardless-dark.png)
 
 ## GoCardless PHP Client Library
 
