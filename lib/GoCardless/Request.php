@@ -84,6 +84,10 @@ class GoCardless_Request {
     // Request format
     $curl_options[CURLOPT_HTTPHEADER][] = 'Accept: application/json';
 
+	// Enable SSL certificate validation.
+	// This is true by default since libcurl 7.1.
+	$curl_options[CURLOPT_SSL_VERIFYPEER] = true;
+
     // Debug - DO NOT USE THIS IN PRODUCTION FOR SECURITY REASONS
     //
     // This fixes a problem in some environments with connecting to HTTPS-enabled servers.
