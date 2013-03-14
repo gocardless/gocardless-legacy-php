@@ -141,7 +141,11 @@ class GoCardless_Request {
 
       $curl_options[CURLOPT_PUT] = 1;
 
+      // Receiving the following Curl error?:
+      //    "cannot represent a stream of type MEMORY as a STDIO FILE*"
+      // Try changing the first parameter of fopen() to `php://temp`
       $fh = fopen('php://memory', 'rw+');
+
       $curl_options[CURLOPT_INFILE] = $fh;
       $curl_options[CURLOPT_INFILESIZE] = 0;
 

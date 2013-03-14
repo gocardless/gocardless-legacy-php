@@ -1,3 +1,8 @@
+## 0.3.4 - March 14, 2013
+
+- Adds some debugging notes to Request.php to resolve an issue with PUT
+requests in some versions of PHP
+
 ## 0.3.3 - August 2, 2012
 
 - Bundled SSL certificates with library.
