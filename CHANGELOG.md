@@ -1,3 +1,7 @@
+## 0.3.5 - April 16, 2013
+
+- Adds support for retrying a failed by via the API
+
 ## 0.3.4 - March 14, 2013
 
 - Adds some debugging notes to Request.php to resolve an issue with PUT

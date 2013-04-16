@@ -18,7 +18,7 @@
 	"email": "tim@gocardless.com",
 	"homepage": "https://gocardless.com/"
   }],
-  "version": "0.3.4",
+  "version": "0.3.5",
   "require": {
       "php": ">= 5.2.0"
   },
