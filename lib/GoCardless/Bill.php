@@ -75,4 +75,17 @@ class GoCardless_Bill extends GoCardless_Resource {
 
   }
 
+  /**
+   * Attempted to collect a bill with status 'failed' again
+   *
+   * @return object The result of the retry query
+   */
+  public function retry() {
+
+    $endpoint = self::$endpoint . '/' . $this->id . '/retry';
+
+    return new self($this->client, $this->client->request('post', $endpoint));
+
+  }
+
 }
