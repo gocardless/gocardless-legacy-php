@@ -76,6 +76,13 @@ class GoCardless_ApiException extends Exception {
     return json_decode($this->json, true);
   }
 
+  public function getError() {
+    // This is primitive way of trying to extract the errors, your mileage may
+    // vary - use getJson() or getResponse() for something more robust
+    $object = json_decode($this->json, true);
+    return reset(reset($object["errors"]));
+  }
+
 }
 
 /**
