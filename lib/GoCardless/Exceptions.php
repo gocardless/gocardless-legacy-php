@@ -55,11 +55,25 @@ class GoCardless_ApiException extends Exception {
    * @param string $description Description of the error
    * @param integer $code The returned error code
    */
-  public function __construct($description = 'Unknown error', $code = 0) {
+
+  private $json;
+
+  public function __construct($description = 'Unknown error', $code = 0, $json = null) {
     if (empty($description)) {
       $description = 'Unknown error';
     }
+
+    $this->json = $json;
+
     parent::__construct($description, $code);
+  }
+
+  public function getJson() {
+    return $this->json;
+  }
+
+  public function getResponse() {
+    return json_decode($this->json, true);
   }
 
 }
