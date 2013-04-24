@@ -101,13 +101,18 @@ class GoCardless_Client {
       throw new GoCardless_ArgumentsException('redirect_uri required');
     }
 
-    $endpoint = '/oauth/authorize';
+    $endpoint = '/oauth/authorize/?';
 
-    return $this->base_url . $endpoint .
-      '?client_id='. urlencode($this->account_details['app_id']) .
-      '&redirect_uri=' . urlencode($options['redirect_uri']) .
-      '&scope=manage_merchant' .
-      '&response_type=code';
+    $required_options = array(
+      "client_id" => $this->account_details['app_id'],
+      "scope" => "manage_merchant",
+      "response_type" => "code"
+    );
+
+    $params = array_merge($required_options, $options);
+    $request = GoCardless_Utils::generate_query_string($params);
+
+    return $this->base_url . $endpoint . $request;
 
   }
 
