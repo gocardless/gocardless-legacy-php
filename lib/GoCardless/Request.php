@@ -197,7 +197,7 @@ class GoCardless_Request {
       $message = print_r(json_decode($result, true), true);
 
       // Throw an exception with the error message
-      throw new GoCardless_ApiException($message, $http_response_code);
+      throw new GoCardless_ApiException($message, $http_response_code, $result);
 
     }
 
