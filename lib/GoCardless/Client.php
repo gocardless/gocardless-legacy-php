@@ -33,7 +33,8 @@ class GoCardless_Client {
    */
   public static $base_urls = array(
     'production'  => 'https://gocardless.com',
-    'sandbox'     => 'https://sandbox.gocardless.com'
+    'sandbox'     => 'https://sandbox.gocardless.com',
+    'development' => 'http://gocardless.dev:3000'
   );
 
   /**
@@ -72,9 +73,9 @@ class GoCardless_Client {
       throw new GoCardless_ClientException('No app_secret specfied');
     }
 
-    // If environment is not set then default to production
+    // If environment is not set then default to sandbox
     if ( ! isset(GoCardless::$environment)) {
-      GoCardless::$environment = 'production';
+      GoCardless::$environment = 'sandbox';
     }
 
     // Take base_url from array
