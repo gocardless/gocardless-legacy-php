@@ -1,3 +1,10 @@
+## 0.4.0 - April 24, 2013
+
+- Defaults to sandbox environment if none is specified
+- Adds support for pre-population when creating a merchant as a partner (see the [docs](https://gocardless.com/docs/partner_guide#prepopulating-information) for further details)
+- Updates defaults to make requests as secure as possible in older versions of Curl (*CURLOPT_SSL_VERIFYPEER* is explicitly set to true)
+- Makes API exceptions more accessible by adding the methods `getJson()`, `getResponse()` and `getError()` to the class (see [issue #18](https://github.com/gocardless/gocardless-php/pull/18) for further details)
+
 ## 0.3.5 - April 16, 2013
 
 - Adds support for retrying a failed by via the API
