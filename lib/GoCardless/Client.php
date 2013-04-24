@@ -33,8 +33,7 @@ class GoCardless_Client {
    */
   public static $base_urls = array(
     'production'  => 'https://gocardless.com',
-    'sandbox'     => 'https://sandbox.gocardless.com',
-    'development' => 'http://gocardless.dev:3000'
+    'sandbox'     => 'https://sandbox.gocardless.com'
   );
 
   /**
@@ -102,8 +101,6 @@ class GoCardless_Client {
       throw new GoCardless_ArgumentsException('redirect_uri required');
     }
 
-    $endpoint = '/oauth/authorize/?';
-
     $required_options = array(
       "client_id" => $this->account_details['app_id'],
       "scope" => "manage_merchant",
@@ -113,7 +110,7 @@ class GoCardless_Client {
     $params = array_merge($required_options, $options);
     $request = GoCardless_Utils::generate_query_string($params);
 
-    return $this->base_url . $endpoint . $request;
+    return $this->base_url . "/oauth/authorize/?" . $request;
 
   }
 
