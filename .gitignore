@@ -35,3 +35,6 @@ dwsync.xml
 .svn
 .CVS
 .idea
+
+# Testing and development files
+test.php
