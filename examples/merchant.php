@@ -151,6 +151,18 @@ echo '</pre></blockquote>';
 //print_r($bills);
 //echo '</pre></blockquote>';
 
+// Pagination
+
+// You can fetch objects from the API in paged batches, making requests quicker
+// and allowing you to manage data more effectively. More info here:
+// https://gocardless.com/docs/api_guide#pagination
+
+//echo 'GoCardless_Merchant::find(\'' . $account_details['merchant_id'] . '\')->bills(array(\'per_page\' => \'5\', \'page\' => \'1\'))';
+//echo '<blockquote><pre>';
+//$bills = GoCardless_Merchant::find($account_details['merchant_id'])->bills(array('per_page' => '5', 'page' => '1'));
+//print_r($bills);
+//echo '</pre></blockquote>';
+
 // Subscriptions API calls
 
 echo 'GoCardless_Merchant::find(\'' . $account_details['merchant_id'] . '\')->subscriptions()';

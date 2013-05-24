@@ -1,3 +1,8 @@
+## 0.4.1 - May 24, 2013
+
+- Adds support for payouts API in GoCardless_Payout class, and though payout() method on GoCardless_Bill
+- Adds example of using pagination in the API (see lines 154-164 for examples/merchant.php)
+
 ## 0.4.0 - April 24, 2013
 
 - Defaults to sandbox environment if none is specified
