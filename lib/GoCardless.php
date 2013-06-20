@@ -25,21 +25,19 @@ require 'GoCardless/Exceptions.php';
 class GoCardless {
 
   /**
-   * The environment: sandbox or live
    *
    * @var constant VERSION
    */
   const VERSION = '0.4.1';
 
   /**
-   * The environment: sandbox or live
    *
    * @var string $environment
    */
   public static $environment;
 
   /**
-   * The environment: sandbox or live
+   * The environment: 'sandbox' (default) or 'production'
    *
    * @var object $client
    */

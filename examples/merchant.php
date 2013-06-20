@@ -18,8 +18,8 @@
 // Include library
 include_once '../lib/GoCardless.php';
 
-// Sandbox
-GoCardless::$environment = 'sandbox';
+// Sandbox is the default - uncomment to change to production
+// GoCardless::$environment = 'production';
 
 // Config vars
 $account_details = array(
