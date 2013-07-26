@@ -119,7 +119,7 @@ class GoCardless_Client {
    *
    * @param array $params The parameters to use
    *
-   * @return string The access token
+   * @return array The access token
    */
   public function fetch_access_token($params) {
 
