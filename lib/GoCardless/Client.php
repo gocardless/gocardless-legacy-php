@@ -373,7 +373,8 @@ class GoCardless_Client {
     $opt_params = array(
       'redirect_uri',
       'cancel_uri',
-      'state'
+      'state',
+      'r',
     );
 
     // Loop through optional parameters
