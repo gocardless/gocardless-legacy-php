@@ -31,15 +31,16 @@ class GoCardless {
   const VERSION = '0.4.1';
 
   /**
+   * The environment: 'sandbox' (default) or 'production'
    *
    * @var string $environment
    */
   public static $environment;
 
   /**
-   * The environment: 'sandbox' (default) or 'production'
+   * The GoCardless client instance.
    *
-   * @var object $client
+   * @var GoCardless $client
    */
   public static $client;
 
