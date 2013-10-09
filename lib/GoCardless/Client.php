@@ -119,7 +119,7 @@ class GoCardless_Client {
    *
    * @param array $params The parameters to use
    *
-   * @return string The access token
+   * @return array Array containing the Merchant ID ('merchant_id') and Access Token ('access_token')
    */
   public function fetch_access_token($params) {
 
