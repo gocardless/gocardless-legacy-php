@@ -97,4 +97,17 @@ class GoCardless_Bill extends GoCardless_Resource {
     return GoCardless_Payout::find_with_client($this->client, $this->payout_id);
   }
 
+  /**
+   * Cancel a bill in the API
+   *
+   * @return object The result of the cancel query
+   */
+  public function cancel() {
+
+    $endpoint = self::$endpoint . '/' . $this->id . '/cancel';
+
+    return new self($this->client, $this->client->request('put', $endpoint));
+
+  }
+
 }
