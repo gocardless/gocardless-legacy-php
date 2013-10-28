@@ -8,12 +8,12 @@ The following links may be useful:
 - [Documentation](https://gocardless.com/docs/php/merchant_client_guide) and [tutorial](https://gocardless.com/docs/php/merchant_tutorial_bill) for individual merchants
 - [Documentation](https://gocardless.com/docs/php/partner_client_guide) for [partners](https://help.gocardless.com/what-is-the-partner-programme/) (who manage multiple merchant accounts)
 - Our developer [help centre](https://help.gocardless.com/developer/)
-- Our [introductory guide](https://gocardless.com/blog/gocardless-php-library/) to using the PHP library
-- Some more [advanced PHP library usage](https://gocardless.com/blog/a-second-look-at-the-gocardless-php-library/)
+- Blog posts [introducing](https://gocardless.com/blog/gocardless-php-library/) and detailing [advanced use](https://gocardless.com/blog/a-second-look-at-the-gocardless-php-library/) of the PHP library
 - [Code samples](https://github.com/gocardless/gocardless-php/tree/master/examples)
 - Our CodeIgniter [plugin](https://github.com/gocardless/codeigniter-gocardless) and [spark](http://getsparks.org/packages/GoCardless/versions/HEAD/show)
-- You can also use GoCardless via the [PHP Payments](https://github.com/calvinfroedge/PHP-Payments) library and [CodeIgniter Payments](http://getsparks.org/packages/codeigniter-payments/versions/HEAD/show) spark
 - [Full library reference](http://gocardless.github.com/gocardless-php/)
+
+You can also use GoCardless via the [PHP Payments](https://github.com/calvinfroedge/PHP-Payments) library and [CodeIgniter Payments](http://getsparks.org/packages/codeigniter-payments/versions/HEAD/show) spark.
 
 ### Upgrade notes
 
