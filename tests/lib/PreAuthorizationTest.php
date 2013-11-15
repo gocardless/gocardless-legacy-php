@@ -91,7 +91,8 @@ class Test_PreAuthorization extends PHPUnit_Framework_TestCase {
 
     // Call the preauth->cancel() method
     $result = $preauth->create_bill(array(
-      'amount' => '10'
+      'amount' => '10',
+      'charge_customer_at' => '2030-01-01'
     ));
 
     // Test that create bill returns a bill object

@@ -99,6 +99,10 @@ class GoCardless_PreAuthorization extends GoCardless_Resource {
       $params['bill']['description'] = $attrs['description'];
     }
 
+    if (isset($attrs['charge_customer_at'])) {
+      $params['bill']['charge_customer_at'] = $attrs['charge_customer_at'];
+    }
+
     $endpoint = GoCardless_Bill::$endpoint;
 
     return new GoCardless_Bill($this->client, $this->client->request('post',
