@@ -17,6 +17,9 @@ The following links may be useful:
 - [Full library reference](http://gocardless.github.com/gocardless-php/)
 - Our developer support [IRC chat room](http://webchat.freenode.net/?channels=gocardless)
 
+### Requirements
+The GoCardless PHP client requires version 5.3 of PHP.
+
 ### Upgrade notes
 
 Since 0.4.0, the default environment for the library is sandbox, not production.
