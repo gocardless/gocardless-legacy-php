@@ -6,18 +6,17 @@ API.
 The following links may be useful:
 
 - [Developer overview](http://blog.gocardless.com/post/19695292096/goingcardless-an-introduction-to-gocardless-for) of GoCardless
-- [Documentation](https://gocardless.com/docs/php/merchant_client_guide) and [tutorial](https://gocardless.com/docs/php/merchant_tutorial_bill) for individual merchants
-- [Documentation](https://gocardless.com/docs/php/partner_client_guide) for [partners](http://blog.gocardless.com/post/19743008707/goingcardless-our-partner-system-explained) (multiple merchants)
-- Our [introductory guide](http://blog.gocardless.com/post/17945439079/gocardless-php-library) to using the PHP library
-- Some more [advanced PHP library usage](http://blog.gocardless.com/post/17945439079/gocardless-php-library)
+- [Documentation and tutorials](https://developer.gocardless.com/php/#getting-started) for individual merchants
+- [Documentation](https://developer.gocardless.com/php/#partner-guide) for [partners](https://help.gocardless.com/what-is-the-partner-programme/) (apps managing multiple merchants)
 - Our quick [guide](https://help.gocardless.com/how-can-i-handle-exceptions-in-the-php-library/) to handling exceptions with the library
 - [Code samples](https://github.com/gocardless/gocardless-php/tree/master/examples)
-- Our CodeIgniter [plugin](https://github.com/gocardless/codeigniter-gocardless) and [spark](http://getsparks.org/packages/GoCardless/versions/HEAD/show)
+- Our CodeIgniter [plugin](https://github.com/gocardless/codeigniter-gocardless) and [spark](http://getsparks.org/packages/GoCardless/versions/HEAD/show) *(not supported)*
 - You can also use GoCardless via the [PHP Payments](https://github.com/calvinfroedge/PHP-Payments) library and [CodeIgniter Payments](http://getsparks.org/packages/codeigniter-payments/versions/HEAD/show) spark
 - [Full library reference](http://gocardless.github.com/gocardless-php/)
 - Our developer support [IRC chat room](http://webchat.freenode.net/?channels=gocardless)
 
 ### Requirements
+
 The GoCardless PHP client requires version 5.3 of PHP.
 
 ### Upgrade notes
