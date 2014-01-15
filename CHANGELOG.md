@@ -1,3 +1,8 @@
+## 0.4.2 - January 15, 2014
+
+- Adds support for charge_customer_at and cancelling payments
+- Clearer comments, docs and general bug fixes
+
 ## 0.4.1 - May 24, 2013
 
 - Adds support for payouts API in GoCardless_Payout class, and though payout() method on GoCardless_Bill
