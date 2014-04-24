@@ -110,4 +110,22 @@ class GoCardless_Bill extends GoCardless_Resource {
 
   }
 
+  /**
+   * Refund a bill in the API
+   *
+   * Please note that the ability to refund bills via the API is
+   * disabled by default. Please contact help@gocardless.com if you 
+   * have put through greater than 50 bills and require access to 
+   * the refund API endpoint.
+   *
+   * @return object The result of the refund query
+   */
+  public function refund() {
+
+    $endpoint = self::$endpoint . '/' . $this->id . '/refund';
+
+    return new self($this->client, $this->client->request('post', $endpoint));
+
+  }
+
 }

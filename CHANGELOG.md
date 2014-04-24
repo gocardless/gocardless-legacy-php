@@ -1,3 +1,7 @@
+## 0.4.3 - April 24, 2014
+
+- Adds support for refunding a bill via the API
+
 ## 0.4.2 - January 15, 2014
 
 - Adds support for charge_customer_at and cancelling payments
