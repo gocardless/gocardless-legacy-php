@@ -103,6 +103,7 @@ class GoCardless {
    * @return string The generated URL
    */
   public static function new_bill_url($params) {
+    GoCardless::validate_client();
     return GoCardless::$client->new_bill_url($params);
   }
 
@@ -114,6 +115,7 @@ class GoCardless {
    * @return string The generated URL
    */
   public static function new_subscription_url($params) {
+    GoCardless::validate_client();
     return GoCardless::$client->new_subscription_url($params);
   }
 
@@ -125,6 +127,7 @@ class GoCardless {
    * @return string The generated URL
    */
   public static function new_pre_authorization_url($params) {
+    GoCardless::validate_client();
     return GoCardless::$client->new_pre_authorization_url($params);
   }
 
@@ -136,6 +139,7 @@ class GoCardless {
    * @return string The generated URL
    */
   public static function confirm_resource($params) {
+    GoCardless::validate_client();
     return GoCardless::$client->confirm_resource($params);
   }
 
@@ -147,7 +151,17 @@ class GoCardless {
    * @return boolean True if webhook signature is valid
    */
   public static function validate_webhook($params) {
+    GoCardless::validate_client();
     return GoCardless::$client->validate_webhook($params);
   }
+
+  /**
+    * Check that a client object exists
+    */
+   public static function validate_client() {
+     if ( ! isset(GoCardless::$client)) {
+       throw new GoCardless_ApiException('Account details must be set');
+     }
+   }
 
 }
