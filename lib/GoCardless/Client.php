@@ -263,7 +263,7 @@ class GoCardless_Client {
    *
    * @param array $params Parameters to send with the request
    *
-   * @return string The result of the HTTP request
+   * @return Bill/Subscription/PreAuthorization The confirmed resource
    */
   public function confirm_resource($params) {
 
