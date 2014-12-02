@@ -129,11 +129,11 @@ class GoCardless {
   }
 
   /**
-   * Generate a URL to give a user to create a new bill
+   * Send an HTTP request to confirm the creation of a new payment resource
    *
-   * @param array $params Parameters to use to generate the URL
+   * @param array $params Parameters to send with the request
    *
-   * @return string The generated URL
+   * @return string The result of the HTTP request
    */
   public static function confirm_resource($params) {
     return GoCardless::$client->confirm_resource($params);
